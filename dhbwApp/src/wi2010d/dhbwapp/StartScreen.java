@@ -12,6 +12,7 @@ public class StartScreen extends Activity {
 		setContentView(R.layout.start_screen);
 	}
 //dddd
+	//BEne
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
