@@ -34,6 +34,10 @@
             android:name="wi2010d.dhbwapp.AdminScreen"
             android:label="@string/title_activity_admin_screen" >
         </activity>
+        <activity
+            android:name="wi2010d.dhbwapp.StapelScreen"
+            android:label="@string/title_activity_stapel_screen" >
+        </activity>
     </application>
 
 </manifest>

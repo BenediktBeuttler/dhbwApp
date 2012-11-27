@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LearningScreen" >
+    tools:context=".StapelScreen" >
 
     <TextView
         android:id="@+id/textView1"
@@ -10,16 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Learning Screen"
+        android:text="Hier wird der Stapel angezeigt"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Button
-        android:id="@+id/btn_learning_stapel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:onClick="onButtonClick"
-        android:text="@string/btn_learning_stapel" />
 
 </RelativeLayout>

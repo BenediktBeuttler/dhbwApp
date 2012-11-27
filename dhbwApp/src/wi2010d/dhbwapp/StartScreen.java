@@ -23,16 +23,16 @@ public class StartScreen extends Activity {
 	}
 	
 	public void onButtonClick(View view){
-		if(view.getId()== R.id.btn_learning){
+		if(view.getId()== R.id.btn_start_learning){
 			startActivity(new Intent(this, LearningScreen.class));
 		}
-		if(view.getId() == R.id.btn_edit){
+		if(view.getId() == R.id.btn_start_edit){
 			startActivity(new Intent(this, EditScreen.class));
 		}
-		if(view.getId() == R.id.btn_admin){
+		if(view.getId() == R.id.btn_start_admin){
 			startActivity(new Intent(this, AdminScreen.class));
 		}
-		if(view.getId() == R.id.btn_statistic){
+		if(view.getId() == R.id.btn_start_statistic){
 			System.out.println("FUCK YOU!!!!!");
 			//startActivity(new Intent(this, statisticScreen.class));
 		}

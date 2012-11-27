@@ -13,31 +13,31 @@
         android:text="@string/hello_world" />
 
     <Button
-        android:id="@+id/btn_learning"
+        android:id="@+id/btn_start_learning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onButtonClick"
-        android:text="@string/btn_learning" />
+        android:text="@string/btn_start_learning" />
 
     <Button
-        android:id="@+id/btn_edit"
+        android:id="@+id/btn_start_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onButtonClick"
-        android:text="@string/btn_edit" />
+        android:text="@string/btn_start_edit" />
 
     <Button
-        android:id="@+id/btn_admin"
+        android:id="@+id/btn_start_admin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onButtonClick"
-        android:text="@string/btn_admin" />
+        android:text="@string/btn_start_admin" />
 
     <Button
-        android:id="@+id/btn_statistic"
+        android:id="@+id/btn_start_statistic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onButtonClick"
-        android:text="@string/btn_statistic" />
+        android:text="@string/btn_start_statistic" />
 
 </LinearLayout>
