@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
-        android:onClick="onButtonClick"
+        android:onClick="learning_onButtonClick"
         android:text="@string/btn_learning_stapel" />
 
 </RelativeLayout>

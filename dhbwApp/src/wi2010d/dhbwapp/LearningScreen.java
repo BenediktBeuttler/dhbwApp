@@ -21,10 +21,10 @@ public class LearningScreen extends Activity {
 		return true;
 	}
 	
-	public void onButtonClick(View view){
+	public void learning_onButtonClick(View view){
 		
 		if(view.getId()== R.id.btn_learning_stapel){
-			startActivity(new Intent(this, StapelScreen.class));
+			startActivity(new Intent(this, LearningStapelScreen.class));
 		}
 	}
 

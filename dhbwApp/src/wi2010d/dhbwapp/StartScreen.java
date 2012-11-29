@@ -22,7 +22,7 @@ public class StartScreen extends Activity {
 		return true;
 	}
 	
-	public void onButtonClick(View view){
+	public void start_onButtonClick(View view){
 		if(view.getId()== R.id.btn_start_learning){
 			startActivity(new Intent(this, LearningScreen.class));
 		}

@@ -16,28 +16,28 @@
         android:id="@+id/btn_start_learning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onButtonClick"
+        android:onClick="start_onButtonClick"
         android:text="@string/btn_start_learning" />
 
     <Button
         android:id="@+id/btn_start_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onButtonClick"
+        android:onClick="start_onButtonClick"
         android:text="@string/btn_start_edit" />
 
     <Button
         android:id="@+id/btn_start_admin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onButtonClick"
+        android:onClick="start_onButtonClick"
         android:text="@string/btn_start_admin" />
 
     <Button
         android:id="@+id/btn_start_statistic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onButtonClick"
+        android:onClick="start_onButtonClick"
         android:text="@string/btn_start_statistic" />
 
 </LinearLayout>

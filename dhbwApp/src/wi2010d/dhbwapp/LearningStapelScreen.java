@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
-public class StapelScreen extends Activity {
+public class LearningStapelScreen extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.stapel_screen);
+		setContentView(R.layout.learning_stapel_screen);
 	}
 
 	@Override
