@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseManager extends SQLiteOpenHelper {
 	
-	private static final String DB_NAME="sirlearnalot.db";
+	private static final String DB_NAME="knowitowl.db";
 	private static final int DB_VERSION= 1;
 	private static final String STACK_CREATE=
 			"CREATE TABLE stack ("+
@@ -28,6 +28,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 	private static final String RUNTHROUGH_CREATE=
 			"CREATE TABLE runthrough ("+
 			"runthroughID INTEGER,"+
+			"stackID INTEGER,"+
 			"isOverall BOOLEAN,"+
 			"startDate DATE,"+
 			"endDate DATE,"+
@@ -38,6 +39,22 @@ public class DatabaseManager extends SQLiteOpenHelper {
 			"afterNotSure INTEGER,"+
 			"afterDontKnow INTEGER,"+
 			"PRIMARY KEY(runthroughID));";
+	private static final String TAG=
+			"CREATE TABLE tag ("+
+			"tagID INTEGER,"+
+			"tagName STRING,"+
+			"totalCards INTEGER,"+
+			"PRIMARY KEY(tagID));";
+	private static final String STACK_CARD=
+			"CREATE TABLE STACKCARD ("+
+			"stackID INTEGER,"+
+			"cardID INTEGER,"+
+			"PRIMARY KEY(stackIDcardID));";
+	private static final String CARD_TAG=
+			"CREATE TABLE tag ("+
+			"cardID INTEGER,"+
+			"tagID INTEGER,"+
+			"PRIMARY KEY(cardIDtagID));";
 	
 
 	public DatabaseManager(Context context)
