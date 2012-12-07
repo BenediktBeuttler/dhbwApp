@@ -12,6 +12,24 @@ public class Tag {
 	private String tagName;
 	
 	
+	
+	
+	public Tag(int tagID, int totalCards, String tagName) {
+		this.tagID = tagID;
+		this.totalCards = totalCards;
+		this.tagName = tagName;
+		
+		Tag.allTags.add(this);
+	}
+
+	public Tag(String tagName) {
+		this.tagName = tagName;
+		this.tagID = Tag.getNextTagID();
+		this.totalCards = 0;
+		
+		Tag.allTags.add(this);
+	}
+
 	public int increaseTotalCards()
 	{
 		totalCards = totalCards + 1;

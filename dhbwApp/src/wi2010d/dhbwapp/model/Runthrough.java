@@ -15,6 +15,44 @@ public class Runthrough {
 	private Date startDate;
 	private Date endDate;
 	
+	
+	/**
+	 * Use this constructor, when loading from DB
+	 */
+	public Runthrough(int runthroughID, int stackID, boolean isOverall,
+			Date startDate, Date endDate, int[] statusBefore, int[] statusAfter) {
+		this.runthroughID = runthroughID;
+		this.stackID = stackID;
+		this.isOverall = isOverall;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.statusBefore = statusBefore;
+		this.statusAfter = statusAfter;
+		
+		Runthrough.allRunthroughs.add(this);
+	}
+	
+	
+	/**
+	 * Use this constructor, when learning or creating a new overall runthrough
+	 * @param stackID
+	 * @param isOverall
+	 * @param startDate
+	 * @param statusBefore
+	 */
+	public Runthrough(int stackID, boolean isOverall, Date startDate,
+			int[] statusBefore) {
+		this.stackID = stackID;
+		this.isOverall = isOverall;
+		this.startDate = startDate;
+		this.statusBefore = statusBefore;
+		this.runthroughID = Runthrough.getNextRunthroughID();
+		
+		Runthrough.allRunthroughs.add(this);
+	}
+
+
+
 	/**
 	 * [0] BeforeDontKnow [1] BeforeNotSure [2] BeforeSure
 	 */
