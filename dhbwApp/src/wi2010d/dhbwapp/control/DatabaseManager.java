@@ -49,11 +49,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
 			"CREATE TABLE STACKCARD ("+
 			"stackID INTEGER,"+
 			"cardID INTEGER,"+
+			"stackIDcardId,"+
 			"PRIMARY KEY(stackIDcardID));";
 	private static final String CARD_TAG=
 			"CREATE TABLE tag ("+
 			"cardID INTEGER,"+
 			"tagID INTEGER,"+
+			"cardIDtagID INTEGER,"+
 			"PRIMARY KEY(cardIDtagID));";
 	
 
