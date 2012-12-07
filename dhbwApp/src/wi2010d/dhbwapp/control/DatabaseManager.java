@@ -11,8 +11,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
 	private static final int DB_VERSION = 1;
 
 	//Create Table SQL Statements
-	private static final String STACK_CREATE = "CREATE TABLE stack (_id INTEGER PRIMARY KEY, stackName VARCHAR(100) NOT NULL, isDynamicGenerated BOOLEAN);";
-	private static final String CARD_CREATE = "CREATE TABLE card (_id INTEGER PRIMARY KEY,cardName VARCHAR(100) NOT NULL,cardFront VARCHAR(100),cardFrontPicture VARCHAR(100),cardBack VARCHAR(100),cardBackPicture VARCHAR(100),drawer INTEGER);";
+	private static final String STACK_CREATE = "CREATE TABLE stack (_id INTEGER PRIMARY KEY, stackName VARCHAR(100) NOT NULL, isDynamicGenerated BOOLEAN, dontKnow INTEGER, notSure INTEGER, sure INTEGER);";
+	private static final String CARD_CREATE = "CREATE TABLE card (_id INTEGER PRIMARY KEY,cardFront VARCHAR(100), cardBack VARCHAR(100),cardFrontPicture VARCHAR(100),cardBackPicture VARCHAR(100),drawer INTEGER);";
 	private static final String RUNTHROUGH_CREATE = "CREATE TABLE runthrough (_id INTEGER PRIMARY KEY,stackID INTEGER NOT NULL,isOverall BOOLEAN,startDate DATE,endDate DATE,beforeDontKnow INTEGER,beforeNotSure INTEGER, beforeSure INTEGER,afterDontKnow INTEGER,afterNotSure INTEGER,afterSure INTEGER);";
 	private static final String TAG_CREATE = "CREATE TABLE tag (_id INTEGER PRIMARY KEY,tagName VARCHAR(100),totalCards INTEGER);";
 	private static final String STACK_CARD_CREATE = "CREATE TABLE stackcard (stackID INTEGER,cardID INTEGER,_id INTEGER PRIMARY KEY);";

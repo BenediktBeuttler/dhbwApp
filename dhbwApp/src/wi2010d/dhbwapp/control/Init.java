@@ -6,8 +6,16 @@ import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
+import android.content.Context;
+import android.database.Cursor;
 
 public class Init {
+
+	private Database database;
+
+	public Init(Context context) {
+		this.database = new Database(context);
+	}
 
 	public boolean newStack(int id, String name, boolean isDynamicGenerated,
 			int dontKnow, int notSure, int sure) {
@@ -54,17 +62,54 @@ public class Init {
 	}
 
 	public boolean assignCardsToStacks() {
-		// TODO: Read Database, then assign by IDs
-		return false;
+		Cursor cursor = database.queryStackCard();
+		cursor.moveToFirst();
+
+		while (!cursor.isAfterLast()) {
+			int stackID = cursor.getInt(0);
+			int cardID = cursor.getInt(1);
+
+			for (Stack stack : Stack.allStacks) {
+				if (stackID == stack.getStackID()) {
+					for (Card card : Card.allCards) {
+						if (cardID == card.getCardID()) {
+							stack.getCards().add(card);
+							break;
+						}
+					}
+				}
+			}
+			cursor.moveToNext();
+		}
+		cursor.close();
+		return true;
 	}
 
 	public boolean assignTagsToCards() {
-		// TODO: Read DB, assign by IDs
-		return false;
+		Cursor cursor = database.queryCardTag();
+		cursor.moveToFirst();
+
+		while (!cursor.isAfterLast()) {
+			int cardID = cursor.getInt(0);
+			int tagID = cursor.getInt(1);
+			for (Card card : Card.allCards) {
+				if (cardID == card.getCardID()) {
+					for (Tag tag : Tag.allTags) {
+						if (tagID == tag.getTagID()) {
+							card.getTags().add(tag);
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		return true;
 	}
 
 	public boolean assignTagstoStacks() {
-		// TODO: Read DB, assign by IDs
+		// TODO:Tabelle erstellen und dann lesen
 		return false;
+
 	}
 }
