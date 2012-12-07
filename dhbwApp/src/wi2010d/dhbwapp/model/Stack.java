@@ -7,7 +7,7 @@ public class Stack {
 	public static List<Stack> allStacks;
 	public static Stack dynamicStack;
 	private static int lastStackID = 0;
-	
+
 	private boolean isDynamicGenerated;
 	private int stackID;
 	private String stackName;
@@ -16,10 +16,9 @@ public class Stack {
 	private int dontKnow;
 	private Runthrough overallRunthrough;
 	private List<Runthrough> lastRunthroughs;
+
 	private List<Card> cards;
-	
-	
-	
+
 	/**
 	 * Use this constructor when loading from DB
 	 */
@@ -31,14 +30,13 @@ public class Stack {
 		this.sure = sure;
 		this.notSure = notSure;
 		this.dontKnow = dontKnow;
-		
+
 		Stack.allStacks.add(this);
 	}
-	
-	
 
 	/**
 	 * Use this constructor when creating new stack
+	 * 
 	 * @param isDynamicGenerated
 	 * @param stackName
 	 * @param overallRunthrough
@@ -50,25 +48,86 @@ public class Stack {
 		this.stackName = stackName;
 		this.overallRunthrough = overallRunthrough;
 		this.cards = cards;
-		
+
 		this.stackID = Stack.getNextStackID();
-		
+
 		Stack.allStacks.add(this);
 	}
 
-
-
-	private void addLastRunthrough(Runthrough run)
-	{
-		if(lastRunthroughs.size()>9)
-		{
+	public void addLastRunthrough(Runthrough run) {
+		if (lastRunthroughs.size() > 9) {
 			lastRunthroughs.remove(0);
 		}
 		lastRunthroughs.add(run);
 	}
-	
-	public static int getNextStackID(){
-		lastStackID = lastStackID+1;
+
+	public static int getNextStackID() {
+		lastStackID = lastStackID + 1;
 		return lastStackID;
 	}
+
+	public boolean isDynamicGenerated() {
+		return isDynamicGenerated;
+	}
+
+	public void setDynamicGenerated(boolean isDynamicGenerated) {
+		this.isDynamicGenerated = isDynamicGenerated;
+	}
+
+	public int getStackID() {
+		return stackID;
+	}
+
+	public void setStackID(int stackID) {
+		this.stackID = stackID;
+	}
+
+	public String getStackName() {
+		return stackName;
+	}
+
+	public void setStackName(String stackName) {
+		this.stackName = stackName;
+	}
+
+	public int getSure() {
+		return sure;
+	}
+
+	public void setSure(int sure) {
+		this.sure = sure;
+	}
+
+	public int getNotSure() {
+		return notSure;
+	}
+
+	public void setNotSure(int notSure) {
+		this.notSure = notSure;
+	}
+
+	public int getDontKnow() {
+		return dontKnow;
+	}
+
+	public void setDontKnow(int dontKnow) {
+		this.dontKnow = dontKnow;
+	}
+
+	public Runthrough getOverallRunthrough() {
+		return overallRunthrough;
+	}
+
+	public void setOverallRunthrough(Runthrough overallRunthrough) {
+		this.overallRunthrough = overallRunthrough;
+	}
+
+	public List<Card> getCards() {
+		return cards;
+	}
+
+	public List<Runthrough> getLastRunthroughs() {
+		return lastRunthroughs;
+	}
+
 }
