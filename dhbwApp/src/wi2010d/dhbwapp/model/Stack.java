@@ -15,8 +15,9 @@ public class Stack {
 	private int notSure;
 	private int dontKnow;
 	private Runthrough overallRunthrough;
-	private List<Runthrough> lastRunthroughs;
 
+	private List<Runthrough> lastRunthroughs;
+	private List<Tag> dynamicStackTags;
 	private List<Card> cards;
 
 	/**
@@ -128,6 +129,10 @@ public class Stack {
 
 	public List<Runthrough> getLastRunthroughs() {
 		return lastRunthroughs;
+	}
+
+	public List<Tag> getDynamicStackTags() {
+		return dynamicStackTags;
 	}
 
 }

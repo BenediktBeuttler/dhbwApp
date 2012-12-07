@@ -6,7 +6,6 @@ public class Tag {
 
 	public static List<Tag> allTags;
 	public static int lastTagID;
-
 	private int tagID;
 	private int totalCards;
 	private String tagName;
@@ -41,6 +40,22 @@ public class Tag {
 	public static int getNextTagID() {
 		lastTagID = lastTagID + 1;
 		return lastTagID;
+	}
+	
+	public String getTagName() {
+		return tagName;
+	}
+
+	public void setTagName(String tagName) {
+		this.tagName = tagName;
+	}
+
+	public int getTagID() {
+		return tagID;
+	}
+
+	public int getTotalCards() {
+		return totalCards;
 	}
 
 }
