@@ -5,8 +5,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 
-public class LearningScreen extends Activity {
+public class LearningScreen extends Activity implements OnClickListener{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +21,25 @@ public class LearningScreen extends Activity {
 		getMenuInflater().inflate(R.menu.learning_screen, menu);
 		return true;
 	}
-	
-	public void learning_onButtonClick(View view){
+
+	@Override
+	public void onClick(View v) {
+		Intent i = new Intent(this, LearningStackScreen.class);
 		
-		if(view.getId()== R.id.btn_learning_stapel){
-			startActivity(new Intent(this, LearningStapelScreen.class));
+		switch (v.getId()) {
+		case R.id.btn_learning_stack1:
+			i.putExtra("a", "b");
+			startActivityForResult(i, 0);
+			break;
+		case R.id.btn_learning_stack2:
+			i.putExtra("c", "d");
+			startActivityForResult(i, 0);
+			break;
+
+		default:
+			break;
 		}
+		
 	}
 
 }

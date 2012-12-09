@@ -14,12 +14,21 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
-        android:id="@+id/btn_learning_stapel"
+        android:id="@+id/btn_learning_stack1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:onClick="learning_onButtonClick"
-        android:text="@string/btn_learning_stapel" />
+        android:text="@string/btn_learning_stack1" />
+
+    <Button
+        android:id="@+id/btn_learning_stack2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btn_learning_stack1"
+        android:onClick="learning_onButtonClick"
+        android:text="@string/btn_learning_stack2" />
 
 </RelativeLayout>

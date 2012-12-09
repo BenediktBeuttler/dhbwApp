@@ -35,7 +35,7 @@
             android:label="@string/title_activity_admin_screen" >
         </activity>
         <activity
-            android:name="wi2010d.dhbwapp.LearningStapelScreen"
+            android:name="wi2010d.dhbwapp.LearningStackScreen"
             android:label="@string/title_activity_stapel_screen" >
         </activity>
     </application>

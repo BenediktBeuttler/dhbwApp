@@ -8,7 +8,8 @@
     <string name="btn_start_edit">Verwalten</string>
     <string name="btn_start_statistic">Statistik einsehen</string>
     <string name="btn_start_admin">Administration</string>
-    <string name="btn_learning_stapel">Stapel X auswählen</string>
+    <string name="btn_learning_stack1">Übergebe Test1</string>
+    <string name="btn_learning_stack2">Übergebe Test2</string>
     <string name="btn_learning_flip">flip</string>
     <string name="title_activity_learning_screen">Learning_screen</string>
     <string name="title_activity_edit_screen">EditScreen</string>

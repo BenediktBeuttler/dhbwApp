@@ -5,13 +5,28 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
-public class StartScreen extends Activity {
+public class StartScreen extends Activity implements OnClickListener{
+	Button learning, edit, admin, statistic;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.start_screen);
+		
+		learning = (Button)findViewById(R.id.btn_start_learning);
+		edit = (Button)findViewById(R.id.btn_start_edit);
+		admin = (Button)findViewById(R.id.btn_start_admin);
+		statistic = (Button)findViewById(R.id.btn_start_statistic);
+
+		learning.setOnClickListener(this);
+		edit.setOnClickListener(this);
+		admin.setOnClickListener(this);
+		statistic.setOnClickListener(this);
+		
 	}
 
 
@@ -22,20 +37,28 @@ public class StartScreen extends Activity {
 		return true;
 	}
 	
-	public void start_onButtonClick(View view){
-		if(view.getId()== R.id.btn_start_learning){
-			startActivity(new Intent(this, LearningScreen.class));
+
+	@Override
+	public void onClick(View v) {
+				
+		switch (v.getId()) {
+		case R.id.btn_start_learning:
+			startActivity(new Intent (this, LearningScreen.class));
+			break;
+		case R.id.btn_start_edit:
+			startActivity(new Intent (this, EditScreen.class));
+			break;
+		case R.id.btn_start_admin:
+			startActivity(new Intent (this, AdminScreen.class));
+			break;
+		case R.id.btn_start_statistic:
+			//startActivity(new Intent (this, StatisticScreen.class));
+			break;
+
+		default:
+			break;
 		}
-		if(view.getId() == R.id.btn_start_edit){
-			startActivity(new Intent(this, EditScreen.class));
-		}
-		if(view.getId() == R.id.btn_start_admin){
-			startActivity(new Intent(this, AdminScreen.class));
-		}
-		if(view.getId() == R.id.btn_start_statistic){
-			System.out.println("FUCK YOU!!!!!");
-			//startActivity(new Intent(this, statisticScreen.class));
-		}
+		
 	}
 
 }
