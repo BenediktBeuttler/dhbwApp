@@ -10,7 +10,7 @@ import wi2010d.dhbwapp.model.Tag;
 public class Edit {
 	
 	/**
-	 * Add selected card to existing stack
+	 * Add a selected card to existing stack
 	 * 
 	 * @param stack
 	 * @param card
