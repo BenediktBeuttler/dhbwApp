@@ -9,6 +9,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
 	private static final String DB_NAME = "knowitowl.db";
 	private static final int DB_VERSION = 1;
+	private static DatabaseManager databaseManager;
 
 	//Create Table SQL Statements
 	private static final String STACK_CREATE = "CREATE TABLE stack (_id INTEGER PRIMARY KEY, stackName VARCHAR(100) NOT NULL, isDynamicGenerated BOOLEAN, dontKnow INTEGER, notSure INTEGER, sure INTEGER);";
@@ -44,10 +45,22 @@ public class DatabaseManager extends SQLiteOpenHelper {
 		onCreate(database);
 	}
 	
-	public void deleteDB(SQLiteDatabase database) {
-		
+	public void deleteDB() {
+		SQLiteDatabase database = this.getWritableDatabase();
 		database.execSQL(DROP_TABLES);
 		onCreate(database);
 	}
+	
+	public static DatabaseManager getInstance (){
+		
+		return databaseManager;
+	}
+	
+	public static DatabaseManager getInstance (Context context){
+		if (databaseManager == null){
+			databaseManager = new DatabaseManager(context);
+		}
+		return databaseManager;
+}
 
 }
