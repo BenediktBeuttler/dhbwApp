@@ -177,18 +177,8 @@ public class Database {
 		stackContent.put("notSure", stack.getNotSure());
 		stackContent.put("sure", stack.getSure());
 
-		ContentValues stackCardContent = new ContentValues();
 		for (Card card : stack.getCards()) {
-			String stackcardID = stack.getStackID() + "" + card.getCardID();
-
-			stackCardContent.put("stackID", stack.getStackID());
-			stackCardContent.put("cardID", card.getCardID());
-			stackCardContent.put("_id", Integer.parseInt(stackcardID));
-
-			this.openWrite();
-			database.insert("stackcard", null, stackCardContent);
-			this.close();
-			stackCardContent.clear();
+			this.addStackCardCorrelation(stack.getStackID(), card.getCardID());
 
 		}
 
@@ -224,17 +214,8 @@ public class Database {
 		this.close();
 
 		// write the Card-Tag-Correlation to the cardtag table
-		ContentValues cardTagValues = new ContentValues();
 		for (Tag tag : card.getTags()) {
-			cardTagValues.put("cardID", card.getCardID());
-			cardTagValues.put("tagID", tag.getTagID());
-			cardTagValues.put("_id",
-					Integer.parseInt(card.getCardID() + "" + tag.getTagID()));
-
-			this.openWrite();
-			database.insert("cardtag", null, cardTagValues);
-			this.close();
-			cardTagValues.clear();
+			this.addCardTagCorrelation(card.getCardID(), tag.getTagID());
 		}
 
 		return true;
@@ -251,17 +232,8 @@ public class Database {
 		database.insert("tag", null, tagValues);
 		this.close();
 
-		ContentValues cardTagValues = new ContentValues();
 		for (Card card : cards) {
-			cardTagValues.put("cardID", card.getCardID());
-			cardTagValues.put("tagID", tag.getTagID());
-			cardTagValues.put("_id",
-					Integer.parseInt(card.getCardID() + "" + tag.getTagID()));
-
-			this.openWrite();
-			database.insert("cardtag", null, cardTagValues);
-			this.close();
-			cardTagValues.clear();
+			this.addCardTagCorrelation(card.getCardID(), tag.getTagID());
 		}
 
 		return true;
@@ -286,6 +258,50 @@ public class Database {
 		this.close();
 
 		return true;
+	}
+	
+	public boolean addStackCardCorrelation(int stackID, int cardID)
+	{
+		ContentValues stackCardContent = new ContentValues();
+		
+		stackCardContent.put("stackID", stackID);
+		stackCardContent.put("cardID", cardID);
+		stackCardContent.put("_id", Integer.parseInt(stackID+""+cardID));
+
+		this.openWrite();
+		database.insert("stackcard", null, stackCardContent);
+		this.close();
+		return true;
+	}
+	
+	public boolean addStackTagCorrelation(int stackID, int tagID)
+	{
+		ContentValues StackTagValues = new ContentValues();
+		
+		StackTagValues.put("stackID", stackID);
+		StackTagValues.put("tagID", tagID);
+		StackTagValues.put("_id", Integer.parseInt(stackID+""+tagID));
+
+		this.openWrite();
+		database.insert("stacktag", null, StackTagValues);
+		this.close();
+		return true;
+
+	}
+	
+	public boolean addCardTagCorrelation(int cardID, int tagID)
+	{
+		ContentValues CardTagValues = new ContentValues();
+		
+		CardTagValues.put("cardID", cardID);
+		CardTagValues.put("tagID", tagID);
+		CardTagValues.put("_id", Integer.parseInt(cardID+""+tagID));
+
+		this.openWrite();
+		database.insert("cardtag", null, CardTagValues);
+		this.close();
+		return true;
+
 	}
 
 	public static Database getInstance() {

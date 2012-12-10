@@ -18,7 +18,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
 	private static final String TAG_CREATE = "CREATE TABLE tag (_id INTEGER PRIMARY KEY,tagName VARCHAR(100),totalCards INTEGER);";
 	private static final String STACK_CARD_CREATE = "CREATE TABLE stackcard (stackID INTEGER,cardID INTEGER,_id INTEGER PRIMARY KEY);";
 	private static final String CARD_TAG_CREATE = "CREATE TABLE cardtag (cardID INTEGER,tagID INTEGER,_id INTEGER PRIMARY KEY);";
+	private static final String STACK_TAG_CREATE = "CREATE TABLE stacktag (stackID INTEGER,tagID INTEGER,_id INTEGER PRIMARY KEY);";
 
+	
 	private static final String DROP_TABLES="DROP TABLE IF EXISTS stack,card,runthrough,tag,stackcard,cardtag";
 	
 	public DatabaseManager(Context context) {
@@ -34,6 +36,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 		database.execSQL(TAG_CREATE);
 		database.execSQL(STACK_CARD_CREATE);
 		database.execSQL(CARD_TAG_CREATE);
+		database.execSQL(STACK_TAG_CREATE);
 
 	}
 
