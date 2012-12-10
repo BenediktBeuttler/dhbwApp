@@ -85,7 +85,7 @@ public class Runthrough {
 	 * 
 	 * @return duration : format: X min , X sec
 	 */
-	private String getDuration() {
+	public String getDuration() {
 		long durationMilliSecs = this.endDate.getTime()
 				- this.startDate.getTime();
 
@@ -99,14 +99,14 @@ public class Runthrough {
 
 	}
 
-	private void setStatusBefore(int beforeDontKnow, int beforeNotSure,
+	public void setStatusBefore(int beforeDontKnow, int beforeNotSure,
 			int beforeSure) {
 		this.statusBefore[0] = beforeDontKnow;
 		this.statusBefore[1] = beforeNotSure;
 		this.statusBefore[2] = beforeSure;
 	}
 
-	private void setStatusAfter(int afterDontKnow, int afterNotSure,
+	public void setStatusAfter(int afterDontKnow, int afterNotSure,
 			int afterSure) {
 		this.statusBefore[0] = afterDontKnow;
 		this.statusBefore[1] = afterNotSure;
@@ -116,14 +116,14 @@ public class Runthrough {
 	/**
 	 * @return [0] BeforeDontKnow [1] BeforeNotSure [2] BeforeSure
 	 */
-	private int[] getStatusBefore() {
+	public int[] getStatusBefore() {
 		return statusBefore;
 	}
 
 	/**
 	 * @return [0] AfterDontKnow [1] AfterNotSure [2] AfterSure
 	 */
-	private int[] getStatusAfter() {
+	public int[] getStatusAfter() {
 		return statusAfter;
 	}
 

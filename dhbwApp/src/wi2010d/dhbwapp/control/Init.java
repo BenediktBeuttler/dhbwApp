@@ -22,18 +22,17 @@ public class Init {
 
 	public boolean loadFromDB() {
 		if (runComplete == false) {
-			//load the objects from DB
+			// load the objects from DB
 			this.loadStacks();
 			this.loadCards();
 			this.loadTags();
 			this.loadRunthroughs();
 
-			//assign the objects
+			// assign the objects
 			this.assignCardsToStacks();
 			this.assignTagsToCards();
 			this.assignTagstoStacks();
 		}
-
 		runComplete = true;
 		return true;
 	}

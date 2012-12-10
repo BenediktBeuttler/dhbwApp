@@ -1,9 +1,12 @@
 package wi2010d.dhbwapp.control;
 
+import java.util.List;
+
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -162,6 +165,126 @@ public class Database {
 				new String[] { "" + run.getRunthroughID() });
 
 		this.close();
+		return true;
+	}
+
+	public boolean addNewStack(Stack stack) {
+		ContentValues stackContent = new ContentValues();
+		stackContent.put("_id", stack.getStackID());
+		stackContent.put("stackName", stack.getStackName());
+		stackContent.put("isDynamicGenerated", stack.isDynamicGenerated());
+		stackContent.put("dontKnow", stack.getDontKnow());
+		stackContent.put("notSure", stack.getNotSure());
+		stackContent.put("sure", stack.getSure());
+
+		ContentValues stackCardContent = new ContentValues();
+		for (Card card : stack.getCards()) {
+			String stackcardID = stack.getStackID() + "" + card.getCardID();
+
+			stackCardContent.put("stackID", stack.getStackID());
+			stackCardContent.put("cardID", card.getCardID());
+			stackCardContent.put("_id", Integer.parseInt(stackcardID));
+
+			this.openWrite();
+			database.insert("stackcard", null, stackCardContent);
+			this.close();
+			stackCardContent.clear();
+
+		}
+
+		this.openWrite();
+		database.insert("stack", null, stackContent);
+		this.close();
+
+		return true;
+	}
+
+	public boolean addNewCard(Card card, int stackID) {
+		// Set content for card table
+		ContentValues cardContent = new ContentValues();
+		cardContent.put("_id", card.getCardID());
+		cardContent.put("cardFront", card.getCardFront());
+		cardContent.put("cardBack", card.getCardBack());
+		cardContent.put("cardFrontPicture", card.getCardFrontPicture());
+		cardContent.put("cardBackPicture", card.getCardBackPicture());
+		cardContent.put("drawer", card.getDrawer());
+		cardContent.put("totalStacks", card.getTotalStacks());
+
+		// Set Content for stackcard table
+		ContentValues stackCardContent = new ContentValues();
+		stackCardContent.put("stackID", stackID);
+		stackCardContent.put("cardID", card.getCardID());
+		stackCardContent.put("_id",
+				Integer.parseInt(stackID + "" + card.getCardID()));
+
+		// write it to the DB
+		this.openWrite();
+		database.insert("card", null, cardContent);
+		database.insert("stackcard", null, stackCardContent);
+		this.close();
+
+		// write the Card-Tag-Correlation to the cardtag table
+		ContentValues cardTagValues = new ContentValues();
+		for (Tag tag : card.getTags()) {
+			cardTagValues.put("cardID", card.getCardID());
+			cardTagValues.put("tagID", tag.getTagID());
+			cardTagValues.put("_id",
+					Integer.parseInt(card.getCardID() + "" + tag.getTagID()));
+
+			this.openWrite();
+			database.insert("cardtag", null, cardTagValues);
+			this.close();
+			cardTagValues.clear();
+		}
+
+		return true;
+	}
+
+	public boolean addNewTag(Tag tag, List<Card> cards) {
+		// Set the contents for the tag table
+		ContentValues tagValues = new ContentValues();
+		tagValues.put("_id", tag.getTagID());
+		tagValues.put("tagName", tag.getTagName());
+		tagValues.put("totalCards", tag.getTotalCards());
+
+		this.openWrite();
+		database.insert("tag", null, tagValues);
+		this.close();
+
+		ContentValues cardTagValues = new ContentValues();
+		for (Card card : cards) {
+			cardTagValues.put("cardID", card.getCardID());
+			cardTagValues.put("tagID", tag.getTagID());
+			cardTagValues.put("_id",
+					Integer.parseInt(card.getCardID() + "" + tag.getTagID()));
+
+			this.openWrite();
+			database.insert("cardtag", null, cardTagValues);
+			this.close();
+			cardTagValues.clear();
+		}
+
+		return true;
+	}
+
+	public boolean addNewRunthrough(Runthrough run) {
+		ContentValues runValues = new ContentValues();
+		runValues.put("_id", run.getRunthroughID());
+		runValues.put("stackID", run.getStackID());
+		runValues.put("isOverall", run.isOverall());
+		runValues.put("startDate", run.getStartDate().getTime());
+		runValues.put("endDate", run.getEndDate().getTime());
+		runValues.put("beforeDontKnow", run.getStatusBefore()[0]);
+		runValues.put("beforeNotSure", run.getStatusBefore()[1]);
+		runValues.put("beforeSure", run.getStatusBefore()[2]);
+		runValues.put("afterDontKnow", run.getStatusAfter()[0]);
+		runValues.put("afterNotSure", run.getStatusAfter()[1]);
+		runValues.put("afterSure", run.getStatusAfter()[2]);
+
+		this.openWrite();
+		database.insert("runthrough", null, runValues);
+		this.close();
+
 		return true;
 	}
 
