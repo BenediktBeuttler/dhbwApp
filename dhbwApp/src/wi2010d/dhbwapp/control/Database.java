@@ -16,7 +16,7 @@ public class Database {
 
 	// Query Strings
 	private final String QUERY_STACK = "Select _id, stackName, isDynamicGenerated, dontKnow, notSure, sure from stack;";
-	private final String QUERY_CARD = "Select _id, cardFront, cardBack, cardFrontPicture, cardBackPicture, drawer from card;";
+	private final String QUERY_CARD = "Select _id, cardFront, cardBack, cardFrontPicture, cardBackPicture, drawer, totalStacks from card;";
 	private final String QUERY_TAG = "Select _id, tagName, totalCards from tag;";
 	private final String QUERY_RUNTHROUGH = "Select _id, stackID, isOverall, startDate, endDate, beforeDontKnow, beforeNotSure, beforeSure, afterDontKnow, afterNotSure, afterSure from runthrough;";
 	private final String QUERY_STACK_CARD = "Select stackID, cardID from stackcard;";
@@ -42,8 +42,7 @@ public class Database {
 	// Delete queries for Runthrough
 	private final String DELETE_RUNTHROUGH = "Delete from tag where _id = ?;";
 
-	// -------------------------END VAR
-	// DECLARATION----------------------------------------------------------
+	// -------------END VAR DECLARATION
 
 	public Database() {
 		this.dbManager = DatabaseManager.getInstance();
