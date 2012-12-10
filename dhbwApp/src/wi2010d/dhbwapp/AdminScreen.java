@@ -18,5 +18,7 @@ public class AdminScreen extends Activity {
 		getMenuInflater().inflate(R.menu.admin_screen, menu);
 		return true;
 	}
+	
+	// comment Niklas Schützler
 
 }
