@@ -36,8 +36,6 @@ public class Card {
 	 * Use this constructor, when creating a new card Other necessary variables
 	 * are set automatically
 	 * 
-	 * @param cardName
-	 *            The cards' Name
 	 * @param cardFront
 	 *            The cards' Front text
 	 * @param cardBack
@@ -48,7 +46,7 @@ public class Card {
 	 *            The cards'Back Picture Path
 	 * @param tags
 	 */
-	public Card(String cardName, String cardFront, String cardBack,
+	public Card(String cardFront, String cardBack,
 			String cardFrontPicture, String cardBackPicture, List<Tag> tags) {
 		this.cardFront = cardFront;
 		this.cardBack = cardBack;
