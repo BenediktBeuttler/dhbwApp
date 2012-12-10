@@ -14,6 +14,16 @@ public class Runthrough {
 	private boolean isOverall;
 	private Date startDate;
 	private Date endDate;
+	
+	/**
+	 * [0] BeforeDontKnow [1] BeforeNotSure [2] BeforeSure
+	 */
+	private int[] statusBefore = new int[3];
+
+	/**
+	 * [0] AfterDontKnow [1] AfterNotSure [2] AfterSure
+	 */
+	private int[] statusAfter = new int[3];
 
 	/**
 	 * Use this constructor, when loading from DB Association to stack is made.
@@ -52,26 +62,18 @@ public class Runthrough {
 	 * @param statusBefore
 	 * 
 	 */
-	public Runthrough(int stackID, boolean isOverall, Date startDate,
+	public Runthrough(int stackID, boolean isOverall,
 			int[] statusBefore) {
 		this.stackID = stackID;
 		this.isOverall = isOverall;
-		this.startDate = startDate;
 		this.statusBefore = statusBefore;
 		this.runthroughID = Runthrough.getNextRunthroughID();
+		
+		this.startDate = new Date();
 
 		Runthrough.allRunthroughs.add(this);
 	}
 
-	/**
-	 * [0] BeforeDontKnow [1] BeforeNotSure [2] BeforeSure
-	 */
-	private int[] statusBefore = new int[3];
-
-	/**
-	 * [0] AfterDontKnow [1] AfterNotSure [2] AfterSure
-	 */
-	private int[] statusAfter = new int[3];
 
 	public static int getNextRunthroughID() {
 		lastRunthroughID = lastRunthroughID + 1;

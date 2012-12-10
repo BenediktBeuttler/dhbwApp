@@ -1,5 +1,6 @@
 package wi2010d.dhbwapp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Stack {
@@ -40,19 +41,23 @@ public class Stack {
 	 * 
 	 * @param isDynamicGenerated
 	 * @param stackName
-	 * @param overallRunthrough
 	 * @param cards
+	 * 
+	 * This constructor also creates a new overall Runthrough
 	 */
 	public Stack(boolean isDynamicGenerated, String stackName,
-			Runthrough overallRunthrough, List<Card> cards) {
+			List<Card> cards) {
 		this.isDynamicGenerated = isDynamicGenerated;
 		this.stackName = stackName;
-		this.overallRunthrough = overallRunthrough;
 		this.cards = cards;
 
 		this.stackID = Stack.getNextStackID();
+		
+		int statusBefore[] = {0,0,0};
+		this.overallRunthrough = new Runthrough(this.stackID, true, statusBefore);
 
 		Stack.allStacks.add(this);
+
 	}
 
 	public void addLastRunthrough(Runthrough run) {
