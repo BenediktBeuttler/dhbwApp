@@ -14,7 +14,7 @@ public class Init {
 	private Database database;
 
 	public Init(Context context) {
-		this.database = new Database(context);
+		this.database = Database.getInstance();
 	}
 
 	public boolean newStack(int id, String name, boolean isDynamicGenerated,
@@ -108,7 +108,29 @@ public class Init {
 	}
 
 	public boolean assignTagstoStacks() {
-		// TODO:Tabelle erstellen und dann lesen
+		Cursor cursor = database.queryStackTag();
+		cursor.moveToFirst();
+		
+		while(!cursor.isAfterLast())
+		{
+			int stackID = cursor.getInt(0);
+			int tagID  = cursor.getInt(1);
+			
+			for(Stack stack : Stack.allStacks)
+			{	
+				if(stack.isDynamicGenerated() && stackID == stack.getStackID())
+				{
+					for(Tag tag : Tag.allTags)
+					{
+						if(tagID == tag.getTagID())
+						{
+							stack.getDynamicStackTags();
+							break;
+						}
+					}
+				}
+			}
+		}
 		return false;
 
 	}
