@@ -15,6 +15,13 @@
     <string name="title_activity_edit_screen">EditScreen</string>
     <string name="title_activity_admin_screen">AdminScreen</string>
     <string name="title_activity_stapel_screen">StapelScreen</string>
+  
+    <string name="help_learn_statistics">Hier steht die Erklärung für die Benutzung der Statistiken</string>
+    <string name="help_import_export">Hier steht die Erklärung für die Benutzung von Import/Export</string>
+    <string name="help_edit_card_stacks">Hier steht die Erklärung für die Verwaltung von Karten und Stacks</string>
+    <string name="help_settings">Hier steht die Erklärung für die Benutzung der Einstellungen</string>
+    <string name="help_introduction">Hier wird die Einführung erklärt</string>
+    
     
 
 </resources>
