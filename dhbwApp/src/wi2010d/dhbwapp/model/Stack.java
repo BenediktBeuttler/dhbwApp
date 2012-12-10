@@ -58,7 +58,7 @@ public class Stack {
 		{
 			for (card : cards)
 			{
-				
+				//blabla
 			}
 		}
 		else
