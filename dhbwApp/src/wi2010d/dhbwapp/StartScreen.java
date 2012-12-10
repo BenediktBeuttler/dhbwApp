@@ -61,4 +61,5 @@ public class StartScreen extends Activity implements OnClickListener{
 		
 	}
 
+	//Thomas B commit 
 }
