@@ -43,5 +43,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
 		database.execSQL(DROP_TABLES);
 		onCreate(database);
 	}
+	
+	public void deleteDB(SQLiteDatabase database) {
+		
+		database.execSQL(DROP_TABLES);
+		onCreate(database);
+	}
 
 }
