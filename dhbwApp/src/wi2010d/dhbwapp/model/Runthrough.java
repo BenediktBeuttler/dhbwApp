@@ -127,4 +127,28 @@ public class Runthrough {
 		return statusAfter;
 	}
 
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public int getRunthroughID() {
+		return runthroughID;
+	}
+
+	public int getStackID() {
+		return stackID;
+	}
+
+	public boolean isOverall() {
+		return isOverall;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
 }
