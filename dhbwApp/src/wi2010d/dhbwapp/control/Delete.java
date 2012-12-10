@@ -40,6 +40,7 @@ public class Delete {
 			for (int i = 0; i < stack.getCards().size(); i++) {
 				if (stack.getCards().get(i).getCardID() == card.getCardID()) {
 					stack.getCards().remove(i);
+					i = i - 1;
 				}
 			}
 		}
@@ -55,6 +56,7 @@ public class Delete {
 					if (tag.getTagID() == stack.getDynamicStackTags().get(i)
 							.getTagID()) {
 						stack.getDynamicStackTags().remove(i);
+						i = i - 1;
 					}
 				}
 			}
@@ -65,6 +67,7 @@ public class Delete {
 			for (int i = 0; i < card.getTags().size(); i++) {
 				if (tag.getTagID() == card.getTags().get(i).getTagID()) {
 					card.getTags().remove(i);
+					i = i - 1;
 				}
 			}
 		}
