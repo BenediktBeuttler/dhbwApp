@@ -53,17 +53,22 @@ public class Stack {
 
 		this.stackID = Stack.getNextStackID();
 		
+		int statusBefore[] = {1,0,0};
+		
 		//if stack is dynamic, the statusBefore for the overall Runthrough must be identified
 		if (isDynamicGenerated)
 		{
-			for (card : cards)
+			statusBefore[0] = 0;
+			for (Card card : cards)
 			{
-				//blabla
+				int drawer = card.getDrawer();
+				switch(drawer)
+				{
+					case 0: statusBefore[0] = statusBefore[0] + 1;
+					case 1: statusBefore[1] = statusBefore[1] + 1;
+					case 2: statusBefore[2] = statusBefore[2] + 1;
+				}
 			}
-		}
-		else
-		{
-			int statusBefore[] = {1,0,0};
 		}
 			
 		this.overallRunthrough = new Runthrough(this.stackID, true, statusBefore);

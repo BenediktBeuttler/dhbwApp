@@ -1,7 +1,6 @@
 package wi2010d.dhbwapp.control;
 
 import wi2010d.dhbwapp.model.Card;
-import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 
@@ -60,7 +59,11 @@ public class Create {
 		return true;
 	}
 	
-	
+	/**
+	 * Update all dynamic stacks
+	 * 
+	 * @return
+	 */
 	public boolean updateDynStack()
 	{
 		for (Stack stack : Stack.allStacks)
