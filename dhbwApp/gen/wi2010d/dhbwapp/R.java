@@ -52,6 +52,11 @@ public final class R {
         public static final int btn_start_learning=0x7f040003;
         public static final int btn_start_statistic=0x7f040005;
         public static final int hello_world=0x7f040001;
+        public static final int help_edit_card_stacks=0x7f040010;
+        public static final int help_import_export=0x7f04000f;
+        public static final int help_introduction=0x7f040012;
+        public static final int help_learn_statistics=0x7f04000e;
+        public static final int help_settings=0x7f040011;
         public static final int menu_settings=0x7f040002;
         public static final int title_activity_admin_screen=0x7f04000c;
         public static final int title_activity_edit_screen=0x7f04000b;
