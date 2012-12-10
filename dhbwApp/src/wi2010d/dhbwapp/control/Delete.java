@@ -6,6 +6,8 @@ import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 
 public class Delete {
+	
+	private Database db = Database.getInstance();
 
 	public void deleteStack(Stack stack) {
 		// delete the card from the stack, if the card isn't in any stack,
@@ -18,11 +20,15 @@ public class Delete {
 		}
 
 		for (Runthrough run : stack.getLastRunthroughs()) {
+			db.deleteRunthrough(run);
 			run = null;
 		}
 		Runthrough run = stack.getOverallRunthrough();
+		db.deleteRunthrough(run);
 		run = null;
+		db.deleteStack(stack);
 		stack = null;
+	
 	}
 
 	public void deleteCard(Card card) {
@@ -45,6 +51,7 @@ public class Delete {
 			}
 		}
 		// delete the card
+		db.deleteCard(card);
 		card = null;
 	}
 
@@ -73,6 +80,7 @@ public class Delete {
 		}
 
 		// delete the tag
+		db.deleteTag(tag);
 		tag = null;
 	}
 }
