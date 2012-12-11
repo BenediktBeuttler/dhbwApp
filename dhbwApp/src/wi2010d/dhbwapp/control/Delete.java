@@ -6,7 +6,7 @@ import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 
 public class Delete {
-	
+
 	private Database db = Database.getInstance();
 
 	public void deleteStack(Stack stack) {
@@ -19,16 +19,42 @@ public class Delete {
 			}
 		}
 
+		// Delete all associated runthroughs
 		for (Runthrough run : stack.getLastRunthroughs()) {
+			deleteRunthrough(run);
 			db.deleteRunthrough(run);
 			run = null;
 		}
+
+		// Delete the overall runthrough
 		Runthrough run = stack.getOverallRunthrough();
+		deleteRunthrough(run);
 		db.deleteRunthrough(run);
 		run = null;
+
+		// delete the Stack from the Stack List
+		for (int i = 0; i < Stack.allStacks.size(); i++) {
+			if (Stack.allStacks.get(i).getStackID() == stack.getStackID()) {
+				Stack.allStacks.remove(i);
+				break;
+			}
+		}
+
 		db.deleteStack(stack);
 		stack = null;
-	
+
+	}
+
+	public void deleteRunthrough(Runthrough run) {
+		// Delete Runthrough from the Runthrough List
+		for (int i = 0; i < Runthrough.allRunthroughs.size(); i++) {
+			if (Runthrough.allRunthroughs.get(i).getRunthroughID() == run
+					.getRunthroughID()) {
+				Runthrough.allRunthroughs.remove(i);
+				break;
+			}
+		}
+
 	}
 
 	public void deleteCard(Card card) {
@@ -50,6 +76,15 @@ public class Delete {
 				}
 			}
 		}
+
+		// Delete the card from the cardlist
+		for (int i = 0; i < Card.allCards.size(); i++) {
+			if (Card.allCards.get(i).getCardID() == card.getCardID()) {
+				Card.allCards.remove(i);
+				break;
+			}
+		}
+
 		// delete the card
 		db.deleteCard(card);
 		card = null;
@@ -76,6 +111,14 @@ public class Delete {
 					card.getTags().remove(i);
 					i = i - 1;
 				}
+			}
+		}
+
+		// delete the Tag from the Tag list
+		for (int i = 0; i < Tag.allTags.size(); i++) {
+			if (Tag.allTags.get(i).getTagID() == tag.getTagID()) {
+				Tag.allTags.remove(i);
+				break;
 			}
 		}
 

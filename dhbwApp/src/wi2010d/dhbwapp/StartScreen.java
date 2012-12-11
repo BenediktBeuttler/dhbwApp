@@ -27,6 +27,8 @@ public class StartScreen extends Activity implements OnClickListener{
 		admin.setOnClickListener(this);
 		statistic.setOnClickListener(this);
 		
+		//INIT METHODE MUSS AUSGEFÜHRT WERDEN!!!
+		
 	}
 
 
