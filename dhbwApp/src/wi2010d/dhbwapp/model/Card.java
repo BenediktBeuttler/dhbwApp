@@ -46,8 +46,8 @@ public class Card {
 	 *            The cards'Back Picture Path
 	 * @param tags
 	 */
-	public Card(String cardFront, String cardBack,
-			String cardFrontPicture, String cardBackPicture, List<Tag> tags) {
+	public Card(String cardFront, String cardBack, String cardFrontPicture,
+			String cardBackPicture, List<Tag> tags) {
 		this.cardFront = cardFront;
 		this.cardBack = cardBack;
 		this.cardFrontPicture = cardFrontPicture;
@@ -126,6 +126,15 @@ public class Card {
 	public static int getNextCardID() {
 		lastCardID = lastCardID + 1;
 		return lastCardID;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		Card card = (Card) o;
+		if (card.getCardID() == this.cardID) {
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -14,7 +14,7 @@ public class Runthrough {
 	private boolean isOverall;
 	private Date startDate;
 	private Date endDate;
-	
+
 	/**
 	 * [0] BeforeDontKnow [1] BeforeNotSure [2] BeforeSure
 	 */
@@ -62,18 +62,16 @@ public class Runthrough {
 	 * @param statusBefore
 	 * 
 	 */
-	public Runthrough(int stackID, boolean isOverall,
-			int[] statusBefore) {
+	public Runthrough(int stackID, boolean isOverall, int[] statusBefore) {
 		this.stackID = stackID;
 		this.isOverall = isOverall;
 		this.statusBefore = statusBefore;
 		this.runthroughID = Runthrough.getNextRunthroughID();
-		
+
 		this.startDate = new Date();
 
 		Runthrough.allRunthroughs.add(this);
 	}
-
 
 	public static int getNextRunthroughID() {
 		lastRunthroughID = lastRunthroughID + 1;
@@ -149,6 +147,15 @@ public class Runthrough {
 
 	public Date getStartDate() {
 		return startDate;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		Runthrough run = (Runthrough) o;
+		if (run.getRunthroughID() == this.runthroughID) {
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -41,7 +41,7 @@ public class Tag {
 		lastTagID = lastTagID + 1;
 		return lastTagID;
 	}
-	
+
 	public String getTagName() {
 		return tagName;
 	}
@@ -56,6 +56,15 @@ public class Tag {
 
 	public int getTotalCards() {
 		return totalCards;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		Tag tag = (Tag) o;
+		if (tag.getTagID() == this.tagID) {
+			return true;
+		}
+		return false;
 	}
 
 }

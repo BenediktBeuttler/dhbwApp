@@ -28,6 +28,7 @@ public class StartScreen extends Activity implements OnClickListener{
 		statistic.setOnClickListener(this);
 		
 		//INIT METHODE MUSS AUSGEFÜHRT WERDEN!!!
+		//ERRORHANDLER MUSS MIT APP CONTEXT INITIALISIERT WERDEN !!!
 		
 	}
 
