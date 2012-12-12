@@ -1,5 +1,6 @@
 package wi2010d.dhbwapp;
 
+import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -29,7 +30,8 @@ public class StartScreen extends Activity implements OnClickListener{
 		
 		//INIT METHODE MUSS AUSGEFÜHRT WERDEN!!!
 		//ERRORHANDLER MUSS MIT APP CONTEXT INITIALISIERT WERDEN !!!
-		
+		ErrorHandler error = new ErrorHandler(getApplicationContext());	
+		error.handleError(1);
 	}
 
 

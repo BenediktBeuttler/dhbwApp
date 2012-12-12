@@ -1,5 +1,6 @@
 package wi2010d.dhbwapp;
 
+import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -19,6 +20,9 @@ public class LearningScreen extends Activity implements OnClickListener{
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.learning_screen, menu);
+		
+		ErrorHandler.getInstance().handleError(1);
+		
 		return true;
 	}
 
