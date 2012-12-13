@@ -59,5 +59,7 @@
     <string name="title_activity_show_card_back">Card Back</string>
     <string name="btn_learn_front">Frontside</string>
     <string name="show_learn_card_back">default card back</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_settings">Settings</string>
 
 </resources>
