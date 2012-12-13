@@ -56,5 +56,8 @@
     <string name="btn_learn_back">Backside</string>
     <string name="show_learn_card_front">default card front</string>
     <string name="show_learn_counter">x/xx</string>
+    <string name="title_activity_show_card_back">Card Back</string>
+    <string name="btn_learn_front">Frontside</string>
+    <string name="show_learn_card_back">default card back</string>
 
 </resources>
