@@ -17,7 +17,7 @@ public class Database {
 	private DatabaseManager dbManager;
 	private static Database db;
 
-	// Query Strings 
+	// Query Strings
 	private final String QUERY_STACK = "Select _id, stackName, isDynamicGenerated, dontKnow, notSure, sure from stack;";
 	private final String QUERY_CARD = "Select _id, cardFront, cardBack, cardFrontPicture, cardBackPicture, drawer, totalStacks from card;";
 	private final String QUERY_TAG = "Select _id, tagName, totalCards from tag;";
@@ -25,13 +25,13 @@ public class Database {
 	private final String QUERY_STACK_CARD = "Select stackID, cardID from stackcard;";
 	private final String QUERY_CARD_TAG = "Select cardID, tagID from cardtag;";
 	private final String QUERY_STACK_TAG = "Select stackID, tagID from stacktag;";
-	
+
 	// Delete Strings
 	// --- Delete queries for Stack and all references
 	private final String DELETE_STACK = "Delete from stack where _id = ?;";
 	private final String DELETE_STACK_CARD_STACK = "Delete from stackcard where stackID = ?;";
 	private final String DELETE_STACK_TAG_STACK = "Delete from stacktag where stackID = ?;";
-	
+
 	// --- Delete queries for Card and all references
 	private final String DELETE_CARD = "Delete from card where _id = ?;";
 	private final String DELETE_STACK_CARD_CARD = "Delete from stackcard where cardID = ?;";
@@ -44,8 +44,8 @@ public class Database {
 
 	// Delete queries for Runthrough
 	private final String DELETE_RUNTHROUGH = "Delete from tag where _id = ?;";
-	
-	//Delete queries for Correlations
+
+	// Delete queries for Correlations
 	private static final String DELETE_CARD_STACK_CORRELATION = "Delete from stackcard where stackID = ? and cardID = ?;";
 
 	// -------------END VAR DECLARATION
@@ -70,6 +70,7 @@ public class Database {
 
 	/**
 	 * Queries the stack table
+	 * 
 	 * @return Cursor containing complete stack table
 	 */
 	public Cursor queryStack() {
@@ -78,9 +79,10 @@ public class Database {
 		this.close();
 		return cursor;
 	}
-	
+
 	/**
 	 * Queries the card table
+	 * 
 	 * @return Cursor containing complete card table
 	 */
 	public Cursor queryCard() {
@@ -89,9 +91,10 @@ public class Database {
 		this.close();
 		return cursor;
 	}
-	
+
 	/**
 	 * Queries the tag table
+	 * 
 	 * @return Cursor containing complete tag table
 	 */
 	public Cursor queryTag() {
@@ -103,6 +106,7 @@ public class Database {
 
 	/**
 	 * Queries the runthrough table
+	 * 
 	 * @return Cursor containing complete runthrough table
 	 */
 	public Cursor queryRunthrough() {
@@ -114,6 +118,7 @@ public class Database {
 
 	/**
 	 * Queries the Stack-Card-Table
+	 * 
 	 * @return Cursor containing complete stackcard table
 	 */
 	public Cursor queryStackCard() {
@@ -125,6 +130,7 @@ public class Database {
 
 	/**
 	 * Queries the Card-Tag-Table
+	 * 
 	 * @return Cursor containing complete cardtag table
 	 */
 	public Cursor queryCardTag() {
@@ -136,6 +142,7 @@ public class Database {
 
 	/**
 	 * Queries the Stack-Tag-Table
+	 * 
 	 * @return Cursor containing complete stacktag table
 	 */
 	public Cursor queryStackTag() {
@@ -149,7 +156,9 @@ public class Database {
 
 	/**
 	 * Deletes the given stack and all correlations in the db
-	 * @param stack The stack, which should be deleted
+	 * 
+	 * @param stack
+	 *            The stack, which should be deleted
 	 * @return always true
 	 */
 	public boolean deleteStack(Stack stack) {
@@ -170,7 +179,9 @@ public class Database {
 
 	/**
 	 * Deletes the given card and all correlations in the db
-	 * @param card The card, which should be deleted
+	 * 
+	 * @param card
+	 *            The card, which should be deleted
 	 * @return always true
 	 */
 	public boolean deleteCard(Card card) {
@@ -190,7 +201,9 @@ public class Database {
 
 	/**
 	 * Deletes the given tag and all correlations in the db
-	 * @param tag The tag, which should be deleted
+	 * 
+	 * @param tag
+	 *            The tag, which should be deleted
 	 * @return always true
 	 */
 	public boolean deleteTag(Tag tag) {
@@ -210,7 +223,9 @@ public class Database {
 
 	/**
 	 * Deletes the given runthrough from the db
-	 * @param run The runthrough, which should be deleted
+	 * 
+	 * @param run
+	 *            The runthrough, which should be deleted
 	 * @return always true
 	 */
 	public boolean deleteRunthrough(Runthrough run) {
@@ -222,22 +237,24 @@ public class Database {
 		this.close();
 		return true;
 	}
-	
-	public boolean deleteCardStackCorrelation(int stackID, int cardID)
-	{
+
+	public boolean deleteCardStackCorrelation(int stackID, int cardID) {
 		this.openWrite();
-		
-		database.rawQuery(DELETE_CARD_STACK_CORRELATION, new String[] { "" + stackID, ""+cardID });
-		
+
+		database.rawQuery(DELETE_CARD_STACK_CORRELATION, new String[] {
+				"" + stackID, "" + cardID });
+
 		this.close();
 		return true;
 	}
-	
+
 	// --------------Add Methods -----------------
 
 	/**
 	 * Adds a new Stack and all correlations to the DB
-	 * @param stack The new Stack
+	 * 
+	 * @param stack
+	 *            The new Stack
 	 * @return always true
 	 */
 	public boolean addNewStack(Stack stack) {
@@ -264,7 +281,9 @@ public class Database {
 
 	/**
 	 * Adds a new Card and all correlations to the DB
-	 * @param card The new Card
+	 * 
+	 * @param card
+	 *            The new Card
 	 * @return always true
 	 */
 	public boolean addNewCard(Card card, int stackID) {
@@ -293,9 +312,38 @@ public class Database {
 	}
 
 	/**
+	 * Adds a new Card and the Card-Tag-Correlation to the DB !! Use this method
+	 * only, when Creating a new Stack, because the Stack-Card-Correlation isn't
+	 * set
+	 * 
+	 * @param card
+	 *            The Card to write to the DB
+	 * @return Always true
+	 */
+	public boolean addNewCard(Card card) {
+		// Set content for card table
+		ContentValues cardContent = putCardValues(card);
+
+		// write it to the DB
+		this.openWrite();
+		database.insert("card", null, cardContent);
+		this.close();
+
+		// write the Card-Tag-Correlation to the cardtag table
+		for (Tag tag : card.getTags()) {
+			this.addCardTagCorrelation(card.getCardID(), tag.getTagID());
+		}
+
+		return true;
+	}
+
+	/**
 	 * Adds a new Tag and the correlations to the cards
-	 * @param tag The new tag
-	 * @param cards The list of cards, containing this tag
+	 * 
+	 * @param tag
+	 *            The new tag
+	 * @param cards
+	 *            The list of cards, containing this tag
 	 * @return always true
 	 */
 	public boolean addNewTag(Tag tag, List<Card> cards) {
@@ -314,8 +362,26 @@ public class Database {
 	}
 
 	/**
+	 * Adds a new Tag, without any correlations
+	 * 
+	 * @param tag
+	 *            The new Tag
+	 * @return always true
+	 */
+	public boolean addNewTag(Tag tag) {
+		// Set the contents for the tag table
+		ContentValues tagValues = putTagValues(tag);
+		this.openWrite();
+		database.insert("tag", null, tagValues);
+		this.close();
+		return true;
+	}
+
+	/**
 	 * Adds a new Runthrough to the DB
-	 * @param run The new Runthrough
+	 * 
+	 * @param run
+	 *            The new Runthrough
 	 * @return always true
 	 */
 	public boolean addNewRunthrough(Runthrough run) {
@@ -330,8 +396,11 @@ public class Database {
 
 	/**
 	 * Adds a new Stack Card Correlation
-	 * @param stackID The stackID
-	 * @param cardID The cardID
+	 * 
+	 * @param stackID
+	 *            The stackID
+	 * @param cardID
+	 *            The cardID
 	 * @return always true
 	 */
 	public boolean addStackCardCorrelation(int stackID, int cardID) {
@@ -344,14 +413,17 @@ public class Database {
 		this.openWrite();
 		database.insert("stackcard", null, stackCardContent);
 		this.close();
-		
+
 		return true;
 	}
 
 	/**
 	 * Add a new Stack Tag Correlation
-	 * @param stackID The stackID
-	 * @param tagID The tagID
+	 * 
+	 * @param stackID
+	 *            The stackID
+	 * @param tagID
+	 *            The tagID
 	 * @return always true
 	 */
 	public boolean addStackTagCorrelation(int stackID, int tagID) {
@@ -364,15 +436,18 @@ public class Database {
 		this.openWrite();
 		database.insert("stacktag", null, StackTagValues);
 		this.close();
-		
+
 		return true;
 
 	}
 
 	/**
 	 * Adds a new Card Tag Correlation
-	 * @param cardID The cardID
-	 * @param tagID The tagID
+	 * 
+	 * @param cardID
+	 *            The cardID
+	 * @param tagID
+	 *            The tagID
 	 * @return always true
 	 */
 	public boolean addCardTagCorrelation(int cardID, int tagID) {
@@ -385,7 +460,7 @@ public class Database {
 		this.openWrite();
 		database.insert("cardtag", null, CardTagValues);
 		this.close();
-		
+
 		return true;
 
 	}
@@ -396,9 +471,10 @@ public class Database {
 	// created, which is not needed
 
 	/**
-	 * Changes the given stack in the DB 
-	 * !! stackID needs to be the same !!
-	 * @param stack The changed stack
+	 * Changes the given stack in the DB !! stackID needs to be the same !!
+	 * 
+	 * @param stack
+	 *            The changed stack
 	 * @return always true
 	 */
 	public boolean changeStack(Stack stack) {
@@ -410,14 +486,15 @@ public class Database {
 		ContentValues stackContent = putStackValues(stack);
 		database.insert("stack", null, stackContent);
 		this.close();
-		
+
 		return true;
 	}
 
 	/**
-	 * Changes the given Card in the DB
-	 * !! cardID needs to be the same !!
-	 * @param card The changed Card
+	 * Changes the given Card in the DB !! cardID needs to be the same !!
+	 * 
+	 * @param card
+	 *            The changed Card
 	 * @return always true
 	 */
 	public boolean changeCard(Card card) {
@@ -429,14 +506,16 @@ public class Database {
 
 		database.insert("card", null, cardContent);
 		this.close();
-		
+
 		return true;
 
 	}
 
 	/**
 	 * Changes the given runthrough
-	 * @param run The changed runthrough
+	 * 
+	 * @param run
+	 *            The changed runthrough
 	 * @return always true
 	 */
 	public boolean changeRunthrough(Runthrough run) {
@@ -453,9 +532,10 @@ public class Database {
 	}
 
 	/**
-	 * Changes the given Tag
-	 * !! TagID needs to be the same !!
-	 * @param tag The changed tag
+	 * Changes the given Tag !! TagID needs to be the same !!
+	 * 
+	 * @param tag
+	 *            The changed tag
 	 * @return always true
 	 */
 	public boolean changeTag(Tag tag) {
@@ -474,8 +554,10 @@ public class Database {
 
 	/**
 	 * Puts the values of the stack to a new Content Value-Map and returns it
-	 * @param stack The stack, whose values should be set
-	 * @return The Content Value Map filled with the stacks' values 
+	 * 
+	 * @param stack
+	 *            The stack, whose values should be set
+	 * @return The Content Value Map filled with the stacks' values
 	 */
 	private ContentValues putStackValues(Stack stack) {
 		ContentValues stackContent = new ContentValues();
@@ -491,8 +573,10 @@ public class Database {
 
 	/**
 	 * Puts the values of the card to a new Content Value-Map and returns it
-	 * @param card The card, whose values should be set
-	 * @return The Content Value Map filled with the cards' values 
+	 * 
+	 * @param card
+	 *            The card, whose values should be set
+	 * @return The Content Value Map filled with the cards' values
 	 */
 	private ContentValues putCardValues(Card card) {
 		ContentValues cardContent = new ContentValues();
@@ -509,9 +593,12 @@ public class Database {
 	}
 
 	/**
-	 * Puts the values of the runthrough to a new Content Value-Map and returns it
-	 * @param run The runthough, whose values should be set
-	 * @return The Content Value Map filled with the runthroughs' values 
+	 * Puts the values of the runthrough to a new Content Value-Map and returns
+	 * it
+	 * 
+	 * @param run
+	 *            The runthough, whose values should be set
+	 * @return The Content Value Map filled with the runthroughs' values
 	 */
 	private ContentValues putRunthroughValues(Runthrough run) {
 
@@ -534,8 +621,10 @@ public class Database {
 
 	/**
 	 * Puts the values of the tag to a new Content Value-Map and returns it
-	 * @param tag The tag, whose values should be set
-	 * @return The Content Value Map filled with the tags' values 
+	 * 
+	 * @param tag
+	 *            The tag, whose values should be set
+	 * @return The Content Value Map filled with the tags' values
 	 */
 	private ContentValues putTagValues(Tag tag) {
 		ContentValues tagValues = new ContentValues();
