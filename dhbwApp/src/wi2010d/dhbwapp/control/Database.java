@@ -17,7 +17,7 @@ public class Database {
 	private DatabaseManager dbManager;
 	private static Database db;
 
-	// Query Strings
+	// Query Strings 
 	private final String QUERY_STACK = "Select _id, stackName, isDynamicGenerated, dontKnow, notSure, sure from stack;";
 	private final String QUERY_CARD = "Select _id, cardFront, cardBack, cardFrontPicture, cardBackPicture, drawer, totalStacks from card;";
 	private final String QUERY_TAG = "Select _id, tagName, totalCards from tag;";
