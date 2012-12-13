@@ -23,6 +23,12 @@ public class Edit {
 		//TODO: insert into database
 		return true;
 	}
+	
+	public boolean removeCardFromStack(Stack stack, Card card)
+	{
+		for (Card cards : )
+		return true;
+	}
 
 	/**
 	 * Add some one tag to the whole selected stack

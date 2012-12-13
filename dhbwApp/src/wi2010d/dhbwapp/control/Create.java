@@ -68,9 +68,18 @@ public class Create {
 				{
 					for (Tag tag : card.getTags())
 					{
-						if (stack.getDynamicStackTags().contains(tag))
+						//If card has same tag as stack and is not in the actual stack
+						if (stack.getDynamicStackTags().contains(tag) && !stack.getCards().contains(card))
 						{
-							//TODO: add selected card to selected stack
+							Edit.getInstance().addCardToStack(stack, card);
+							Database.getInstance().addStackCardCorrelation(stack.getStackID(), card.getCardID());
+						}
+						
+						//If card is in stack but doesn't have the tag anymore
+						if (stack.getCards().contains(card) && !stack.getDynamicStackTags().contains(tag))
+						{
+							stack.getCards().add(card);
+							// remove correlation
 						}
 					}
 				}
