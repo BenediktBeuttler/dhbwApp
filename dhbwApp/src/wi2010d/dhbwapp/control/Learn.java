@@ -1,5 +1,6 @@
 package wi2010d.dhbwapp.control;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Queue;
 
@@ -21,7 +22,7 @@ public class Learn {
 	private Card card;
 	private Stack stack;
 
-	private void startLearning(Stack pStack) {
+	private Card startLearning(Stack pStack) {
 
 		stack = pStack;
 		cards = stack.getCards();
@@ -60,16 +61,15 @@ public class Learn {
 				} else {
 					ErrorHandler.getInstance().handleError(
 							ErrorHandler.getInstance().GENERAL_ERROR);
+					card = null;
 				}
 			}
 		}
-
-		// globale Variablen auf entsprechende Kartenwerte setzen,
-		// card.getFrontText...
 		runthrough = new Runthrough(stack.getStackID(), false, statusBefore);
+		return card;
 	}
 
-	private void learnCard(int drawer) {
+	private Card learnCard(int drawer) {
 		card.setDrawer(drawer);
 
 		if (actualCard > cards.size()) {
@@ -94,7 +94,9 @@ public class Learn {
 
 			runthrough.setStatusAfter(statusAfter[0], statusAfter[1],
 					statusAfter[2]);
-
+			runthrough.setEndDate(new Date());
+			stack.addLastRunthrough(runthrough);
+			return null;
 		} else {
 			switch (run) {
 			case 1:
@@ -147,8 +149,7 @@ public class Learn {
 				}
 			}
 			actualCard++;
-			// globale Variablen auf entsprechende Kartenwerte setzen,
-			// card.getFrontText...
+			return card;
 		}
 	}
 }
