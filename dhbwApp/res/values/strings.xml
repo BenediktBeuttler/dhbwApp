@@ -52,7 +52,7 @@
     <string name="help_edit_card_stacks">Hier steht die Erklärung für die Verwaltung von Karten und Stacks</string>
     <string name="help_settings">Hier steht die Erklärung für die Benutzung der Einstellungen</string>
     <string name="help_introduction">Hier wird die Einführung erklärt</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_show_card_front">Show_card_front</string>
+    <string name="title_activity_show_card_front">Card Front</string>
+    <string name="btn_learn_back">Backside</string>
 
 </resources>
