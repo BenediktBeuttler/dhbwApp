@@ -9,6 +9,29 @@ import wi2010d.dhbwapp.model.Tag;
 
 public class Edit {
 	
+	public static Edit edit;
+	
+	/**
+	 * Constructor
+	 */
+	public Edit()
+	{
+		;
+	}
+	
+	/**
+	 * Singleton Method
+	 */
+	public static Edit getInstance()
+	{
+		if (edit == null)
+		{
+			edit = new Edit();
+		}
+		
+		return edit;
+	}
+	
 	/**
 	 * Add a selected card to existing stack
 	 * 
@@ -20,13 +43,22 @@ public class Edit {
 	{
 		stack.getCards().add(card);
 		card.increaseTotalStacks();
-		//TODO: insert into database
+		Database.getInstance().addStackCardCorrelation(stack.getStackID(), card.getCardID());
 		return true;
 	}
 	
+	/**
+	 * Removes card from stack
+	 * 
+	 * @param stack
+	 * @param card
+	 * @return
+	 */
 	public boolean removeCardFromStack(Stack stack, Card card)
 	{
-		for (Card cards : )
+		stack.getCards().remove(card);
+		Database.getInstance().deleteCardStackCorrelation(stack.getStackID(), card.getCardID());
+		card.decreaseTotalStacks();
 		return true;
 	}
 
@@ -43,7 +75,7 @@ public class Edit {
 		{
 			card.getTags().add(tag);
 			tag.increaseTotalCards();
-			//TODO: insert into database
+			Database.getInstance().addCardTagCorrelation(card.getCardID(), tag.getTagID());
 		}
 		return true;
 	}
@@ -55,12 +87,14 @@ public class Edit {
 	 * @param card
 	 * @return
 	 */
-	public boolean addTagToCard(Tag tag, Card card)
+	public boolean addTagToCard(List<Tag> tags, Card card)
 	{
-		card.getTags().add(tag);
-		tag.increaseTotalCards();
-		//TODO: insert into database
-		//TODO: insert multiple tags???
+		for (Tag tag : tags)
+		{
+			card.getTags().add(tag);
+			tag.increaseTotalCards();
+			Database.getInstance().addCardTagCorrelation(card.getCardID(), tag.getTagID());
+		}
 		return true;
 	}
 	
@@ -74,8 +108,7 @@ public class Edit {
 	public boolean changeStackName(String name, Stack stack)
 	{
 		stack.setStackName(name);
-		//TODO: Change in database
-		return true;
+		return Database.getInstance().changeStack(stack);
 	}
 	
 	/**
@@ -95,9 +128,24 @@ public class Edit {
 		card.setCardBack(back);
 		card.setCardFrontPicture(frontPic);
 		card.setCardBackPicture(backPic);
-		//TODO: set Tags and update tag number
-		//TODO: change in database
-		return true;
+		
+		for (Tag tag : card.getTags())
+		{
+			tag.decreaseTotalCards();
+			Database.getInstance().deleteCardTagCorrelation(card.getCardID(), tag.getTagID());
+			Database.getInstance().changeTag(tag);
+		}
+		
+		for (Tag tag : tags)
+		{
+			tag.increaseTotalCards();
+			Database.getInstance().addCardTagCorrelation(card.getCardID(), tag.getTagID());
+			Database.getInstance().changeTag(tag);
+		}
+		
+		card.setTags(tags);
+		
+		return Database.getInstance().changeCard(card);
 	}
 	
 	/**
@@ -115,6 +163,7 @@ public class Edit {
 		for (Card card : stack.getCards())
 		{
 			card.setDrawer(0);
+			Database.getInstance().changeCard(card);
 			
 		}
 		
@@ -131,9 +180,7 @@ public class Edit {
 	public boolean editTag(String name, Tag tag)
 	{
 		tag.setTagName(name);
-		//TODO: change in database
-		return true;
+		return Database.getInstance().changeTag(tag);
 	}
-	
 
 }

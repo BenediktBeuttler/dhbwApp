@@ -9,7 +9,7 @@ public class Card {
 
 	private int cardID;
 	private int drawer;
-	private int totalStacks;
+	private int totalStacks = 0;
 	private String cardFront;
 	private String cardBack;
 	private String cardFrontPicture;
@@ -30,6 +30,10 @@ public class Card {
 		this.cardBackPicture = cardBackPicture;
 
 		Card.allCards.add(this);
+	}
+
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
 	}
 
 	/**

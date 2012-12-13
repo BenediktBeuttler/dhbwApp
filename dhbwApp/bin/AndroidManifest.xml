@@ -42,6 +42,10 @@
             android:name="wi2010d.dhbwapp.Show_card_front"
             android:label="@string/title_activity_show_card_front" >
         </activity>
+        <activity
+            android:name="wi2010d.dhbwapp.Show_card_back"
+            android:label="@string/title_activity_show_card_back" >
+        </activity>
     </application>
 
 </manifest>

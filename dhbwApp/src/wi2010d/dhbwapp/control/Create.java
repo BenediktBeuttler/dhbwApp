@@ -20,8 +20,7 @@ public class Create {
 	public boolean newStack(String name, Card card)
 	{
 		List<Card> cards = new ArrayList<Card>();
-		
-		cards.add(card);		
+		cards.add(card);
 		return Database.getInstance().addNewStack(new Stack(false, name, cards));
 	}
 	
@@ -72,14 +71,12 @@ public class Create {
 						if (stack.getDynamicStackTags().contains(tag) && !stack.getCards().contains(card))
 						{
 							Edit.getInstance().addCardToStack(stack, card);
-							Database.getInstance().addStackCardCorrelation(stack.getStackID(), card.getCardID());
 						}
 						
 						//If card is in stack but doesn't have the tag anymore
 						if (stack.getCards().contains(card) && !stack.getDynamicStackTags().contains(tag))
 						{
-							stack.getCards().add(card);
-							// remove correlation
+							Edit.getInstance().removeCardFromStack(stack, card);
 						}
 					}
 				}
@@ -102,6 +99,7 @@ public class Create {
 	public Card newCard(String front, String back, List<Tag> tags, String frontPic, String backPic)
 	{
 		Card card = new Card(front, back, frontPic, backPic, tags);
+		Database.getInstance().addNewCard(card);
 		return card;
 	}
 	
@@ -114,6 +112,7 @@ public class Create {
 	public Tag newTag(String name)
 	{
 		Tag tag = new Tag(name);
+		Database.getInstance().addNewTag(tag);
 		return tag;
 	}
 	
