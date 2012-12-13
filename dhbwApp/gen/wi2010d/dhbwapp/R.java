@@ -47,18 +47,20 @@ public final class R {
         public static final int main_help_introduction=0x7f030007;
         public static final int main_help_learnstatistics=0x7f030008;
         public static final int main_help_settings=0x7f030009;
-        public static final int show_card_back_screen=0x7f03000a;
-        public static final int show_card_front_screen=0x7f03000b;
-        public static final int start_screen=0x7f03000c;
+        public static final int settings_screen=0x7f03000a;
+        public static final int show_card_back_screen=0x7f03000b;
+        public static final int show_card_front_screen=0x7f03000c;
+        public static final int start_screen=0x7f03000d;
     }
     public static final class menu {
         public static final int admin_screen=0x7f060000;
         public static final int edit_screen=0x7f060001;
         public static final int learning_screen=0x7f060002;
-        public static final int show_card_back_screen=0x7f060003;
-        public static final int show_card_front_screen=0x7f060004;
-        public static final int stapel_screen=0x7f060005;
-        public static final int start_screen=0x7f060006;
+        public static final int settings_screen=0x7f060003;
+        public static final int show_card_back_screen=0x7f060004;
+        public static final int show_card_front_screen=0x7f060005;
+        public static final int stapel_screen=0x7f060006;
+        public static final int start_screen=0x7f060007;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
@@ -88,6 +90,7 @@ public final class R {
         public static final int btn_start_learning=0x7f040001;
         public static final int btn_start_settings=0x7f040004;
         public static final int btn_start_statistic=0x7f040003;
+        public static final int hello_world=0x7f04003a;
         public static final int help_edit_card_stacks=0x7f040030;
         public static final int help_import_export=0x7f04002f;
         public static final int help_introduction=0x7f040032;
@@ -116,6 +119,7 @@ public final class R {
         public static final int title_activity_admin_screen=0x7f04002c;
         public static final int title_activity_edit_screen=0x7f04002b;
         public static final int title_activity_learning_screen=0x7f04002a;
+        public static final int title_activity_settings=0x7f04003b;
         public static final int title_activity_show_card_back=0x7f040037;
         public static final int title_activity_show_card_front=0x7f040033;
         public static final int title_activity_stapel_screen=0x7f04002d;

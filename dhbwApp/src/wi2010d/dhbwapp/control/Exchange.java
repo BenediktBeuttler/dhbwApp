@@ -20,6 +20,30 @@ import wi2010d.dhbwapp.model.Tag;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 
 public class Exchange {
+	
+	private static Exchange exchange;
+	
+	/**
+	 * Constructor
+	 */
+	public Exchange(){
+		;
+	}
+	
+	/**
+	 * Singleton Method
+	 * 
+	 * @return
+	 */
+	public static Exchange getInstance()
+	{
+		if (exchange == null)
+		{
+			exchange = new Exchange();
+		}
+		
+		return exchange;
+	}
 
 	public boolean exportStack(Stack stack, String outputPath, String exportName)
 			throws Exception {

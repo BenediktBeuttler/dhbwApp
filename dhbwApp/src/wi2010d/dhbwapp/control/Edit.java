@@ -9,7 +9,7 @@ import wi2010d.dhbwapp.model.Tag;
 
 public class Edit {
 	
-	public static Edit edit;
+	private static Edit edit;
 	
 	/**
 	 * Constructor

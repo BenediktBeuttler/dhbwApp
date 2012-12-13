@@ -8,6 +8,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Create {
+	
+	private static Create create;
+	
+	/**
+	 * Constructor
+	 */
+	public Create()
+	{
+		;
+	}
+	
+	/**
+	 * Singleton Method
+	 * 
+	 * @return
+	 */
+	public static Create getInstance()
+	{
+		if (create == null)
+		{
+			create = new Create();
+		}
+		
+		return create;
+	}
 
 	
 	/**

@@ -4,6 +4,32 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class Settings {
 	
+	private static Settings settings;
+	
+	/**
+	 * Constructor
+	 */
+	public Settings()
+	{
+		;
+	}
+	
+	/**
+	 * Singleton Method
+	 * 
+	 * @return
+	 */
+	public static Settings getInstance()
+	{
+		if (settings == null)
+		{
+			settings = new Settings();
+		}
+		
+		return settings;
+	}
+	
+	
 	private Integer fontSize;
 	
 	private Boolean resetDB() {
