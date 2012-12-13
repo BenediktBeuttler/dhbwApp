@@ -104,7 +104,7 @@ public class Runthrough {
 		this.duration = newDuration;
 	}
 	
-	public int getDurationsSecs()
+	public int getDurationSecs()
 	{
 		return duration;
 	}

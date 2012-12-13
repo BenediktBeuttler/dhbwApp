@@ -51,6 +51,9 @@ public class Stack {
 	 *            This constructor also creates a new overall Runthrough
 	 */
 	public Stack(boolean isDynamicGenerated, String stackName, List<Card> cards) {
+		
+		//TODO: Es darf kein Stack gleich heißen!
+		
 		this.isDynamicGenerated = isDynamicGenerated;
 		this.stackName = stackName;
 		this.cards = cards;
@@ -91,7 +94,7 @@ public class Stack {
 		run.setDurationSecs(duration);
 
 		this.getOverallRunthrough().setDurationSecs(
-				duration + this.getOverallRunthrough().getDurationsSecs());
+				duration + this.getOverallRunthrough().getDurationSecs());
 
 		if (lastRunthroughs.size() > 9) {
 			lastRunthroughs.remove(0);
