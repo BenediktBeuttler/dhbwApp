@@ -21,11 +21,8 @@ public class Create {
 	{
 		List<Card> cards = new ArrayList<Card>();
 		
-		cards.add(card);
-		new Stack(false, name, cards);
-		// TODO: insert into db
-		
-		return true;
+		cards.add(card);		
+		return Database.getInstance().addNewStack(new Stack(false, name, cards));
 	}
 	
 	/**
@@ -52,11 +49,8 @@ public class Create {
 			}
 		}
 		
-		new Stack(true, name, cards);
+		return Database.getInstance().addNewStack(new Stack(true, name, cards));
 		
-		// TODO: insert into db
-		
-		return true;
 	}
 	
 	/**
