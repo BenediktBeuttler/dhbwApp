@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="14"
         android:targetSdkVersion="17" />
 
     <application
@@ -37,6 +37,10 @@
         <activity
             android:name="wi2010d.dhbwapp.LearningStackScreen"
             android:label="@string/title_activity_stapel_screen" >
+        </activity>
+        <activity
+            android:name="wi2010d.dhbwapp.Show_card_front"
+            android:label="@string/title_activity_show_card_front" >
         </activity>
     </application>
 

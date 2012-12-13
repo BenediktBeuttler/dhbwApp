@@ -65,47 +65,10 @@ public class Exchange {
 		return true;
 	}
 
-	public boolean exportCards(List<Card> cards, String outputPath,
-			String exportName) {
-		Document exportDoc;
-		try {
-			exportDoc = DocumentBuilderFactory.newInstance()
-					.newDocumentBuilder().newDocument();
-
-			Element rootElem = exportDoc.createElement("cardList");
-			for (Card card : cards) {
-				Element cardElem = exportDoc.createElement("card");
-				cardElem.setAttribute("front", card.getCardFront());
-				cardElem.setAttribute("back", card.getCardBack());
-				cardElem.setAttribute("frontPic", card.getCardFrontPicture());
-				cardElem.setAttribute("backPic", card.getCardBackPicture());
-
-				for (Tag tag : card.getTags()) {
-					Element tagElem = exportDoc.createElement("tag");
-					tagElem.setAttribute("name", tag.getTagName());
-					cardElem.appendChild(tagElem);
-				}
-
-				rootElem.appendChild(cardElem);
-			}
-
-			TransformerFactory
-					.newInstance()
-					.newTransformer()
-					.transform(new DOMSource(exportDoc),
-							new StreamResult(outputPath + exportName + ".xml"));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			ErrorHandler.getInstance().handleError(
-					ErrorHandler.getInstance().EXPORT_ERROR);
-			return false;
-		}
-		return true;
-	}
-
 	public boolean importStack(String pathToXML) throws JDOMException,
 			IOException {
+		List<Card> cardlist = new ArrayList<Card>();
+
 		org.jdom2.Document importDoc = new org.jdom2.input.SAXBuilder()
 				.build(new File(pathToXML));
 
@@ -120,14 +83,13 @@ public class Exchange {
 			} else {
 				isDynamicGenerated = false;
 			}
-			new Stack(isDynamicGenerated, Stack.getNextStackID(), stackName, 0,
-					0, 0);
+			Stack stack = new Stack(isDynamicGenerated, Stack.getNextStackID(),
+					stackName, 0, 0, 0);
 
-			this.createCards(rootElem.getChildren());
-		}
-
-		else if (rootElem.getName().equals("cardList")) {
-			createCards(rootElem.getChildren());
+			cardlist = this.createCards(rootElem.getChildren());
+			for (Card card : cardlist) {
+				stack.getCards().add(card);
+			}
 		} else {
 			ErrorHandler handler = ErrorHandler.getInstance();
 			handler.handleError(handler.IMPORT_ERROR);
@@ -136,13 +98,23 @@ public class Exchange {
 		return true;
 	}
 
-	private boolean createCards(List<org.jdom2.Element> cards) {
+	/**
+	 * Creates new Card Elements and add creates the tags if neccessary
+	 * 
+	 * @param cards
+	 *            The Card Element List
+	 * @return List of all created Cards
+	 */
+	private List<Card> createCards(List<org.jdom2.Element> cards) {
+		List<Card> cardList = new ArrayList<Card>();
+
 		for (org.jdom2.Element cardElem : cards) {
 			String front = cardElem.getAttributeValue("front");
 			String back = cardElem.getAttributeValue("back");
 			String frontPic = cardElem.getAttributeValue("frontPic");
 			String backPic = cardElem.getAttributeValue("backPic");
 			List<Tag> tagList = new ArrayList<Tag>();
+
 			int foundTag = -1;
 			for (org.jdom2.Element tagElem : cardElem.getChildren()) {
 				// check if the Tag already exists
@@ -152,17 +124,16 @@ public class Exchange {
 						foundTag = i;
 					}
 				}
-				// if it exists, add the found one
+				// if it exists, add the found tag, otherwise create a new one
 				if (foundTag >= 0) {
 					tagList.add(Tag.allTags.get(foundTag));
 				} else {
 					tagList.add(new Tag(tagElem.getAttributeValue("name")));
 				}
-
 			}
-			new Card(front, back, frontPic, backPic, tagList);
+			cardList.add(new Card(front, back, frontPic, backPic, tagList));
 		}
-		return true;
+		return cardList;
 	}
 
 }
