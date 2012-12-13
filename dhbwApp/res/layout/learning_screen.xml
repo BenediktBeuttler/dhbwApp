@@ -20,7 +20,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:onClick="learning_onButtonClick"
-        android:text="@string/btn_learning_stack1" />
+        android:text="btn_learning_stack1" />
 
     <Button
         android:id="@+id/btn_learning_stack2"
@@ -29,6 +29,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/btn_learning_stack1"
         android:onClick="learning_onButtonClick"
-        android:text="@string/btn_learning_stack2" />
+        android:text="btn_learning_stack2" />
 
 </RelativeLayout>

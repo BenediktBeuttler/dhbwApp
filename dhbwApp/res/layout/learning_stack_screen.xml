@@ -43,6 +43,6 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:text="@string/btn_learning_flip" />
+        android:text="btn_learning_flip" />
  
 </RelativeLayout>
