@@ -16,16 +16,23 @@ public final class R {
     }
     public static final class id {
         public static final int Layout_learning=0x7f070003;
-        public static final int LinearLayout1=0x7f070006;
+        public static final int LinearLayout1=0x7f07000d;
         public static final int btn_learning_flip=0x7f070005;
         public static final int btn_learning_stack1=0x7f070001;
         public static final int btn_learning_stack2=0x7f070002;
-        public static final int btn_start_admin=0x7f070009;
-        public static final int btn_start_edit=0x7f070008;
-        public static final int btn_start_learning=0x7f070007;
-        public static final int btn_start_statistic=0x7f07000a;
+        public static final int btn_start_admin=0x7f070010;
+        public static final int btn_start_edit=0x7f07000f;
+        public static final int btn_start_learning=0x7f07000e;
+        public static final int btn_start_statistic=0x7f070011;
+        public static final int button1=0x7f070007;
+        public static final int button2=0x7f070008;
+        public static final int button3=0x7f070009;
+        public static final int button4=0x7f07000a;
+        public static final int button5=0x7f07000b;
+        public static final int editText1=0x7f070006;
+        public static final int editText2=0x7f07000c;
         public static final int learning_card_front=0x7f070004;
-        public static final int menu_settings=0x7f07000b;
+        public static final int menu_settings=0x7f070012;
         public static final int textView1=0x7f070000;
     }
     public static final class layout {
@@ -33,7 +40,13 @@ public final class R {
         public static final int edit_screen=0x7f030001;
         public static final int learning_screen=0x7f030002;
         public static final int learning_stack_screen=0x7f030003;
-        public static final int start_screen=0x7f030004;
+        public static final int main_help=0x7f030004;
+        public static final int main_help_editcardsstacks=0x7f030005;
+        public static final int main_help_importexport=0x7f030006;
+        public static final int main_help_introduction=0x7f030007;
+        public static final int main_help_learnstatistics=0x7f030008;
+        public static final int main_help_settings=0x7f030009;
+        public static final int start_screen=0x7f03000a;
     }
     public static final class menu {
         public static final int admin_screen=0x7f060000;
@@ -44,24 +57,56 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040000;
-        public static final int btn_learning_flip=0x7f040009;
-        public static final int btn_learning_stack1=0x7f040007;
-        public static final int btn_learning_stack2=0x7f040008;
-        public static final int btn_start_admin=0x7f040006;
-        public static final int btn_start_edit=0x7f040004;
-        public static final int btn_start_learning=0x7f040003;
-        public static final int btn_start_statistic=0x7f040005;
-        public static final int hello_world=0x7f040001;
-        public static final int help_edit_card_stacks=0x7f040010;
-        public static final int help_import_export=0x7f04000f;
-        public static final int help_introduction=0x7f040012;
-        public static final int help_learn_statistics=0x7f04000e;
-        public static final int help_settings=0x7f040011;
-        public static final int menu_settings=0x7f040002;
-        public static final int title_activity_admin_screen=0x7f04000c;
-        public static final int title_activity_edit_screen=0x7f04000b;
-        public static final int title_activity_learning_screen=0x7f04000a;
-        public static final int title_activity_stapel_screen=0x7f04000d;
+        public static final int btn_admin_editcard=0x7f040013;
+        public static final int btn_admin_editstack=0x7f040014;
+        public static final int btn_admin_exist=0x7f040017;
+        public static final int btn_admin_export=0x7f04001d;
+        public static final int btn_admin_import=0x7f04001c;
+        public static final int btn_admin_importexport=0x7f040015;
+        public static final int btn_admin_new=0x7f040018;
+        public static final int btn_admin_newcard=0x7f040012;
+        public static final int btn_admin_newdynstack=0x7f040016;
+        public static final int btn_admin_save=0x7f04001b;
+        public static final int btn_help_editcardsstacks=0x7f040027;
+        public static final int btn_help_importexport=0x7f040029;
+        public static final int btn_help_introduction=0x7f040025;
+        public static final int btn_help_learnstatistics=0x7f040026;
+        public static final int btn_help_settings=0x7f040028;
+        public static final int btn_learn_dontknow=0x7f040011;
+        public static final int btn_learn_dynstack=0x7f04000b;
+        public static final int btn_learn_notsure=0x7f040010;
+        public static final int btn_learn_sure=0x7f04000f;
+        public static final int btn_start_admin=0x7f040002;
+        public static final int btn_start_help=0x7f040005;
+        public static final int btn_start_learning=0x7f040001;
+        public static final int btn_start_settings=0x7f040004;
+        public static final int btn_start_statistic=0x7f040003;
+        public static final int help_edit_card_stacks=0x7f040030;
+        public static final int help_import_export=0x7f04002f;
+        public static final int help_introduction=0x7f040032;
+        public static final int help_learn_statistics=0x7f04002e;
+        public static final int help_settings=0x7f040031;
+        public static final int label_settings_resetdatabase=0x7f040023;
+        public static final int label_settings_setfontsize=0x7f040024;
+        public static final int label_settings_setreminder=0x7f040022;
+        public static final int list_admin_cardlist=0x7f04001a;
+        public static final int list_admin_stacklist=0x7f040019;
+        public static final int list_learn_stacklist=0x7f04000c;
+        public static final int list_statistics_stacklist=0x7f04001f;
+        public static final int menu_admin=0x7f040007;
+        public static final int menu_help=0x7f04000a;
+        public static final int menu_learning=0x7f040006;
+        public static final int menu_settings=0x7f040009;
+        public static final int menu_statistics=0x7f040008;
+        public static final int tab_learn_backside=0x7f04000d;
+        public static final int tab_learn_frontside=0x7f04000e;
+        public static final int tab_statistics_lastreview=0x7f040021;
+        public static final int tab_statistics_overview=0x7f04001e;
+        public static final int tab_statistics_progress=0x7f040020;
+        public static final int title_activity_admin_screen=0x7f04002c;
+        public static final int title_activity_edit_screen=0x7f04002b;
+        public static final int title_activity_learning_screen=0x7f04002a;
+        public static final int title_activity_stapel_screen=0x7f04002d;
     }
     public static final class style {
         /** 
