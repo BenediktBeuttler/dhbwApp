@@ -8,8 +8,31 @@ import wi2010d.dhbwapp.model.Tag;
 public class Delete {
 
 	private Database db = Database.getInstance();
+	private static Delete delete;
 
-	public void deleteStack(Stack stack) {
+	public Delete() {
+		super();
+	}
+
+	/**
+	 * Singleton method
+	 */
+	public static Delete getInstance() {
+		if (delete == null) {
+			delete = new Delete();
+		}
+		return delete;
+	}
+
+	/**
+	 * Deletes the given Stack and all correlations. If necessary it also
+	 * deletes the cards/tags.
+	 * 
+	 * @param stack
+	 *            The stack, which should be deleted
+	 * @return always true
+	 */
+	public boolean deleteStack(Stack stack) {
 		// delete the card from the stack, if the card isn't in any stack,
 		// delete it
 		for (Card card : stack.getCards()) {
@@ -22,42 +45,43 @@ public class Delete {
 		// Delete all associated runthroughs
 		for (Runthrough run : stack.getLastRunthroughs()) {
 			deleteRunthrough(run);
-			db.deleteRunthrough(run);
 			run = null;
 		}
 
 		// Delete the overall runthrough
 		Runthrough run = stack.getOverallRunthrough();
 		deleteRunthrough(run);
-		db.deleteRunthrough(run);
 		run = null;
 
 		// delete the Stack from the Stack List
-		for (int i = 0; i < Stack.allStacks.size(); i++) {
-			if (Stack.allStacks.get(i).getStackID() == stack.getStackID()) {
-				Stack.allStacks.remove(i);
-				break;
-			}
-		}
+		Stack.allStacks.remove(stack);
 
 		db.deleteStack(stack);
 		stack = null;
-
+		return true;
 	}
 
-	public void deleteRunthrough(Runthrough run) {
-		// Delete Runthrough from the Runthrough List
-		for (int i = 0; i < Runthrough.allRunthroughs.size(); i++) {
-			if (Runthrough.allRunthroughs.get(i).getRunthroughID() == run
-					.getRunthroughID()) {
-				Runthrough.allRunthroughs.remove(i);
-				break;
-			}
-		}
-
+	/**
+	 * Delete Runthrough from the Runthrough List and DB
+	 * 
+	 * @param run
+	 *            The Runthrough, which should be deleted
+	 * @return always true
+	 */
+	public boolean deleteRunthrough(Runthrough run) {
+		Runthrough.allRunthroughs.remove(run);
+		db.deleteRunthrough(run);
+		return true;
 	}
 
-	public void deleteCard(Card card) {
+	/**
+	 * Deletes the given Card and all Correlations. If necessary it also deletes
+	 * Tags or the Stack.
+	 * 
+	 * @param card
+	 *            The card, which should be deleted
+	 */
+	public boolean deleteCard(Card card) {
 		// delete the tag from the card, if the tag isn't associated to a card,
 		// delete it
 		for (Tag tag : card.getTags()) {
@@ -69,61 +93,49 @@ public class Delete {
 
 		// remove the card from every stack it is in
 		for (Stack stack : Stack.allStacks) {
-			for (int i = 0; i < stack.getCards().size(); i++) {
-				if (stack.getCards().get(i).getCardID() == card.getCardID()) {
-					stack.getCards().remove(i);
-					i = i - 1;
-				}
+			stack.getCards().remove(card);
+
+			// if there's no card in the stack, delete it
+			if (stack.getCards().size() == 0) {
+				deleteStack(stack);
 			}
 		}
 
 		// Delete the card from the cardlist
-		for (int i = 0; i < Card.allCards.size(); i++) {
-			if (Card.allCards.get(i).getCardID() == card.getCardID()) {
-				Card.allCards.remove(i);
-				break;
-			}
-		}
+		Card.allCards.remove(card);
 
 		// delete the card
 		db.deleteCard(card);
 		card = null;
+		return true;
 	}
 
-	public void deleteTag(Tag tag) {
+	/**
+	 * Delete the given Tag and all correlations. If necessary, it also deltes
+	 * 
+	 * @param tag
+	 *            The tag, which should be deleted
+	 * @return always true
+	 */
+	public boolean deleteTag(Tag tag) {
 		// delete the given Tag from the dynamic stacks
 		for (Stack stack : Stack.allStacks) {
 			if (stack.isDynamicGenerated()) {
-				for (int i = 0; i < stack.getDynamicStackTags().size(); i++) {
-					if (tag.getTagID() == stack.getDynamicStackTags().get(i)
-							.getTagID()) {
-						stack.getDynamicStackTags().remove(i);
-						i = i - 1;
-					}
-				}
+				stack.getDynamicStackTags().remove(tag);
 			}
 		}
 
 		// delete the given Tag from the cards
 		for (Card card : Card.allCards) {
-			for (int i = 0; i < card.getTags().size(); i++) {
-				if (tag.getTagID() == card.getTags().get(i).getTagID()) {
-					card.getTags().remove(i);
-					i = i - 1;
-				}
-			}
+			card.getTags().remove(tag);
 		}
 
 		// delete the Tag from the Tag list
-		for (int i = 0; i < Tag.allTags.size(); i++) {
-			if (Tag.allTags.get(i).getTagID() == tag.getTagID()) {
-				Tag.allTags.remove(i);
-				break;
-			}
-		}
+		Tag.allTags.remove(tag);
 
 		// delete the tag
 		db.deleteTag(tag);
 		tag = null;
+		return true;
 	}
 }
