@@ -17,7 +17,7 @@ public class Database {
 	private DatabaseManager dbManager;
 	private static Database db;
 
-	// Query Strings
+	// Query Strings 
 	private final String QUERY_STACK = "Select _id, stackName, isDynamicGenerated, dontKnow, notSure, sure from stack;";
 	private final String QUERY_CARD = "Select _id, cardFront, cardBack, cardFrontPicture, cardBackPicture, drawer, totalStacks from card;";
 	private final String QUERY_TAG = "Select _id, tagName, totalCards from tag;";
@@ -25,13 +25,13 @@ public class Database {
 	private final String QUERY_STACK_CARD = "Select stackID, cardID from stackcard;";
 	private final String QUERY_CARD_TAG = "Select cardID, tagID from cardtag;";
 	private final String QUERY_STACK_TAG = "Select stackID, tagID from stacktag;";
-
+	
 	// Delete Strings
 	// --- Delete queries for Stack and all references
 	private final String DELETE_STACK = "Delete from stack where _id = ?;";
 	private final String DELETE_STACK_CARD_STACK = "Delete from stackcard where stackID = ?;";
 	private final String DELETE_STACK_TAG_STACK = "Delete from stacktag where stackID = ?;";
-
+	
 	// --- Delete queries for Card and all references
 	private final String DELETE_CARD = "Delete from card where _id = ?;";
 	private final String DELETE_STACK_CARD_CARD = "Delete from stackcard where cardID = ?;";
@@ -44,6 +44,9 @@ public class Database {
 
 	// Delete queries for Runthrough
 	private final String DELETE_RUNTHROUGH = "Delete from tag where _id = ?;";
+	
+	//Delete queries for Correlations
+	private static final String DELETE_CARD_STACK_CORRELATION = "Delete from stackcard where stackID = ? and cardID = ?;";
 
 	// -------------END VAR DECLARATION
 
@@ -216,6 +219,16 @@ public class Database {
 		database.rawQuery(DELETE_RUNTHROUGH,
 				new String[] { "" + run.getRunthroughID() });
 
+		this.close();
+		return true;
+	}
+	
+	public boolean deleteCardStackCorrelation(int stackID, int cardID)
+	{
+		this.openWrite();
+		
+		database.rawQuery(DELETE_CARD_STACK_CORRELATION, new String[] { "" + stackID, ""+cardID });
+		
 		this.close();
 		return true;
 	}
