@@ -14,7 +14,7 @@ public class Runthrough {
 	private boolean isOverall;
 	private Date startDate;
 	private Date endDate;
-	private int duration;
+	private int duration = 0;
 
 	/**
 	 * [0] BeforeDontKnow [1] BeforeNotSure [2] BeforeSure
@@ -101,6 +101,11 @@ public class Runthrough {
 	public void setDurationSecs(int newDuration)
 	{
 		this.duration = newDuration;
+	}
+	
+	public int getDurationsSecs()
+	{
+		return duration;
 	}
 
 	public void setStatusBefore(int beforeDontKnow, int beforeNotSure,
