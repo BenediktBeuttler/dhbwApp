@@ -1,12 +1,13 @@
 package wi2010d.dhbwapp.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Runthrough {
 
-	public static List<Runthrough> allRunthroughs;
+	public static List<Runthrough> allRunthroughs = new ArrayList<Runthrough>();
 	public static int lastRunthroughID = 0;
 
 	private int runthroughID;

@@ -1,10 +1,11 @@
 package wi2010d.dhbwapp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Tag {
 
-	public static List<Tag> allTags;
+	public static List<Tag> allTags = new ArrayList<Tag>();
 	public static int lastTagID;
 	private int tagID;
 	private int totalCards;

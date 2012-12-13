@@ -2,10 +2,11 @@ package wi2010d.dhbwapp.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Stack {
 
-	public static List<Stack> allStacks;
+	public static List<Stack> allStacks = new ArrayList<Stack>();
 	public static Stack dynamicStack;
 	private static int lastStackID = 0;
 
@@ -32,6 +33,10 @@ public class Stack {
 		this.sure = sure;
 		this.notSure = notSure;
 		this.dontKnow = dontKnow;
+		
+		this.lastRunthroughs = new ArrayList<Runthrough>();
+		this.dynamicStackTags = new ArrayList<Tag>();
+		this.cards = new ArrayList<Card>();
 
 		Stack.allStacks.add(this);
 	}
@@ -79,6 +84,15 @@ public class Stack {
 	}
 
 	public void addLastRunthrough(Runthrough run) {
+		long durationMilliSecs = run.getEndDate().getTime()
+				- run.getStartDate().getTime();
+
+		int duration = (int) TimeUnit.MILLISECONDS.toSeconds(durationMilliSecs);
+		run.setDurationSecs(duration);
+
+		this.getOverallRunthrough().setDurationSecs(
+				duration + this.getOverallRunthrough().getDurationsSecs());
+
 		if (lastRunthroughs.size() > 9) {
 			lastRunthroughs.remove(0);
 		}

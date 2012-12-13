@@ -1,10 +1,11 @@
 package wi2010d.dhbwapp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Card {
 
-	public static List<Card> allCards;
+	public static List<Card> allCards = new ArrayList<Card>();
 	private static int lastCardID = 0;
 
 	private int cardID;
@@ -28,6 +29,8 @@ public class Card {
 		this.cardBack = cardBack;
 		this.cardFrontPicture = cardFrontPicture;
 		this.cardBackPicture = cardBackPicture;
+		
+		this.tags = new ArrayList<Tag>();
 
 		Card.allCards.add(this);
 	}
