@@ -291,6 +291,23 @@ public class Database {
 
 		return true;
 	}
+	
+	public boolean addNewCard(Card card) {
+		// Set content for card table
+		ContentValues cardContent = putCardValues(card);
+
+		// write it to the DB
+		this.openWrite();
+		database.insert("card", null, cardContent);
+		this.close();
+
+		// write the Card-Tag-Correlation to the cardtag table
+		for (Tag tag : card.getTags()) {
+			this.addCardTagCorrelation(card.getCardID(), tag.getTagID());
+		}
+
+		return true;
+	}
 
 	/**
 	 * Adds a new Tag and the correlations to the cards
