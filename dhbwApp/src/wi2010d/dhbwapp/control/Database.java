@@ -46,8 +46,10 @@ public class Database {
 	private final String DELETE_RUNTHROUGH = "Delete from tag where _id = ?;";
 
 	// Delete queries for Correlations
-	private static final String DELETE_CARD_STACK_CORRELATION = "Delete from stackcard where stackID = ? and cardID = ?;";
+	private final String DELETE_CARD_STACK_CORRELATION = "Delete from stackcard where stackID = ? and cardID = ?;";
+	private final String DELETE_CARD_TAG_CORRELATION = "Delete from cardtag where cardID = ? and tagID = ?";
 
+	
 	// -------------END VAR DECLARATION
 
 	public Database() {
@@ -238,6 +240,12 @@ public class Database {
 		return true;
 	}
 
+	/** 
+	 * Deletes the Card Stack Correlation for the given Stack ID and Card ID
+	 * @param stackID The Stack ID
+	 * @param cardID The Card ID
+	 * @return always true
+	 */
 	public boolean deleteCardStackCorrelation(int stackID, int cardID) {
 		this.openWrite();
 
@@ -246,6 +254,24 @@ public class Database {
 
 		this.close();
 		return true;
+	}
+	
+	/**
+	 * Deletes the Card Tag Correlation for the given Card ID and Tag ID
+	 * @param cardID The Card ID
+	 * @param tagID The Tag ID
+	 * @return always true
+	 */
+	public boolean deleteCardTagCorrelation(int cardID, int tagID)
+	{
+		this.openWrite();
+
+		database.rawQuery(DELETE_CARD_TAG_CORRELATION, new String[] {
+				"" + cardID, "" + tagID });
+
+		this.close();
+		return true;
+
 	}
 
 	// --------------Add Methods -----------------
