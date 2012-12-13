@@ -15,11 +15,11 @@ public final class R {
         public static final int notizzettel_front=0x7f020001;
     }
     public static final class id {
-        public static final int Layout_learning=0x7f070003;
+        public static final int Layout_learning=0x7f070004;
         public static final int LinearLayout1=0x7f07000e;
-        public static final int btn_learning_flip=0x7f070005;
-        public static final int btn_learning_stack1=0x7f070001;
-        public static final int btn_learning_stack2=0x7f070002;
+        public static final int btn_learning_flip=0x7f070006;
+        public static final int btn_learning_stack1=0x7f070002;
+        public static final int btn_learning_stack2=0x7f070003;
         public static final int btn_start_admin=0x7f070011;
         public static final int btn_start_edit=0x7f070010;
         public static final int btn_start_learning=0x7f07000f;
@@ -29,38 +29,40 @@ public final class R {
         public static final int button3=0x7f070009;
         public static final int button4=0x7f07000a;
         public static final int button5=0x7f07000b;
-        public static final int editText1=0x7f070006;
+        public static final int editText1=0x7f070000;
         public static final int editText2=0x7f07000c;
-        public static final int learning_card_front=0x7f070004;
+        public static final int learning_card_front=0x7f070005;
         public static final int menu_settings=0x7f070013;
-        public static final int textView1=0x7f070000;
+        public static final int textView1=0x7f070001;
         public static final int textView2=0x7f07000d;
     }
     public static final class layout {
-        public static final int admin_screen=0x7f030000;
-        public static final int edit_screen=0x7f030001;
-        public static final int learning_screen=0x7f030002;
-        public static final int learning_stack_screen=0x7f030003;
-        public static final int main_help=0x7f030004;
-        public static final int main_help_editcardsstacks=0x7f030005;
-        public static final int main_help_importexport=0x7f030006;
-        public static final int main_help_introduction=0x7f030007;
-        public static final int main_help_learnstatistics=0x7f030008;
-        public static final int main_help_settings=0x7f030009;
-        public static final int settings_screen=0x7f03000a;
-        public static final int show_card_back_screen=0x7f03000b;
-        public static final int show_card_front_screen=0x7f03000c;
-        public static final int start_screen=0x7f03000d;
+        public static final int admin_edit_stack_screen=0x7f030000;
+        public static final int admin_screen=0x7f030001;
+        public static final int edit_screen=0x7f030002;
+        public static final int learning_screen=0x7f030003;
+        public static final int learning_stack_screen=0x7f030004;
+        public static final int main_help=0x7f030005;
+        public static final int main_help_editcardsstacks=0x7f030006;
+        public static final int main_help_importexport=0x7f030007;
+        public static final int main_help_introduction=0x7f030008;
+        public static final int main_help_learnstatistics=0x7f030009;
+        public static final int main_help_settings=0x7f03000a;
+        public static final int settings_screen=0x7f03000b;
+        public static final int show_card_back_screen=0x7f03000c;
+        public static final int show_card_front_screen=0x7f03000d;
+        public static final int start_screen=0x7f03000e;
     }
     public static final class menu {
-        public static final int admin_screen=0x7f060000;
-        public static final int edit_screen=0x7f060001;
-        public static final int learning_screen=0x7f060002;
-        public static final int settings_screen=0x7f060003;
-        public static final int show_card_back_screen=0x7f060004;
-        public static final int show_card_front_screen=0x7f060005;
-        public static final int stapel_screen=0x7f060006;
-        public static final int start_screen=0x7f060007;
+        public static final int admin_edit_stack_screen=0x7f060000;
+        public static final int admin_screen=0x7f060001;
+        public static final int edit_screen=0x7f060002;
+        public static final int learning_screen=0x7f060003;
+        public static final int settings_screen=0x7f060004;
+        public static final int show_card_back_screen=0x7f060005;
+        public static final int show_card_front_screen=0x7f060006;
+        public static final int stapel_screen=0x7f060007;
+        public static final int start_screen=0x7f060008;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
@@ -116,6 +118,7 @@ public final class R {
         public static final int tab_statistics_lastreview=0x7f040021;
         public static final int tab_statistics_overview=0x7f04001e;
         public static final int tab_statistics_progress=0x7f040020;
+        public static final int title_activity_admin_edit_stack=0x7f04003c;
         public static final int title_activity_admin_screen=0x7f04002c;
         public static final int title_activity_edit_screen=0x7f04002b;
         public static final int title_activity_learning_screen=0x7f04002a;

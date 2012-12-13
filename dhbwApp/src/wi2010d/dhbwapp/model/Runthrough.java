@@ -14,6 +14,7 @@ public class Runthrough {
 	private boolean isOverall;
 	private Date startDate;
 	private Date endDate;
+	private int duration;
 
 	/**
 	 * [0] BeforeDontKnow [1] BeforeNotSure [2] BeforeSure
@@ -95,6 +96,11 @@ public class Runthrough {
 								.toMinutes(durationMilliSecs)));
 		return duration;
 
+	}
+	
+	public void setDurationSecs(int newDuration)
+	{
+		this.duration = newDuration;
 	}
 
 	public void setStatusBefore(int beforeDontKnow, int beforeNotSure,

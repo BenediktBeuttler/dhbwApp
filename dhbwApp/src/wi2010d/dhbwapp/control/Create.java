@@ -34,7 +34,6 @@ public class Create {
 		return create;
 	}
 
-	
 	/**
 	 * Create a new Stack
 	 * 
