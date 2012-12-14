@@ -32,7 +32,8 @@ public class StartScreen extends Activity implements OnClickListener{
 		statistic.setOnClickListener(this);
 		
 		//Initiate DB Manager, Database and load everything
-		Init.getInstance(getApplicationContext());
+		Init init = Init.getInstance(getApplicationContext());
+		init.loadFromDB();
 		
 		ErrorHandler error = new ErrorHandler(getApplicationContext());	
 		error.handleError(1);
@@ -70,5 +71,4 @@ public class StartScreen extends Activity implements OnClickListener{
 		
 	}
 
-	//Thomas B commit 
 }

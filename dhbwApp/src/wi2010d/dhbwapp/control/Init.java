@@ -47,6 +47,7 @@ public class Init {
 		int dontKnow;
 
 		Cursor cursor = database.queryStack();
+		
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
@@ -69,6 +70,7 @@ public class Init {
 			cursor.moveToNext();
 		}
 		cursor.close();
+		Database.getInstance().close();
 		return true;
 	}
 
@@ -90,6 +92,7 @@ public class Init {
 			cursor.moveToNext();
 		}
 		cursor.close();
+		Database.getInstance().close();
 		return true;
 
 	}
@@ -119,6 +122,7 @@ public class Init {
 			cursor.moveToNext();
 		}
 		cursor.close();
+		Database.getInstance().close();
 		return true;
 
 	}
@@ -169,6 +173,7 @@ public class Init {
 
 		}
 		cursor.close();
+		Database.getInstance().close();
 		return true;
 	}
 
@@ -193,6 +198,7 @@ public class Init {
 			cursor.moveToNext();
 		}
 		cursor.close();
+		Database.getInstance().close();
 		return true;
 	}
 
@@ -215,6 +221,7 @@ public class Init {
 			}
 		}
 		cursor.close();
+		Database.getInstance().close();
 		return true;
 	}
 
@@ -238,6 +245,7 @@ public class Init {
 			}
 		}
 		cursor.close();
+		Database.getInstance().close();
 		return true;
 
 	}

@@ -3,6 +3,8 @@ package wi2010d.dhbwapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
+
 public class Card {
 
 	public static List<Card> allCards = new ArrayList<Card>();

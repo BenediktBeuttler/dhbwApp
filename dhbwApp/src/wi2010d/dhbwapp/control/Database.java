@@ -10,6 +10,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class Database {
 
@@ -78,7 +79,6 @@ public class Database {
 	public Cursor queryStack() {
 		this.openRead();
 		Cursor cursor = database.rawQuery(QUERY_STACK, null);
-		this.close();
 		return cursor;
 	}
 
@@ -90,7 +90,6 @@ public class Database {
 	public Cursor queryCard() {
 		this.openRead();
 		Cursor cursor = database.rawQuery(QUERY_CARD, null);
-		this.close();
 		return cursor;
 	}
 
@@ -102,7 +101,6 @@ public class Database {
 	public Cursor queryTag() {
 		this.openRead();
 		Cursor cursor = database.rawQuery(QUERY_TAG, null);
-		this.close();
 		return cursor;
 	}
 
@@ -114,7 +112,6 @@ public class Database {
 	public Cursor queryRunthrough() {
 		this.openRead();
 		Cursor cursor = database.rawQuery(QUERY_RUNTHROUGH, null);
-		this.close();
 		return cursor;
 	}
 
@@ -126,7 +123,6 @@ public class Database {
 	public Cursor queryStackCard() {
 		this.openRead();
 		Cursor cursor = database.rawQuery(QUERY_STACK_CARD, null);
-		this.close();
 		return cursor;
 	}
 
@@ -138,7 +134,6 @@ public class Database {
 	public Cursor queryCardTag() {
 		this.openRead();
 		Cursor cursor = database.rawQuery(QUERY_CARD_TAG, null);
-		this.close();
 		return cursor;
 	}
 
@@ -150,7 +145,6 @@ public class Database {
 	public Cursor queryStackTag() {
 		this.openRead();
 		Cursor cursor = database.rawQuery(QUERY_STACK_TAG, null);
-		this.close();
 		return cursor;
 	}
 
