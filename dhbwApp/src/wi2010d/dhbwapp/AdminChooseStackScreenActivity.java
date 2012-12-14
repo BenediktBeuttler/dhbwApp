@@ -21,21 +21,22 @@ public class AdminChooseStackScreenActivity extends Activity {
 		
 		//String []s = new String[]{"Lorem","Ipsum","dolor","sit","amet"};
 				
-		//List<Tag> tags = new ArrayList<Tag>();
-		//tags.add(Create.getInstance().newTag("Penis"));
+		List<Tag> tags = new ArrayList<Tag>();
+		tags.add(Create.getInstance().newTag("Penis"));
 		
-		//Create.getInstance().newStack("Döner", Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
-		//Create.getInstance().newStack("Reppe", Create.getInstance().newCard("2", "2,5", tags, "", ""));
-		//Create.getInstance().newStack("Bene", Create.getInstance().newCard("3", "3,5", tags, "", ""));
-		//Create.getInstance().newStack("Tim", Create.getInstance().newCard("4", "4,5", tags, "", ""));
+		Create.getInstance().newStack("Döner", Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
+		Create.getInstance().newStack("Reppe", Create.getInstance().newCard("2", "2,5", tags, "", ""));
+		Create.getInstance().newStack("Bene", Create.getInstance().newCard("3", "3,5", tags, "", ""));
+		Create.getInstance().newStack("Tim", Create.getInstance().newCard("4", "4,5", tags, "", ""));
+
 		
-		//ArrayList<String> items = new ArrayList<String>();
-		//for (Stack stack : Stack.allStacks)
+		ArrayList<String> items = new ArrayList<String>();
+		for (Stack stack : Stack.allStacks)
 		{
-			//items.add(stack.getStackName());
+			items.add(stack.getStackName());
 		}
-        //ListView lv = (ListView)findViewById(R.id.admin_stack_list);
-        //lv.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,items));
+        ListView lv = (ListView)findViewById(R.id.admin_stack_list);
+        lv.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,items));
 	}
 
 	@Override

@@ -4,31 +4,20 @@
     android:layout_height="match_parent"
     tools:context=".LearningScreen" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Learning Screen"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="@string/btn_learn_dynstack" />
 
-    <Button
-        android:id="@+id/btn_learning_stack1"
+    <ListView
+        android:id="@+id/learn_stack_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:onClick="learning_onButtonClick"
-        android:text="btn_learning_stack1" />
-
-    <Button
-        android:id="@+id/btn_learning_stack2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/btn_learning_stack1"
-        android:onClick="learning_onButtonClick"
-        android:text="btn_learning_stack2" />
+        android:layout_below="@+id/button1"
+        android:layout_centerHorizontal="true" >
+    </ListView>
 
 </RelativeLayout>
