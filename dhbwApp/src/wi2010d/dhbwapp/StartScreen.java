@@ -1,5 +1,8 @@
 package wi2010d.dhbwapp;
 
+import wi2010d.dhbwapp.control.Database;
+import wi2010d.dhbwapp.control.DatabaseManager;
+import wi2010d.dhbwapp.control.Init;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import android.os.Bundle;
 import android.app.Activity;
@@ -28,8 +31,9 @@ public class StartScreen extends Activity implements OnClickListener{
 		admin.setOnClickListener(this);
 		statistic.setOnClickListener(this);
 		
-		//INIT METHODE MUSS AUSGEFÜHRT WERDEN!!!
-		//ERRORHANDLER MUSS MIT APP CONTEXT INITIALISIERT WERDEN !!!
+		//Initiate DB Manager, Database and load everything
+		Init.getInstance(getApplicationContext());
+		
 		ErrorHandler error = new ErrorHandler(getApplicationContext());	
 		error.handleError(1);
 	}
