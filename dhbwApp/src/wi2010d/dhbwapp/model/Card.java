@@ -35,12 +35,8 @@ public class Card {
 		Card.allCards.add(this);
 	}
 
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
-	}
-
 	/**
-	 * Use this constructor, when creating a new card Other necessary variables
+	 * Use this constructor, when creating a new card. Other necessary variables
 	 * are set automatically
 	 * 
 	 * @param cardFront
@@ -133,6 +129,10 @@ public class Card {
 	public static int getNextCardID() {
 		lastCardID = lastCardID + 1;
 		return lastCardID;
+	}
+	
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
 	}
 
 	@Override
