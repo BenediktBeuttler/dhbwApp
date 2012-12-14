@@ -54,48 +54,36 @@ public class Stack {
 	 */
 	public Stack(boolean isDynamicGenerated, String stackName, List<Card> cards) {
 
-		boolean nameAlreadyTaken = false;
+		this.isDynamicGenerated = isDynamicGenerated;
+		this.stackName = stackName;
+		this.cards = cards;
 
-		for (Stack stack : allStacks) {
-			if (stack.getStackName().equals(stackName)) {
-				nameAlreadyTaken = true;
-				ErrorHandler.getInstance().handleError(
-						ErrorHandler.getInstance().NAME_ALREADY_TAKEN);
-			}
-		}
+		this.stackID = Stack.getNextStackID();
 
-		if (!nameAlreadyTaken) {
-			this.isDynamicGenerated = isDynamicGenerated;
-			this.stackName = stackName;
-			this.cards = cards;
+		int statusBefore[] = { 1, 0, 0 };
 
-			this.stackID = Stack.getNextStackID();
-
-			int statusBefore[] = { 1, 0, 0 };
-
-			// if stack is dynamic, the statusBefore for the overall Runthrough
-			// must
-			// be identified
-			if (isDynamicGenerated) {
-				statusBefore[0] = 0;
-				for (Card card : cards) {
-					int drawer = card.getDrawer();
-					switch (drawer) {
-					case 0:
-						statusBefore[0] = statusBefore[0] + 1;
-					case 1:
-						statusBefore[1] = statusBefore[1] + 1;
-					case 2:
-						statusBefore[2] = statusBefore[2] + 1;
-					}
+		// if stack is dynamic, the statusBefore for the overall Runthrough
+		// must
+		// be identified
+		if (isDynamicGenerated) {
+			statusBefore[0] = 0;
+			for (Card card : cards) {
+				int drawer = card.getDrawer();
+				switch (drawer) {
+				case 0:
+					statusBefore[0] = statusBefore[0] + 1;
+				case 1:
+					statusBefore[1] = statusBefore[1] + 1;
+				case 2:
+					statusBefore[2] = statusBefore[2] + 1;
 				}
 			}
-
-			this.overallRunthrough = new Runthrough(this.stackID, true,
-					statusBefore);
-
-			Stack.allStacks.add(this);
 		}
+
+		this.overallRunthrough = new Runthrough(this.stackID, true,
+				statusBefore);
+
+		Stack.allStacks.add(this);
 	}
 
 	public void addLastRunthrough(Runthrough run) {

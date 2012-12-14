@@ -22,24 +22,11 @@ public class Tag {
 	}
 
 	public Tag(String tagName) {
-		boolean nameAlreadyTaken =false;
-		for(Tag tag : allTags)
-		{
-			if(tag.getTagName().equals(tagName))
-			{	
-				ErrorHandler.getInstance().handleError(ErrorHandler.getInstance().NAME_ALREADY_TAKEN);
-				nameAlreadyTaken = true;
-			}
-		}
-		
-		if(!nameAlreadyTaken)
-		{
 		this.tagName = tagName;
 		this.tagID = Tag.getNextTagID();
 		this.totalCards = 0;
 
 		Tag.allTags.add(this);
-		}
 	}
 
 	public int increaseTotalCards() {

@@ -8,6 +8,7 @@ import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 public class Init {
 
@@ -51,6 +52,9 @@ public class Init {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
+			
+			Log.d("load Stack", ""+cursor.getPosition());
+
 			id = cursor.getInt(0);
 			name = cursor.getString(1);
 			int isDynamicGeneratedInt = cursor.getInt(2);
@@ -84,6 +88,7 @@ public class Init {
 
 		while (!cursor.isAfterLast()) {
 
+			Log.d("load Tag", ""+cursor.getPosition());
 			id = cursor.getInt(0);
 			name = cursor.getString(1);
 			totalCards = cursor.getInt(2);
@@ -110,6 +115,8 @@ public class Init {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
+			Log.d("load Card", ""+cursor.getPosition());
+
 			id = cursor.getInt(0);
 			front = cursor.getString(1);
 			back = cursor.getString(2);
@@ -145,6 +152,8 @@ public class Init {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
+			Log.d("load Runthrough", ""+cursor.getPosition());
+
 			id = cursor.getInt(0);
 			stackID = cursor.getInt(1);
 			int isOverallInt = cursor.getInt(2);
@@ -182,6 +191,8 @@ public class Init {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
+			Log.d("load Card to Stack", ""+cursor.getPosition());
+
 			int stackID = cursor.getInt(0);
 			int cardID = cursor.getInt(1);
 
@@ -207,6 +218,9 @@ public class Init {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
+			Log.d("load Tag to Card", ""+cursor.getPosition());
+			Log.d("Length:	", ""+ cursor.getCount());
+
 			int cardID = cursor.getInt(0);
 			int tagID = cursor.getInt(1);
 			for (Card card : Card.allCards) {
@@ -219,6 +233,7 @@ public class Init {
 					}
 				}
 			}
+			cursor.moveToNext();
 		}
 		cursor.close();
 		Database.getInstance().close();
@@ -230,6 +245,8 @@ public class Init {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
+			Log.d("load Tag to Stack", ""+cursor.getPosition());
+			
 			int stackID = cursor.getInt(0);
 			int tagID = cursor.getInt(1);
 

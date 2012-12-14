@@ -1,11 +1,14 @@
 package wi2010d.dhbwapp.control;
 
+import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.util.Log;
 
 public class Create {
 
@@ -41,8 +44,18 @@ public class Create {
 	public boolean newStack(String name, Card card) {
 		List<Card> cards = new ArrayList<Card>();
 		cards.add(card);
-		return Database.getInstance()
-				.addNewStack(new Stack(false, name, cards));
+		
+
+		for (Stack stack : Stack.allStacks) {
+			if (stack.getStackName().equals(name)) {
+				ErrorHandler.getInstance().handleError(
+						ErrorHandler.getInstance().NAME_ALREADY_TAKEN);
+				return false;
+			}
+		}
+		 Database.getInstance()
+			.addNewStack(new Stack(false, name, cards));
+		return true;
 	}
 
 	/**
@@ -54,6 +67,14 @@ public class Create {
 	 */
 	public boolean newDynStack(String name, List<Tag> tags) {
 		List<Card> cards = new ArrayList<Card>();
+		
+		for (Stack stack : Stack.allStacks) {
+			if (stack.getStackName().equals(name)) {
+				ErrorHandler.getInstance().handleError(
+						ErrorHandler.getInstance().NAME_ALREADY_TAKEN);
+				return false;
+			}
+		}
 
 		// identify all cards that contain the selected tags
 		for (Card card : Card.allCards) {
@@ -111,7 +132,9 @@ public class Create {
 	 */
 	public Card newCard(String front, String back, List<Tag> tags,
 			String frontPic, String backPic) {
+		Log.d("Card front:", front);
 		Card card = new Card(front, back, frontPic, backPic, tags);
+		Log.d("Card ID: ", ""+card.getCardID());
 		Database.getInstance().addNewCard(card);
 		return card;
 	}
@@ -123,6 +146,15 @@ public class Create {
 	 * @return
 	 */
 	public Tag newTag(String name) {
+		
+		for(Tag tag : Tag.allTags)
+		{ 
+			if(tag.getTagName().equals(name))
+			{
+				return null;
+			}
+		}
+		
 		Tag tag = new Tag(name);
 		Database.getInstance().addNewTag(tag);
 		return tag;
