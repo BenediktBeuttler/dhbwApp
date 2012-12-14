@@ -5,6 +5,7 @@ import java.util.List;
 
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Database;
+import wi2010d.dhbwapp.control.DatabaseManager;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
@@ -44,6 +45,9 @@ public class LearningScreen extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		Intent i = new Intent(this, LearningStackScreen.class);
+		
+		DatabaseManager.getInstance().deleteDB();
+		
 		
 		/*switch (v.getId()) {
 		case R.id.btn_learning_stack1:
