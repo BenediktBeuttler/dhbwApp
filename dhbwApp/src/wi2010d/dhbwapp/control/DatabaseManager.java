@@ -21,7 +21,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
 	private static final String STACK_TAG_CREATE = "CREATE TABLE stacktag (stackID INTEGER,tagID INTEGER,_id INTEGER PRIMARY KEY);";
 
 	
-	private static final String DROP_TABLES="DROP TABLE IF EXISTS stack,card,runthrough,tag,stackcard,cardtag";
+	private static final String DROP_STACK="DROP TABLE IF EXISTS 'stack';";
+	private static final String DROP_CARD ="DROP TABLE IF EXISTS 'card';";
+	private static final String DROP_RUNTHROUGH="DROP TABLE IF EXISTS 'runthrough';";
+	private static final String DROP_TAG  = "DROP TABLE IF EXISTS 'tag';";
+	private static final String DROP_STACK_CARD="DROP TABLE IF EXISTS 'stackcard';";
+	private static final String DROP_CARD_TAG="DROP TABLE IF EXISTS 'cardtag';";
+	private static final String DROP_STACK_TAG="DROP TABLE IF EXISTS 'stacktag';";
+
 	
 	public DatabaseManager(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
@@ -29,7 +36,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase database) {
-
 		database.execSQL(STACK_CREATE);
 		database.execSQL(CARD_CREATE);
 		database.execSQL(RUNTHROUGH_CREATE);
@@ -44,13 +50,26 @@ public class DatabaseManager extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
 
 		Log.w(DatabaseManager.class.getName(), "Upgrading Database from version "+ oldVersion + "to new Version "+newVersion);
-		database.execSQL(DROP_TABLES);
+		database.execSQL(DROP_STACK);
+		database.execSQL(DROP_CARD);
+		database.execSQL(DROP_RUNTHROUGH);
+		database.execSQL(DROP_TAG);
+		database.execSQL(DROP_STACK_CARD);
+		database.execSQL(DROP_STACK_TAG);
+		database.execSQL(DROP_CARD_TAG);
 		onCreate(database);
 	}
 	
 	public void deleteDB() {
-		SQLiteDatabase database = this.getWritableDatabase();
-		database.execSQL(DROP_TABLES);
+	
+		SQLiteDatabase database= this.getWritableDatabase();
+		database.execSQL(DROP_STACK);
+		database.execSQL(DROP_CARD);
+		database.execSQL(DROP_RUNTHROUGH);
+		database.execSQL(DROP_TAG);
+		database.execSQL(DROP_STACK_CARD);
+		database.execSQL(DROP_STACK_TAG);
+		database.execSQL(DROP_CARD_TAG);
 		onCreate(database);
 	}
 	
