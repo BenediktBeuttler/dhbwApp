@@ -1,5 +1,7 @@
 package wi2010d.dhbwapp.control;
 
+import java.util.List;
+
 import wi2010d.dhbwapp.model.Stack;
 
 public class Statistics {
@@ -70,8 +72,12 @@ public class Statistics {
 		
 	}
 	
-	
-	
+	/**
+	 * Converts seconds into String (??? hours, ??? minutes, ??? seconds)
+	 * 
+	 * @param duration
+	 * @return
+	 */
 	private String convertSecondsToString(int duration)
 	{
 		int seconds = 0;
@@ -83,6 +89,85 @@ public class Statistics {
 		hours = minutes / 60;
 		minutes = minutes & 60;
 		
-		return hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
+		if (hours > 0)
+		{
+			return minutes + " minutes, " + seconds + " seconds";
+		}
+		else
+		{
+			return hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
+		}
 	}
+	
+	//----------------Return relevant Dates (stack created, last runthrough)----------
+	
+	
+	
+	//----------------Return Status of Drawers-------------------
+	
+	/**
+	 * Returns the Actual Status of all Stacks
+	 * [0] = dontKnow, [1] = notSure, [2] = sure
+	 * 
+	 * @return
+	 */
+	public String[] getOverallActualDrawerStatus()
+	{
+		int actualStatusAfter[];
+		int actualStatus[] = {0,0,0}; 
+		
+		for (Stack stack : Stack.allStacks)
+		{
+			actualStatusAfter = stack.getOverallRunthrough().getStatusAfter();
+			
+			for (int i = 0; i<3; i++)
+			{
+				actualStatus[i] = actualStatus[i] + actualStatusAfter[i];
+			}
+		}
+		
+		return createActualDrawerStatusString(actualStatus);
+	}
+	
+	/**
+	 * Returns the actual status of selected stack
+	 * [0] = dontKnow, [1] = notSure, [2] = sure
+	 * 
+	 * @param name	= name of selected stack
+	 * @return
+	 */
+	public String[] getActualDrawerStatus(String name)
+	{
+		int actualStatus[] = {0,0,0};
+		
+		for (Stack stack : Stack.allStacks)
+		{
+			if (stack.getStackName().equals(name))
+			{
+				actualStatus = stack.getOverallRunthrough().getStatusAfter();
+				break;
+			}
+		}
+		
+		return createActualDrawerStatusString(actualStatus);
+	}
+	
+	/**
+	 * Creates String that contains the status of the drawer
+	 * 
+	 * @param actualStatus
+	 * @return
+	 */
+	private String[] createActualDrawerStatusString(int[] actualStatus)
+	{
+		String[] actualDrawerStatus = new String[3];
+		
+		for (int i = 0; i < 3; i++)
+		{
+			actualDrawerStatus[i] = "" + actualStatus[i] + "";
+		}
+		
+		return actualDrawerStatus;
+	}
+	
 }
