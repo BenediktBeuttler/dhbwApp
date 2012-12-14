@@ -6,32 +6,28 @@ import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 
-
 public class Edit {
-	
+
 	private static Edit edit;
-	
+
 	/**
 	 * Constructor
 	 */
-	public Edit()
-	{
+	public Edit() {
 		;
 	}
-	
+
 	/**
 	 * Singleton Method
 	 */
-	public static Edit getInstance()
-	{
-		if (edit == null)
-		{
+	public static Edit getInstance() {
+		if (edit == null) {
 			edit = new Edit();
 		}
-		
+
 		return edit;
 	}
-	
+
 	/**
 	 * Add a selected card to existing stack
 	 * 
@@ -39,14 +35,14 @@ public class Edit {
 	 * @param card
 	 * @return
 	 */
-	public boolean addCardToStack(Stack stack, Card card)
-	{
+	public boolean addCardToStack(Stack stack, Card card) {
 		stack.getCards().add(card);
 		card.increaseTotalStacks();
-		Database.getInstance().addStackCardCorrelation(stack.getStackID(), card.getCardID());
+		Database.getInstance().addStackCardCorrelation(stack.getStackID(),
+				card.getCardID());
 		return true;
 	}
-	
+
 	/**
 	 * Removes card from stack
 	 * 
@@ -54,10 +50,10 @@ public class Edit {
 	 * @param card
 	 * @return
 	 */
-	public boolean removeCardFromStack(Stack stack, Card card)
-	{
+	public boolean removeCardFromStack(Stack stack, Card card) {
 		stack.getCards().remove(card);
-		Database.getInstance().deleteCardStackCorrelation(stack.getStackID(), card.getCardID());
+		Database.getInstance().deleteCardStackCorrelation(stack.getStackID(),
+				card.getCardID());
 		card.decreaseTotalStacks();
 		return true;
 	}
@@ -69,17 +65,16 @@ public class Edit {
 	 * @param stack
 	 * @return
 	 */
-	public boolean addTagToStack(Tag tag, Stack stack)
-	{
-		for (Card card : stack.getCards())
-		{
+	public boolean addTagToStack(Tag tag, Stack stack) {
+		for (Card card : stack.getCards()) {
 			card.getTags().add(tag);
 			tag.increaseTotalCards();
-			Database.getInstance().addCardTagCorrelation(card.getCardID(), tag.getTagID());
+			Database.getInstance().addCardTagCorrelation(card.getCardID(),
+					tag.getTagID());
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Add a Tag to a single card
 	 * 
@@ -87,17 +82,16 @@ public class Edit {
 	 * @param card
 	 * @return
 	 */
-	public boolean addTagToCard(List<Tag> tags, Card card)
-	{
-		for (Tag tag : tags)
-		{
+	public boolean addTagToCard(List<Tag> tags, Card card) {
+		for (Tag tag : tags) {
 			card.getTags().add(tag);
 			tag.increaseTotalCards();
-			Database.getInstance().addCardTagCorrelation(card.getCardID(), tag.getTagID());
+			Database.getInstance().addCardTagCorrelation(card.getCardID(),
+					tag.getTagID());
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Change name of selected stack
 	 * 
@@ -105,12 +99,11 @@ public class Edit {
 	 * @param stack
 	 * @return
 	 */
-	public boolean changeStackName(String name, Stack stack)
-	{
+	public boolean changeStackName(String name, Stack stack) {
 		stack.setStackName(name);
 		return Database.getInstance().changeStack(stack);
 	}
-	
+
 	/**
 	 * Change card properties
 	 * 
@@ -122,54 +115,52 @@ public class Edit {
 	 * @param card
 	 * @return
 	 */
-	public boolean changeCard(String front, String back, String frontPic, String backPic, List<Tag> tags, Card card)
-	{
+	public boolean changeCard(String front, String back, String frontPic,
+			String backPic, List<Tag> tags, Card card) {
 		card.setCardFront(front);
 		card.setCardBack(back);
 		card.setCardFrontPicture(frontPic);
 		card.setCardBackPicture(backPic);
-		
-		for (Tag tag : card.getTags())
-		{
+
+		for (Tag tag : card.getTags()) {
 			tag.decreaseTotalCards();
-			Database.getInstance().deleteCardTagCorrelation(card.getCardID(), tag.getTagID());
+			Database.getInstance().deleteCardTagCorrelation(card.getCardID(),
+					tag.getTagID());
 			Database.getInstance().changeTag(tag);
 		}
-		
-		for (Tag tag : tags)
-		{
+
+		for (Tag tag : tags) {
 			tag.increaseTotalCards();
-			Database.getInstance().addCardTagCorrelation(card.getCardID(), tag.getTagID());
+			Database.getInstance().addCardTagCorrelation(card.getCardID(),
+					tag.getTagID());
 			Database.getInstance().changeTag(tag);
 		}
-		
+
 		card.setTags(tags);
-		
+
 		return Database.getInstance().changeCard(card);
 	}
-	
+
 	/**
 	 * Reset Drawer of all cards of a selected stack
 	 * 
 	 * @param stack
 	 * @return
 	 */
-	public boolean resetDrawer(Stack stack)
-	{
+	public boolean resetDrawer(Stack stack) {
 		stack.setDontKnow(stack.getCards().size());
 		stack.setNotSure(0);
 		stack.setSure(0);
-		
-		for (Card card : stack.getCards())
-		{
+
+		for (Card card : stack.getCards()) {
 			card.setDrawer(0);
 			Database.getInstance().changeCard(card);
-			
+
 		}
-		
+
 		return true;
 	}
-	
+
 	/**
 	 * Edit tag name
 	 * 
@@ -177,8 +168,7 @@ public class Edit {
 	 * @param tag
 	 * @return
 	 */
-	public boolean editTag(String name, Tag tag)
-	{
+	public boolean editTag(String name, Tag tag) {
 		tag.setTagName(name);
 		return Database.getInstance().changeTag(tag);
 	}

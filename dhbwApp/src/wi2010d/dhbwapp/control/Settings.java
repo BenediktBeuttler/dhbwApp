@@ -1,7 +1,5 @@
 package wi2010d.dhbwapp.control;
 
-import android.database.sqlite.SQLiteDatabase;
-
 public class Settings {
 	
 	private static Settings settings;

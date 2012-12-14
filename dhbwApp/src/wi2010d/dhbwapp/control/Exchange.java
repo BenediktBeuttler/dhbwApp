@@ -20,28 +20,26 @@ import wi2010d.dhbwapp.model.Tag;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 
 public class Exchange {
-	
+
 	private static Exchange exchange;
-	
+
 	/**
 	 * Constructor
 	 */
-	public Exchange(){
+	public Exchange() {
 		;
 	}
-	
+
 	/**
 	 * Singleton Method
 	 * 
 	 * @return
 	 */
-	public static Exchange getInstance()
-	{
-		if (exchange == null)
-		{
+	public static Exchange getInstance() {
+		if (exchange == null) {
 			exchange = new Exchange();
 		}
-		
+
 		return exchange;
 	}
 
