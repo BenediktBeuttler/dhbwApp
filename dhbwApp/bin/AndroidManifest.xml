@@ -54,6 +54,10 @@
             android:name="wi2010d.dhbwapp.Admin_edit_stack"
             android:label="@string/title_activity_admin_edit_stack" >
         </activity>
+        <activity
+            android:name="wi2010d.dhbwapp.AdminChooseStackScreenActivity"
+            android:label="@string/title_activity_admin_choose_stack_screen" >
+        </activity>
     </application>
 
 </manifest>
