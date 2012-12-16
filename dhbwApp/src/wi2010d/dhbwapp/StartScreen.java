@@ -1,7 +1,5 @@
 package wi2010d.dhbwapp;
 
-import wi2010d.dhbwapp.control.Database;
-import wi2010d.dhbwapp.control.DatabaseManager;
 import wi2010d.dhbwapp.control.Init;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import android.os.Bundle;
