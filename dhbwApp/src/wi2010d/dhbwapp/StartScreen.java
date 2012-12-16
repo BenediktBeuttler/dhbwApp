@@ -62,7 +62,7 @@ public class StartScreen extends Activity implements OnClickListener{
 			startActivity(new Intent (this, AdminScreen.class));
 			break;
 		case R.id.btn_start_statistic:
-			//startActivity(new Intent (this, StatisticScreen.class));
+			startActivity(new Intent (this, StatisticsScreen.class));
 			break;
 
 		default:

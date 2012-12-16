@@ -37,7 +37,8 @@ public final class R {
         public static final int editText2=0x7f070012;
         public static final int learn_stack_list=0x7f07000a;
         public static final int learning_card_front=0x7f07000c;
-        public static final int menu_settings=0x7f070018;
+        public static final int menu_settings=0x7f070019;
+        public static final int pager=0x7f070018;
         public static final int textView1=0x7f070001;
         public static final int textView2=0x7f070002;
     }
@@ -58,6 +59,10 @@ public final class R {
         public static final int show_card_back_screen=0x7f03000d;
         public static final int show_card_front_screen=0x7f03000e;
         public static final int start_screen=0x7f03000f;
+        public static final int statistics_screen=0x7f030010;
+        public static final int statistics_screen_lastreview_fragment=0x7f030011;
+        public static final int statistics_screen_overview_fragment=0x7f030012;
+        public static final int statistics_screen_progress_fragment=0x7f030013;
     }
     public static final class menu {
         public static final int admin_choose_stack_screen=0x7f060000;
@@ -70,6 +75,7 @@ public final class R {
         public static final int show_card_front_screen=0x7f060007;
         public static final int stapel_screen=0x7f060008;
         public static final int start_screen=0x7f060009;
+        public static final int statistics_screen=0x7f06000a;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
@@ -120,6 +126,9 @@ public final class R {
         public static final int show_learn_card_back=0x7f040039;
         public static final int show_learn_card_front=0x7f040035;
         public static final int show_learn_counter=0x7f040036;
+        public static final int statistics_screen_tab_lastreview=0x7f040040;
+        public static final int statistics_screen_tab_overview=0x7f04003e;
+        public static final int statistics_screen_tab_progress=0x7f04003f;
         public static final int tab_learn_backside=0x7f04000d;
         public static final int tab_learn_frontside=0x7f04000e;
         public static final int tab_statistics_lastreview=0x7f040021;
@@ -134,6 +143,7 @@ public final class R {
         public static final int title_activity_show_card_back=0x7f040037;
         public static final int title_activity_show_card_front=0x7f040033;
         public static final int title_activity_stapel_screen=0x7f04002d;
+        public static final int title_activity_statistics_screen=0x7f040041;
     }
     public static final class style {
         /** 

@@ -63,5 +63,9 @@
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_admin_edit_stack">edit stack</string>
     <string name="title_activity_admin_choose_stack_screen">MainActivity</string>
+    <string name="statistics_screen_tab_overview">Overview</string>
+    <string name="statistics_screen_tab_progress">Progress</string>
+    <string name="statistics_screen_tab_lastreview">Last Review</string>
+    <string name="title_activity_statistics_screen">Statistics</string>
 
 </resources>
