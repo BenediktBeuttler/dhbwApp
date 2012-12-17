@@ -17,7 +17,7 @@ public final class R {
         public static final int notizzettel_front=0x7f020003;
     }
     public static final class id {
-        public static final int Layout_learning=0x7f07000f;
+        public static final int Layout_learning=0x7f07000e;
         public static final int LinearLayout1=0x7f070016;
         public static final int admin_stack_list=0x7f070000;
         public static final int btn_admin_edit_card=0x7f07000c;
@@ -25,7 +25,7 @@ public final class R {
         public static final int btn_admin_import_export=0x7f070009;
         public static final int btn_admin_new_card_new_stack=0x7f07000d;
         public static final int btn_admin_new_dyn_stack=0x7f07000a;
-        public static final int btn_learning_flip=0x7f070011;
+        public static final int btn_learning_flip=0x7f070010;
         public static final int btn_start_admin=0x7f070019;
         public static final int btn_start_edit=0x7f070018;
         public static final int btn_start_learning=0x7f070017;
@@ -37,8 +37,8 @@ public final class R {
         public static final int button5=0x7f070014;
         public static final int editText1=0x7f070003;
         public static final int editText2=0x7f070015;
-        public static final int learn_stack_list=0x7f07000e;
-        public static final int learning_card_front=0x7f070010;
+        public static final int learn_stack_list=0x7f070011;
+        public static final int learning_card_front=0x7f07000f;
         public static final int menu_settings=0x7f07001c;
         public static final int newCard=0x7f070005;
         public static final int statistics=0x7f07001b;
@@ -55,8 +55,8 @@ public final class R {
         public static final int admin_new_card_front=0x7f030004;
         public static final int admin_screen=0x7f030005;
         public static final int edit_screen=0x7f030006;
-        public static final int learning_screen=0x7f030007;
-        public static final int learning_stack_screen=0x7f030008;
+        public static final int learning_choose_stack_screen=0x7f030007;
+        public static final int learning_screen=0x7f030008;
         public static final int main_help=0x7f030009;
         public static final int main_help_editcardsstacks=0x7f03000a;
         public static final int main_help_importexport=0x7f03000b;

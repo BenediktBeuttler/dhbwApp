@@ -7,14 +7,14 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
-public class LearningStackScreen extends Activity {
+public class LearningChooseStackScreen extends Activity {
 	
 	EditText card_front;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.learning_stack_screen);
+		setContentView(R.layout.learning_choose_stack_screen);
 		
 		card_front = (EditText)findViewById(R.id.learning_card_front);
 	}

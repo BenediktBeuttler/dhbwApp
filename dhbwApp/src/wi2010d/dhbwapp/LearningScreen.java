@@ -44,7 +44,7 @@ public class LearningScreen extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
-		Intent i = new Intent(this, LearningStackScreen.class);
+		Intent i = new Intent(this, LearningChooseStackScreen.class);
 		
 		DatabaseManager.getInstance().deleteDB();
 		
