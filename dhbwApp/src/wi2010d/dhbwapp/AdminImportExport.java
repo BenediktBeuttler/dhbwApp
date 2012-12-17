@@ -1,5 +1,8 @@
 package wi2010d.dhbwapp;
 
+import wi2010d.dhbwapp.AdminNewCard.DummySectionFragment;
+import wi2010d.dhbwapp.AdminNewCard.NewCardBack;
+import wi2010d.dhbwapp.AdminNewCard.NewCardFront;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -38,7 +41,7 @@ public class AdminImportExport extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.admin_import_export);
+		setContentView(R.layout.admin_import_export_screen);
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -116,10 +119,24 @@ public class AdminImportExport extends FragmentActivity implements
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			Fragment fragment = new DummySectionFragment();
+			Fragment fragment = null;
+
+			switch (position) {
+			case 0:
+				fragment = new Import();
+				break;
+			case 1:
+				fragment = new Export();
+				break;
+
+			default:
+				break;
+			}
+
 			Bundle args = new Bundle();
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
+
 			return fragment;
 		}
 
@@ -133,12 +150,10 @@ public class AdminImportExport extends FragmentActivity implements
 		public CharSequence getPageTitle(int position) {
 			switch (position) {
 			case 0:
-				return getString(R.string.title_section1).toUpperCase();
+				return getString(R.string.admin_import).toUpperCase();
 			case 1:
-				return getString(R.string.title_section2).toUpperCase();
-			case 2:
-				return getString(R.string.title_section3).toUpperCase();
-			}
+				return getString(R.string.admin_export).toUpperCase();
+				}
 			return null;
 		}
 	}
@@ -168,6 +183,53 @@ public class AdminImportExport extends FragmentActivity implements
 					ARG_SECTION_NUMBER)));
 			return textView;
 		}
+		
+		
+	}
+	
+	public static class Import extends Fragment {
+		/**
+		 * The fragment argument representing the section number for this
+		 * fragment.
+		 */
+		public static final String ARG_SECTION_NUMBER = "section_number";
+
+		public Import() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			// Create a new TextView and set its text to the fragment's section
+			// number argument value.
+			View v = inflater.inflate(R.layout.admin_import, null);
+			
+			return v;
+		}
+		
+		
+	}
+	
+	public static class Export extends Fragment {
+		/**
+		 * The fragment argument representing the section number for this
+		 * fragment.
+		 */
+		public static final String ARG_SECTION_NUMBER = "section_number";
+
+		public Export() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			// Create a new TextView and set its text to the fragment's section
+			// number argument value.
+			View v = inflater.inflate(R.layout.admin_export, null);
+			return v;
+		}
+		
+		
 	}
 
 }
