@@ -1,8 +1,10 @@
 package wi2010d.dhbwapp;
 
+import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,10 +15,15 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
-public class AdminNewCard extends FragmentActivity implements ActionBar.TabListener {
+public class AdminNewCard extends FragmentActivity implements
+		ActionBar.TabListener, OnClickListener {
+	
+	Button newCardNewStack, existingStack;
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -32,7 +39,7 @@ public class AdminNewCard extends FragmentActivity implements ActionBar.TabListe
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
-	
+
 	public Card getCard() {
 		return card;
 	}
@@ -48,6 +55,13 @@ public class AdminNewCard extends FragmentActivity implements ActionBar.TabListe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_new_card);
 
+
+		newCardNewStack = (Button) findViewById(R.id.btn_new_card_new_stack);
+		existingStack = (Button) findViewById(R.id.btn_new_card_existing_stack);
+		
+		newCardNewStack.setOnClickListener(this);
+		existingStack.setOnClickListener(this);
+		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -91,6 +105,24 @@ public class AdminNewCard extends FragmentActivity implements ActionBar.TabListe
 		return true;
 	}
 
+	public void onClick(View v) {
+
+		switch (v.getId()) {
+		case R.id.btn_new_card_new_stack:
+			startActivity(new Intent(this, AdminEditNewStack.class));
+			break;
+		case R.id.btn_new_card_existing_stack:
+			startActivity(new Intent(this, AdminChooseStackScreen.class));
+			break;
+
+		default:
+			ErrorHandler.getInstance().handleError(
+					ErrorHandler.getInstance().GENERAL_ERROR);
+			break;
+		}
+
+	}
+
 	@Override
 	public void onTabSelected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
@@ -125,7 +157,7 @@ public class AdminNewCard extends FragmentActivity implements ActionBar.TabListe
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
 			Fragment fragment = null;
-			
+
 			switch (position) {
 			case 0:
 				fragment = new NewCardFront();
@@ -137,27 +169,29 @@ public class AdminNewCard extends FragmentActivity implements ActionBar.TabListe
 			default:
 				break;
 			}
-			
+
 			Bundle args = new Bundle();
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
-			
+
 			return fragment;
 		}
 
-		
 		@Override
 		public int getCount() {
 			// Show 3 total pages.
 			return 2;
 		}
+
 		@Override
 		public CharSequence getPageTitle(int position) {
 			switch (position) {
 			case 0:
-				return getString(R.string.admin_screen_tab_card_front).toUpperCase();
+				return getString(R.string.admin_screen_tab_card_front)
+						.toUpperCase();
 			case 1:
-				return getString(R.string.admin_screen_tab_card_back).toUpperCase();
+				return getString(R.string.admin_screen_tab_card_back)
+						.toUpperCase();
 			}
 			return null;
 		}
@@ -189,7 +223,7 @@ public class AdminNewCard extends FragmentActivity implements ActionBar.TabListe
 			return textView;
 		}
 	}
-	
+
 	public static class NewCardFront extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
@@ -209,7 +243,7 @@ public class AdminNewCard extends FragmentActivity implements ActionBar.TabListe
 			return v;
 		}
 	}
-	
+
 	public static class NewCardBack extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this

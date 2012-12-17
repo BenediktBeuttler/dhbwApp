@@ -10,21 +10,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class AdminNewCardBack extends FragmentActivity implements OnClickListener {
+public class AdminNewCardBack extends FragmentActivity {
 
 	private Card card;
-	Button newCardNewStack, existingStack;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_new_card_back);
 		
-		newCardNewStack = (Button) findViewById(R.id.btn_new_card_new_stack);
-		existingStack = (Button) findViewById(R.id.btn_new_card_existing_stack);
-		
-		newCardNewStack.setOnClickListener(this);
-		existingStack.setOnClickListener(this);
 		
 	}
 
@@ -33,24 +28,7 @@ public class AdminNewCardBack extends FragmentActivity implements OnClickListene
 		return true;
 	}
 
-	@Override
-	public void onClick(View v) {
-
-		switch (v.getId()) {
-		case R.id.btn_new_card_new_stack:
-			startActivity(new Intent(this, AdminEditNewStack.class));
-			break;
-		case R.id.btn_new_card_existing_stack:
-			startActivity(new Intent(this, AdminChooseStackScreen.class));
-			break;
-
-		default:
-			ErrorHandler.getInstance().handleError(
-					ErrorHandler.getInstance().GENERAL_ERROR);
-			break;
-		}
-
-	}
+	
 
 	public void setCard(Card card){
 		this.card = card;
