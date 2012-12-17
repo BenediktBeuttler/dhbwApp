@@ -13,9 +13,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btn_reset_database"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="OnClick"
         android:text="@string/label_settings_resetdatabase" />
 
 </LinearLayout>

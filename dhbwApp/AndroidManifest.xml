@@ -39,15 +39,15 @@
             android:label="@string/title_activity_stapel_screen" >
         </activity>
         <activity
-            android:name="wi2010d.dhbwapp.Show_card_front"
+            android:name="wi2010d.dhbwapp.LearningCardFront"
             android:label="@string/title_activity_show_card_front" >
         </activity>
         <activity
-            android:name="wi2010d.dhbwapp.Show_card_back"
+            android:name="wi2010d.dhbwapp.LearningCardBack"
             android:label="@string/title_activity_show_card_back" >
         </activity>
         <activity
-            android:name="wi2010d.dhbwapp.Settings"
+            android:name="wi2010d.dhbwapp.SettingsScreen"
             android:label="@string/title_activity_settings" >
         </activity>
         <activity

@@ -11,7 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class StartScreen extends Activity implements OnClickListener{
-	Button learning, edit, admin, statistic;
+	Button learning, edit, admin, settings, statistic;
 	
 
 	@Override
@@ -22,19 +22,19 @@ public class StartScreen extends Activity implements OnClickListener{
 		learning = (Button)findViewById(R.id.btn_start_learning);
 		edit = (Button)findViewById(R.id.btn_start_edit);
 		admin = (Button)findViewById(R.id.btn_start_admin);
+		settings = (Button)findViewById(R.id.btn_start_settings);
 		statistic = (Button)findViewById(R.id.btn_start_statistic);
 
 		learning.setOnClickListener(this);
 		edit.setOnClickListener(this);
 		admin.setOnClickListener(this);
+		settings.setOnClickListener(this);
 		statistic.setOnClickListener(this);
 		
 		//Initiate DB Manager, Database and load everything
 		Init init = Init.getInstance(getApplicationContext());
 		init.loadFromDB();
-		
-		ErrorHandler error = new ErrorHandler(getApplicationContext());	
-		error.handleError(1);
+
 	}
 
 
@@ -59,11 +59,16 @@ public class StartScreen extends Activity implements OnClickListener{
 		case R.id.btn_start_admin:
 			startActivity(new Intent (this, AdminScreen.class));
 			break;
+		case R.id.btn_start_settings:
+			startActivity(new Intent (this, SettingsScreen.class));
+			break;
 		case R.id.btn_start_statistic:
 			startActivity(new Intent (this, StatisticsScreen.class));
 			break;
 
 		default:
+			ErrorHandler error = new ErrorHandler(getApplicationContext());
+			error.handleError(1);
 			break;
 		}
 		

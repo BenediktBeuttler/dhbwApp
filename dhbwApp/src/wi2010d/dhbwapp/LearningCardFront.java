@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-public class Show_card_front extends Activity {
+public class LearningCardFront extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.show_card_front_screen);
+		setContentView(R.layout.learning_card_front_screen);
 	}
 
 	@Override
