@@ -9,7 +9,7 @@ public class LearningCardFront extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.learning_card_front_screen);
+		setContentView(R.layout.learning_card_front);
 	}
 
 	@Override

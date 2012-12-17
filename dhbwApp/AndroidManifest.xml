@@ -66,6 +66,10 @@
             android:name="wi2010d.dhbwapp.AdminNewCard"
             android:label="@string/title_activity_new_card" >
         </activity>
+        <activity
+            android:name="wi2010d.dhbwapp.LearningCard"
+            android:label="@string/title_activity_learning_card" >
+        </activity>
     </application>
 
 </manifest>

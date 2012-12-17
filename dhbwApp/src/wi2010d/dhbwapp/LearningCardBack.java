@@ -9,7 +9,7 @@ public class LearningCardBack extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.learning_card_back_screen);
+		setContentView(R.layout.learning_card_back);
 	}
 
 	@Override

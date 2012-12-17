@@ -51,7 +51,7 @@ public class StartScreen extends Activity implements OnClickListener{
 				
 		switch (v.getId()) {
 		case R.id.btn_start_learning:
-			startActivity(new Intent (this, LearningScreen.class));
+			startActivity(new Intent (this, LearningChooseStackScreen.class));
 			break;
 		case R.id.btn_start_edit:
 			startActivity(new Intent (this, EditScreen.class));
