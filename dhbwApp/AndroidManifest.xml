@@ -55,12 +55,16 @@
             android:label="@string/title_activity_admin_edit_stack" >
         </activity>
         <activity
-            android:name="wi2010d.dhbwapp.AdminChooseStackScreenActivity"
+            android:name="wi2010d.dhbwapp.AdminChooseStackScreen"
             android:label="@string/title_activity_admin_choose_stack_screen" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.StatisticsScreen"
             android:label="@string/title_activity_statistics_screen" >
+        </activity>
+        <activity
+            android:name="wi2010d.dhbwapp.AdminNewCard"
+            android:label="@string/title_activity_new_card" >
         </activity>
     </application>
 

@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class AdminChooseStackScreenActivity extends Activity {
+public class AdminChooseStackScreen extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -41,13 +41,13 @@ public class AdminScreen extends Activity implements OnClickListener{
 		
 		switch (v.getId()) {
 		case R.id.btn_admin_new_card_new_stack:
-			//startActivity(new Intent (this, LearningScreen.class));
+			startActivity(new Intent (this, AdminNewCard.class));
 			break;
 		case R.id.btn_admin_edit_card:
 			//startActivity(new Intent (this, EditScreen.class));
 			break;
 		case R.id.btn_admin_edit_stack:
-			startActivity(new Intent (this, AdminChooseStackScreenActivity.class));
+			startActivity(new Intent (this, AdminChooseStackScreen.class));
 			break;
 		case R.id.btn_admin_import_export:
 			//startActivity(new Intent (this, StatisticScreen.class));

@@ -7,18 +7,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class StatisticsScreen extends FragmentActivity implements
-		ActionBar.TabListener {
+public class AdminNewCard extends FragmentActivity implements ActionBar.TabListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -38,7 +35,7 @@ public class StatisticsScreen extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.statistics_screen);
+		setContentView(R.layout.admin_new_card);
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -50,7 +47,7 @@ public class StatisticsScreen extends FragmentActivity implements
 				getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
-		mViewPager = (ViewPager) findViewById(R.id.statistics);
+		mViewPager = (ViewPager) findViewById(R.id.newCard);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// When swiping between different sections, select the corresponding
@@ -79,7 +76,7 @@ public class StatisticsScreen extends FragmentActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.statistics_screen, menu);
+		getMenuInflater().inflate(R.menu.new_card, menu);
 		return true;
 	}
 
@@ -120,13 +117,10 @@ public class StatisticsScreen extends FragmentActivity implements
 			
 			switch (position) {
 			case 0:
-				fragment = new Overview();
+				fragment = new NewCardFront();
 				break;
 			case 1:
-				fragment = new Progress();
-				break;
-			case 2:
-				fragment = new LastReview();
+				fragment = new NewCardBack();
 				break;
 
 			default:
@@ -140,21 +134,19 @@ public class StatisticsScreen extends FragmentActivity implements
 			return fragment;
 		}
 
+		
 		@Override
 		public int getCount() {
 			// Show 3 total pages.
-			return 3;
+			return 2;
 		}
-
 		@Override
 		public CharSequence getPageTitle(int position) {
 			switch (position) {
 			case 0:
-				return getString(R.string.statistics_screen_tab_overview).toUpperCase();
+				return getString(R.string.admin_screen_tab_card_front).toUpperCase();
 			case 1:
-				return getString(R.string.statistics_screen_tab_progress).toUpperCase();
-			case 2:
-				return getString(R.string.statistics_screen_tab_lastreview).toUpperCase();
+				return getString(R.string.admin_screen_tab_card_back).toUpperCase();
 			}
 			return null;
 		}
@@ -187,14 +179,14 @@ public class StatisticsScreen extends FragmentActivity implements
 		}
 	}
 	
-	public static class Overview extends Fragment {
+	public static class NewCardFront extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
-		public Overview() {
+		public NewCardFront() {
 		}
 
 		@Override
@@ -202,19 +194,19 @@ public class StatisticsScreen extends FragmentActivity implements
 				Bundle savedInstanceState) {
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
-			View v = inflater.inflate(R.layout.statistics_screen_overview, null);
+			View v = inflater.inflate(R.layout.admin_new_card_front, null);
 			return v;
 		}
 	}
 	
-	public static class Progress extends Fragment {
+	public static class NewCardBack extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
-		public Progress() {
+		public NewCardBack() {
 		}
 
 		@Override
@@ -222,27 +214,7 @@ public class StatisticsScreen extends FragmentActivity implements
 				Bundle savedInstanceState) {
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
-			View v = inflater.inflate(R.layout.statistics_screen_progress, null);
-			return v;
-		}
-	}
-	
-	public static class LastReview extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-		public LastReview() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			// Create a new TextView and set its text to the fragment's section
-			// number argument value.
-			View v = inflater.inflate(R.layout.statistics_screen_lastreview, null);
+			View v = inflater.inflate(R.layout.admin_new_card_back, null);
 			return v;
 		}
 	}
