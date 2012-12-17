@@ -59,8 +59,23 @@ public class AdminNewCard extends FragmentActivity implements
 		newCardNewStack = (Button) findViewById(R.id.btn_new_card_new_stack);
 		existingStack = (Button) findViewById(R.id.btn_new_card_existing_stack);
 		
-		newCardNewStack.setOnClickListener(this);
-		existingStack.setOnClickListener(this);
+		newCardNewStack.setOnClickListener(new OnClickListener() {
+						
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+					//startActivity(new Intent(this, AdminEditNewStack.class));
+				}
+		});
+		existingStack.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+					//startActivity(new Intent(this, AdminChooseStackScreen.class));		
+	
+			}
+		});
 		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -104,22 +119,11 @@ public class AdminNewCard extends FragmentActivity implements
 		getMenuInflater().inflate(R.menu.new_card, menu);
 		return true;
 	}
-
+	
+	@Override
 	public void onClick(View v) {
 
-		switch (v.getId()) {
-		case R.id.btn_new_card_new_stack:
-			startActivity(new Intent(this, AdminEditNewStack.class));
-			break;
-		case R.id.btn_new_card_existing_stack:
-			startActivity(new Intent(this, AdminChooseStackScreen.class));
-			break;
-
-		default:
-			ErrorHandler.getInstance().handleError(
-					ErrorHandler.getInstance().GENERAL_ERROR);
-			break;
-		}
+		
 
 	}
 
