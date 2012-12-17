@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-public class Admin_edit_stack extends Activity {
+public class AdminEditNewStack extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

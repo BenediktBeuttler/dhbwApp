@@ -51,7 +51,7 @@
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name="wi2010d.dhbwapp.Admin_edit_stack"
+            android:name="wi2010d.dhbwapp.AdminEditNewStack"
             android:label="@string/title_activity_admin_edit_stack" >
         </activity>
         <activity
