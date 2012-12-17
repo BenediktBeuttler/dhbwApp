@@ -70,6 +70,10 @@
             android:name="wi2010d.dhbwapp.LearningCard"
             android:label="@string/title_activity_learning_card" >
         </activity>
+        <activity
+            android:name="wi2010d.dhbwapp.AdminImportExport"
+            android:label="@string/title_activity_admin_import_export" >
+        </activity>
     </application>
 
 </manifest>

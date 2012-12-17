@@ -73,5 +73,9 @@
     <string name="learning_screen_tab_card_back">Card Back</string>
     <string name="learning_screen_tab_card_front">Card Front</string>
     <string name="title_activity_learning_card">Learning</string>
+    <string name="title_activity_admin_import_export">AdminImportExport</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section1">Section 1</string>
 
 </resources>
