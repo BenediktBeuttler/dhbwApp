@@ -1,20 +1,17 @@
 package wi2010d.dhbwapp;
 
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class AdminNewCardBack extends FragmentActivity {
 
 	private Card card;
 	Button newCardNewStack, existingStack;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,23 +20,23 @@ public class AdminNewCardBack extends FragmentActivity {
 
 		newCardNewStack = (Button) findViewById(R.id.btn_new_card_new_stack);
 		existingStack = (Button) findViewById(R.id.btn_new_card_existing_stack);
-		
+
 		newCardNewStack.setOnClickListener(new View.OnClickListener() {
 
-		    public void onClick(View view) {
-		    	
-		    }
+			public void onClick(View view) {
+				startActivity(new Intent(getApplicationContext(), AdminEditNewStack.class));
+			}
 
 		});
-		
+
 		existingStack.setOnClickListener(new View.OnClickListener() {
 
-		    public void onClick(View view) {
-
-		    }
+			public void onClick(View view) {
+				startActivity(new Intent(getApplicationContext(), AdminChooseStackScreen.class));
+			}
 
 		});
-		
+
 	}
 
 	@Override
@@ -47,9 +44,7 @@ public class AdminNewCardBack extends FragmentActivity {
 		return true;
 	}
 
-	
-
-	public void setCard(Card card){
+	public void setCard(Card card) {
 		this.card = card;
 	}
 
