@@ -13,13 +13,32 @@ import android.widget.Button;
 public class AdminNewCardBack extends FragmentActivity {
 
 	private Card card;
-	
+	Button newCardNewStack, existingStack;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_new_card_back);
+
+		newCardNewStack = (Button) findViewById(R.id.btn_new_card_new_stack);
+		existingStack = (Button) findViewById(R.id.btn_new_card_existing_stack);
 		
+		newCardNewStack.setOnClickListener(new View.OnClickListener() {
+
+		    public void onClick(View view) {
+		    	
+		    }
+
+		});
+		
+		existingStack.setOnClickListener(new View.OnClickListener() {
+
+		    public void onClick(View view) {
+
+		    }
+
+		});
 		
 	}
 

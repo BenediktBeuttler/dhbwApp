@@ -1,10 +1,8 @@
 package wi2010d.dhbwapp;
 
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,13 +15,10 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class AdminNewCard extends FragmentActivity implements
 		ActionBar.TabListener, OnClickListener {
-	
-	Button newCardNewStack, existingStack;
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -55,25 +50,6 @@ public class AdminNewCard extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_new_card);
 
-
-		newCardNewStack = (Button) findViewById(R.id.btn_new_card_new_stack);
-		existingStack = (Button) findViewById(R.id.btn_new_card_existing_stack);
-		
-		newCardNewStack.setOnClickListener(new View.OnClickListener() {
-
-		    public void onClick(View view) {
-
-		    }
-
-		});
-		
-		existingStack.setOnClickListener(new View.OnClickListener() {
-
-		    public void onClick(View view) {
-
-		    }
-
-		});
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -116,11 +92,9 @@ public class AdminNewCard extends FragmentActivity implements
 		getMenuInflater().inflate(R.menu.new_card, menu);
 		return true;
 	}
-	
+
 	@Override
 	public void onClick(View v) {
-
-		
 
 	}
 
