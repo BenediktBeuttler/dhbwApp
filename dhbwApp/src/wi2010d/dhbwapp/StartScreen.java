@@ -56,7 +56,8 @@ public class StartScreen extends Activity implements OnClickListener{
 		case R.id.btn_start_edit:
 			startActivity(new Intent (this, EditScreen.class));
 			break;
-		case R.id.btn_start_admin:
+		case R.
+		id.btn_start_admin:
 			startActivity(new Intent (this, AdminScreen.class));
 			break;
 		case R.id.btn_start_settings:

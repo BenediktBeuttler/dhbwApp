@@ -5,18 +5,19 @@
     tools:context=".LearningScreen" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btn_learning_create_dyn_stack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:onClick="onClick"
         android:text="@string/btn_learn_dynstack" />
 
     <ListView
         android:id="@+id/learn_stack_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
+        android:layout_below="@+id/btn_learning_create_dyn_stack"
         android:layout_centerHorizontal="true" >
     </ListView>
 
