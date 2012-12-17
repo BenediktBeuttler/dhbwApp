@@ -22,6 +22,7 @@ public class AdminNewCardBack extends FragmentActivity implements OnClickListene
 		
 		newCardNewStack = (Button) findViewById(R.id.btn_new_card_new_stack);
 		existingStack = (Button) findViewById(R.id.btn_new_card_existing_stack);
+		
 		newCardNewStack.setOnClickListener(this);
 		existingStack.setOnClickListener(this);
 		
