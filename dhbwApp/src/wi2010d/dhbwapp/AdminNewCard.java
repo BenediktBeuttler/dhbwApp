@@ -1,5 +1,6 @@
 package wi2010d.dhbwapp;
 
+import wi2010d.dhbwapp.model.Card;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -31,6 +32,16 @@ public class AdminNewCard extends FragmentActivity implements ActionBar.TabListe
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+	
+	public Card getCard() {
+		return card;
+	}
+
+	public void setCard(Card card) {
+		this.card = card;
+	}
+
+	Card card;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
