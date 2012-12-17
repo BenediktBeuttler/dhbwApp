@@ -20,7 +20,7 @@ public class StartScreen extends Activity implements OnClickListener{
 		setContentView(R.layout.start_screen);
 		
 		learning = (Button)findViewById(R.id.btn_start_learning);
-		edit = (Button)findViewById(R.id.btn_start_edit);
+		edit = (Button)findViewById(R.id.btn_start_help);
 		admin = (Button)findViewById(R.id.btn_start_admin);
 		settings = (Button)findViewById(R.id.btn_start_settings);
 		statistic = (Button)findViewById(R.id.btn_start_statistic);
@@ -53,7 +53,7 @@ public class StartScreen extends Activity implements OnClickListener{
 		case R.id.btn_start_learning:
 			startActivity(new Intent (this, LearningChooseStackScreen.class));
 			break;
-		case R.id.btn_start_edit:
+		case R.id.btn_start_help:
 			startActivity(new Intent (this, EditScreen.class));
 			break;
 		case R.

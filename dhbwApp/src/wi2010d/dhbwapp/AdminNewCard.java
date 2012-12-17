@@ -59,24 +59,8 @@ public class AdminNewCard extends FragmentActivity implements
 		newCardNewStack = (Button) findViewById(R.id.btn_new_card_new_stack);
 		existingStack = (Button) findViewById(R.id.btn_new_card_existing_stack);
 		
-		newCardNewStack.setOnClickListener(new OnClickListener() {
-						
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-					//startActivity(new Intent(this, AdminEditNewStack.class));
-				}
-		});
-		existingStack.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-					//startActivity(new Intent(this, AdminChooseStackScreen.class));		
-	
-			}
-		});
-		
+		newCardNewStack.setOnClickListener(this);
+		existingStack.setOnClickListener(this);
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);

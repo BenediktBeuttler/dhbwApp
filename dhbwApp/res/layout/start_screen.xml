@@ -7,24 +7,12 @@
     android:padding="15dp"
     tools:context=".StartScreen" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="hello_world" />
-
     <Button
         android:id="@+id/btn_start_learning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="start_onButtonClick"
         android:text="@string/btn_start_learning" />
-
-    <Button
-        android:id="@+id/btn_start_edit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="start_onButtonClick"
-        android:text="btn_start_edit" />
 
     <Button
         android:id="@+id/btn_start_admin"
@@ -46,5 +34,12 @@
         android:layout_height="wrap_content"
         android:onClick="start_onButtonClick"
         android:text="Settings" />
+
+    <Button
+        android:id="@+id/btn_start_help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="start_onButtonClick"
+        android:text="Help" />
 
 </LinearLayout>
