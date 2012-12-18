@@ -23,30 +23,16 @@ public class AdminChooseStackScreen extends Activity {
 	private ArrayList<String> items = new ArrayList<String>();
 	private ListView lv;
 	private ArrayAdapter<String> lvAdapter;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_choose_stack_screen);
 
-		List<Tag> tags = new ArrayList<Tag>();
-		tags.add(Create.getInstance().newTag("Penis"));
-
-		Create.getInstance().newStack("Döner",
-				Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
-		Create.getInstance().newStack("Reppe",
-				Create.getInstance().newCard("2", "2,5", tags, "", ""));
-		Create.getInstance().newStack("Bene",
-				Create.getInstance().newCard("3", "3,5", tags, "", ""));
-		Create.getInstance().newStack("Tim",
-				Create.getInstance().newCard("4", "4,5", tags, "", ""));
-
 		items = updateStacks();
 
-		
-		
 		lv = (ListView) findViewById(R.id.admin_stack_list);
-		lvAdapter= new ArrayAdapter<String>(this,
+		lvAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, items);
 		lv.setAdapter(lvAdapter);
 
@@ -83,7 +69,6 @@ public class AdminChooseStackScreen extends Activity {
 		ArrayList<String> items = new ArrayList<String>();
 		for (Stack stack : Stack.allStacks) {
 			items.add(stack.getStackName());
-			
 		}
 		if (items.size() == 0) {
 			items.add("No stacks available");

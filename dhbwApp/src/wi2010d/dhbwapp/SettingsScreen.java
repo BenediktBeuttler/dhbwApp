@@ -1,7 +1,12 @@
 package wi2010d.dhbwapp;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.DatabaseManager;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import wi2010d.dhbwapp.model.Tag;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,7 +17,7 @@ import android.widget.Toast;
 
 public class SettingsScreen extends Activity implements OnClickListener{
 	
-	Button resetDB;
+	Button resetDB, testData;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +25,10 @@ public class SettingsScreen extends Activity implements OnClickListener{
 		setContentView(R.layout.settings_screen);
 		
 		resetDB = (Button) findViewById(R.id.btn_reset_database);
-		
 		resetDB.setOnClickListener(this);
+		
+		testData = (Button) findViewById(R.id.btn_write_test_data);
+		testData.setOnClickListener(this);
 	}
 
 	@Override
@@ -41,6 +48,25 @@ public class SettingsScreen extends Activity implements OnClickListener{
 					Toast.LENGTH_SHORT);
 			toast.show();
 			break;
+		case R.id.btn_write_test_data:
+		List<Tag> tags = new ArrayList<Tag>();
+		tags.add(Create.getInstance().newTag("Penis"));
+
+		Create.getInstance().newStack("Stack 1",
+		Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
+		Create.getInstance().newStack("Stack 2",
+		Create.getInstance().newCard("Front 2", "Back 2", tags, "", ""));
+		Create.getInstance().newStack("Stack 3",
+		Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
+		Create.getInstance().newStack("Stack 4",
+		Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
+		
+		toast = Toast.makeText(getApplicationContext(),
+				"Test data written!",
+				Toast.LENGTH_SHORT);
+		toast.show();
+			break;
+		
 		default:
 			ErrorHandler error = new ErrorHandler(getApplicationContext());
 			error.handleError(1);

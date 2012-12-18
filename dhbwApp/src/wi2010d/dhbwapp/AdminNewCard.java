@@ -15,11 +15,14 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AdminNewCard extends FragmentActivity implements
-		ActionBar.TabListener, OnClickListener {
-
+		ActionBar.TabListener {
+	public static Button  newCardNewStack, existingStack;
+	
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
 	 * fragments for each of the sections. We use a
@@ -94,11 +97,6 @@ public class AdminNewCard extends FragmentActivity implements
 	}
 
 	@Override
-	public void onClick(View v) {
-
-	}
-
-	@Override
 	public void onTabSelected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 		// When the given tab is selected, switch to the corresponding page in
@@ -154,7 +152,7 @@ public class AdminNewCard extends FragmentActivity implements
 
 		@Override
 		public int getCount() {
-			// Show 3 total pages.
+			// Show 2 total pages.
 			return 2;
 		}
 
@@ -235,6 +233,20 @@ public class AdminNewCard extends FragmentActivity implements
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
 			View v = inflater.inflate(R.layout.admin_new_card_back, null);
+			AdminNewCard.newCardNewStack.setOnClickListener(new View.OnClickListener() {
+
+				public void onClick(View view) {
+				}
+
+			});
+
+			AdminNewCard.existingStack.setOnClickListener(new View.OnClickListener() {
+
+				public void onClick(View view) {
+
+				}
+
+			});
 			return v;
 		}
 	}
