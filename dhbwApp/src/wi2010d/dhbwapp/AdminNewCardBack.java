@@ -24,7 +24,7 @@ public class AdminNewCardBack extends FragmentActivity {
 		newCardNewStack.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View view) {
-				startActivity(new Intent(getApplicationContext(), AdminEditNewStack.class));
+
 			}
 
 		});
@@ -32,7 +32,7 @@ public class AdminNewCardBack extends FragmentActivity {
 		existingStack.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View view) {
-				startActivity(new Intent(getApplicationContext(), AdminChooseStackScreen.class));
+
 			}
 
 		});

@@ -21,8 +21,9 @@ public class Learn {
 	private int run = 1;
 	private Card card;
 	private Stack stack;
+	private static Learn learn;
 
-	private Card startLearning(Stack pStack) {
+	public Card startLearning(Stack pStack) {
 
 		stack = pStack;
 		cards = stack.getCards();
@@ -69,7 +70,7 @@ public class Learn {
 		return card;
 	}
 
-	private Card learnCard(int drawer) {
+	public Card learnCard(int drawer) {
 		card.setDrawer(drawer);
 
 		if (actualCard > cards.size()) {
@@ -151,5 +152,12 @@ public class Learn {
 			actualCard++;
 			return card;
 		}
+	}
+
+	public static Learn getInstance() {
+		if (learn == null) {
+			learn = new Learn();
+		}
+		return learn;
 	}
 }
