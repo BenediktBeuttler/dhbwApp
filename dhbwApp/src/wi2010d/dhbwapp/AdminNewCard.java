@@ -1,6 +1,7 @@
 package wi2010d.dhbwapp;
 
 import wi2010d.dhbwapp.model.Card;
+import wi2010d.dhbwapp.errorhandler.*;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AdminNewCard extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -239,6 +241,10 @@ public class AdminNewCard extends FragmentActivity implements
 			newCardNewStack.setOnClickListener(new View.OnClickListener() {
 
 				public void onClick(View view) {
+					//TODO: Prüfen ob Texte von Vorder- und Rückseite leer sind, 
+					// dann eingegebenen Text übergeben. Auf ...EditNewStack zugreifen.
+					Toast t = Toast.makeText(view.getContext(), "New Card / New Stack", Toast.LENGTH_LONG);
+					t.show();
 				}
 
 			});
@@ -246,7 +252,8 @@ public class AdminNewCard extends FragmentActivity implements
 			existingStack.setOnClickListener(new View.OnClickListener() {
 
 				public void onClick(View view) {
-
+					//TODO: Prüfen ob Texte von Vorder- und Rückseite leer sind, 
+					// dann eingegebenen Text übergeben. Auf ...ChooseStack zugreifen.
 				}
 
 			});
