@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class SettingsScreen extends Activity implements OnClickListener{
 	
@@ -32,10 +33,13 @@ public class SettingsScreen extends Activity implements OnClickListener{
 	
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.btn_reset_database:
 			DatabaseManager.getInstance().deleteDB();
+			Toast toast = Toast.makeText(getApplicationContext(),
+					"Database and all Data deleted!",
+					Toast.LENGTH_SHORT);
+			toast.show();
 			break;
 		default:
 			ErrorHandler error = new ErrorHandler(getApplicationContext());

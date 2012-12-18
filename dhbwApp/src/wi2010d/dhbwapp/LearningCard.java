@@ -40,19 +40,16 @@ public class LearningCard extends FragmentActivity implements
 	Card card;
 	Stack stack;
 	String stackName;
-	
-	final EditText txt_front = (EditText) findViewById(R.id.txt_card_front);
-	final EditText txt_back = (EditText) findViewById(R.id.txt_card_back);
 
+	EditText txt_front;
+	EditText txt_back;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.learning_card);
 
-		
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras == null) {
@@ -69,11 +66,11 @@ public class LearningCard extends FragmentActivity implements
 			if (stack.getStackName().equals(stackName)) {
 				this.stack = stack;
 				break;
-			} 
+			}
 		}
 
 		card = Learn.getInstance().startLearning(stack);
-		
+
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -163,10 +160,12 @@ public class LearningCard extends FragmentActivity implements
 			switch (position) {
 			case 0:
 				fragment = new CardFront();
+				txt_front = (EditText) findViewById(R.id.txt_card_front);
 				txt_front.setText(card.getCardFront());
 				break;
 			case 1:
 				fragment = new CardBack();
+				txt_back = (EditText) findViewById(R.id.txt_card_back);
 				txt_back.setText(card.getCardBack());
 				break;
 			default:

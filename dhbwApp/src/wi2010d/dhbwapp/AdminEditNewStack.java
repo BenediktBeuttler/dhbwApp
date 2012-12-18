@@ -1,15 +1,60 @@
 package wi2010d.dhbwapp;
 
-import android.os.Bundle;
+import wi2010d.dhbwapp.model.Stack;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class AdminEditNewStack extends Activity {
+	String stackName;
+	EditText txt_stack_name;
+	Button save;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_edit_stack_screen);
+		txt_stack_name = (EditText) findViewById(R.id.txt_admin_edit_new_stack);
+		save = (Button) findViewById(R.id.btn_admin_edit_stack_save);
+
+		if (savedInstanceState == null) {
+			Bundle extras = getIntent().getExtras();
+			if (extras == null) {
+				stackName = null;
+			} else {
+				stackName = extras.getString("stackName");
+			}
+		} else {
+			stackName = (String) savedInstanceState
+					.getSerializable("stackName");
+		}
+
+		txt_stack_name.setText(stackName);
+
+		save.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				for (Stack stack : Stack.allStacks) {
+					if (stack.getStackName().equals(stackName)) {
+						stack.setStackName(txt_stack_name.getText().toString());
+						Toast toast = Toast.makeText(getApplicationContext(),
+								"Stack name changed to "
+										+ txt_stack_name.getText().toString(),
+								Toast.LENGTH_SHORT);
+						toast.show();
+						setResult(AdminChooseStackScreen.RESULT_OK);
+						break;
+					}
+				}
+				finish();
+			}
+		});
 	}
 
 	@Override
