@@ -230,12 +230,12 @@ public class AdminNewCard extends FragmentActivity implements
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			// Create a new TextView and set its text to the fragment's section
-			// number argument value.
-			newCardNewStack = (Button)findViewById(R.id.btn_new_card_new_stack);
-			existingStack = (Button)findViewById(R.id.btn_new_card_existing_stack);			
-			
+		
 			View v = inflater.inflate(R.layout.admin_new_card_back, null);
+			
+			newCardNewStack = (Button)v.findViewById(R.id.btn_new_card_new_stack);
+			existingStack = (Button)v.findViewById(R.id.btn_new_card_existing_stack);			
+
 			newCardNewStack.setOnClickListener(new View.OnClickListener() {
 
 				public void onClick(View view) {
