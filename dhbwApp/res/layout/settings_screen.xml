@@ -19,7 +19,7 @@
         android:onClick="OnClick"
         android:text="@string/label_settings_resetdatabase" />
 
-    <Button
+    <Button 
         android:id="@+id/btn_write_test_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
