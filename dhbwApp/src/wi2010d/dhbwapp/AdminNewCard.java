@@ -17,11 +17,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class AdminNewCard extends FragmentActivity implements
 		ActionBar.TabListener {
-	public static Button  newCardNewStack, existingStack;
+	
 	
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -197,7 +196,7 @@ public class AdminNewCard extends FragmentActivity implements
 		}
 	}
 
-	public static class NewCardFront extends Fragment {
+	public class NewCardFront extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
@@ -217,12 +216,13 @@ public class AdminNewCard extends FragmentActivity implements
 		}
 	}
 
-	public static class NewCardBack extends Fragment {
+	public class NewCardBack extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
+		Button  newCardNewStack, existingStack; 
 
 		public NewCardBack() {
 		}
@@ -232,15 +232,18 @@ public class AdminNewCard extends FragmentActivity implements
 				Bundle savedInstanceState) {
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
+			newCardNewStack = (Button)findViewById(R.id.btn_new_card_new_stack);
+			existingStack = (Button)findViewById(R.id.btn_new_card_existing_stack);			
+			
 			View v = inflater.inflate(R.layout.admin_new_card_back, null);
-			AdminNewCard.newCardNewStack.setOnClickListener(new View.OnClickListener() {
+			newCardNewStack.setOnClickListener(new View.OnClickListener() {
 
 				public void onClick(View view) {
 				}
 
 			});
 
-			AdminNewCard.existingStack.setOnClickListener(new View.OnClickListener() {
+			existingStack.setOnClickListener(new View.OnClickListener() {
 
 				public void onClick(View view) {
 
