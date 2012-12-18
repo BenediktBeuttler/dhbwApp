@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Settings" 
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:context=".Settings" >
 
     <TextView
         android:id="@+id/textView1"
@@ -18,5 +18,11 @@
         android:layout_height="wrap_content"
         android:onClick="OnClick"
         android:text="@string/label_settings_resetdatabase" />
+
+    <Button
+        android:id="@+id/btn_write_test_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Write Test Data" />
 
 </LinearLayout>
