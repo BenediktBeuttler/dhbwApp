@@ -259,9 +259,11 @@ public class AdminNewCard extends FragmentActivity implements
 						card = Create.getInstance().newCard(
 								cardFront.getText().toString(),
 								cardBack.getText().toString(), null, "", "");
+						/*
 						Intent i = new Intent(getApplicationContext(),
 								AdminNewStack.class);
 						startActivityForResult(i, NEW_STACK);
+						*/
 					}
 				}
 
@@ -277,10 +279,11 @@ public class AdminNewCard extends FragmentActivity implements
 						card = Create.getInstance().newCard(
 								cardFront.getText().toString(),
 								cardBack.getText().toString(), null, "", "");
+						/*
 						Intent i = new Intent(getApplicationContext(),
 								AdminNewCardChooseStack.class);
 						startActivityForResult(i, STACK_CHOSEN);
-
+						*/
 					}
 				}
 

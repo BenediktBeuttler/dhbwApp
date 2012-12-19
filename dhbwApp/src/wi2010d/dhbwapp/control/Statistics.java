@@ -4,6 +4,7 @@ package wi2010d.dhbwapp.control;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
 
@@ -186,6 +187,26 @@ public class Statistics {
 		}
 		
 		return null;
+	}
+	
+	//---------------Returns Data for Overall Statistic Screen------------
+	
+	public String getTotalNumberOfCards()
+	{
+		return "" + Card.allCards.size();
+	}
+	
+	public String getTotalNumberOfCards(String name)
+	{
+		for (Stack stack : Stack.allStacks)
+		{
+			if (stack.getStackName().equals(name))
+			{
+				return "" + stack.getCards().size();
+			}
+		}
+		
+		return "";
 	}
 	
 	//----------------Return Duration-------------------

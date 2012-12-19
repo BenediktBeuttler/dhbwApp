@@ -267,15 +267,19 @@ public class StatisticsScreen extends FragmentActivity implements
 		private void setContent(String name, View v)
 		{
 			totalDuration = (TextView) v.findViewById(R.id.lbl_statistics_overview_totalDuration);
+			totalNumberOfCards = (TextView) v.findViewById(R.id.lbl_statistics_overview_totalNumberOfCards);
 			
 			if (name.equals("All Stacks"))
 			{
 				totalDuration.setText(Statistics.getInstance().getOverallDuration());
+				totalNumberOfCards.setText(Statistics.getInstance().getTotalNumberOfCards());
 			}
 			else
 			{
 				totalDuration.setText(Statistics.getInstance().getStackOverallDuration(name));
+				totalNumberOfCards.setText(Statistics.getInstance().getTotalNumberOfCards(name));
 			}
+			
 		}
 		
 	}
