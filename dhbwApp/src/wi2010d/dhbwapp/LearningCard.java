@@ -6,17 +6,21 @@ import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -43,6 +47,7 @@ public class LearningCard extends FragmentActivity implements
 
 	EditText txt_front;
 	EditText txt_back;
+	Button sure, dontKnow, notSure;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -160,13 +165,9 @@ public class LearningCard extends FragmentActivity implements
 			switch (position) {
 			case 0:
 				fragment = new CardFront();
-				txt_front = (EditText) findViewById(R.id.txt_card_front);
-				txt_front.setText(card.getCardFront());
 				break;
 			case 1:
 				fragment = new CardBack();
-				txt_back = (EditText) findViewById(R.id.txt_card_back);
-				txt_back.setText(card.getCardBack());
 				break;
 			default:
 				ErrorHandler error = new ErrorHandler(getApplicationContext());
@@ -228,12 +229,12 @@ public class LearningCard extends FragmentActivity implements
 		}
 	}
 
-	public static class CardFront extends Fragment {
+	public class CardFront extends Fragment implements OnClickListener {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
+		public final String ARG_SECTION_NUMBER = "section_number";
 
 		public CardFront() {
 		}
@@ -244,16 +245,54 @@ public class LearningCard extends FragmentActivity implements
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
 			View v = inflater.inflate(R.layout.learning_card_front, null);
+			txt_front = (EditText) v.findViewById(R.id.txt_card_front);
+			txt_front.setText(card.getCardFront());
+
+			sure = (Button) v.findViewById(R.id.btn_learning_card_front_sure);
+			dontKnow = (Button) v.findViewById(R.id.btn_learning_card_front_dontKnow);
+			notSure = (Button) v.findViewById(R.id.btn_learning_card_front_notSure);
+
+			sure.setOnClickListener(this);
+			dontKnow.setOnClickListener(this);
+			notSure.setOnClickListener(this);
+
 			return v;
+		}
+		
+		@Override
+		public void onClick(View v) {
+
+			switch (v.getId()) {
+			case R.id.btn_learning_card_front_sure:
+				card = Learn.getInstance().learnCard(0);
+				txt_front.setText(card.getCardFront());
+				txt_back.setText(card.getCardBack());
+				break;
+			case R.id.btn_learning_card_front_dontKnow:
+				card = Learn.getInstance().learnCard(1);
+				txt_front.setText(card.getCardFront());
+				txt_back.setText(card.getCardBack());
+				break;
+			case R.id.btn_learning_card_front_notSure:
+				card = Learn.getInstance().learnCard(2);
+				txt_front.setText(card.getCardFront());
+				txt_back.setText(card.getCardBack());
+				break;
+
+			default:
+				ErrorHandler error = new ErrorHandler(getApplicationContext());
+				error.handleError(1);
+
+			}
 		}
 	}
 
-	public static class CardBack extends Fragment {
+	public class CardBack extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
+		public final String ARG_SECTION_NUMBER = "section_number";
 
 		public CardBack() {
 		}
@@ -264,6 +303,8 @@ public class LearningCard extends FragmentActivity implements
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
 			View v = inflater.inflate(R.layout.learning_card_back, null);
+			txt_back = (EditText) v.findViewById(R.id.txt_card_back);
+			txt_back.setText(card.getCardBack());
 			return v;
 		}
 	}

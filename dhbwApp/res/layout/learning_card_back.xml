@@ -15,6 +15,7 @@
         android:layout_marginTop="45dp"
         android:background="@drawable/backside"
         android:ems="10"
+        android:enabled="false"
         android:inputType="textMultiLine" />
  
 </RelativeLayout>

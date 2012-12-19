@@ -9,15 +9,38 @@
         android:id="@+id/txt_card_front"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="44dp"
-        android:layout_marginTop="31dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
         android:background="@drawable/backside"
         android:ems="10"
-        android:inputType="textMultiLine" >
+        android:enabled="false"
+        android:inputType="textMultiLine" />
 
-        <requestFocus />
-    </EditText>
+    <Button
+        android:id="@+id/btn_learning_card_front_dontKnow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_learning_card_front_sure"
+        android:layout_alignBottom="@+id/btn_learning_card_front_sure"
+        android:layout_centerHorizontal="true"
+        android:text="@string/btn_learn_dontknow" />
+
+    <Button
+        android:id="@+id/btn_learning_card_front_notSure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btn_learning_card_front_dontKnow"
+        android:layout_toRightOf="@+id/btn_learning_card_front_dontKnow"
+        android:text="@string/btn_learn_notsure" />
+
+    <Button
+        android:id="@+id/btn_learning_card_front_sure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_toLeftOf="@+id/btn_learning_card_front_dontKnow"
+        android:text="@string/btn_learn_sure" />
  
 </RelativeLayout>

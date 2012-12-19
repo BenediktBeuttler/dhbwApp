@@ -1,9 +1,12 @@
 package wi2010d.dhbwapp.control;
 
 import java.util.AbstractQueue;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import android.util.Log;
 
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
@@ -30,6 +33,8 @@ public class Learn {
 		dontKnow = new CardQueue();
 		notSure = new CardQueue();
 
+		Log.v("Know it Owl","Queues initialisiert");
+		
 		stack = pStack;
 		cards = stack.getCards();
 
@@ -72,6 +77,7 @@ public class Learn {
 			}
 		}
 		runthrough = new Runthrough(stack.getStackID(), false, statusBefore);
+		Log.i("TB", card.getCardFront());
 		return card;
 	}
 
@@ -166,54 +172,30 @@ public class Learn {
 		return learn;
 	}
 
-	public class CardQueue extends AbstractQueue<Card> {
-
+	private class CardQueue{
+		private ArrayList<Card> arrayList;
 		private int queueSize = 0;
 
-		@Override
-		public boolean add(Card card) {
-			queueSize++;
-			return super.add(card);
+		public CardQueue() {
+			arrayList = new ArrayList<Card>();
 		}
 
-		@Override
+		public void add(Card card) {
+			queueSize++;
+			arrayList.add(0, card);
+		}
+
 		public Card remove() {
 			queueSize--;
-			return super.remove();
+			return (Card) arrayList.remove(0);
 		}
 
-		@Override
-		public Card peek() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Card poll() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Iterator iterator() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
 		public int size() {
 			return queueSize;
 		}
 
-		@Override
 		public boolean isEmpty() {
 			return queueSize == 0;
-		}
-
-		@Override
-		public boolean offer(Card e) {
-			// TODO Auto-generated method stub
-			return false;
 		}
 
 	}
