@@ -30,9 +30,6 @@ public class StartScreen extends Activity implements OnClickListener {
 		settings.setOnClickListener(this);
 		statistic.setOnClickListener(this);
 
-		// Initiate DB Manager, Database and load everything
-		Init init = Init.getInstance(getApplicationContext());
-		init.loadFromDB();
 
 	}
 

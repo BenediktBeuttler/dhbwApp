@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Know it Owl</string>
+    <string name="app_name">know it owl</string>
     <string name="btn_start_learning">Start Learning</string>
     <string name="btn_start_admin">Administration</string>
     <string name="btn_start_statistic">Statistics</string>
@@ -29,6 +29,7 @@
     <string name="list_admin_stacklist">Please choose your stack:</string>
     <string name="list_admin_cardlist">Please choose your card:</string>
     <string name="btn_admin_save">save</string>
+    <string name="btn_admin_create">save</string>
     <string name="btn_admin_import">Import</string>
     <string name="btn_admin_export">Export</string>
     <string name="tab_statistics_overview">Overview</string>
@@ -77,5 +78,7 @@
     <string name="title_activity_admin_create_dyn_stack">New dynamic stack</string>
     <string name="admin_export">Export</string>
     <string name="admin_import">Import</string>
+    <string name="content_start_screen_logo">know it owl Logo</string>
+    <string name="title_activity_progress">Progress</string>
 
 </resources>
