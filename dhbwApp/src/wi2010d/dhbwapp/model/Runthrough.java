@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class Runthrough {
 
 	public static List<Runthrough> allRunthroughs = new ArrayList<Runthrough>();
-	public static int lastRunthroughID = 0;
+	private static int lastRunthroughID = 0;
 
 	private int runthroughID;
 	private int stackID;
@@ -168,6 +168,10 @@ public class Runthrough {
 			return true;
 		}
 		return false;
+	}
+
+	public static int getLastRunthroughID() {
+		return lastRunthroughID;
 	}
 
 }

@@ -1,5 +1,6 @@
 package wi2010d.dhbwapp;
 
+import wi2010d.dhbwapp.control.Statistics;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -234,6 +235,8 @@ public class StatisticsScreen extends FragmentActivity implements
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
+		TextView stackName;
+		
 		public LastReview() {
 		}
 
@@ -243,6 +246,8 @@ public class StatisticsScreen extends FragmentActivity implements
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
 			View v = inflater.inflate(R.layout.statistics_screen_lastreview, null);
+			stackName = (TextView) v.findViewById(R.id.lbl_statistics_lastReview_stackName);
+			stackName.setText(Statistics.getInstance().getLastRunthroughName());
 			return v;
 		}
 	}
