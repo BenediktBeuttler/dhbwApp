@@ -26,6 +26,7 @@ public class Progress extends Activity {
 
 		Intent i = new Intent(getApplicationContext(), StartScreen.class);
 		startActivity(i);
+		finish();
 		
 	}
 
