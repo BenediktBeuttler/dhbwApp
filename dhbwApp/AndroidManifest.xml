@@ -13,10 +13,11 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:logo="@drawable/ic_launcher"
-        android:theme="@android:style/Theme.Holo.NoActionBar" >
+        android:theme="@android:style/Theme.Holo" >
         <activity android:name="wi2010d.dhbwapp.Progress" android:label="@string/title_activity_progress">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity><activity
