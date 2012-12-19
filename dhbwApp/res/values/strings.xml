@@ -74,6 +74,7 @@
     <string name="learning_screen_tab_card_front">Card Front</string>
     <string name="title_activity_learning_card">Learning</string>
     <string name="title_activity_admin_import_export">Import/Export</string>
+    <string name="title_activity_admin_create_dyn_stack">New dynamic stack</string>
     <string name="admin_export">Export</string>
     <string name="admin_import">Import</string>
 
