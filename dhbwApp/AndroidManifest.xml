@@ -14,14 +14,14 @@
         android:label="@string/app_name"
         android:logo="@drawable/ic_launcher"
         android:theme="@android:style/Theme.Holo.NoActionBar" >
-        <activity
-            android:name="wi2010d.dhbwapp.StartScreen"
-            android:label="@string/app_name" >
+        <activity android:name="wi2010d.dhbwapp.Progress" android:label="@string/title_activity_progress">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity><activity
+            android:name="wi2010d.dhbwapp.StartScreen"
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.LearningScreen"
@@ -75,10 +75,7 @@
             android:name="wi2010d.dhbwapp.AdminImportExport"
             android:label="@string/title_activity_admin_import_export" >
         </activity>
-        <activity
-            android:name="wi2010d.dhbwapp.Progress"
-            android:label="@string/title_activity_progress" >
-        </activity>
+        
     </application>
 
 </manifest>
