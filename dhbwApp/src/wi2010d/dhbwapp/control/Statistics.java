@@ -2,6 +2,7 @@ package wi2010d.dhbwapp.control;
 
 import java.util.List;
 
+import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
 
 public class Statistics {
@@ -29,6 +30,60 @@ public class Statistics {
 		}
 		
 		return statistics;
+	}
+	
+	//----------------Return data for last Review screen--------------
+	
+	/**
+	 * Method that returns name of the stack with the last runthrough
+	 * 
+	 * @return
+	 */
+	public String getLastRunthroughName()
+	{
+		Runthrough lastRunthrough = getLastRunthrough();
+		if (lastRunthrough != null)
+		{
+			for (Stack stack : Stack.allStacks)
+			{
+				if (stack.getStackID() == lastRunthrough.getStackID())
+				{
+					return stack.getStackName();
+				}
+			}
+			
+			return "No Data available";
+		}
+		else
+		{
+			return "No Data available";
+		}
+				
+		
+	}
+	
+	private Runthrough getLastRunthrough()
+	{
+		int lastID = Runthrough.getLastRunthroughID();
+		List<Runthrough> allRunthroughs = Runthrough.allRunthroughs;
+		
+		for (int i = (allRunthroughs.size() - 1); i == 0; i--)
+		{
+			if (allRunthroughs.get(i).getRunthroughID() == lastID)
+			{
+				if (allRunthroughs.get(i).isOverall())
+				{
+					lastID = lastID - 1;
+					i = allRunthroughs.size();
+				}
+				else
+				{
+					return allRunthroughs.get(i);
+				}
+			}
+		}
+		
+		return null;
 	}
 	
 	//----------------Return Duration-------------------
@@ -72,6 +127,7 @@ public class Statistics {
 		
 	}
 	
+	
 	/**
 	 * Converts seconds into String (??? hours, ??? minutes, ??? seconds)
 	 * 
@@ -99,8 +155,10 @@ public class Statistics {
 		}
 	}
 	
+	
 	//----------------Return relevant Dates (stack created, last runthrough)----------
 	
+
 	
 	
 	//----------------Return Status of Drawers-------------------

@@ -1,8 +1,9 @@
 package wi2010d.dhbwapp.control;
 
+import java.util.AbstractQueue;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Queue;
 
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
@@ -10,9 +11,9 @@ import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
 
 public class Learn {
-	private Queue sure;
-	private Queue dontKnow;
-	private Queue notSure;
+	private CardQueue sure;
+	private CardQueue dontKnow;
+	private CardQueue notSure;
 	private Runthrough runthrough;
 	private int[] statusBefore = { 0, 0, 0 };
 	private int[] statusAfter = { 0, 0, 0 };
@@ -24,6 +25,10 @@ public class Learn {
 	private static Learn learn;
 
 	public Card startLearning(Stack pStack) {
+
+		sure = new CardQueue();
+		dontKnow = new CardQueue();
+		notSure = new CardQueue();
 
 		stack = pStack;
 		cards = stack.getCards();
@@ -50,14 +55,14 @@ public class Learn {
 
 		// get the first card to start with
 		if (!dontKnow.isEmpty()) {
-			card = (Card) dontKnow.element();
+			card = (Card) dontKnow.remove();
 		} else {
 			if (!notSure.isEmpty()) {
-				card = (Card) notSure.element();
+				card = (Card) notSure.remove();
 				run = 2;
 			} else {
 				if (!sure.isEmpty()) {
-					card = (Card) sure.element();
+					card = (Card) sure.remove();
 					run = 3;
 				} else {
 					ErrorHandler.getInstance().handleError(
@@ -102,7 +107,7 @@ public class Learn {
 			switch (run) {
 			case 1:
 				if (!notSure.isEmpty()) {
-					card = (Card) notSure.element();
+					card = (Card) notSure.remove();
 					run = 2;
 					break;
 				} else {
@@ -110,7 +115,7 @@ public class Learn {
 				}
 			case 2:
 				if (!dontKnow.isEmpty()) {
-					card = (Card) dontKnow.element();
+					card = (Card) dontKnow.remove();
 					run = 3;
 					break;
 				} else {
@@ -118,7 +123,7 @@ public class Learn {
 				}
 			case 3:
 				if (!sure.isEmpty()) {
-					card = (Card) sure.element();
+					card = (Card) sure.remove();
 					run = 4;
 					break;
 				} else {
@@ -126,7 +131,7 @@ public class Learn {
 				}
 			case 4:
 				if (!dontKnow.isEmpty()) {
-					card = (Card) dontKnow.element();
+					card = (Card) dontKnow.remove();
 					run = 5;
 					break;
 				} else {
@@ -134,7 +139,7 @@ public class Learn {
 				}
 			case 5:
 				if (!notSure.isEmpty()) {
-					card = (Card) notSure.element();
+					card = (Card) notSure.remove();
 					run = 6;
 					break;
 				} else {
@@ -142,7 +147,7 @@ public class Learn {
 				}
 			case 6:
 				if (!dontKnow.isEmpty()) {
-					card = (Card) dontKnow.element();
+					card = (Card) dontKnow.remove();
 					run = 1;
 					break;
 				} else {
@@ -159,5 +164,57 @@ public class Learn {
 			learn = new Learn();
 		}
 		return learn;
+	}
+
+	public class CardQueue extends AbstractQueue<Card> {
+
+		private int queueSize = 0;
+
+		@Override
+		public boolean add(Card card) {
+			queueSize++;
+			return super.add(card);
+		}
+
+		@Override
+		public Card remove() {
+			queueSize--;
+			return super.remove();
+		}
+
+		@Override
+		public Card peek() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Card poll() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Iterator iterator() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int size() {
+			return queueSize;
+		}
+
+		@Override
+		public boolean isEmpty() {
+			return queueSize == 0;
+		}
+
+		@Override
+		public boolean offer(Card e) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
 	}
 }
