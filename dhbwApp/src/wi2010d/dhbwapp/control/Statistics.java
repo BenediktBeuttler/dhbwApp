@@ -1,5 +1,7 @@
 package wi2010d.dhbwapp.control;
 
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import wi2010d.dhbwapp.model.Runthrough;
@@ -58,10 +60,110 @@ public class Statistics {
 		{
 			return "No Data available";
 		}
-				
-		
 	}
 	
+	/**
+	 * Returns date of last Runthrough
+	 * 
+	 * @return
+	 */
+	public String getLastRunthroughDate()
+	{
+		String date;
+		Runthrough lastRunthrough = getLastRunthrough();
+		if (lastRunthrough != null)
+		{
+			SimpleDateFormat sd = new SimpleDateFormat("dd.MM.yyyy");
+			date = sd.format(lastRunthrough.getEndDate());
+			return date;
+		}
+		else
+		{
+			return "No Data available";
+		}
+	}
+	
+	/**
+	 * Returns duration of last Runthrough
+	 * 
+	 * @return
+	 */
+	public String getDurationOfLastRunthrough()
+	{
+		Runthrough lastRunthrough = getLastRunthrough();
+		
+		if (lastRunthrough != null)
+		{
+			return this.convertSecondsToString(lastRunthrough.getDurationSecs());
+		}
+		else
+		{
+			return "No Data available";
+		}
+	}
+	
+	/**
+	 * returns Array with status of stack before the last runthrough
+	 * 
+	 * @return
+	 */
+	public String[] getStatusBefore()
+	{
+		String[] statusBefore = {"0","0","0"};
+		Runthrough lastRunthrough = getLastRunthrough();
+		
+		if (lastRunthrough != null)
+		{
+			int[] statusBeforeInt = lastRunthrough.getStatusBefore();
+			
+			statusBefore[0] = "" + statusBeforeInt[0];
+			statusBefore[1] = "" + statusBeforeInt[1];
+			statusBefore[2] = "" + statusBeforeInt[2];
+		}
+		else
+		{
+			statusBefore[0] = "No Data available";
+			statusBefore[1] = "No Data available";
+			statusBefore[2] = "No Data available";
+		}
+		
+		return statusBefore;
+	}
+	
+	/**
+	 * returns Array with the status of stack after last runthrough
+	 * 
+	 * @return
+	 */
+	public String[] getStatusAfter()
+	{
+		String[] statusAfter = {"0","0","0"};
+		Runthrough lastRunthrough = getLastRunthrough();
+		
+		if (lastRunthrough != null)
+		{
+			int[] statusAfterInt = lastRunthrough.getStatusAfter();
+			
+			statusAfter[0] = "" + statusAfterInt[0];
+			statusAfter[1] = "" + statusAfterInt[1];
+			statusAfter[2] = "" + statusAfterInt[2];
+		}
+		else
+		{
+			statusAfter[0] = "No Data available";
+			statusAfter[1] = "No Data available";
+			statusAfter[2] = "No Data available";
+		}
+		
+		return statusAfter;
+	}
+	
+	
+	/**
+	 * Identifies and returns the last Runthrough
+	 * 
+	 * @return
+	 */
 	private Runthrough getLastRunthrough()
 	{
 		int lastID = Runthrough.getLastRunthroughID();

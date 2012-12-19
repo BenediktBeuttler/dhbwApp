@@ -1,8 +1,14 @@
 package wi2010d.dhbwapp;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import wi2010d.dhbwapp.control.Statistics;
+import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.net.NetworkInfo.State;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -16,6 +22,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class StatisticsScreen extends FragmentActivity implements
@@ -188,12 +199,16 @@ public class StatisticsScreen extends FragmentActivity implements
 		}
 	}
 	
-	public static class Overview extends Fragment {
+	public static class Overview extends Fragment implements OnItemSelectedListener {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
+		
+		TextView totalDuration;
+		TextView totalNumberOfCards;
+		Spinner spinner;
 
 		public Overview() {
 		}
@@ -204,8 +219,65 @@ public class StatisticsScreen extends FragmentActivity implements
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
 			View v = inflater.inflate(R.layout.statistics_screen_overview, null);
+			
+			spinner = (Spinner) v.findViewById(R.id.lbl_statistics_overview_stackSpinner);
+
+			List<String> items = new ArrayList<String>();
+			//collect stack names in list
+			for (Stack stack : Stack.allStacks) {
+				items.add(stack.getStackName());
+			}
+			if (items.size() == 0) 
+			{
+				items.add("No stacks available");
+			}
+			else
+			{			
+				Collections.sort(items);
+				items.add(0, "All Stacks");
+			}
+			
+			ArrayAdapter<String> adapter;
+
+			adapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_spinner_item, items);
+			
+			// Specify the layout to use when the list of choices appears
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			// Apply the adapter to the spinner
+			spinner.setAdapter(adapter);
+			
+			setContent("All Stacks", v);
+			
 			return v;
 		}
+		
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) 
+		{
+			String name = (String) parent.getItemAtPosition(position);
+			setContent(name, view);
+		} 
+
+		
+		public void onNothingSelected(AdapterView<?> parent ) 
+		{ 
+			;
+		}
+		
+		
+		private void setContent(String name, View v)
+		{
+			totalDuration = (TextView) v.findViewById(R.id.lbl_statistics_overview_totalDuration);
+			
+			if (name.equals("All Stacks"))
+			{
+				totalDuration.setText(Statistics.getInstance().getOverallDuration());
+			}
+			else
+			{
+				totalDuration.setText(Statistics.getInstance().getStackOverallDuration(name));
+			}
+		}
+		
 	}
 	
 	public static class Progress extends Fragment {
@@ -236,6 +308,19 @@ public class StatisticsScreen extends FragmentActivity implements
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
 		TextView stackName;
+		TextView lastRunthrough;
+		TextView duration;
+		
+		TextView dontKnowBefore;
+		TextView notSureBefore;
+		TextView sureBefore;
+		
+		TextView dontKnowAfter;
+		TextView notSureAfter;
+		TextView sureAfter;
+		
+		String[] statusBefore = Statistics.getInstance().getStatusBefore();
+		String[] statusAfter = Statistics.getInstance().getStatusAfter();
 		
 		public LastReview() {
 		}
@@ -248,6 +333,32 @@ public class StatisticsScreen extends FragmentActivity implements
 			View v = inflater.inflate(R.layout.statistics_screen_lastreview, null);
 			stackName = (TextView) v.findViewById(R.id.lbl_statistics_lastReview_stackName);
 			stackName.setText(Statistics.getInstance().getLastRunthroughName());
+			
+			lastRunthrough = (TextView) v.findViewById(R.id.lbl_statistics_lastReview_lastRunthrough);
+			lastRunthrough.setText(Statistics.getInstance().getLastRunthroughDate());
+			
+			duration = (TextView) v.findViewById(R.id.lbl_statistics_lastReview_duration);
+			duration.setText(Statistics.getInstance().getDurationOfLastRunthrough());
+			
+			dontKnowBefore = (TextView) v.findViewById(R.id.lbl_statistics_lastReview_dontKnowBefore);
+			dontKnowBefore.setText(statusBefore[0]);
+			
+			notSureBefore = (TextView) v.findViewById(R.id.lbl_statistics_lastReview_notSureBefore);
+			notSureBefore.setText(statusBefore[1]);
+			
+			sureBefore = (TextView) v.findViewById(R.id.lbl_statistics_lastReview_sureBefore);
+			sureBefore.setText(statusBefore[2]);
+			
+			
+			dontKnowAfter = (TextView) v.findViewById(R.id.lbl_statistics_lastReview_dontKnowAfter);
+			dontKnowAfter.setText(statusAfter[0]);
+			
+			notSureAfter = (TextView) v.findViewById(R.id.lbl_statistics_lastReview_notSureAfter);
+			notSureAfter.setText(statusAfter[1]);
+			
+			sureAfter = (TextView) v.findViewById(R.id.lbl_statistics_lastReview_sureAfter);
+			sureAfter.setText(statusAfter[2]);
+			
 			return v;
 		}
 	}
