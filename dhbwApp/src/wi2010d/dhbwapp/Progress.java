@@ -1,9 +1,7 @@
 package wi2010d.dhbwapp;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import wi2010d.dhbwapp.control.Init;
+import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +19,8 @@ public class Progress extends Activity {
 		// Initiate DB Manager, Database and load everything
 		Init init = Init.getInstance(getApplicationContext());
 		init.loadFromDB();
+		
+		new ErrorHandler(getApplicationContext());
 		
 		pb = (ProgressBar) findViewById(R.id.progress_bar_progress_screen);
 

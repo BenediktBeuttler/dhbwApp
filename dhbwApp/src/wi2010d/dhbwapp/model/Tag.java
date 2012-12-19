@@ -3,8 +3,6 @@ package wi2010d.dhbwapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
-
 public class Tag {
 
 	public static List<Tag> allTags = new ArrayList<Tag>();
@@ -19,6 +17,10 @@ public class Tag {
 		this.tagName = tagName;
 
 		Tag.allTags.add(this);
+
+		if (lastTagID <= tagID) {
+			lastTagID = tagID;
+		}
 	}
 
 	public Tag(String tagName) {
@@ -59,6 +61,11 @@ public class Tag {
 
 	public int getTotalCards() {
 		return totalCards;
+	}
+
+	public static boolean resetLastTagID() {
+		lastTagID = 0;
+		return true;
 	}
 
 	@Override

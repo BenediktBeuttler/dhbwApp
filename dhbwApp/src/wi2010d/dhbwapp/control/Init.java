@@ -48,12 +48,10 @@ public class Init {
 		int dontKnow;
 
 		Cursor cursor = database.queryStack();
-		
+
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			
-			Log.d("load Stack", ""+cursor.getPosition());
 
 			id = cursor.getInt(0);
 			name = cursor.getString(1);
@@ -88,7 +86,6 @@ public class Init {
 
 		while (!cursor.isAfterLast()) {
 
-			Log.d("load Tag", ""+cursor.getPosition());
 			id = cursor.getInt(0);
 			name = cursor.getString(1);
 			totalCards = cursor.getInt(2);
@@ -115,8 +112,6 @@ public class Init {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			Log.d("load Card", ""+cursor.getPosition());
-
 			id = cursor.getInt(0);
 			front = cursor.getString(1);
 			back = cursor.getString(2);
@@ -152,11 +147,11 @@ public class Init {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			Log.d("load Runthrough", ""+cursor.getPosition());
 
 			id = cursor.getInt(0);
 			stackID = cursor.getInt(1);
 			int isOverallInt = cursor.getInt(2);
+			Log.d("Overall Int", "" + isOverallInt);
 
 			if (isOverallInt == 0) {
 				isOverall = false;
@@ -191,7 +186,7 @@ public class Init {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			Log.d("load Card to Stack", ""+cursor.getPosition());
+			Log.d("load Card to Stack", "" + cursor.getPosition());
 
 			int stackID = cursor.getInt(0);
 			int cardID = cursor.getInt(1);
@@ -218,8 +213,8 @@ public class Init {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			Log.d("load Tag to Card", ""+cursor.getPosition());
-			Log.d("Length:	", ""+ cursor.getCount());
+			Log.d("load Tag to Card", "" + cursor.getPosition());
+			Log.d("Length:	", "" + cursor.getCount());
 
 			int cardID = cursor.getInt(0);
 			int tagID = cursor.getInt(1);
@@ -245,8 +240,8 @@ public class Init {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			Log.d("load Tag to Stack", ""+cursor.getPosition());
-			
+			Log.d("load Tag to Stack", "" + cursor.getPosition());
+
 			int stackID = cursor.getInt(0);
 			int tagID = cursor.getInt(1);
 

@@ -96,7 +96,12 @@ public void deleteDB() {
 		Card.allCards = new ArrayList<Card>();
 		Tag.allTags = new ArrayList<Tag>();
 		Runthrough.allRunthroughs = new ArrayList<Runthrough>();
-
+		
+		Stack.resetLastStackID();
+		Card.resetLastCardID();
+		Tag.resetLastTagID();
+		Runthrough.resetLastRunthroughID();
+		
 		onCreate(database);
 	}
 

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
-
 public class Stack {
 
 	public static List<Stack> allStacks = new ArrayList<Stack>();
@@ -39,6 +37,10 @@ public class Stack {
 		this.lastRunthroughs = new ArrayList<Runthrough>();
 		this.dynamicStackTags = new ArrayList<Tag>();
 		this.cards = new ArrayList<Card>();
+
+		if (lastStackID <= stackID) {
+			lastStackID = stackID;
+		}
 
 		Stack.allStacks.add(this);
 	}
@@ -173,6 +175,11 @@ public class Stack {
 
 	public List<Tag> getDynamicStackTags() {
 		return dynamicStackTags;
+	}
+
+	public static boolean resetLastStackID() {
+		lastStackID = 0;
+		return true;
 	}
 
 	@Override

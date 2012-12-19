@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class AdminEditNewStack extends Activity {
+public class AdminEditStack extends Activity {
 	String stackName;
 	EditText txt_stack_name;
 	Button save;
@@ -19,7 +19,7 @@ public class AdminEditNewStack extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_edit_stack_screen);
-		txt_stack_name = (EditText) findViewById(R.id.txt_admin_edit_new_stack);
+		txt_stack_name = (EditText) findViewById(R.id.txt_admin_edit_stack);
 		save = (Button) findViewById(R.id.btn_admin_edit_stack_save);
 
 		if (savedInstanceState == null) {

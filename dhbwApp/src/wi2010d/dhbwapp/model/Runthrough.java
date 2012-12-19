@@ -5,10 +5,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import wi2010d.dhbwapp.control.Database;
+
 public class Runthrough {
 
 	public static List<Runthrough> allRunthroughs = new ArrayList<Runthrough>();
-	private static int lastRunthroughID = 0;
+	public static int lastRunthroughID = 0;
 
 	private int runthroughID;
 	private int stackID;
@@ -42,6 +44,10 @@ public class Runthrough {
 
 		Runthrough.allRunthroughs.add(this);
 
+		if (lastRunthroughID <= runthroughID) {
+			lastRunthroughID = runthroughID;
+		}
+
 		// Associate runthrough with stack
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackID() == this.stackID) {
@@ -71,8 +77,11 @@ public class Runthrough {
 		this.runthroughID = Runthrough.getNextRunthroughID();
 
 		this.startDate = new Date();
+		this.endDate = new Date();
 
 		Runthrough.allRunthroughs.add(this);
+		
+		Database.getInstance().addNewRunthrough(this);
 	}
 
 	public static int getNextRunthroughID() {
@@ -98,14 +107,12 @@ public class Runthrough {
 		return duration;
 
 	}
-	
-	public void setDurationSecs(int newDuration)
-	{
+
+	public void setDurationSecs(int newDuration) {
 		this.duration = newDuration;
 	}
-	
-	public int getDurationSecs()
-	{
+
+	public int getDurationSecs() {
 		return duration;
 	}
 
@@ -161,6 +168,15 @@ public class Runthrough {
 		return startDate;
 	}
 
+	public static boolean resetLastRunthroughID() {
+		lastRunthroughID = 0;
+		return true;
+	}
+
+	public static int getLastRunthroughID() {
+		return lastRunthroughID;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		Runthrough run = (Runthrough) o;
@@ -168,10 +184,6 @@ public class Runthrough {
 			return true;
 		}
 		return false;
-	}
-
-	public static int getLastRunthroughID() {
-		return lastRunthroughID;
 	}
 
 }

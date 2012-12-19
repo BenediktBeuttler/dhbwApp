@@ -18,7 +18,6 @@ public class Create {
 	 * Constructor
 	 */
 	public Create() {
-		;
 	}
 
 	/**

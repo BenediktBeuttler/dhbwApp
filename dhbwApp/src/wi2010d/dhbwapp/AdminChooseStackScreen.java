@@ -1,11 +1,8 @@
 package wi2010d.dhbwapp;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.model.Stack;
-import wi2010d.dhbwapp.model.Tag;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,13 +43,12 @@ public class AdminChooseStackScreen extends Activity {
 
 				if (!stackName.equals("No stacks available")) {
 					Intent i = new Intent(getApplicationContext(),
-							AdminEditNewStack.class);
+							AdminEditStack.class);
 					i.putExtra("stackName", stackName);
 					startActivityForResult(i, 1);
 				}
 			}
 		});
-
 	}
 
 	@Override
