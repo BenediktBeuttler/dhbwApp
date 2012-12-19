@@ -28,7 +28,7 @@
         android:text="@string/btn_admin_exist" />
 
     <EditText
-        android:id="@+id/txt_card_back"
+        android:id="@+id/txt_edit_card_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

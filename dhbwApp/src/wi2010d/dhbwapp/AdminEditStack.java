@@ -42,6 +42,7 @@ public class AdminEditStack extends Activity {
 			public void onClick(View v) {
 				for (Stack stack : Stack.allStacks) {
 					if (stack.getStackName().equals(stackName)) {
+						//TODO: ÜBERPRÜFEN!!! HIER!
 						stack.setStackName(txt_stack_name.getText().toString());
 						Toast toast = Toast.makeText(getApplicationContext(),
 								"Stack name changed to "
