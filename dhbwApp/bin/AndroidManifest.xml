@@ -57,8 +57,16 @@
             android:label="@string/title_activity_admin_edit_stack" >
         </activity>
         <activity
+            android:name="wi2010d.dhbwapp.AdminNewStack"
+            android:label="@string/title_activity_admin_new_stack" >
+        </activity>
+        <activity
             android:name="wi2010d.dhbwapp.AdminChooseStackScreen"
             android:label="@string/title_activity_admin_choose_stack_screen" >
+        </activity>
+        <activity
+            android:name="wi2010d.dhbwapp.AdminNewCardChooseStack"
+            android:label="@string/title_activity_admin_new_card_choose_stack_screen" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.StatisticsScreen"
