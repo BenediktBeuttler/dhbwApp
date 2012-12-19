@@ -79,5 +79,6 @@
     <string name="admin_export">Export</string>
     <string name="admin_import">Import</string>
     <string name="content_start_screen_logo">know it owl Logo</string>
+    <string name="title_activity_progress">Progress</string>
 
 </resources>
