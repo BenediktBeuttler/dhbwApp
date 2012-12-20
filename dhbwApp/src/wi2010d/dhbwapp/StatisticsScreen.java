@@ -271,13 +271,6 @@ public class StatisticsScreen extends FragmentActivity implements
 			return v;
 		}
 
-		/*
-		 * public void onItemSelected(AdapterView<?> parent, View view, int
-		 * position, long id) { String name = (String)
-		 * parent.getItemAtPosition(position); setContent(name, parent); }
-		 * 
-		 * public void onNothingSelected(AdapterView<?> parent) { ; }
-		 */
 		private void setContent(String name, View v) {
 
 			totalDuration = (TextView) v
