@@ -134,33 +134,36 @@ public class LearningCard extends FragmentActivity implements
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.btn_learning_card_front_sure:
-			card = Learn.getInstance().learnCard(0);
+			card = Learn.getInstance().learnCard(2);
 			if (card == null) {
 				Intent intent = (new Intent(this, StatisticsScreen.class));
 				intent.putExtra("Tab", 3);
 				startActivity(intent);
+				finish();
 			} else {
 				txt_front.setText(card.getCardFront());
 				txt_back.setText(card.getCardBack());
 			}
 			return true;
 		case R.id.btn_learning_card_front_dontKnow:
-			card = Learn.getInstance().learnCard(1);
+			card = Learn.getInstance().learnCard(0);
 			if (card == null) {
 				Intent intent = (new Intent(this, StatisticsScreen.class));
 				intent.putExtra("Tab", 3);
 				startActivity(intent);
+				finish();
 			} else {
 				txt_front.setText(card.getCardFront());
 				txt_back.setText(card.getCardBack());
 			}
 			return true;
 		case R.id.btn_learning_card_front_notSure:
-			card = Learn.getInstance().learnCard(2);
+			card = Learn.getInstance().learnCard(1);
 			if (card == null) {
 				Intent intent = (new Intent(this, StatisticsScreen.class));
 				intent.putExtra("Tab", 3);
 				startActivity(intent);
+				finish();
 			} else {
 				txt_front.setText(card.getCardFront());
 				txt_back.setText(card.getCardBack());
