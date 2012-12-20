@@ -2,43 +2,73 @@ package wi2010d.dhbwapp.control;
 
 import java.util.Date;
 
+import wi2010d.dhbwapp.R;
+import wi2010d.dhbwapp.StartScreen;
+import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.widget.ProgressBar;
 
 public class Init extends AsyncTask<Void, Void, Boolean> {
 
 	private Database database;
 	private static Init init;
-	private boolean runComplete = false;
+	public static boolean runComplete = false;
+	private Activity startScreenActivity;
 
-	public Init(Context context) {
+	public Init(Context context, Activity activity) {
 		DatabaseManager.getInstance(context);
 		this.database = Database.getInstance();
+		this.startScreenActivity = activity;
 	}
-	
+
+	@Override
+	protected void onPreExecute() {
+
+		super.onPreExecute();
+		startScreenActivity.setContentView(R.layout.progress_screen);
+
+		ProgressBar pb = (ProgressBar) startScreenActivity
+				.findViewById(R.id.progress_bar_progress_screen);
+
+	}
+
+	@Override
+	protected void onPostExecute(Boolean result) {
+		super.onPostExecute(result);
+
+		new ErrorHandler(startScreenActivity.getApplicationContext());
+		Intent i = new Intent(startScreenActivity.getApplicationContext(),
+				StartScreen.class);
+		startScreenActivity.startActivity(i);
+		startScreenActivity.finish();
+
+	}
+
 	@Override
 	protected Boolean doInBackground(Void... Params) {
 		return this.loadFromDB();
 	}
 
 	public boolean loadFromDB() {
-		if (runComplete == false) {
-			// load the objects from DB
-			this.loadStacks();
-			this.loadCards();
-			this.loadTags();
-			this.loadRunthroughs();
+		// load the objects from DB
+		this.loadStacks();
+		this.loadCards();
+		this.loadTags();
+		this.loadRunthroughs();
 
-			// assign the objects
-			this.assignCardsToStacks();
-			this.assignTagsToCards();
-			this.assignTagstoStacks();
-		}
+		// assign the objects
+		this.assignCardsToStacks();
+		this.assignTagsToCards();
+		this.assignTagstoStacks();
+
 		runComplete = true;
 		return true;
 	}
@@ -259,9 +289,9 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 
 	}
 
-	public static Init getInstance(Context context) {
+	public static Init getInstance(Context context, Activity activity) {
 		if (init == null) {
-			init = new Init(context);
+			init = new Init(context, activity);
 		}
 		return init;
 

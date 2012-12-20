@@ -14,17 +14,21 @@ public class Progress extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.progress_screen);
-		pb = (ProgressBar) findViewById(R.id.progress_bar_progress_screen);
 
-		// Initiate DB Manager, Database and load everything
-		Init init = Init.getInstance(getApplicationContext());
-		init.execute();
-		new ErrorHandler(getApplicationContext());
+		Init init = Init.getInstance(getApplicationContext(), this);
+		// if the data hasn't been loaded, do it now
+		if (!Init.runComplete) {
+			init.execute();
+		}
 
-		Intent i = new Intent(getApplicationContext(), StartScreen.class);
-		startActivity(i);
-		finish();
+		// if the data has been loaded, proceed to the main screen
+		else {
+			new ErrorHandler(getApplicationContext());
+			Intent i = new Intent(getApplicationContext(), StartScreen.class);
+			startActivity(i);
+			finish();
+
+		}
 
 	}
 
