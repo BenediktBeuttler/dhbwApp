@@ -259,7 +259,7 @@ public class StatisticsScreen extends FragmentActivity implements
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) 
 		{
 			String name = (String) parent.getItemAtPosition(position);
-			setContent(name, view);
+			setContent(name, parent);
 		} 
 
 		
