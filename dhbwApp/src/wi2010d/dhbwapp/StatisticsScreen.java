@@ -82,6 +82,11 @@ public class StatisticsScreen extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			mViewPager.setCurrentItem(extras.getInt("Tab"));
+		}
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package wi2010d.dhbwapp;
 
 import wi2010d.dhbwapp.control.Learn;
+import wi2010d.dhbwapp.control.Statistics;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
@@ -134,18 +135,36 @@ public class LearningCard extends FragmentActivity implements
 		switch (item.getItemId()) {
 		case R.id.btn_learning_card_front_sure:
 			card = Learn.getInstance().learnCard(0);
-			txt_front.setText(card.getCardFront());
-			txt_back.setText(card.getCardBack());
+			if (card == null) {
+				Intent intent = (new Intent(this, StatisticsScreen.class));
+				intent.putExtra("Tab", 3);
+				startActivity(intent);
+			} else {
+				txt_front.setText(card.getCardFront());
+				txt_back.setText(card.getCardBack());
+			}
 			return true;
 		case R.id.btn_learning_card_front_dontKnow:
 			card = Learn.getInstance().learnCard(1);
-			txt_front.setText(card.getCardFront());
-			txt_back.setText(card.getCardBack());
+			if (card == null) {
+				Intent intent = (new Intent(this, StatisticsScreen.class));
+				intent.putExtra("Tab", 3);
+				startActivity(intent);
+			} else {
+				txt_front.setText(card.getCardFront());
+				txt_back.setText(card.getCardBack());
+			}
 			return true;
 		case R.id.btn_learning_card_front_notSure:
 			card = Learn.getInstance().learnCard(2);
-			txt_front.setText(card.getCardFront());
-			txt_back.setText(card.getCardBack());
+			if (card == null) {
+				Intent intent = (new Intent(this, StatisticsScreen.class));
+				intent.putExtra("Tab", 3);
+				startActivity(intent);
+			} else {
+				txt_front.setText(card.getCardFront());
+				txt_back.setText(card.getCardBack());
+			}
 			return true;
 
 		default:
@@ -154,6 +173,7 @@ public class LearningCard extends FragmentActivity implements
 			return false;
 		}
 	}
+
 	@Override
 	public void onTabUnselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
@@ -274,47 +294,39 @@ public class LearningCard extends FragmentActivity implements
 			View v = inflater.inflate(R.layout.learning_card_front, null);
 			txt_front = (EditText) v.findViewById(R.id.txt_card_front);
 			txt_front.setText(card.getCardFront());
-/*
-			sure = (Button) v.findViewById(R.id.btn_learning_card_front_sure);
-			dontKnow = (Button) v
-					.findViewById(R.id.btn_learning_card_front_dontKnow);
-			notSure = (Button) v
-					.findViewById(R.id.btn_learning_card_front_notSure);
-
-			sure.setOnClickListener(this);
-			dontKnow.setOnClickListener(this);
-			notSure.setOnClickListener(this);
-*/
+			/*
+			 * sure = (Button)
+			 * v.findViewById(R.id.btn_learning_card_front_sure); dontKnow =
+			 * (Button) v .findViewById(R.id.btn_learning_card_front_dontKnow);
+			 * notSure = (Button) v
+			 * .findViewById(R.id.btn_learning_card_front_notSure);
+			 * 
+			 * sure.setOnClickListener(this); dontKnow.setOnClickListener(this);
+			 * notSure.setOnClickListener(this);
+			 */
 			return v;
 		}
-/*
-		@Override
-		public void onClick(View v) {
-
-			switch (v.getId()) {
-			case R.id.btn_learning_card_front_sure:
-				card = Learn.getInstance().learnCard(0);
-				txt_front.setText(card.getCardFront());
-				txt_back.setText(card.getCardBack());
-				break;
-			case R.id.btn_learning_card_front_dontKnow:
-				card = Learn.getInstance().learnCard(1);
-				txt_front.setText(card.getCardFront());
-				txt_back.setText(card.getCardBack());
-				break;
-			case R.id.btn_learning_card_front_notSure:
-				card = Learn.getInstance().learnCard(2);
-				txt_front.setText(card.getCardFront());
-				txt_back.setText(card.getCardBack());
-				break;
-
-			default:
-				ErrorHandler error = new ErrorHandler(getApplicationContext());
-				error.handleError(1);
-
-			}
-		}
-		*/
+		/*
+		 * @Override public void onClick(View v) {
+		 * 
+		 * switch (v.getId()) { case R.id.btn_learning_card_front_sure: card =
+		 * Learn.getInstance().learnCard(0);
+		 * txt_front.setText(card.getCardFront());
+		 * txt_back.setText(card.getCardBack()); break; case
+		 * R.id.btn_learning_card_front_dontKnow: card =
+		 * Learn.getInstance().learnCard(1);
+		 * txt_front.setText(card.getCardFront());
+		 * txt_back.setText(card.getCardBack()); break; case
+		 * R.id.btn_learning_card_front_notSure: card =
+		 * Learn.getInstance().learnCard(2);
+		 * txt_front.setText(card.getCardFront());
+		 * txt_back.setText(card.getCardBack()); break;
+		 * 
+		 * default: ErrorHandler error = new
+		 * ErrorHandler(getApplicationContext()); error.handleError(1);
+		 * 
+		 * } }
+		 */
 	}
 
 	public class CardBack extends Fragment {
