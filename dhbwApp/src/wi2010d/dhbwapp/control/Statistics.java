@@ -237,10 +237,10 @@ public class Statistics {
 		minutes = minutes & 60;
 
 		if (hours > 0) {
-			return minutes + " minutes, " + seconds + " seconds";
+			return minutes + " min, " + seconds + " sec";
 		} else {
-			return hours + " hours, " + minutes + " minutes, " + seconds
-					+ " seconds";
+			return hours + " h, " + minutes + " min, " + seconds
+					+ " sec";
 		}
 	}
 

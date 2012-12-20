@@ -28,7 +28,11 @@ public class Learn {
 	private static Learn learn;
 
 	public Card startLearning(Stack pStack) {
-
+		
+		statusAfter[0] = 0;
+		statusAfter[1] = 0;
+		statusAfter[2] = 0;
+		
 		sure = new CardQueue();
 		dontKnow = new CardQueue();
 		notSure = new CardQueue();
