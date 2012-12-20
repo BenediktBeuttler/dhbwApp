@@ -84,7 +84,7 @@ public class Learn {
 	public Card learnCard(int drawer) {
 		card.setDrawer(drawer);
 
-		if (actualCard > cards.size()) {
+		if (actualCard >= cards.size()) {
 			// globale Variable runthroughDone auf true setzen
 
 			// read status after runthrough and store it in the runthrough
