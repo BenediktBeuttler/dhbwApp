@@ -125,9 +125,9 @@ public class Runthrough {
 
 	public void setStatusAfter(int afterDontKnow, int afterNotSure,
 			int afterSure) {
-		this.statusBefore[0] = afterDontKnow;
-		this.statusBefore[1] = afterNotSure;
-		this.statusBefore[2] = afterSure;
+		this.statusAfter[0] = afterDontKnow;
+		this.statusAfter[1] = afterNotSure;
+		this.statusAfter[2] = afterSure;
 	}
 
 	/**
