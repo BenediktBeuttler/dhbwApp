@@ -8,8 +8,9 @@ import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.AsyncTask;
 
-public class Init {
+public class Init extends AsyncTask<Void, Void, Boolean> {
 
 	private Database database;
 	private static Init init;
@@ -18,6 +19,11 @@ public class Init {
 	public Init(Context context) {
 		DatabaseManager.getInstance(context);
 		this.database = Database.getInstance();
+	}
+	
+	@Override
+	protected Boolean doInBackground(Void... Params) {
+		return this.loadFromDB();
 	}
 
 	public boolean loadFromDB() {
@@ -260,4 +266,5 @@ public class Init {
 		return init;
 
 	}
+
 }
