@@ -208,6 +208,10 @@ public class StatisticsScreen extends FragmentActivity implements
 		
 		TextView totalDuration;
 		TextView totalNumberOfCards;
+		TextView dontKnow;
+		TextView notSure;
+		TextView sure;
+		
 		Spinner spinner;
 
 		public Overview() {
@@ -221,7 +225,7 @@ public class StatisticsScreen extends FragmentActivity implements
 			View v = inflater.inflate(R.layout.statistics_screen_overview, null);
 			
 			spinner = (Spinner) v.findViewById(R.id.lbl_statistics_overview_stackSpinner);
-			spinner.setOnItemSelectedListener(this);
+			//spinner.setOnItemSelectedListener(this);
 
 			List<String> items = new ArrayList<String>();
 			//collect stack names in list
@@ -255,7 +259,7 @@ public class StatisticsScreen extends FragmentActivity implements
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) 
 		{
 			String name = (String) parent.getItemAtPosition(position);
-			setContent(name, view);
+			setContent(name, parent);
 		} 
 
 		
@@ -267,18 +271,33 @@ public class StatisticsScreen extends FragmentActivity implements
 		
 		private void setContent(String name, View v)
 		{
+			
 			totalDuration = (TextView) v.findViewById(R.id.lbl_statistics_overview_totalDuration);
 			totalNumberOfCards = (TextView) v.findViewById(R.id.lbl_statistics_overview_totalNumberOfCards);
+			dontKnow = (TextView) v.findViewById(R.id.lbl_statistics_overview_dontKnow);
+			notSure = (TextView) v.findViewById(R.id.lbl_statistics_overview_notSure);
+			sure = (TextView) v.findViewById(R.id.lbl_statistics_overview_sure);
 			
 			if (name.equals("All Stacks"))
 			{
 				totalDuration.setText(Statistics.getInstance().getOverallDuration());
 				totalNumberOfCards.setText(Statistics.getInstance().getTotalNumberOfCards());
+				
+				String[] actualStatus = Statistics.getInstance().getOverallActualDrawerStatus();
+				dontKnow.setText("" + actualStatus[0]);
+				notSure.setText("" + actualStatus[1]);
+				sure.setText("" + actualStatus[2]);
+				
 			}
 			else
 			{
 				totalDuration.setText(Statistics.getInstance().getStackOverallDuration(name));
 				totalNumberOfCards.setText(Statistics.getInstance().getTotalNumberOfCards(name));
+				
+				String[] actualStatus = Statistics.getInstance().getActualDrawerStatus(name);
+				dontKnow.setText("" + actualStatus[0]);
+				notSure.setText("" + actualStatus[1]);
+				sure.setText("" + actualStatus[2]);
 			}
 			
 		}

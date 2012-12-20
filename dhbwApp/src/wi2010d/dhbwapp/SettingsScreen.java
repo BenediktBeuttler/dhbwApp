@@ -52,14 +52,64 @@ public class SettingsScreen extends Activity implements OnClickListener{
 		List<Tag> tags = new ArrayList<Tag>();
 		tags.add(Create.getInstance().newTag("Penis"));
 
-		Create.getInstance().newStack("Stack 1",
-		Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
-		Create.getInstance().newStack("Stack 2",
-		Create.getInstance().newCard("Front 2", "Back 2", tags, "", ""));
-		Create.getInstance().newStack("Stack 3",
-		Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
-		Create.getInstance().newStack("Stack 4",
-		Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
+				Create.getInstance().newStack("Stack 1",
+				Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
+				Create.getInstance().newStack("Stack 2",
+				Create.getInstance().newCard("Front 2", "Back 2", tags, "", ""));
+				Create.getInstance().newStack("Stack 3",
+				Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
+				Create.getInstance().newStack("Stack 4",
+				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
+				Create.getInstance().newStack("Stack 5",
+				Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
+				Create.getInstance().newStack("Stack 6",
+				Create.getInstance().newCard("Front 2", "Back 2", tags, "", ""));
+				Create.getInstance().newStack("Stack 7",
+				Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
+				Create.getInstance().newStack("Stack 8",
+				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
+				Create.getInstance().newStack("Stack 9",
+				Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
+				Create.getInstance().newStack("Stack 10",
+				Create.getInstance().newCard("Front 2", "Back 2", tags, "", ""));
+				Create.getInstance().newStack("Stack 11",
+				Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
+				Create.getInstance().newStack("Stack 12",
+				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
+				Create.getInstance().newStack("Stack 13",
+				Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
+				Create.getInstance().newStack("Stack 14",
+				Create.getInstance().newCard("Front 2", "Back 2", tags, "", ""));
+				Create.getInstance().newStack("Stack 15",
+				Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
+				Create.getInstance().newStack("Stack 16",
+				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
+				Create.getInstance().newStack("Stack 17",
+				Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
+				Create.getInstance().newStack("Stack 18",
+				Create.getInstance().newCard("Front 12bv", "Back 2", tags, "", ""));
+				Create.getInstance().newStack("Stack 19",
+				Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
+				Create.getInstance().newStack("Stack 20",
+				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
+				Create.getInstance().newStack("Stack 21",
+				Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
+				Create.getInstance().newStack("Stack 22",
+				Create.getInstance().newCard("Front 2", "Back 2", tags, "", ""));
+				Create.getInstance().newStack("Stack 23",
+				Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
+				Create.getInstance().newStack("Stack 24",
+				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
+				Create.getInstance().newStack("Stack 25",
+				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
+				Create.getInstance().newStack("Stack 26",
+				Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
+				Create.getInstance().newStack("Stack 27",
+				Create.getInstance().newCard("Front 2", "Back 2", tags, "", ""));
+				Create.getInstance().newStack("Stack 28",
+				Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
+				Create.getInstance().newStack("Stack 29",
+				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
 		
 		toast = Toast.makeText(getApplicationContext(),
 				"Test data written!",
