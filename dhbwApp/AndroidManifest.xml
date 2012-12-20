@@ -29,12 +29,12 @@
             android:label="@string/title_activity_learning_screen" >
         </activity>
         <activity
-            android:name="wi2010d.dhbwapp.EditScreen"
-            android:label="@string/title_activity_edit_screen" >
-        </activity>
-        <activity
             android:name="wi2010d.dhbwapp.AdminScreen"
             android:label="@string/title_activity_admin_screen" >
+        </activity>
+         <activity
+            android:name="wi2010d.dhbwapp.HelpScreen"
+            android:label="@string/title_activity_help_screen" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.LearningChooseStackScreen"

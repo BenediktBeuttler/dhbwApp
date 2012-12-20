@@ -10,24 +10,22 @@ import android.widget.ProgressBar;
 
 public class Progress extends Activity {
 	ProgressBar pb;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.progress_screen);
+		pb = (ProgressBar) findViewById(R.id.progress_bar_progress_screen);
 
 		// Initiate DB Manager, Database and load everything
 		Init init = Init.getInstance(getApplicationContext());
-		init.loadFromDB();
-		
+		init.execute();
 		new ErrorHandler(getApplicationContext());
-		
-		pb = (ProgressBar) findViewById(R.id.progress_bar_progress_screen);
 
 		Intent i = new Intent(getApplicationContext(), StartScreen.class);
 		startActivity(i);
 		finish();
-		
+
 	}
 
 	@Override

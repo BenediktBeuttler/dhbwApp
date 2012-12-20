@@ -12,5 +12,6 @@ public class HelpScreen extends Activity {
 		setContentView(R.layout.help_screen);
 	}
 
+	//TODO: Implement Buttons + onClick!
 
 }
