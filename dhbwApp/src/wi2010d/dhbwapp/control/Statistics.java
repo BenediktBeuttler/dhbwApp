@@ -238,6 +238,11 @@ public class Statistics {
 
 	// ----------------Return Data for Progress Screen------------
 	
+	/**
+	 * Get last runthrough dates of all Stacks
+	 * 
+	 * @return
+	 */
 	public ArrayList<String> getLastRunthroughDates(){
 		
 		List<String> lastDates = new ArrayList<String>();
@@ -250,6 +255,12 @@ public class Statistics {
 		return (ArrayList<String>) lastDates;
 	}
 	
+	/**
+	 * Get last runthroughs dates of selected Stack (name)
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public ArrayList<String> getLastRunthroughDates(String name){
 		
 		List<String> lastDates = new ArrayList<String>();
@@ -262,8 +273,37 @@ public class Statistics {
 		return (ArrayList<String>) lastDates;
 	}
 	
+	/**
+	 * Method returns list of strings with the last progress (+/- change for selected drawer)
+	 * drawer = 0 = dont Know, drawer = 1 = not Sure, drawer = 2 = sure
+	 * 
+	 * @param drawer
+	 * @return
+	 */
+	public ArrayList<String> getLastProgress(int drawer){
+		
+		List<String> progress = new ArrayList<String>();
+		int difference;
+		int[] statusBefore = new int[3];
+		int[] statusAfter = new int[3];
+		
+		for (Runthrough runthrough : getLastRunthroughs()){
+			statusBefore = runthrough.getStatusBefore();
+			statusAfter = runthrough.getStatusAfter();
+			difference = statusAfter[drawer] - statusBefore[drawer];
+			progress.add("" + difference);
+		}
+		
+		return (ArrayList<String>) progress;
+	}
 	
 	
+	
+	
+	/**
+	 * Get last runthroughs of all Stacks
+	 * @return
+	 */
 	private List<Runthrough> getLastRunthroughs(){
 		
 		List<Runthrough> lastRunthroughs = new ArrayList<Runthrough>();
@@ -277,6 +317,11 @@ public class Statistics {
 		return lastRunthroughs;
 	}
 	
+	/**
+	 * Get last runthroughs of selected Stack (name)
+	 * @param name
+	 * @return
+	 */
 	private List<Runthrough> getLastRunthroughs(String name){
 		
 		List<Runthrough> lastRunthroughs = new ArrayList<Runthrough>();
