@@ -16,31 +16,5 @@
         android:ems="10"
         android:enabled="false"
         android:inputType="textMultiLine" />
-
-    <Button
-        android:id="@+id/btn_learning_card_front_dontKnow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btn_learning_card_front_sure"
-        android:layout_alignBottom="@+id/btn_learning_card_front_sure"
-        android:layout_centerHorizontal="true"
-        android:text="@string/btn_learn_dontknow" />
-
-    <Button
-        android:id="@+id/btn_learning_card_front_notSure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btn_learning_card_front_dontKnow"
-        android:layout_toRightOf="@+id/btn_learning_card_front_dontKnow"
-        android:text="@string/btn_learn_notsure" />
-
-    <Button
-        android:id="@+id/btn_learning_card_front_sure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:layout_toLeftOf="@+id/btn_learning_card_front_dontKnow"
-        android:text="@string/btn_learn_sure" />
  
 </RelativeLayout>

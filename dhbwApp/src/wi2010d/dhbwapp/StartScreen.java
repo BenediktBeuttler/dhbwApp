@@ -1,6 +1,7 @@
 package wi2010d.dhbwapp;
 
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +30,10 @@ public class StartScreen extends Activity implements OnClickListener {
 		statistic.setOnClickListener(this);
 		help.setOnClickListener(this);
 
-
+		final ActionBar actionBar = getActionBar();
+		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setDisplayShowHomeEnabled(false);
+		
 	}
 
 	@Override

@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -128,6 +129,32 @@ public class LearningCard extends FragmentActivity implements
 	}
 
 	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.btn_learning_card_front_sure:
+			card = Learn.getInstance().learnCard(0);
+			txt_front.setText(card.getCardFront());
+			txt_back.setText(card.getCardBack());
+			return true;
+		case R.id.btn_learning_card_front_dontKnow:
+			card = Learn.getInstance().learnCard(1);
+			txt_front.setText(card.getCardFront());
+			txt_back.setText(card.getCardBack());
+			return true;
+		case R.id.btn_learning_card_front_notSure:
+			card = Learn.getInstance().learnCard(2);
+			txt_front.setText(card.getCardFront());
+			txt_back.setText(card.getCardBack());
+			return true;
+
+		default:
+			ErrorHandler error = new ErrorHandler(getApplicationContext());
+			error.handleError(1);
+			return false;
+		}
+	}
+	@Override
 	public void onTabUnselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 	}
@@ -229,7 +256,7 @@ public class LearningCard extends FragmentActivity implements
 		}
 	}
 
-	public class CardFront extends Fragment implements OnClickListener {
+	public class CardFront extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
@@ -247,18 +274,20 @@ public class LearningCard extends FragmentActivity implements
 			View v = inflater.inflate(R.layout.learning_card_front, null);
 			txt_front = (EditText) v.findViewById(R.id.txt_card_front);
 			txt_front.setText(card.getCardFront());
-
+/*
 			sure = (Button) v.findViewById(R.id.btn_learning_card_front_sure);
-			dontKnow = (Button) v.findViewById(R.id.btn_learning_card_front_dontKnow);
-			notSure = (Button) v.findViewById(R.id.btn_learning_card_front_notSure);
+			dontKnow = (Button) v
+					.findViewById(R.id.btn_learning_card_front_dontKnow);
+			notSure = (Button) v
+					.findViewById(R.id.btn_learning_card_front_notSure);
 
 			sure.setOnClickListener(this);
 			dontKnow.setOnClickListener(this);
 			notSure.setOnClickListener(this);
-
+*/
 			return v;
 		}
-		
+/*
 		@Override
 		public void onClick(View v) {
 
@@ -285,6 +314,7 @@ public class LearningCard extends FragmentActivity implements
 
 			}
 		}
+		*/
 	}
 
 	public class CardBack extends Fragment {

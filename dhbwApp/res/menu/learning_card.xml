@@ -1,9 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/menu_settings"
+        android:id="@+id/btn_learning_card_front_sure"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/menu_settings"/>
+        android:title="@string/btn_learn_sure"
+        android:showAsAction="ifRoom|withText"/>
+    <item
+        android:id="@+id/btn_learning_card_front_dontKnow"
+        android:orderInCategory="100"
+        android:title="@string/btn_learn_dontknow"
+        android:showAsAction="ifRoom|withText"/>
+    <item
+        android:id="@+id/btn_learning_card_front_notSure"
+        android:orderInCategory="100"
+        android:title="@string/btn_learn_notsure"
+        android:showAsAction="ifRoom|withText"/>
 
 </menu>
