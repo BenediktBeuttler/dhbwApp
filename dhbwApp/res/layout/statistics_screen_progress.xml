@@ -19,9 +19,71 @@
 
         <Spinner
             android:id="@+id/lbl_statistics_progress_stackSpinner"
-            android:layout_column="3"
+            android:layout_column="2"
+            android:layout_columnSpan="2"
             android:layout_gravity="left"
             android:layout_row="1" />
+
+        <TableLayout
+            android:layout_width="273dp"
+            android:layout_height="302dp"
+            android:layout_column="1"
+            android:layout_columnSpan="2"
+            android:layout_gravity="left"
+            android:layout_row="2" >
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="End Date"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Don&apos;t know"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Not Sure"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sure"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+            </TableRow>
+        </TableLayout>
 
         <Space
             android:layout_width="21dp"
@@ -36,9 +98,21 @@
             android:layout_row="0" />
 
         <Space
-            android:layout_width="10dp"
+            android:layout_width="24dp"
             android:layout_height="1dp"
-            android:layout_column="2"
+            android:layout_column="3"
+            android:layout_row="0" />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="321dp"
+            android:layout_column="0"
+            android:layout_row="2" />
+
+        <Space
+            android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:layout_column="1"
             android:layout_row="0" />
     </GridLayout>
 

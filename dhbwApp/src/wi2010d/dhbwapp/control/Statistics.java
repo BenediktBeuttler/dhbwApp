@@ -1,6 +1,7 @@
 package wi2010d.dhbwapp.control;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import wi2010d.dhbwapp.model.Card;
@@ -235,8 +236,66 @@ public class Statistics {
 		}
 	}
 
-	// ----------------Return relevant Dates (stack created, last
-	// runthrough)----------
+	// ----------------Return Data for Progress Screen------------
+	
+	public ArrayList<String> getLastRunthroughDates(){
+		
+		List<String> lastDates = new ArrayList<String>();
+		SimpleDateFormat formater = new SimpleDateFormat();
+		
+		for (Runthrough runthrough : getLastRunthroughs()){
+			lastDates.add(formater.format(runthrough.getEndDate()));
+		}
+		
+		return (ArrayList<String>) lastDates;
+	}
+	
+	public ArrayList<String> getLastRunthroughDates(String name){
+		
+		List<String> lastDates = new ArrayList<String>();
+		SimpleDateFormat formater = new SimpleDateFormat();
+		
+		for (Runthrough runthrough : getLastRunthroughs(name)){
+			lastDates.add(formater.format(runthrough.getEndDate()));
+		}
+		
+		return (ArrayList<String>) lastDates;
+	}
+	
+	
+	
+	private List<Runthrough> getLastRunthroughs(){
+		
+		List<Runthrough> lastRunthroughs = new ArrayList<Runthrough>();
+		
+		for (Stack stack : Stack.allStacks){
+			for (Runthrough runthrough : stack.getLastRunthroughs()){
+				lastRunthroughs.add(runthrough);
+			}
+		}
+		
+		return lastRunthroughs;
+	}
+	
+	private List<Runthrough> getLastRunthroughs(String name){
+		
+		List<Runthrough> lastRunthroughs = new ArrayList<Runthrough>();
+		
+		for (Stack stack : Stack.allStacks){
+			
+			if (stack.getStackName().equals(name)){
+			
+				for (Runthrough runthrough : stack.getLastRunthroughs()){
+					lastRunthroughs.add(runthrough);
+				}
+				
+			}
+				
+		}
+		
+		return lastRunthroughs;
+		
+	}
 
 	// ----------------Return Status of Drawers-------------------
 

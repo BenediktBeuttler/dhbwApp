@@ -318,6 +318,8 @@ public class StatisticsScreen extends FragmentActivity implements
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
+		
+		Spinner spinner;
 
 		public Progress() {
 		}
@@ -329,6 +331,50 @@ public class StatisticsScreen extends FragmentActivity implements
 			// number argument value.
 			View v = inflater
 					.inflate(R.layout.statistics_screen_progress, null);
+			
+			
+			spinner = (Spinner) v
+					.findViewById(R.id.lbl_statistics_progress_stackSpinner);
+
+			List<String> items = new ArrayList<String>();
+			// collect stack names in list
+			for (Stack stack : Stack.allStacks) {
+				items.add(stack.getStackName());
+			}
+			if (items.size() == 0) {
+				items.add("No stacks available");
+			} else {
+				Collections.sort(items);
+				items.add(0, "All Stacks");
+			}
+
+			ArrayAdapter<String> adapter;
+
+			adapter = new ArrayAdapter<String>(v.getContext(),
+					android.R.layout.simple_spinner_item, items);
+
+			// Specify the layout to use when the list of choices appears
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			// Apply the adapter to the spinner
+			spinner.setAdapter(adapter);
+
+			spinner.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view,
+						int position, long id) {
+
+					String name = (String) parent.getItemAtPosition(position);
+					//setContent(name, (View) view.getParent().getParent());
+
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+					
+				}
+			});
+			
 			return v;
 		}
 	}
