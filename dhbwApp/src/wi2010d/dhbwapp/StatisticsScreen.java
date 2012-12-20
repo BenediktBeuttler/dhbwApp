@@ -225,7 +225,7 @@ public class StatisticsScreen extends FragmentActivity implements
 			View v = inflater.inflate(R.layout.statistics_screen_overview, null);
 			
 			spinner = (Spinner) v.findViewById(R.id.lbl_statistics_overview_stackSpinner);
-			//spinner.setOnItemSelectedListener(this);
+			
 
 			List<String> items = new ArrayList<String>();
 			//collect stack names in list
@@ -250,6 +250,8 @@ public class StatisticsScreen extends FragmentActivity implements
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			// Apply the adapter to the spinner
 			spinner.setAdapter(adapter);
+			
+			//spinner.setOnItemSelectedListener(this);
 			
 			setContent("All Stacks", v);
 			
