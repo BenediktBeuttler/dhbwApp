@@ -10,7 +10,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
-        android:background="@drawable/Front"
+        android:background="@drawable/front"
         android:ems="10"
         android:inputType="textMultiLine" >
 

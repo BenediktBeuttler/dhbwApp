@@ -1,24 +1,42 @@
 package wi2010d.dhbwapp;
 
-import wi2010d.dhbwapp.AdminNewCard.DummySectionFragment;
-import wi2010d.dhbwapp.AdminNewCard.NewCardBack;
-import wi2010d.dhbwapp.AdminNewCard.NewCardFront;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.jdom2.JDOMException;
+
+import wi2010d.dhbwapp.control.Create;
+import wi2010d.dhbwapp.control.Exchange;
+import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AdminImportExport extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -153,7 +171,7 @@ public class AdminImportExport extends FragmentActivity implements
 				return getString(R.string.admin_import).toUpperCase();
 			case 1:
 				return getString(R.string.admin_export).toUpperCase();
-				}
+			}
 			return null;
 		}
 	}
@@ -183,16 +201,20 @@ public class AdminImportExport extends FragmentActivity implements
 					ARG_SECTION_NUMBER)));
 			return textView;
 		}
-		
-		
+
 	}
-	
+
 	public static class Import extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
+
+		ListView importList;
+		Button importButton;
+		ArrayList<String> items = new ArrayList<String>();
+		Toast toast;
 
 		public Import() {
 		}
@@ -203,19 +225,90 @@ public class AdminImportExport extends FragmentActivity implements
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
 			View v = inflater.inflate(R.layout.admin_import, null);
-			
+
+			importList = (ListView) v
+					.findViewById(R.id.list_admin_import_stacks);
+
+			if (Environment.getExternalStorageState() != null) {
+				File knowItOwlDir = new File(Environment
+						.getExternalStorageDirectory().getPath()
+						+ "/knowItOwl/");
+				File[] fileList = knowItOwlDir.listFiles();
+				for (File stackName : fileList) {
+					items.add(stackName.getName());
+				}
+				if (items.size() == 0) {
+					toast = Toast
+							.makeText(
+									getActivity(),
+									"No stacks for import found, please ensure that the XML-Files are in the folder /sdcard/knowItOwl/",
+									Toast.LENGTH_SHORT);
+					toast.show();
+					items.add("No stacks available");
+				} else {
+
+					importList.setAdapter(new ArrayAdapter<String>(v
+							.getContext(), android.R.layout.simple_list_item_1,
+							items));
+					importList.setClickable(true);
+					importList
+							.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+								@Override
+								public void onItemClick(AdapterView<?> parent,
+										View v, int position, long id) {
+									String stackName = ((TextView) v).getText()
+											.toString();
+									if (stackName.equals("No stacks available")) {
+										toast = Toast
+												.makeText(
+														getActivity(),
+														"No stacks for import found, please ensure that the XML-Files are in the folder /sdcard/knowItOwl/",
+														Toast.LENGTH_LONG);
+										toast.show();
+									} else {
+										try {
+											Exchange.getInstance()
+													.importStack(
+															Environment
+																	.getExternalStorageDirectory()
+																	.getPath()
+																	+ "/knowItOwl/"
+																	+ stackName);
+										} catch (Exception e) {
+											ErrorHandler
+													.getInstance()
+													.handleError(
+															ErrorHandler
+																	.getInstance().IMPORT_ERROR);
+										}
+									}
+								}
+							});
+
+				}
+
+			} else {
+				toast = Toast.makeText(getActivity(), "No sdcard available!",
+						Toast.LENGTH_SHORT);
+				toast.show();
+			}
+
 			return v;
 		}
-		
-		
+
 	}
-	
+
 	public static class Export extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
+
+		String stackName;
+		boolean stackChosen = false;
+		Toast toast;
 
 		public Export() {
 		}
@@ -226,10 +319,116 @@ public class AdminImportExport extends FragmentActivity implements
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
 			View v = inflater.inflate(R.layout.admin_export, null);
+
+			Spinner exportStacks = (Spinner) v
+					.findViewById(R.id.spin_admin_export);
+			Button exportButton = (Button) v
+					.findViewById(R.id.btn_admin_export);
+
+			List<String> items = new ArrayList<String>();
+
+			for (Stack stack : Stack.allStacks) {
+				items.add(stack.getStackName());
+			}
+			if (items.size() == 0) {
+				items.add("No stacks available");
+			} else {
+				Collections.sort(items);
+				items.add(0, "All Stacks");
+			}
+
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+					v.getContext(), android.R.layout.simple_spinner_item, items);
+
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			exportStacks.setAdapter(adapter);
+			exportStacks
+					.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+						@Override
+						public void onItemSelected(AdapterView<?> parent,
+								View view, int position, long id) {
+
+							stackName = (String) parent
+									.getItemAtPosition(position);
+							stackChosen = true;
+
+						}
+
+						@Override
+						public void onNothingSelected(AdapterView<?> arg0) {
+							stackChosen = false;
+						}
+					});
+
+			exportButton.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					if (Environment.getExternalStorageState() != null) {
+						if (stackChosen) {
+							try {
+
+								if (stackName.equals("All Stacks")) {
+									for (Stack stack : Stack.allStacks) {
+										Exchange.getInstance()
+												.exportStack(
+														stack,
+														Environment
+																.getExternalStorageDirectory()
+																.getPath()
+																+ "/knowItOwl/",
+														stackName);
+									}
+								} else {
+									for (Stack stack : Stack.allStacks) {
+										if (stack.getStackName().equals(
+												stackName)) {
+											Exchange.getInstance()
+													.exportStack(
+															stack,
+															Environment
+																	.getExternalStorageDirectory()
+																	.getPath()
+																	+ "/knowItOwl/",
+															stackName);
+
+											// TODO: Check if path gets created
+
+											toast = Toast
+													.makeText(
+															getActivity(),
+															"Stack "
+																	+ stackName
+																	+ " exported to /sdcard/knowItOwl/",
+															Toast.LENGTH_SHORT);
+											toast.show();
+
+										}
+									}
+								}
+							} catch (Exception e) {
+								ErrorHandler
+										.getInstance()
+										.handleError(
+												ErrorHandler.getInstance().EXPORT_ERROR);
+							}
+						} else {
+							toast = Toast.makeText(getActivity(),
+									"No stack chosen!", Toast.LENGTH_SHORT);
+							toast.show();
+						}
+
+					} else {
+						toast = Toast.makeText(getActivity(),
+								"No sdcard available!", Toast.LENGTH_SHORT);
+						toast.show();
+					}
+				}
+			});
+
 			return v;
 		}
-		
-		
 	}
 
 }

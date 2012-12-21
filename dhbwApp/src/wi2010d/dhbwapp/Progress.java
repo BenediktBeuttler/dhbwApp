@@ -1,9 +1,7 @@
 package wi2010d.dhbwapp;
 
 import wi2010d.dhbwapp.control.Init;
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ProgressBar;
@@ -15,20 +13,11 @@ public class Progress extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		// Load everything in a new thread
+		Init.resetInstance(); // Async Tasks can only be executed once, so we
+								// delete it before starting
 		Init init = Init.getInstance(getApplicationContext(), this);
-		// if the data hasn't been loaded, do it now
-		if (!Init.runComplete) {
-			init.execute();
-		}
-
-		// if the data has been loaded, proceed to the main screen
-		else {
-			new ErrorHandler(getApplicationContext());
-			Intent i = new Intent(getApplicationContext(), StartScreen.class);
-			startActivity(i);
-			finish();
-
-		}
+		init.execute();
 
 	}
 

@@ -4,20 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/editText1"
+    <ListView
+        android:id="@+id/list_admin_import_stacks"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="Insert Path here" >
-
-        <requestFocus />
-    </EditText>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Import" />
+        android:layout_height="match_parent" >
+    </ListView>
 
 </LinearLayout>

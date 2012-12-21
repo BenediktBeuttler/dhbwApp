@@ -288,6 +288,11 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		return true;
 
 	}
+	
+	public static void resetInstance()
+	{
+		init = null;
+	}
 
 	public static Init getInstance(Context context, Activity activity) {
 		if (init == null) {
