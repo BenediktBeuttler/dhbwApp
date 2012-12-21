@@ -34,7 +34,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
-        android:background="@drawable/backside"
+        android:background="@drawable/Back"
         android:ems="10"
         android:inputType="textMultiLine" />
 
