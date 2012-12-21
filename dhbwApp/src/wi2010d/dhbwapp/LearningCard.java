@@ -169,7 +169,9 @@ public class LearningCard extends FragmentActivity implements
 				txt_back.setText(card.getCardBack());
 			}
 			return true;
-
+		case R.id.btn_admin_edit_card:
+			//start Activity EditCard
+			return true;
 		default:
 			ErrorHandler error = new ErrorHandler(getApplicationContext());
 			error.handleError(1);
