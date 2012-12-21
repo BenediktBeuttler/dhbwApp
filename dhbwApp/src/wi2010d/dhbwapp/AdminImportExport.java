@@ -1,20 +1,15 @@
 package wi2010d.dhbwapp;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.jdom2.JDOMException;
-
-import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Exchange;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -22,7 +17,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -55,6 +49,9 @@ public class AdminImportExport extends FragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+	static ListView importList;
+	static ArrayAdapter<String> importListAdapter;
+	static View importView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -209,12 +206,14 @@ public class AdminImportExport extends FragmentActivity implements
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
+		public final String ARG_SECTION_NUMBER = "section_number";
 
 		ListView importList;
 		Button importButton;
 		ArrayList<String> items = new ArrayList<String>();
+		ArrayAdapter<String> importListAdapter;
 		Toast toast;
+		View v;
 
 		public Import() {
 		}
@@ -224,12 +223,18 @@ public class AdminImportExport extends FragmentActivity implements
 				Bundle savedInstanceState) {
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
-			View v = inflater.inflate(R.layout.admin_import, null);
+			v = inflater.inflate(R.layout.admin_import, null);
+			AdminImportExport.importView = v;
 
 			importList = (ListView) v
 					.findViewById(R.id.list_admin_import_stacks);
+			AdminImportExport.importList = importList;
 
-			if (Environment.getExternalStorageState() != null) {
+			if (!Environment.getExternalStorageState().equals(
+					Environment.MEDIA_UNMOUNTED)
+					|| new File(Environment.getExternalStorageDirectory()
+							.getPath() + "/knowItOwl/").canRead()) {
+
 				File knowItOwlDir = new File(Environment
 						.getExternalStorageDirectory().getPath()
 						+ "/knowItOwl/");
@@ -246,10 +251,12 @@ public class AdminImportExport extends FragmentActivity implements
 					toast.show();
 					items.add("No stacks available");
 				} else {
+					importListAdapter = new ArrayAdapter<String>(
+							v.getContext(),
+							android.R.layout.simple_list_item_1, items);
+					AdminImportExport.importListAdapter = importListAdapter;
 
-					importList.setAdapter(new ArrayAdapter<String>(v
-							.getContext(), android.R.layout.simple_list_item_1,
-							items));
+					importList.setAdapter(importListAdapter);
 					importList.setClickable(true);
 					importList
 							.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -275,6 +282,14 @@ public class AdminImportExport extends FragmentActivity implements
 																	.getPath()
 																	+ "/knowItOwl/"
 																	+ stackName);
+											toast = Toast
+													.makeText(
+															getActivity(),
+															"Stack "
+																	+ stackName
+																	+ " got imported succesfully!",
+															Toast.LENGTH_SHORT);
+											toast.show();
 										} catch (Exception e) {
 											ErrorHandler
 													.getInstance()
@@ -296,7 +311,6 @@ public class AdminImportExport extends FragmentActivity implements
 
 			return v;
 		}
-
 	}
 
 	public static class Export extends Fragment {
@@ -365,7 +379,10 @@ public class AdminImportExport extends FragmentActivity implements
 
 				@Override
 				public void onClick(View v) {
-					if (Environment.getExternalStorageState() != null) {
+					if (!Environment.getExternalStorageState().equals(
+							Environment.MEDIA_UNMOUNTED)
+							|| !Environment.getExternalStorageState().equals(
+									Environment.MEDIA_MOUNTED_READ_ONLY)) {
 						if (stackChosen) {
 							try {
 
@@ -393,8 +410,6 @@ public class AdminImportExport extends FragmentActivity implements
 																	+ "/knowItOwl/",
 															stackName);
 
-											// TODO: Check if path gets created
-
 											toast = Toast
 													.makeText(
 															getActivity(),
@@ -403,7 +418,9 @@ public class AdminImportExport extends FragmentActivity implements
 																	+ " exported to /sdcard/knowItOwl/",
 															Toast.LENGTH_SHORT);
 											toast.show();
-
+											AdminImportExport.importList
+													.setAdapter(AdminImportExport
+															.updateImportListAdapter());
 										}
 									}
 								}
@@ -431,4 +448,22 @@ public class AdminImportExport extends FragmentActivity implements
 		}
 	}
 
+	protected static ArrayAdapter<String> updateImportListAdapter() {
+		ArrayList<String> items = new ArrayList<String>();
+		File knowItOwlDir = new File(Environment.getExternalStorageDirectory()
+				.getPath() + "/knowItOwl/");
+		File[] fileList = knowItOwlDir.listFiles();
+
+		for (File stackName : fileList) {
+			items.add(stackName.getName());
+		}
+		if (items.size() == 0) {
+			items.add("No stacks available");
+
+			importListAdapter = new ArrayAdapter<String>(
+					AdminImportExport.importView.getContext(),
+					android.R.layout.simple_list_item_1, items);
+		}
+		return importListAdapter;
+	}
 }
