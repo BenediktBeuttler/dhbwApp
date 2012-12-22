@@ -382,7 +382,10 @@ public class AdminImportExport extends FragmentActivity implements
 					if (!Environment.getExternalStorageState().equals(
 							Environment.MEDIA_UNMOUNTED)
 							|| !Environment.getExternalStorageState().equals(
-									Environment.MEDIA_MOUNTED_READ_ONLY)) {
+									Environment.MEDIA_MOUNTED_READ_ONLY)
+							|| new File(Environment
+									.getExternalStorageDirectory().getPath()
+									+ "/knowItOwl/").canWrite()) {
 						if (stackChosen) {
 							try {
 
