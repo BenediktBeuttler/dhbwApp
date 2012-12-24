@@ -59,6 +59,7 @@ public class Stack {
 		this.isDynamicGenerated = isDynamicGenerated;
 		this.stackName = stackName;
 		this.cards = cards;
+		this.lastRunthroughs = new ArrayList<Runthrough>();
 
 		this.stackID = Stack.getNextStackID();
 
