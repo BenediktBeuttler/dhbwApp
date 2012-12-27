@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -60,11 +61,34 @@ public class LearningChooseStackScreen extends Activity implements
 			}
 		});
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.menu_start_screen:
+			startActivity(new Intent(this, StartScreen.class));
+			finish();
+			return true;
+		case R.id.menu_help:
+			startActivity(new Intent(this, HelpScreen.class));
+			finish();
+			return true;
+		case R.id.menu_settings:
+			startActivity(new Intent(this, SettingsScreen.class));
+			finish();
+			return true;
+		default:
+			ErrorHandler error = new ErrorHandler(getApplicationContext());
+			error.handleError(1);
+			return false;
+		}
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.stapel_screen, menu);
+		getMenuInflater().inflate(R.menu.learning_screen, menu);
 		return true;
 	}
 

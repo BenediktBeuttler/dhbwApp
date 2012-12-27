@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import wi2010d.dhbwapp.control.Learn;
 import wi2010d.dhbwapp.control.Statistics;
+import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,6 +20,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -94,6 +98,29 @@ public class StatisticsScreen extends FragmentActivity implements
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.statistics_screen, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.menu_start_screen:
+			startActivity(new Intent(this, StartScreen.class));
+			finish();
+			return true;
+		case R.id.menu_help:
+			startActivity(new Intent(this, HelpScreen.class));
+			finish();
+			return true;
+		case R.id.menu_settings:
+			startActivity(new Intent(this, SettingsScreen.class));
+			finish();
+			return true;
+		default:
+			ErrorHandler error = new ErrorHandler(getApplicationContext());
+			error.handleError(1);
+			return false;
+		}
 	}
 
 	@Override
@@ -323,7 +350,7 @@ public class StatisticsScreen extends FragmentActivity implements
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
-		
+
 		Spinner spinner;
 
 		public Progress() {
@@ -336,8 +363,7 @@ public class StatisticsScreen extends FragmentActivity implements
 			// number argument value.
 			View v = inflater
 					.inflate(R.layout.statistics_screen_progress, null);
-			
-			
+
 			spinner = (Spinner) v
 					.findViewById(R.id.lbl_statistics_progress_stackSpinner);
 
@@ -363,23 +389,23 @@ public class StatisticsScreen extends FragmentActivity implements
 			// Apply the adapter to the spinner
 			spinner.setAdapter(adapter);
 
-			spinner.setOnItemSelectedListener(new OnItemSelectedListener(){
+			spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view,
 						int position, long id) {
 
 					String name = (String) parent.getItemAtPosition(position);
-					//setContent(name, (View) view.getParent().getParent());
+					// setContent(name, (View) view.getParent().getParent());
 
 				}
 
 				@Override
 				public void onNothingSelected(AdapterView<?> arg0) {
-					
+
 				}
 			});
-			
+
 			return v;
 		}
 	}
