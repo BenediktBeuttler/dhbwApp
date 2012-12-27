@@ -141,6 +141,7 @@ public class LearningCard extends FragmentActivity implements
 				startActivity(intent);
 				finish();
 			} else {
+				mViewPager.setCurrentItem(0);
 				txt_front.setText(card.getCardFront());
 				txt_back.setText(card.getCardBack());
 			}
@@ -153,6 +154,7 @@ public class LearningCard extends FragmentActivity implements
 				startActivity(intent);
 				finish();
 			} else {
+				mViewPager.setCurrentItem(0);
 				txt_front.setText(card.getCardFront());
 				txt_back.setText(card.getCardBack());
 			}
@@ -165,6 +167,7 @@ public class LearningCard extends FragmentActivity implements
 				startActivity(intent);
 				finish();
 			} else {
+				mViewPager.setCurrentItem(0);
 				txt_front.setText(card.getCardFront());
 				txt_back.setText(card.getCardBack());
 			}

@@ -28,17 +28,20 @@ public class Learn {
 	private static Learn learn;
 
 	public Card startLearning(Stack pStack) {
-		
+
+		//reset
+		actualCard = 1;
+		run = 1;
 		statusAfter[0] = 0;
 		statusAfter[1] = 0;
 		statusAfter[2] = 0;
-		
+
 		sure = new CardQueue();
 		dontKnow = new CardQueue();
 		notSure = new CardQueue();
 
-		Log.v("Know it Owl","Queues initialisiert");
-		
+		Log.v("Know it Owl", "Queues initialisiert");
+
 		stack = pStack;
 		cards = stack.getCards();
 
@@ -176,7 +179,7 @@ public class Learn {
 		return learn;
 	}
 
-	private class CardQueue{
+	private class CardQueue {
 		private ArrayList<Card> arrayList;
 		private int queueSize = 0;
 
