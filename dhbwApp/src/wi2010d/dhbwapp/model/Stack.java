@@ -110,9 +110,11 @@ public class Stack {
 			lastRunthroughs.remove(0);
 		}
 		
+		lastRunthroughs.add(run);
+		
 		Database.getInstance().changeRunthrough(overallRunthrough);
 		
-		lastRunthroughs.add(run);
+		
 	}
 
 	public static int getNextStackID() {

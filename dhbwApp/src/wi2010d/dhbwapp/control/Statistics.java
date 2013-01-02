@@ -2,6 +2,7 @@ package wi2010d.dhbwapp.control;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import wi2010d.dhbwapp.model.Card;
@@ -141,32 +142,29 @@ public class Statistics {
 	 * @return
 	 */
 	private Runthrough getLastRunthrough() {
-		int lastID = Runthrough.getLastRunthroughID();
-		List<Runthrough> allRunthroughs = Runthrough.allRunthroughs;
-
 		
+		List<Runthrough> allRunthroughs = Runthrough.allRunthroughs;
+		Runthrough lastRunthrough = null;
+		
+		//Search first non-overall runthrough in list
 		for (Runthrough runthrough : allRunthroughs){
-			if (runthrough.getRunthroughID() == lastID){
-				return runthrough;
+			if (!runthrough.isOverall()){
+				lastRunthrough = runthrough;
+				break;
 			}
 		}
 		
-		
-		/*
-		for (int i = (allRunthroughs.size() - 1); i == 0; i--) {
-			if (allRunthroughs.get(i).getRunthroughID() == lastID) {
-				if (allRunthroughs.get(i).isOverall()) {
-					lastID = lastID - 1;
-					i = allRunthroughs.size();
-				} else {
-					return allRunthroughs.get(i);
+		//Compare date of runthroughs and update result
+		for (Runthrough runthrough : allRunthroughs){
+			if (!runthrough.isOverall()){
+				if (runthrough.getEndDate().getTime() > lastRunthrough.getEndDate().getTime()){
+					lastRunthrough = runthrough;
 				}
 			}
 		}
-		*/
 		
 
-		return null;
+		return lastRunthrough;
 	}
 
 	// ---------------Returns Data for Overall Statistic Screen------------
