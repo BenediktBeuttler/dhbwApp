@@ -75,6 +75,7 @@
     <string name="title_activity_statistics_screen">Statistics</string>
     <string name="admin_screen_tab_card_front">Card Front</string>
     <string name="admin_screen_tab_card_back">Card Back</string>
+    <string name="admin_screen_tab_card_tags">Card Tags</string>
     <string name="title_activity_new_card">New Card</string>
     <string name="learning_screen_tab_card_back">Card Back</string>
     <string name="learning_screen_tab_card_front">Card Front</string>
