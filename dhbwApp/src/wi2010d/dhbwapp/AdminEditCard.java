@@ -1,10 +1,13 @@
 package wi2010d.dhbwapp;
 
+import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Database;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
+import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +17,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -111,8 +115,40 @@ public class AdminEditCard extends FragmentActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.edit_card, menu);
+		getMenuInflater().inflate(R.menu.admin_edit_card, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.menu_start_screen:
+			startActivity(new Intent(this, StartScreen.class));
+			finish();
+			return true;
+		case R.id.menu_help:
+			startActivity(new Intent(this, HelpScreen.class));
+			finish();
+			return true;
+		case R.id.menu_settings:
+			startActivity(new Intent(this, SettingsScreen.class));
+			finish();
+			return true;
+		case R.id.btn_admin_edit_card_save:
+			if (isCardNotEmpty()) {
+				card.setCardBack(cardBack.getText().toString());
+				card.setCardFront(cardFront.getText().toString());
+				setResult(LearningCard.RESULT_CHANGED);
+				Database.getInstance().changeCard(card);
+				finish();
+			}
+			return true;
+		default:
+			ErrorHandler error = new ErrorHandler(getApplicationContext());
+			error.handleError(1);
+			return false;
+		}
 	}
 
 	@Override
@@ -232,27 +268,24 @@ public class AdminEditCard extends FragmentActivity implements
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
 			View v = inflater.inflate(R.layout.admin_edit_card_front, null);
-			Button save;
+			// Button save;
 
 			cardFront = (EditText) v.findViewById(R.id.txt_edit_card_front);
 			cardFront.setText(card.getCardFront());
 
-			save = (Button) v.findViewById(R.id.btn_admin_edit_card_save);
-
-			save.setOnClickListener(new View.OnClickListener() {
-
-				public void onClick(View view) {
-					if (isCardNotEmpty()) {
-						card.setCardBack(cardBack.getText().toString());
-						card.setCardFront(cardFront.getText().toString());
-						setResult(LearningCard.RESULT_CHANGED);
-						Database.getInstance().changeCard(card);
-						finish();
-					}
-				}
-
-			});
-
+			/*
+			 * save = (Button) v.findViewById(R.id.btn_admin_edit_card_save);
+			 * 
+			 * save.setOnClickListener(new View.OnClickListener() {
+			 * 
+			 * public void onClick(View view) { if (isCardNotEmpty()) {
+			 * card.setCardBack(cardBack.getText().toString());
+			 * card.setCardFront(cardFront.getText().toString());
+			 * setResult(LearningCard.RESULT_CHANGED);
+			 * Database.getInstance().changeCard(card); finish(); } }
+			 * 
+			 * });
+			 */
 			return v;
 		}
 	}
@@ -263,7 +296,7 @@ public class AdminEditCard extends FragmentActivity implements
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
-		Button save;
+		//Button save;
 
 		public EditCardBack() {
 		}
@@ -276,21 +309,19 @@ public class AdminEditCard extends FragmentActivity implements
 
 			cardBack = (EditText) v.findViewById(R.id.txt_edit_card_back);
 			cardBack.setText(card.getCardBack());
-			save = (Button) v.findViewById(R.id.btn_admin_edit_card_save);
-
-			save.setOnClickListener(new View.OnClickListener() {
-
-				public void onClick(View view) {
-					if (isCardNotEmpty()) {
-						card.setCardBack(cardBack.getText().toString());
-						card.setCardFront(cardFront.getText().toString());
-						setResult(LearningCard.RESULT_CHANGED);
-						Database.getInstance().changeCard(card);
-						finish();
-					}
-				}
-
-			});
+			/*
+			 * save = (Button) v.findViewById(R.id.btn_admin_edit_card_save);
+			 * 
+			 * save.setOnClickListener(new View.OnClickListener() {
+			 * 
+			 * public void onClick(View view) { if (isCardNotEmpty()) {
+			 * card.setCardBack(cardBack.getText().toString());
+			 * card.setCardFront(cardFront.getText().toString());
+			 * setResult(LearningCard.RESULT_CHANGED);
+			 * Database.getInstance().changeCard(card); finish(); } }
+			 * 
+			 * });
+			 */
 			return v;
 		}
 	}
