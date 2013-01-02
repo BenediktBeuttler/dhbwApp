@@ -112,6 +112,10 @@ public class Runthrough {
 		this.duration = newDuration;
 		Database.getInstance().changeRunthrough(this);
 	}
+	
+	public void setDurationSecsInit(int newDuration) {
+		this.duration = newDuration;
+	}
 
 	public int getDurationSecs() {
 		return duration;
