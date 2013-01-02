@@ -1,9 +1,5 @@
 package wi2010d.dhbwapp;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Database;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
@@ -11,7 +7,6 @@ import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,23 +14,68 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class AdminNewCard extends FragmentActivity implements
 		ActionBar.TabListener {
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.menu_start_screen:
+			startActivity(new Intent(this, StartScreen.class));
+			finish();
+			return true;
+		case R.id.menu_help:
+			startActivity(new Intent(this, HelpScreen.class));
+			finish();
+			return true;
+		case R.id.menu_settings:
+			startActivity(new Intent(this, SettingsScreen.class));
+			finish();
+			return true;
+		case R.id.btn_admin_new_card_new_stack:
+			if (isCardNotEmpty()) {
+				card = Create.getInstance().newCard(
+						cardFront.getText().toString(),
+						cardBack.getText().toString(), null, "", "");
+				
+				Intent i = new Intent(getApplicationContext(),
+						AdminNewStack.class);
+				startActivityForResult(i, NEW_STACK);
+				
+			}
+			return true;
+		case R.id.btn_admin_new_card_existing_stack:
+			if (Stack.allStacks.size() == 0) {
+				ErrorHandler.getInstance().handleError(
+						ErrorHandler.getInstance().NO_STACK_AVAILABLE);
+			} else if (isCardNotEmpty()) {
+				card = Create.getInstance().newCard(
+						cardFront.getText().toString(),
+						cardBack.getText().toString(), null, "", "");
+				
+				Intent i = new Intent(getApplicationContext(),
+						AdminNewCardChooseStack.class);
+				startActivityForResult(i, STACK_CHOSEN);
+			}
+		default:
+			ErrorHandler error = new ErrorHandler(getApplicationContext());
+			error.handleError(1);
+			return false;
+		}
+	}
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -110,7 +150,7 @@ public class AdminNewCard extends FragmentActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.new_card, menu);
+		getMenuInflater().inflate(R.menu.admin_new_card, menu);
 		return true;
 	}
 
@@ -156,9 +196,7 @@ public class AdminNewCard extends FragmentActivity implements
 			case 1:
 				fragment = new NewCardBack();
 				break;
-			case 2:
-				fragment = new NewCardTags();
-				break;
+
 			default:
 				break;
 			}
@@ -173,7 +211,7 @@ public class AdminNewCard extends FragmentActivity implements
 		@Override
 		public int getCount() {
 			// Show 2 total pages.
-			return 3;
+			return 2;
 		}
 
 		@Override
@@ -184,9 +222,6 @@ public class AdminNewCard extends FragmentActivity implements
 						.toUpperCase();
 			case 1:
 				return getString(R.string.admin_screen_tab_card_back)
-						.toUpperCase();
-			case 2:
-				return getString(R.string.admin_screen_tab_card_tags)
 						.toUpperCase();
 			}
 			return null;
@@ -260,11 +295,13 @@ public class AdminNewCard extends FragmentActivity implements
 
 			View v = inflater.inflate(R.layout.admin_new_card_back, null);
 
-			newCardNewStack = (Button) v
-					.findViewById(R.id.btn_new_card_new_stack);
-			existingStack = (Button) v
-					.findViewById(R.id.btn_new_card_existing_stack);
 			cardBack = (EditText) v.findViewById(R.id.txt_edit_card_back);
+			/*
+			newCardNewStack = (Button) v
+					.findViewById(R.id.btn_admin_new_card_new_stack);
+			existingStack = (Button) v
+					.findViewById(R.id.btn_admin_new_card_existing_stack);
+			
 
 			newCardNewStack.setOnClickListener(new View.OnClickListener() {
 
@@ -282,6 +319,7 @@ public class AdminNewCard extends FragmentActivity implements
 				}
 
 			});
+			
 
 			existingStack.setOnClickListener(new View.OnClickListener() {
 
@@ -302,6 +340,7 @@ public class AdminNewCard extends FragmentActivity implements
 				}
 
 			});
+			*/
 			return v;
 		}
 	}
@@ -356,208 +395,4 @@ public class AdminNewCard extends FragmentActivity implements
 		}
 	}
 
-	public class NewCardTags extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
-		Button newTag;
-		private ListView mainListView;
-		private Planet[] planets;
-		private ArrayAdapter<Planet> listAdapter;
-		private LinearLayout ll;
-		
-		public NewCardTags() {
-		}
-	
-			/** Called when the activity is first created. */
-			@Override
-			public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-				View v = inflater.inflate(R.layout.admin_new_card_tags, null);
-				newTag = (Button) v.findViewById(R.id.btn_admin_new_card_new_tag);
-				
-				// Find the ListView resource.
-				mainListView = (ListView) v.findViewById(R.id.tagsListView);
-				//IMPLEMENT A BUTTON JUST FOR TEST-CASES!!!!!***************!"§%§"§$%$§
-				//btn = (Button) findViewById(R.id.button1);
-
-				// When item is tapped, toggle checked properties of CheckBox and
-				// Planet.
-				mainListView
-						.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-							@Override
-							public void onItemClick(AdapterView<?> parent, View item,
-									int position, long id) {
-								Planet planet = listAdapter.getItem(position);
-								planet.toggleChecked();
-								PlanetViewHolder viewHolder = (PlanetViewHolder) item
-										.getTag();
-								viewHolder.getCheckBox().setChecked(planet.isChecked());
-							}
-						});
-
-				// Create and populate planets.
-				planets = (Planet[]) getLastNonConfigurationInstance();
-				if (planets == null) {
-					planets = new Planet[] { new Planet("Mercury"),
-							new Planet("Venus"), new Planet("Earth"),
-							new Planet("Mars"), new Planet("Jupiter"),
-							new Planet("Saturn"), new Planet("Uranus"),
-							new Planet("Neptune"), new Planet("Ceres"),
-							new Planet("Pluto"), new Planet("Haumea"),
-							new Planet("Makemake"), new Planet("Eris") };
-				}
-				ArrayList<Planet> planetList = new ArrayList<Planet>();
-				planetList.addAll(Arrays.asList(planets));
-
-				// Set our custom array adapter as the ListView's adapter.
-				listAdapter = new PlanetArrayAdapter(getApplicationContext(), planetList);
-				mainListView.setAdapter(listAdapter);
-				return v;
-			}
-
-			/** Holds planet data. */
-			private class Planet {
-				private String name = "";
-				private boolean checked = false;
-
-				public Planet() {
-				}
-
-				public Planet(String name) {
-					this.name = name;
-				}
-
-				public Planet(String name, boolean checked) {
-					this.name = name;
-					this.checked = checked;
-				}
-
-				public String getName() {
-					return name;
-				}
-
-				public void setName(String name) {
-					this.name = name;
-				}
-
-				public boolean isChecked() {
-					return checked;
-				}
-
-				public void setChecked(boolean checked) {
-					this.checked = checked;
-				}
-
-				public String toString() {
-					return name;
-				}
-
-				public void toggleChecked() {
-					checked = !checked;
-				}
-			}
-
-			/** Holds child views for one row. */
-			private class PlanetViewHolder {
-				private CheckBox checkBox;
-				private TextView textView;
-
-				public PlanetViewHolder() {
-				}
-
-				public PlanetViewHolder(TextView textView, CheckBox checkBox) {
-					this.checkBox = checkBox;
-					this.textView = textView;
-				}
-
-				public CheckBox getCheckBox() {
-					return checkBox;
-				}
-
-				public void setCheckBox(CheckBox checkBox) {
-					this.checkBox = checkBox;
-				}
-
-				public TextView getTextView() {
-					return textView;
-				}
-
-				public void setTextView(TextView textView) {
-					this.textView = textView;
-				}
-			}
-
-			/** Custom adapter for displaying an array of Planet objects. */
-			private class PlanetArrayAdapter extends ArrayAdapter<Planet> {
-
-				private LayoutInflater inflater;
-
-				public PlanetArrayAdapter(Context context, List<Planet> planetList) {
-					super(context, R.layout.admin_new_card_tags_simplerow, R.id.rowTextView, planetList);
-					// Cache the LayoutInflate to avoid asking for a new one each time.
-					inflater = LayoutInflater.from(context);
-				}
-
-				public View getView(int position, View convertView, ViewGroup parent) {
-					// Planet to display
-					Planet planet = (Planet) this.getItem(position);
-
-					// The child views in each row.
-					CheckBox checkBox;
-					TextView textView;
-
-					// Create a new row view
-					if (convertView == null) {
-						convertView = inflater.inflate(R.layout.admin_new_card_tags_simplerow, null);
-
-						// Find the child views.
-						textView = (TextView) convertView
-								.findViewById(R.id.rowTextView);
-						checkBox = (CheckBox) convertView.findViewById(R.id.CheckBox01);
-
-						// Optimization: Tag the row with it's child views, so we don't
-						// have to
-						// call findViewById() later when we reuse the row.
-						convertView.setTag(new PlanetViewHolder(textView, checkBox));
-
-						// If CheckBox is toggled, update the planet it is tagged with.
-						checkBox.setOnClickListener(new View.OnClickListener() {
-							public void onClick(View v) {
-								CheckBox cb = (CheckBox) v;
-								Planet planet = (Planet) cb.getTag();
-								planet.setChecked(cb.isChecked());
-							}
-						});
-					}
-					// Reuse existing row view
-					else {
-						// Because we use a ViewHolder, we avoid having to call
-						// findViewById().
-						PlanetViewHolder viewHolder = (PlanetViewHolder) convertView
-								.getTag();
-						checkBox = viewHolder.getCheckBox();
-						textView = viewHolder.getTextView();
-					}
-
-					// Tag the CheckBox with the Planet it is displaying, so that we can
-					// access the planet in onClick() when the CheckBox is toggled.
-					checkBox.setTag(planet);
-
-					// Display planet data
-					checkBox.setChecked(planet.isChecked());
-					textView.setText(planet.getName());
-
-					return convertView;
-				}
-
-			}
-
-			public Object onRetainNonConfigurationInstance() {
-				return planets;
-			}
-			//return v;
-		}
-	}
-
+}

@@ -56,6 +56,7 @@ public class LearningChooseStackScreen extends Activity implements
 					Intent i = new Intent(getApplicationContext(), LearningCard.class);
 					i.putExtra("stackName", stackName);
 					startActivity(i);
+					finish();
 				}
 
 			}
