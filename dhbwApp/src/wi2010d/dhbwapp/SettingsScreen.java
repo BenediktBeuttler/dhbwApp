@@ -8,6 +8,8 @@ import wi2010d.dhbwapp.control.DatabaseManager;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -63,11 +65,30 @@ public class SettingsScreen extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_reset_database:
-			DatabaseManager.getInstance().deleteDB();
-			Toast toast = Toast.makeText(getApplicationContext(),
-					"Database and all Data deleted!",
-					Toast.LENGTH_SHORT);
-			toast.show();
+			AlertDialog.Builder deleteDB = new AlertDialog.Builder(v.getContext());
+
+		  	deleteDB.setTitle("Delete Database");
+		  	deleteDB.setMessage("Are you sure you want to delete the database?");
+
+		  	deleteDB.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				  public void onClick(DialogInterface dialog, int whichButton) {
+					  
+					  DatabaseManager.getInstance().deleteDB();
+					  Toast toast = Toast.makeText(getApplicationContext(),
+								"Database and all Data deleted!",
+								Toast.LENGTH_SHORT);
+					  toast.show();
+				  }
+				});
+			
+		  	deleteDB.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				  public void onClick(DialogInterface dialog, int whichButton) {
+				    // Canceled.
+				  }
+				});
+			
+		  	deleteDB.show();	
+						
 			break;
 		case R.id.btn_write_test_data:
 		List<Tag> tags = new ArrayList<Tag>();
@@ -131,7 +152,7 @@ public class SettingsScreen extends Activity implements OnClickListener{
 				Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
 				Create.getInstance().newStack("Stack 29",
 				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
-		
+		Toast toast;
 		toast = Toast.makeText(getApplicationContext(),
 				"Test data written!",
 				Toast.LENGTH_SHORT);
