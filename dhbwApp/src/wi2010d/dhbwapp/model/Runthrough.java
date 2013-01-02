@@ -54,7 +54,7 @@ public class Runthrough {
 				if (isOverall) {
 					stack.setOverallRunthrough(this);
 				} else {
-					stack.addLastRunthroughInit(this);
+					stack.initAddLastRunthrough(this);
 				}
 			}
 		}
@@ -113,7 +113,7 @@ public class Runthrough {
 		Database.getInstance().changeRunthrough(this);
 	}
 	
-	public void setDurationSecsInit(int newDuration) {
+	public void initSetDurationSecs(int newDuration) {
 		this.duration = newDuration;
 	}
 

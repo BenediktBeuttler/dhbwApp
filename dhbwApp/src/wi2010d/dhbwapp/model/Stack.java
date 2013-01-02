@@ -116,7 +116,7 @@ public class Stack {
 	}
 	
 	
-	public void addLastRunthroughInit(Runthrough run) {
+	public void initAddLastRunthrough(Runthrough run) {
 		Runthrough overallRunthrough = this.getOverallRunthrough();
 		int actualStatus[] = run.getStatusAfter();
 		
@@ -124,9 +124,9 @@ public class Stack {
 				- run.getStartDate().getTime();
 
 		int duration = (int) TimeUnit.MILLISECONDS.toSeconds(durationMilliSecs);
-		run.setDurationSecsInit(duration);
+		run.initSetDurationSecs(duration);
 
-		overallRunthrough.setDurationSecsInit(
+		overallRunthrough.initSetDurationSecs(
 				duration + overallRunthrough.getDurationSecs());
 		
 		overallRunthrough.initSetStatusAfter(actualStatus[0], actualStatus[1], actualStatus[2]);
