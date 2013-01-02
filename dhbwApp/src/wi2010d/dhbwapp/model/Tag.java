@@ -3,6 +3,8 @@ package wi2010d.dhbwapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import wi2010d.dhbwapp.control.Database;
+
 public class Tag {
 
 	public static List<Tag> allTags = new ArrayList<Tag>();
@@ -53,6 +55,7 @@ public class Tag {
 
 	public void setTagName(String tagName) {
 		this.tagName = tagName;
+		Database.getInstance().changeTag(this);
 	}
 
 	public int getTagID() {

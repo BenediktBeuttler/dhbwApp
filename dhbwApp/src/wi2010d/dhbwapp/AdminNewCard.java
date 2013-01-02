@@ -10,8 +10,10 @@ import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -385,6 +388,41 @@ public class AdminNewCard extends FragmentActivity implements
 			public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 				View v = inflater.inflate(R.layout.admin_new_card_tags, null);
 				newTag = (Button) v.findViewById(R.id.btn_admin_new_card_new_tag);
+				
+				newTag.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						
+						AlertDialog.Builder alert = new AlertDialog.Builder(v.getContext());
+
+						alert.setTitle("New Tag");
+						alert.setMessage("Insert Tag Name");
+
+						// Set an EditText view to get user input 
+						final EditText input = new EditText(v.getContext());
+						alert.setView(input);
+
+						alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+						  String value = input.getText().toString();
+						  // Do something with value!
+						  Toast toast; // = new Toast(getApplicationContext());
+						  toast = Toast.makeText(getApplicationContext(), "New Tag '" + value + "' has been added.", Toast.LENGTH_LONG);
+						  toast.show();
+						  }
+						});
+
+						alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+						  public void onClick(DialogInterface dialog, int whichButton) {
+						    // Canceled.
+						  }
+						});
+
+						alert.show();	
+					}
+				});
 				
 				// Find the ListView resource.
 				mainListView = (ListView) v.findViewById(R.id.tagsListView);

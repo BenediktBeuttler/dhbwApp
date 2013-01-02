@@ -3,6 +3,8 @@ package wi2010d.dhbwapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import wi2010d.dhbwapp.control.Database;
+
 public class Card {
 
 	public static List<Card> allCards = new ArrayList<Card>();
@@ -77,6 +79,7 @@ public class Card {
 
 	public void setDrawer(int drawer) {
 		this.drawer = drawer;
+		Database.getInstance().changeCard(this);
 	}
 
 	public String getCardFront() {
@@ -85,6 +88,7 @@ public class Card {
 
 	public void setCardFront(String cardFront) {
 		this.cardFront = cardFront;
+		Database.getInstance().changeCard(this);
 	}
 
 	public String getCardBack() {
@@ -93,6 +97,7 @@ public class Card {
 
 	public void setCardBack(String cardBack) {
 		this.cardBack = cardBack;
+		Database.getInstance().changeCard(this);
 	}
 
 	public String getCardFrontPicture() {
@@ -101,6 +106,7 @@ public class Card {
 
 	public void setCardFrontPicture(String cardFrontPicture) {
 		this.cardFrontPicture = cardFrontPicture;
+		Database.getInstance().changeCard(this);
 	}
 
 	public String getCardBackPicture() {
@@ -109,6 +115,7 @@ public class Card {
 
 	public void setCardBackPicture(String cardBackPicture) {
 		this.cardBackPicture = cardBackPicture;
+		Database.getInstance().changeCard(this);
 	}
 
 	public int getCardID() {
@@ -125,11 +132,13 @@ public class Card {
 
 	public int increaseTotalStacks() {
 		this.totalStacks = this.totalStacks + 1;
+		Database.getInstance().changeCard(this);
 		return totalStacks;
 	}
 
 	public int decreaseTotalStacks() {
 		this.totalStacks = this.totalStacks - 1;
+		Database.getInstance().changeCard(this);
 		return totalStacks;
 	}
 
@@ -140,6 +149,7 @@ public class Card {
 
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
+		Database.getInstance().changeCard(this);
 	}
 
 	@Override
