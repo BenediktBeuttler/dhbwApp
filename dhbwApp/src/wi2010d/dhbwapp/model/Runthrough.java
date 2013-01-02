@@ -137,7 +137,7 @@ public class Runthrough {
 		Database.getInstance().changeRunthrough(this);
 	}
 	
-	public void setStatusAfterInit(int afterDontKnow, int afterNotSure,
+	public void initSetStatusAfter(int afterDontKnow, int afterNotSure,
 			int afterSure) {
 		this.statusAfter[0] = afterDontKnow;
 		this.statusAfter[1] = afterNotSure;

@@ -129,7 +129,7 @@ public class Stack {
 		overallRunthrough.setDurationSecsInit(
 				duration + overallRunthrough.getDurationSecs());
 		
-		overallRunthrough.setStatusAfterInit(actualStatus[0], actualStatus[1], actualStatus[2]);
+		overallRunthrough.initSetStatusAfter(actualStatus[0], actualStatus[1], actualStatus[2]);
 
 		if (lastRunthroughs.size() > 9) {
 			lastRunthroughs.remove(0);
