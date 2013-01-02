@@ -234,10 +234,13 @@ public class Statistics {
 
 		seconds = duration % 60;
 		minutes = duration / 60;
-		hours = minutes / 60;
-		minutes = minutes & 60;
+		if (minutes >= 60){
+			hours = minutes / 60;
+			minutes = minutes % 60;
+		}
+		
 
-		if (hours > 0) {
+		if (hours <= 0) {
 			return minutes + " min, " + seconds + " sec";
 		} else {
 			return hours + " h, " + minutes + " min, " + seconds
