@@ -136,6 +136,13 @@ public class Runthrough {
 		this.statusAfter[2] = afterSure;
 		Database.getInstance().changeRunthrough(this);
 	}
+	
+	public void setStatusAfterInit(int afterDontKnow, int afterNotSure,
+			int afterSure) {
+		this.statusAfter[0] = afterDontKnow;
+		this.statusAfter[1] = afterNotSure;
+		this.statusAfter[2] = afterSure;
+	}
 
 	/**
 	 * @return [0] BeforeDontKnow [1] BeforeNotSure [2] BeforeSure
