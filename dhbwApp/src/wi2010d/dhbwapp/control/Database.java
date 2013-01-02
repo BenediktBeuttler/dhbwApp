@@ -49,8 +49,8 @@ public class Database {
 	private final String DELETE_CARD_STACK_CORRELATION = "Delete from stackcard where stackID = ? and cardID = ?;";
 	private final String DELETE_CARD_TAG_CORRELATION = "Delete from cardtag where cardID = ? and tagID = ?";
 
-	
-	// -------------END VAR DECLARATION
+	// -------------END VAR DECLARATION ------------------
+	// --------- CONSTRUCTOR // OPEN/CLOSE METHODS --------
 
 	public Database() {
 		this.dbManager = DatabaseManager.getInstance();
@@ -68,7 +68,7 @@ public class Database {
 		this.dbManager.close();
 	}
 
-	// --------------Query Methods -----------------
+	// --------------QUERY METHODS -------------------
 
 	/**
 	 * Queries the stack table
@@ -147,7 +147,7 @@ public class Database {
 		return cursor;
 	}
 
-	// --------------Delete Methods -----------------
+	// --------------DELETE METHODS -----------------
 
 	/**
 	 * Deletes the given stack and all correlations in the db
@@ -159,13 +159,12 @@ public class Database {
 	public boolean deleteStack(Stack stack) {
 		this.openWrite();
 
-		database.rawQuery(DELETE_STACK,
+		database.execSQL(DELETE_STACK, new String[] { "" + stack.getStackID() });
+
+		database.execSQL(DELETE_STACK_TAG_STACK,
 				new String[] { "" + stack.getStackID() });
 
-		database.rawQuery(DELETE_STACK_TAG_STACK,
-				new String[] { "" + stack.getStackID() });
-
-		database.rawQuery(DELETE_STACK_CARD_STACK,
+		database.execSQL(DELETE_STACK_CARD_STACK,
 				new String[] { "" + stack.getStackID() });
 
 		this.close();
@@ -182,12 +181,12 @@ public class Database {
 	public boolean deleteCard(Card card) {
 		this.openWrite();
 
-		database.rawQuery(DELETE_CARD, new String[] { "" + card.getCardID() });
+		database.execSQL(DELETE_CARD, new String[] { "" + card.getCardID() });
 
-		database.rawQuery(DELETE_STACK_CARD_CARD,
+		database.execSQL(DELETE_STACK_CARD_CARD,
 				new String[] { "" + card.getCardID() });
 
-		database.rawQuery(DELETE_CARD_TAG_CARD,
+		database.execSQL(DELETE_CARD_TAG_CARD,
 				new String[] { "" + card.getCardID() });
 
 		this.close();
@@ -204,12 +203,12 @@ public class Database {
 	public boolean deleteTag(Tag tag) {
 		this.openWrite();
 
-		database.rawQuery(DELETE_TAG, new String[] { "" + tag.getTagID() });
+		database.execSQL(DELETE_TAG, new String[] { "" + tag.getTagID() });
 
-		database.rawQuery(DELETE_CARD_TAG_TAG,
+		database.execSQL(DELETE_CARD_TAG_TAG,
 				new String[] { "" + tag.getTagID() });
 
-		database.rawQuery(DELETE_STACK_TAG_TAG,
+		database.execSQL(DELETE_STACK_TAG_TAG,
 				new String[] { "" + tag.getTagID() });
 
 		this.close();
@@ -226,40 +225,45 @@ public class Database {
 	public boolean deleteRunthrough(Runthrough run) {
 		this.openWrite();
 
-		database.rawQuery(DELETE_RUNTHROUGH,
+		database.execSQL(DELETE_RUNTHROUGH,
 				new String[] { "" + run.getRunthroughID() });
 
 		this.close();
 		return true;
 	}
 
-	/** 
+	/**
 	 * Deletes the Card Stack Correlation for the given Stack ID and Card ID
-	 * @param stackID The Stack ID
-	 * @param cardID The Card ID
+	 * 
+	 * @param stackID
+	 *            The Stack ID
+	 * @param cardID
+	 *            The Card ID
 	 * @return always true
 	 */
 	public boolean deleteCardStackCorrelation(int stackID, int cardID) {
 		this.openWrite();
 
-		database.rawQuery(DELETE_CARD_STACK_CORRELATION, new String[] {
+		database.execSQL(DELETE_CARD_STACK_CORRELATION, new String[] {
 				"" + stackID, "" + cardID });
 
 		this.close();
 		return true;
 	}
-	
+
 	/**
 	 * Deletes the Card Tag Correlation for the given Card ID and Tag ID
-	 * @param cardID The Card ID
-	 * @param tagID The Tag ID
+	 * 
+	 * @param cardID
+	 *            The Card ID
+	 * @param tagID
+	 *            The Tag ID
 	 * @return always true
 	 */
-	public boolean deleteCardTagCorrelation(int cardID, int tagID)
-	{
+	public boolean deleteCardTagCorrelation(int cardID, int tagID) {
 		this.openWrite();
 
-		database.rawQuery(DELETE_CARD_TAG_CORRELATION, new String[] {
+		database.execSQL(DELETE_CARD_TAG_CORRELATION, new String[] {
 				"" + cardID, "" + tagID });
 
 		this.close();
@@ -267,7 +271,7 @@ public class Database {
 
 	}
 
-	// --------------Add Methods -----------------
+	// --------------ADD METHODS -----------------
 
 	/**
 	 * Adds a new Stack and all correlations to the DB
@@ -484,10 +488,11 @@ public class Database {
 
 	}
 
-	// --------------Change Methods -----------------
+	// --------------CHANGE METHODS -----------------
 	// not useful to use the addNewXXXXX() and deleteXXXX() methods,
 	// because there's too much overhead -> correlations are deleted and
-	// created, which is not needed
+	// created, which is not needed, so just the object is deleted and new
+	// written
 
 	/**
 	 * Changes the given stack in the DB !! stackID needs to be the same !!
@@ -499,8 +504,7 @@ public class Database {
 	public boolean changeStack(Stack stack) {
 		this.openWrite();
 
-		database.rawQuery(DELETE_STACK,
-				new String[] { "" + stack.getStackID() });
+		database.execSQL(DELETE_STACK, new String[] { "" + stack.getStackID() });
 
 		ContentValues stackContent = putStackValues(stack);
 		database.insert("stack", null, stackContent);
@@ -518,9 +522,9 @@ public class Database {
 	 */
 	public boolean changeCard(Card card) {
 
-		this.openWrite();		
-		database.delete("card", "_id = ?", new String[] { "" + card.getCardID() });
-		
+		this.openWrite();
+		database.execSQL(DELETE_CARD, new String[] { "" + card.getCardID() });
+
 		ContentValues cardContent = putCardValues(card);
 
 		database.insert("card", null, cardContent);
@@ -539,7 +543,7 @@ public class Database {
 	 */
 	public boolean changeRunthrough(Runthrough run) {
 		this.openWrite();
-		database.rawQuery(DELETE_RUNTHROUGH,
+		database.execSQL(DELETE_RUNTHROUGH,
 				new String[] { "" + run.getRunthroughID() });
 
 		ContentValues runthroughContent = putRunthroughValues(run);
@@ -559,7 +563,7 @@ public class Database {
 	 */
 	public boolean changeTag(Tag tag) {
 		this.openWrite();
-		database.rawQuery(DELETE_TAG, new String[] { "" + tag.getTagID() });
+		database.execSQL(DELETE_TAG, new String[] { "" + tag.getTagID() });
 
 		ContentValues tagValues = putTagValues(tag);
 
@@ -569,7 +573,7 @@ public class Database {
 		return true;
 	}
 
-	// --------------Put Values Methods -----------------
+	// --------------PUT VALUES - METHODS -----------------
 
 	/**
 	 * Puts the values of the stack to a new Content Value-Map and returns it
@@ -656,7 +660,7 @@ public class Database {
 
 	}
 
-	// --------------"Singleton" Method -----------------
+	// --------------"SINGLETON" METHOD -----------------
 
 	public static Database getInstance() {
 		if (db == null) {
