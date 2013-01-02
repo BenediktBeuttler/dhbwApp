@@ -9,6 +9,7 @@ import wi2010d.dhbwapp.control.Database;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
+import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
@@ -376,9 +377,7 @@ public class AdminNewCard extends FragmentActivity implements
 		public static final String ARG_SECTION_NUMBER = "section_number";
 		Button newTag;
 		private ListView mainListView;
-		private Planet[] planets;
-		private ArrayAdapter<Planet> listAdapter;
-		private LinearLayout ll;
+		private ArrayAdapter<Tag> tagListAdapter;
 		
 		public NewCardTags() {
 		}
@@ -408,9 +407,31 @@ public class AdminNewCard extends FragmentActivity implements
 						public void onClick(DialogInterface dialog, int whichButton) {
 						  String value = input.getText().toString();
 						  // Do something with value!
-						  Toast toast; // = new Toast(getApplicationContext());
-						  toast = Toast.makeText(getApplicationContext(), "New Tag '" + value + "' has been added.", Toast.LENGTH_LONG);
-						  toast.show();
+						  for (Tag tag: Tag.allTags)
+						  {
+							  if (tag.getTagName().equals(value))
+							  {
+								  Toast toast; // = new Toast(getApplicationContext());
+								  toast = Toast.makeText(getApplicationContext(), "Tag '" + value + "' already exists.", Toast.LENGTH_LONG);
+								  toast.show();
+								  	/*
+								  	//dialog.dismiss();
+								  	AlertDialog.Builder sameName = new AlertDialog.Builder(getParent().getParent());
+
+								  	sameName.setTitle("New Tag");
+								  	sameName.setMessage("Tag "+value+" Already Exists");
+
+									sameName.setPositiveButton("Ok", null);
+									
+									sameName.show();*/										
+							  }
+							  else 
+							  {
+								  Toast toast; // = new Toast(getApplicationContext());
+								  toast = Toast.makeText(getApplicationContext(), "New Tag '" + value + "' has been added.", Toast.LENGTH_LONG);
+								  toast.show();
+							  }
+						  }
 						  }
 						});
 
@@ -419,7 +440,6 @@ public class AdminNewCard extends FragmentActivity implements
 						    // Canceled.
 						  }
 						});
-
 						alert.show();	
 					}
 				});
@@ -430,91 +450,36 @@ public class AdminNewCard extends FragmentActivity implements
 				//btn = (Button) findViewById(R.id.button1);
 
 				// When item is tapped, toggle checked properties of CheckBox and
-				// Planet.
+				// Tags.
 				mainListView
 						.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 							@Override
 							public void onItemClick(AdapterView<?> parent, View item,
 									int position, long id) {
-								Planet planet = listAdapter.getItem(position);
-								planet.toggleChecked();
-								PlanetViewHolder viewHolder = (PlanetViewHolder) item
+								Tag tag = tagListAdapter.getItem(position);
+								tag.toggleChecked();
+								TagViewHolder viewHolder = (TagViewHolder) item
 										.getTag();
-								viewHolder.getCheckBox().setChecked(planet.isChecked());
+								viewHolder.getCheckBox().setChecked(tag.isChecked());
 							}
 						});
 
-				// Create and populate planets.
-				planets = (Planet[]) getLastNonConfigurationInstance();
-				if (planets == null) {
-					planets = new Planet[] { new Planet("Mercury"),
-							new Planet("Venus"), new Planet("Earth"),
-							new Planet("Mars"), new Planet("Jupiter"),
-							new Planet("Saturn"), new Planet("Uranus"),
-							new Planet("Neptune"), new Planet("Ceres"),
-							new Planet("Pluto"), new Planet("Haumea"),
-							new Planet("Makemake"), new Planet("Eris") };
-				}
-				ArrayList<Planet> planetList = new ArrayList<Planet>();
-				planetList.addAll(Arrays.asList(planets));
-
+				// Create and populate TagList.				
 				// Set our custom array adapter as the ListView's adapter.
-				listAdapter = new PlanetArrayAdapter(getApplicationContext(), planetList);
-				mainListView.setAdapter(listAdapter);
+				tagListAdapter = new TagArrayAdapter(getApplicationContext(), Tag.allTags);
+				mainListView.setAdapter(tagListAdapter);
 				return v;
 			}
 
-			/** Holds planet data. */
-			private class Planet {
-				private String name = "";
-				private boolean checked = false;
-
-				public Planet() {
-				}
-
-				public Planet(String name) {
-					this.name = name;
-				}
-
-				public Planet(String name, boolean checked) {
-					this.name = name;
-					this.checked = checked;
-				}
-
-				public String getName() {
-					return name;
-				}
-
-				public void setName(String name) {
-					this.name = name;
-				}
-
-				public boolean isChecked() {
-					return checked;
-				}
-
-				public void setChecked(boolean checked) {
-					this.checked = checked;
-				}
-
-				public String toString() {
-					return name;
-				}
-
-				public void toggleChecked() {
-					checked = !checked;
-				}
-			}
-
 			/** Holds child views for one row. */
-			private class PlanetViewHolder {
+			private class TagViewHolder {
 				private CheckBox checkBox;
 				private TextView textView;
 
-				public PlanetViewHolder() {
+				public TagViewHolder() {
 				}
 
-				public PlanetViewHolder(TextView textView, CheckBox checkBox) {
+				public TagViewHolder(TextView textView, CheckBox checkBox) {
 					this.checkBox = checkBox;
 					this.textView = textView;
 				}
@@ -536,20 +501,20 @@ public class AdminNewCard extends FragmentActivity implements
 				}
 			}
 
-			/** Custom adapter for displaying an array of Planet objects. */
-			private class PlanetArrayAdapter extends ArrayAdapter<Planet> {
+			/** Custom adapter for displaying an array of Tag objects. */
+			private class TagArrayAdapter extends ArrayAdapter<Tag> {
 
 				private LayoutInflater inflater;
 
-				public PlanetArrayAdapter(Context context, List<Planet> planetList) {
-					super(context, R.layout.admin_new_card_tags_simplerow, R.id.rowTextView, planetList);
+				public TagArrayAdapter(Context context, List<Tag> tagList) {
+					super(context, R.layout.admin_new_card_tags_simplerow, R.id.rowTextView, tagList);
 					// Cache the LayoutInflate to avoid asking for a new one each time.
 					inflater = LayoutInflater.from(context);
 				}
 
 				public View getView(int position, View convertView, ViewGroup parent) {
-					// Planet to display
-					Planet planet = (Planet) this.getItem(position);
+					// Tag to display
+					Tag tag = (Tag) this.getItem(position);
 
 					// The child views in each row.
 					CheckBox checkBox;
@@ -567,14 +532,14 @@ public class AdminNewCard extends FragmentActivity implements
 						// Optimization: Tag the row with it's child views, so we don't
 						// have to
 						// call findViewById() later when we reuse the row.
-						convertView.setTag(new PlanetViewHolder(textView, checkBox));
+						convertView.setTag(new TagViewHolder(textView, checkBox));
 
-						// If CheckBox is toggled, update the planet it is tagged with.
+						// If CheckBox is toggled, update the Tag it is tagged with.
 						checkBox.setOnClickListener(new View.OnClickListener() {
 							public void onClick(View v) {
 								CheckBox cb = (CheckBox) v;
-								Planet planet = (Planet) cb.getTag();
-								planet.setChecked(cb.isChecked());
+								Tag tag = (Tag)cb.getTag();
+								tag.setChecked(cb.isChecked());
 							}
 						});
 					}
@@ -582,19 +547,19 @@ public class AdminNewCard extends FragmentActivity implements
 					else {
 						// Because we use a ViewHolder, we avoid having to call
 						// findViewById().
-						PlanetViewHolder viewHolder = (PlanetViewHolder) convertView
+						TagViewHolder viewHolder = (TagViewHolder) convertView
 								.getTag();
 						checkBox = viewHolder.getCheckBox();
 						textView = viewHolder.getTextView();
 					}
 
-					// Tag the CheckBox with the Planet it is displaying, so that we can
-					// access the planet in onClick() when the CheckBox is toggled.
-					checkBox.setTag(planet);
+					// Tag the CheckBox with the Tag it is displaying, so that we can
+					// access the Tag in onClick() when the CheckBox is toggled.
+					checkBox.setTag(tag);
 
-					// Display planet data
-					checkBox.setChecked(planet.isChecked());
-					textView.setText(planet.getName());
+					// Display Tag data
+					checkBox.setChecked(tag.isChecked());
+					textView.setText(tag.getTagName());
 
 					return convertView;
 				}
@@ -602,7 +567,7 @@ public class AdminNewCard extends FragmentActivity implements
 			}
 
 			public Object onRetainNonConfigurationInstance() {
-				return planets;
+				return Tag.allTags;
 			}
 			//return v;
 		}

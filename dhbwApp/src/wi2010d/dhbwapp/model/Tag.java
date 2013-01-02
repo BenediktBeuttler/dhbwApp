@@ -12,6 +12,7 @@ public class Tag {
 	private int tagID;
 	private int totalCards;
 	private String tagName;
+	private boolean checked = false;
 
 	public Tag(int tagID, int totalCards, String tagName) {
 		this.tagID = tagID;
@@ -64,6 +65,23 @@ public class Tag {
 
 	public int getTotalCards() {
 		return totalCards;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
+	@Override
+	public String toString() {
+		return tagName;
+	}
+
+	public void toggleChecked() {
+		checked = !checked;
 	}
 
 	public static boolean resetLastTagID() {
