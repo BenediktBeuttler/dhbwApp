@@ -84,7 +84,6 @@ public class Learn {
 			}
 		}
 		runthrough = new Runthrough(stack.getStackID(), false, statusBefore);
-		Log.i("TB", card.getCardFront());
 		return card;
 	}
 

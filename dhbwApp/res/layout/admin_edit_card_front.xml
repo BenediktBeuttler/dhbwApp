@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <EditText
-        android:id="@+id/txt_new_card_front"
+        android:id="@+id/txt_edit_card_front"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -16,5 +16,13 @@
 
         <requestFocus />
     </EditText>
+
+    <Button
+        android:id="@+id/btn_admin_edit_card_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Save" />
 
 </RelativeLayout>

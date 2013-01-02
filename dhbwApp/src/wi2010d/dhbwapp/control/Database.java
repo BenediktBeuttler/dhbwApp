@@ -518,9 +518,9 @@ public class Database {
 	 */
 	public boolean changeCard(Card card) {
 
-		this.openWrite();
-		database.rawQuery(DELETE_CARD, new String[] { "" + card.getCardID() });
-
+		this.openWrite();		
+		database.delete("card", "_id = ?", new String[] { "" + card.getCardID() });
+		
 		ContentValues cardContent = putCardValues(card);
 
 		database.insert("card", null, cardContent);

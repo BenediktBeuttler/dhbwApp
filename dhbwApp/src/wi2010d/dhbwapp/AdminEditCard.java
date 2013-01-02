@@ -1,35 +1,27 @@
 package wi2010d.dhbwapp;
 
 import wi2010d.dhbwapp.control.Database;
-import wi2010d.dhbwapp.control.Learn;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
-import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class LearningCard extends FragmentActivity implements
+public class AdminEditCard extends FragmentActivity implements
 		ActionBar.TabListener {
-
-	public static final int RESULT_CHANGED = 66;
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -45,40 +37,40 @@ public class LearningCard extends FragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+	EditText cardFront;
+	EditText cardBack;
 	Card card;
-	Stack stack;
-	String stackName;
+	int cardID;
 
-	EditText txt_front;
-	EditText txt_back;
-	Button sure, dontKnow, notSure;
+	public Card getCard() {
+		return card;
+	}
+
+	public void setCard(Card card) {
+		this.card = card;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.learning_card);
+		setContentView(R.layout.admin_edit_card);
 
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras == null) {
-				stackName = null;
+				cardID = -1;
 			} else {
-				stackName = extras.getString("stackName");
+				cardID = extras.getInt("cardID");
 			}
 		} else {
-			stackName = (String) savedInstanceState
-					.getSerializable("stackName");
+			cardID = (Integer) savedInstanceState.getSerializable("cardID");
 		}
-
-		for (Stack stack : Stack.allStacks) {
-			if (stack.getStackName().equals(stackName)) {
-				this.stack = stack;
+		for (Card card : Card.allCards) {
+			if (card.getCardID() == cardID) {
+				this.card = card;
 				break;
 			}
 		}
-
-		card = Learn.getInstance().startLearning(stack);
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -90,7 +82,7 @@ public class LearningCard extends FragmentActivity implements
 				getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
-		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager = (ViewPager) findViewById(R.id.newCard);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// When swiping between different sections, select the corresponding
@@ -119,7 +111,7 @@ public class LearningCard extends FragmentActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.learning_card, menu);
+		getMenuInflater().inflate(R.menu.new_card, menu);
 		return true;
 	}
 
@@ -132,61 +124,6 @@ public class LearningCard extends FragmentActivity implements
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.btn_learning_card_front_sure:
-			card = Learn.getInstance().learnCard(2);
-			if (card == null) {
-				Intent intent = (new Intent(this, StatisticsScreen.class));
-				intent.putExtra("Tab", 3);
-				startActivity(intent);
-				finish();
-			} else {
-				mViewPager.setCurrentItem(0);
-				txt_front.setText(card.getCardFront());
-				txt_back.setText(card.getCardBack());
-			}
-			return true;
-		case R.id.btn_learning_card_front_dontKnow:
-			card = Learn.getInstance().learnCard(0);
-			if (card == null) {
-				Intent intent = (new Intent(this, StatisticsScreen.class));
-				intent.putExtra("Tab", 3);
-				startActivity(intent);
-				finish();
-			} else {
-				mViewPager.setCurrentItem(0);
-				txt_front.setText(card.getCardFront());
-				txt_back.setText(card.getCardBack());
-			}
-			return true;
-		case R.id.btn_learning_card_front_notSure:
-			card = Learn.getInstance().learnCard(1);
-			if (card == null) {
-				Intent intent = (new Intent(this, StatisticsScreen.class));
-				intent.putExtra("Tab", 3);
-				startActivity(intent);
-				finish();
-			} else {
-				mViewPager.setCurrentItem(0);
-				txt_front.setText(card.getCardFront());
-				txt_back.setText(card.getCardBack());
-			}
-			return true;
-		case R.id.btn_admin_edit_card:
-			Intent intent = new Intent(this, AdminEditCard.class);
-			intent.putExtra("cardID", card.getCardID());
-			startActivityForResult(intent, RESULT_OK);
-			return true;
-		default:
-			ErrorHandler error = new ErrorHandler(getApplicationContext());
-			error.handleError(1);
-			return false;
-		}
-	}
-
-	@Override
 	public void onTabUnselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 	}
@@ -194,14 +131,6 @@ public class LearningCard extends FragmentActivity implements
 	@Override
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
-	}
-
-	public Card getCard() {
-		return card;
-	}
-
-	public void setCard(Card card) {
-		this.card = card;
 	}
 
 	/**
@@ -223,14 +152,13 @@ public class LearningCard extends FragmentActivity implements
 
 			switch (position) {
 			case 0:
-				fragment = new CardFront();
+				fragment = new EditCardFront();
 				break;
 			case 1:
-				fragment = new CardBack();
+				fragment = new EditCardBack();
 				break;
+
 			default:
-				ErrorHandler error = new ErrorHandler(getApplicationContext());
-				error.handleError(1);
 				break;
 			}
 
@@ -251,10 +179,10 @@ public class LearningCard extends FragmentActivity implements
 		public CharSequence getPageTitle(int position) {
 			switch (position) {
 			case 0:
-				return getString(R.string.learning_screen_tab_card_front)
+				return getString(R.string.admin_screen_tab_card_front)
 						.toUpperCase();
 			case 1:
-				return getString(R.string.learning_screen_tab_card_back)
+				return getString(R.string.admin_screen_tab_card_back)
 						.toUpperCase();
 			}
 			return null;
@@ -288,14 +216,14 @@ public class LearningCard extends FragmentActivity implements
 		}
 	}
 
-	public class CardFront extends Fragment {
+	public class EditCardFront extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
-		public final String ARG_SECTION_NUMBER = "section_number";
+		public static final String ARG_SECTION_NUMBER = "section_number";
 
-		public CardFront() {
+		public EditCardFront() {
 		}
 
 		@Override
@@ -303,53 +231,83 @@ public class LearningCard extends FragmentActivity implements
 				Bundle savedInstanceState) {
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
-			View v = inflater.inflate(R.layout.learning_card_front, null);
-			txt_front = (EditText) v.findViewById(R.id.txt_card_front);
-			txt_front.setText(card.getCardFront());
-			return v;
-		}
-	}
+			View v = inflater.inflate(R.layout.admin_edit_card_front, null);
+			Button save;
 
-	public class CardBack extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public final String ARG_SECTION_NUMBER = "section_number";
+			cardFront = (EditText) v.findViewById(R.id.txt_edit_card_front);
+			cardFront.setText(card.getCardFront());
 
-		public CardBack() {
-		}
+			save = (Button) v.findViewById(R.id.btn_admin_edit_card_save);
 
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			// Create a new TextView and set its text to the fragment's section
-			// number argument value.
-			View v = inflater.inflate(R.layout.learning_card_back, null);
-			txt_back = (EditText) v.findViewById(R.id.txt_card_back);
-			txt_back.setText(card.getCardBack());
-			return v;
-		}
-	}
+			save.setOnClickListener(new View.OnClickListener() {
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (resultCode) {
-		case RESULT_CHANGED:
-			for (Card searchCard : Card.allCards) {
-				if (searchCard.getCardID() == this.card.getCardID()) {
-					this.card = searchCard;
-					break;
+				public void onClick(View view) {
+					if (isCardNotEmpty()) {
+						card.setCardBack(cardBack.getText().toString());
+						card.setCardFront(cardFront.getText().toString());
+						setResult(LearningCard.RESULT_CHANGED);
+						Database.getInstance().changeCard(card);
+						finish();
+					}
 				}
-			}
-			txt_front.setText("");
-			txt_back.setText("");
-			txt_back.append(card.getCardBack());
-			txt_front.append(card.getCardFront());
-			break;
-		default:
-			break;
+
+			});
+
+			return v;
 		}
+	}
+
+	public class EditCardBack extends Fragment {
+		/**
+		 * The fragment argument representing the section number for this
+		 * fragment.
+		 */
+		public static final String ARG_SECTION_NUMBER = "section_number";
+		Button save;
+
+		public EditCardBack() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+
+			View v = inflater.inflate(R.layout.admin_edit_card_back, null);
+
+			cardBack = (EditText) v.findViewById(R.id.txt_edit_card_back);
+			cardBack.setText(card.getCardBack());
+			save = (Button) v.findViewById(R.id.btn_admin_edit_card_save);
+
+			save.setOnClickListener(new View.OnClickListener() {
+
+				public void onClick(View view) {
+					if (isCardNotEmpty()) {
+						card.setCardBack(cardBack.getText().toString());
+						card.setCardFront(cardFront.getText().toString());
+						setResult(LearningCard.RESULT_CHANGED);
+						Database.getInstance().changeCard(card);
+						finish();
+					}
+				}
+
+			});
+			return v;
+		}
+	}
+
+	protected boolean isCardNotEmpty() {
+		if (cardFront.getText() == null
+				|| cardFront.getText().toString().equals("")) {
+			ErrorHandler.getInstance().handleError(
+					ErrorHandler.getInstance().TEXT_FIELD_FRONT_EMPTY);
+			return false;
+		} else if (cardBack.getText() == null
+				|| cardBack.getText().toString().equals("")) {
+			ErrorHandler.getInstance().handleError(
+					ErrorHandler.getInstance().TEXT_FIELD_BACK_EMPTY);
+			return false;
+		} else
+			return true;
 	}
 
 }

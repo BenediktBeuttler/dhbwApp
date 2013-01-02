@@ -86,7 +86,14 @@
             android:name="wi2010d.dhbwapp.AdminImportExport"
             android:label="@string/title_activity_admin_import_export" >
         </activity>
-        
+        <activity
+            android:name="wi2010d.dhbwapp.AdminEditCard"
+            android:label="@string/title_activity_admin_edit_card" >
+        </activity>
+        <activity
+            android:name="wi2010d.dhbwapp.AdminEditStack"
+            android:label="@string/title_activity_admin_edit_stack" >
+        </activity>
     </application>
 
 </manifest>
