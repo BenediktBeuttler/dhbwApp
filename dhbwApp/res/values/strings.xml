@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">know it owl</string>
+   <string name="app_name">know it owl</string>
     <string name="btn_start_learning">Start Learning</string>
     <string name="btn_start_admin">Administration</string>
     <string name="btn_start_statistic">Statistics</string>
     <string name="btn_start_settings">Settings</string>
     <string name="btn_start_help">Help</string>
-    <string name="btn_admin_new_card_new_stack">New Stack</string>
-    <string name="btn_admin_new_card_existing_stack">Existing Stack</string>
     <string name="menu_learning">Learning Menu</string>
     <string name="menu_admin">Administration Menu</string>
     <string name="menu_statistics">Statistics Menu</string>
@@ -16,7 +14,7 @@
     <string name="menu_help">Help</string>
     <string name="menu_start_screen">Home</string>
     <string name="btn_learn_dynstack">Create dynamic Stack</string>
-    <string name="list_learn_stacklist">Please choose your stack:</string>
+    <string name="list_learn_stacklist">Please choose your Stack:</string>
     <string name="tab_learn_backside">Go to Back Side</string>
     <string name="tab_learn_frontside">Go to Front Side</string>
     <string name="btn_learn_sure">Sure</string>
@@ -27,16 +25,16 @@
     <string name="btn_admin_editstack">Edit Stack</string>
     <string name="btn_admin_importexport">Import/Export</string>
     <string name="btn_admin_newdynstack">New dyn. Stack</string>
-    <string name="btn_admin_exist">exist</string>
-    <string name="btn_admin_new">new</string>
-    <string name="list_admin_stacklist">Please choose your stack:</string>
-    <string name="list_admin_cardlist">Please choose your card:</string>
+    <string name="btn_admin_exist">Exist</string>
+    <string name="btn_admin_new">New</string>
+    <string name="list_admin_stacklist">Please choose your Stack:</string>
+    <string name="list_admin_cardlist">Please choose your Card:</string>
     <string name="btn_admin_save">save</string>
     <string name="btn_admin_create">save</string>
     <string name="btn_admin_import">Import</string>
     <string name="btn_admin_export">Export</string>
     <string name="tab_statistics_overview">Overview</string>
-    <string name="list_statistics_stacklist">Please choose your stack:</string>
+    <string name="list_statistics_stacklist">Please choose your Stack:</string>
     <string name="tab_statistics_progress">Progress</string>
     <string name="tab_statistics_lastreview">Last review</string>
     <string name="label_settings_setreminder">Set Reminder</string>
@@ -52,7 +50,7 @@
     <string name="title_activity_admin_screen">Administration</string>
     <string name="title_activity_admin_new_card_choose_stack_screen">Choose Stack</string>
     <string name="title_activity_admin_new_stack">New Stack</string>
-    <string name="title_activity_stapel_screen">StapelScreen</string>
+    <string name="title_activity_stapel_screen">Stack Screen</string>
     <string name="help_learn_statistics">Hier steht die Erklärung für die Benutzung der Statistiken</string>
     <string name="help_import_export">Hier steht die Erklärung für die Benutzung von Import/Export</string>
     <string name="help_edit_card_stacks">Hier steht die Erklärung für die Verwaltung von Karten und Stacks</string>
@@ -60,14 +58,14 @@
     <string name="help_introduction">Hier wird die Einführung erklärt</string>
     <string name="title_activity_show_card_front">Card Front</string>
     <string name="btn_learn_back">Backside</string>
-    <string name="show_learn_card_front">default card front</string>
+    <string name="show_learn_card_front">Default Card Front</string>
     <string name="show_learn_counter">x/xx</string>
     <string name="title_activity_show_card_back">Card Back</string>
     <string name="btn_learn_front">Frontside</string>
-    <string name="show_learn_card_back">default card back</string>
+    <string name="show_learn_card_back">Default Card Back</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="title_activity_admin_edit_stack">edit stack</string>
+    <string name="title_activity_admin_edit_stack">Edit Stack</string>
     <string name="title_activity_admin_choose_stack_screen">MainActivity</string>
     <string name="statistics_screen_tab_overview">Overview</string>
     <string name="statistics_screen_tab_progress">Progress</string>
@@ -75,16 +73,15 @@
     <string name="title_activity_statistics_screen">Statistics</string>
     <string name="admin_screen_tab_card_front">Card Front</string>
     <string name="admin_screen_tab_card_back">Card Back</string>
-    <string name="admin_screen_tab_card_tags">Tags</string>
-    <string name="title_activity_new_card">NewCard</string>
+    <string name="title_activity_new_card">New Card</string>
     <string name="learning_screen_tab_card_back">Card Back</string>
     <string name="learning_screen_tab_card_front">Card Front</string>
     <string name="title_activity_learning_card">Learning</string>
     <string name="title_activity_admin_import_export">Import/Export</string>
-    <string name="title_activity_admin_create_dyn_stack">New dynamic stack</string>
+    <string name="title_activity_admin_create_dyn_stack">New dynamic Stack</string>
     <string name="admin_export">Export</string>
     <string name="admin_import">Import</string>
     <string name="content_start_screen_logo">know it owl Logo</string>
-	    <string name="title_activity_progress">Know It Owl</string>
+    <string name="title_activity_progress">know it owl</string>
     <string name="title_activity_admin_edit_card">Edit Card</string>
 </resources>
