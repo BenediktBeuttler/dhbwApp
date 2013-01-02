@@ -112,6 +112,10 @@ public class Runthrough {
 		this.duration = newDuration;
 		Database.getInstance().changeRunthrough(this);
 	}
+	
+	public void setDurationSecsInit(int newDuration) {
+		this.duration = newDuration;
+	}
 
 	public int getDurationSecs() {
 		return duration;
@@ -131,6 +135,13 @@ public class Runthrough {
 		this.statusAfter[1] = afterNotSure;
 		this.statusAfter[2] = afterSure;
 		Database.getInstance().changeRunthrough(this);
+	}
+	
+	public void setStatusAfterInit(int afterDontKnow, int afterNotSure,
+			int afterSure) {
+		this.statusAfter[0] = afterDontKnow;
+		this.statusAfter[1] = afterNotSure;
+		this.statusAfter[2] = afterSure;
 	}
 
 	/**

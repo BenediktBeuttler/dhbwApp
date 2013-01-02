@@ -115,6 +115,7 @@ public class Stack {
 		Database.getInstance().changeRunthrough(overallRunthrough);
 	}
 	
+	
 	public void addLastRunthroughInit(Runthrough run) {
 		Runthrough overallRunthrough = this.getOverallRunthrough();
 		int actualStatus[] = run.getStatusAfter();
@@ -123,12 +124,12 @@ public class Stack {
 				- run.getStartDate().getTime();
 
 		int duration = (int) TimeUnit.MILLISECONDS.toSeconds(durationMilliSecs);
-		run.setDurationSecs(duration);
+		run.setDurationSecsInit(duration);
 
-		overallRunthrough.setDurationSecs(
+		overallRunthrough.setDurationSecsInit(
 				duration + overallRunthrough.getDurationSecs());
 		
-		overallRunthrough.setStatusAfter(actualStatus[0], actualStatus[1], actualStatus[2]);
+		overallRunthrough.setStatusAfterInit(actualStatus[0], actualStatus[1], actualStatus[2]);
 
 		if (lastRunthroughs.size() > 9) {
 			lastRunthroughs.remove(0);
