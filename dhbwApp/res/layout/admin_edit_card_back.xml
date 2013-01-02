@@ -14,12 +14,4 @@
         android:ems="10"
         android:inputType="textMultiLine" />
 
-    <Button
-        android:id="@+id/btn_admin_edit_card_save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="Save" />
-
 </RelativeLayout>
