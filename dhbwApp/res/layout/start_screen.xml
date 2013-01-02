@@ -20,7 +20,7 @@
         android:id="@+id/btn_start_learning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/Contact"
+        android:drawableLeft="@drawable/contact"
         android:gravity="left|center_vertical"
         android:onClick="start_onButtonClick"
         android:text="@string/btn_start_learning" />
@@ -28,7 +28,7 @@
     <Button
         android:id="@+id/btn_start_admin"
         android:layout_width="match_parent"
-        android:drawableLeft="@drawable/3D-Design"
+        android:drawableLeft="@drawable/design"
         android:layout_height="wrap_content"
         android:onClick="start_onButtonClick"
         android:text="@string/btn_start_admin" />
@@ -36,7 +36,7 @@
     <Button
         android:id="@+id/btn_start_statistic"
         android:layout_width="match_parent"
-        android:drawableLeft="@drawable/Graphing-Spreadsheets"
+        android:drawableLeft="@drawable/statistics"
         android:layout_height="wrap_content"
         android:onClick="start_onButtonClick"
         android:text="@string/btn_start_statistic" />
@@ -44,7 +44,7 @@
     <Button
         android:id="@+id/btn_start_settings"
         android:layout_width="match_parent"
-        android:drawableLeft="@drawable/Gear"
+        android:drawableLeft="@drawable/gear"
         android:layout_height="wrap_content"
         android:onClick="start_onButtonClick"
         android:text="Settings" />
@@ -52,7 +52,7 @@
     <Button
         android:id="@+id/btn_start_help"
         android:layout_width="match_parent"
-        android:drawableLeft="@drawable/Lightbulb"
+        android:drawableLeft="@drawable/lightbulb"
         android:layout_height="wrap_content"
         android:onClick="start_onButtonClick"
         android:text="Help" />
