@@ -1,6 +1,5 @@
 package wi2010d.dhbwapp;
 
-import wi2010d.dhbwapp.control.Database;
 import wi2010d.dhbwapp.control.Learn;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
@@ -14,7 +13,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class LearningCard extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -177,18 +174,37 @@ public class LearningCard extends FragmentActivity implements
 		case R.id.btn_admin_edit_card:
 			Intent intent = new Intent(this, AdminEditCard.class);
 			intent.putExtra("cardID", card.getCardID());
-			startActivityForResult(intent, RESULT_OK);
+			startActivityForResult(intent, RESULT_CHANGED);
 			return true;
 		default:
 			ErrorHandler error = new ErrorHandler(getApplicationContext());
 			error.handleError(1);
 			return false;
 		}
+
 	}
 
 	@Override
 	public void onTabUnselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (resultCode) {
+		case RESULT_CHANGED:
+			for (Card searchCard : Card.allCards) {
+				if (searchCard.getCardID() == this.card.getCardID()) {
+					this.card = searchCard;
+					break;
+				}
+			}
+			txt_front.setText(card.getCardFront());
+			txt_back.setText(card.getCardBack());
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override
@@ -331,25 +347,4 @@ public class LearningCard extends FragmentActivity implements
 			return v;
 		}
 	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (resultCode) {
-		case RESULT_CHANGED:
-			for (Card searchCard : Card.allCards) {
-				if (searchCard.getCardID() == this.card.getCardID()) {
-					this.card = searchCard;
-					break;
-				}
-			}
-			txt_front.setText("");
-			txt_back.setText("");
-			txt_back.append(card.getCardBack());
-			txt_front.append(card.getCardFront());
-			break;
-		default:
-			break;
-		}
-	}
-
 }
