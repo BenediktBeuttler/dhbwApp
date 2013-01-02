@@ -112,6 +112,7 @@ public class Stack {
 		
 		lastRunthroughs.add(run);
 		
+		Database.getInstance().changeRunthrough(run);
 		Database.getInstance().changeRunthrough(overallRunthrough);
 	}
 	
