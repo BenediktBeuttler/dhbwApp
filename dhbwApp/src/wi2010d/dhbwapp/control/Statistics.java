@@ -144,11 +144,13 @@ public class Statistics {
 		int lastID = Runthrough.getLastRunthroughID();
 		List<Runthrough> allRunthroughs = Runthrough.allRunthroughs;
 
+		
 		for (Runthrough runthrough : allRunthroughs){
 			if (runthrough.getRunthroughID() == lastID){
 				return runthrough;
 			}
 		}
+		
 		
 		/*
 		for (int i = (allRunthroughs.size() - 1); i == 0; i--) {
@@ -162,6 +164,7 @@ public class Statistics {
 			}
 		}
 		*/
+		
 
 		return null;
 	}

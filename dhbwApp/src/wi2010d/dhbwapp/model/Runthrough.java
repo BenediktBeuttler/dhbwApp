@@ -110,6 +110,7 @@ public class Runthrough {
 
 	public void setDurationSecs(int newDuration) {
 		this.duration = newDuration;
+		Database.getInstance().changeRunthrough(this);
 	}
 
 	public int getDurationSecs() {
@@ -121,6 +122,7 @@ public class Runthrough {
 		this.statusBefore[0] = beforeDontKnow;
 		this.statusBefore[1] = beforeNotSure;
 		this.statusBefore[2] = beforeSure;
+		Database.getInstance().changeRunthrough(this);
 	}
 
 	public void setStatusAfter(int afterDontKnow, int afterNotSure,
@@ -128,6 +130,7 @@ public class Runthrough {
 		this.statusAfter[0] = afterDontKnow;
 		this.statusAfter[1] = afterNotSure;
 		this.statusAfter[2] = afterSure;
+		Database.getInstance().changeRunthrough(this);
 	}
 
 	/**
@@ -150,6 +153,7 @@ public class Runthrough {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+		Database.getInstance().changeRunthrough(this);
 	}
 
 	public int getRunthroughID() {

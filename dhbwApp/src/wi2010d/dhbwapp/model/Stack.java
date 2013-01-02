@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import wi2010d.dhbwapp.control.Database;
+
 public class Stack {
 
 	public static List<Stack> allStacks = new ArrayList<Stack>();
@@ -90,18 +92,26 @@ public class Stack {
 	}
 
 	public void addLastRunthrough(Runthrough run) {
+		Runthrough overallRunthrough = this.getOverallRunthrough();
+		int actualStatus[] = run.getStatusAfter();
+		
 		long durationMilliSecs = run.getEndDate().getTime()
 				- run.getStartDate().getTime();
 
 		int duration = (int) TimeUnit.MILLISECONDS.toSeconds(durationMilliSecs);
 		run.setDurationSecs(duration);
 
-		this.getOverallRunthrough().setDurationSecs(
-				duration + this.getOverallRunthrough().getDurationSecs());
+		overallRunthrough.setDurationSecs(
+				duration + overallRunthrough.getDurationSecs());
+		
+		overallRunthrough.setStatusAfter(actualStatus[0], actualStatus[1], actualStatus[2]);
 
 		if (lastRunthroughs.size() > 9) {
 			lastRunthroughs.remove(0);
 		}
+		
+		Database.getInstance().changeRunthrough(overallRunthrough);
+		
 		lastRunthroughs.add(run);
 	}
 
