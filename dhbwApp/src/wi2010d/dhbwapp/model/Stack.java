@@ -113,8 +113,28 @@ public class Stack {
 		lastRunthroughs.add(run);
 		
 		Database.getInstance().changeRunthrough(overallRunthrough);
+	}
+	
+	public void addLastRunthroughInit(Runthrough run) {
+		Runthrough overallRunthrough = this.getOverallRunthrough();
+		int actualStatus[] = run.getStatusAfter();
 		
+		long durationMilliSecs = run.getEndDate().getTime()
+				- run.getStartDate().getTime();
+
+		int duration = (int) TimeUnit.MILLISECONDS.toSeconds(durationMilliSecs);
+		run.setDurationSecs(duration);
+
+		overallRunthrough.setDurationSecs(
+				duration + overallRunthrough.getDurationSecs());
 		
+		overallRunthrough.setStatusAfter(actualStatus[0], actualStatus[1], actualStatus[2]);
+
+		if (lastRunthroughs.size() > 9) {
+			lastRunthroughs.remove(0);
+		}
+		
+		lastRunthroughs.add(run);
 	}
 
 	public static int getNextStackID() {
@@ -182,7 +202,6 @@ public class Stack {
 
 	public void setOverallRunthrough(Runthrough overallRunthrough) {
 		this.overallRunthrough = overallRunthrough;
-		Database.getInstance().changeStack(this);
 	}
 
 	public List<Card> getCards() {

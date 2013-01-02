@@ -54,7 +54,7 @@ public class Runthrough {
 				if (isOverall) {
 					stack.setOverallRunthrough(this);
 				} else {
-					stack.addLastRunthrough(this);
+					stack.addLastRunthroughInit(this);
 				}
 			}
 		}

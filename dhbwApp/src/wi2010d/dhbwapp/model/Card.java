@@ -68,7 +68,7 @@ public class Card {
 
 		this.cardID = Card.getNextCardID();
 		this.drawer = 0; // A new card is always in drawer 0
-		this.totalStacks = this.increaseTotalStacks();
+		this.totalStacks = this.increaseTotalStacksInit();
 
 		Card.allCards.add(this);
 	}
@@ -133,6 +133,11 @@ public class Card {
 	public int increaseTotalStacks() {
 		this.totalStacks = this.totalStacks + 1;
 		Database.getInstance().changeCard(this);
+		return totalStacks;
+	}
+	
+	public int increaseTotalStacksInit() {
+		this.totalStacks = this.totalStacks + 1;
 		return totalStacks;
 	}
 
