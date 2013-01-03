@@ -27,7 +27,7 @@
 
         <TableLayout
             android:layout_width="273dp"
-            android:layout_height="306dp"
+            android:layout_height="wrap_content"
             android:layout_column="1"
             android:layout_columnSpan="2"
             android:layout_row="2"
@@ -40,390 +40,355 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="2dip" >
-                
-                <TextView
-            		android:id="@+id/textView10"
-           			android:text="Date"
-            		android:textAppearance="?android:attr/textAppearanceSmall" 
-               		android:textStyle="bold"
-                	android:gravity="center"/>
-                
-                 <TextView
-            		android:id="@+id/textView11"
-           			android:text="Don't Know"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:textStyle="bold"
-                	android:gravity="center"/>
-                 
-                  <TextView
-            		android:id="@+id/textView12"
-           			android:text="Not Sure"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-            		android:textStyle="bold"
-                	android:gravity="center"/>
 
-                  <TextView
+                <TextView
+                    android:id="@+id/textView10"
+                    android:gravity="center"
+                    android:text="Date"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:gravity="center"
+                    android:text="Don&apos;t Know"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:gravity="center"
+                    android:text="Not Sure"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:id="@+id/textView13"
+                    android:gravity="center"
                     android:text="Sure"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textStyle="bold"
-                	android:gravity="center"/>
-
+                    android:textStyle="bold" />
             </TableRow>
 
-            <!-- second row -->
-            
             <TableRow
                 android:id="@+id/tableRow2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="2dip" >
-                  
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell01"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall" 
-                	android:gravity="center"/>
-                
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell11"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                 
-                  <TextView
-            		android:id="@+id/lbl_statistics_progress_cell21"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
 
-                  <TextView
-                    android:id="@+id/lbl_statistics_progress_cell31"
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell01"
+                    android:gravity="center"
                     android:text="-"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                  
-                
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell11"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell21"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell31"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
 
-             <!-- third row -->
-            
             <TableRow
                 android:id="@+id/tableRow3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="2dip" >
-                  
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell02"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall" 
-                	android:gravity="center"/>
-                
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell12"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                 
-                  <TextView
-            		android:id="@+id/lbl_statistics_progress_cell22"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
 
-                  <TextView
-                    android:id="@+id/lbl_statistics_progress_cell32"
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell02"
+                    android:gravity="center"
                     android:text="-"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell12"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell22"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell32"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
-           
-           <!--  fourth row -->
-            
+
             <TableRow
                 android:id="@+id/tableRow4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="2dip" >
-                  
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell03"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall" 
-                	android:gravity="center"/>
-                
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell13"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                 
-                  <TextView
-            		android:id="@+id/lbl_statistics_progress_cell23"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
 
-                  <TextView
-                    android:id="@+id/lbl_statistics_progress_cell33"
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell03"
+                    android:gravity="center"
                     android:text="-"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell13"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell23"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell33"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
-            
-            
-            <!--  fifth row -->
-            
+
             <TableRow
                 android:id="@+id/tableRow5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="2dip" >
-                  
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell04"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall" 
-                	android:gravity="center"/>
-                
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell14"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                 
-                  <TextView
-            		android:id="@+id/lbl_statistics_progress_cell24"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
 
-                  <TextView
-                    android:id="@+id/lbl_statistics_progress_cell34"
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell04"
+                    android:gravity="center"
                     android:text="-"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell14"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell24"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell34"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
-            
-            <!-- sixth row -->
-            
+
             <TableRow
                 android:id="@+id/tableRow6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="2dip" >
-                  
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell05"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall" 
-                	android:gravity="center"/>
-                
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell15"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                 
-                  <TextView
-            		android:id="@+id/lbl_statistics_progress_cell25"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
 
-                  <TextView
-                    android:id="@+id/lbl_statistics_progress_cell35"
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell05"
+                    android:gravity="center"
                     android:text="-"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell15"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell25"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell35"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
-            
-            
-            <!--  seventh row -->
-            
+
             <TableRow
                 android:id="@+id/tableRow7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="2dip" >
-                  
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell06"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall" 
-                	android:gravity="center"/>
-                
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell16"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                 
-                  <TextView
-            		android:id="@+id/lbl_statistics_progress_cell26"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
 
-                  <TextView
-                    android:id="@+id/lbl_statistics_progress_cell36"
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell06"
+                    android:gravity="center"
                     android:text="-"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell16"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell26"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell36"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
-            
-            <!--  eighth row -->
-            
+
             <TableRow
                 android:id="@+id/tableRow8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="2dip" >
-                  
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell07"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall" 
-                	android:gravity="center"/>
-                
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell17"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                 
-                  <TextView
-            		android:id="@+id/lbl_statistics_progress_cell27"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
 
-                  <TextView
-                    android:id="@+id/lbl_statistics_progress_cell37"
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell07"
+                    android:gravity="center"
                     android:text="-"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell17"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell27"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell37"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
-            
-            <!--  ninth row -->
-            
+
             <TableRow
                 android:id="@+id/tableRow9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="2dip" >
-                  
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell08"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall" 
-                	android:gravity="center"/>
-                
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell18"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                 
-                  <TextView
-            		android:id="@+id/lbl_statistics_progress_cell28"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
 
-                  <TextView
-                    android:id="@+id/lbl_statistics_progress_cell38"
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell08"
+                    android:gravity="center"
                     android:text="-"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell18"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell28"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell38"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
-            
-            <!--  thenth row -->
-            
+
             <TableRow
                 android:id="@+id/tableRow10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="2dip" >
-                  
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell09"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall" 
-                	android:gravity="center"/>
-                
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell19"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                 
-                  <TextView
-            		android:id="@+id/lbl_statistics_progress_cell29"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
 
-                  <TextView
-                    android:id="@+id/lbl_statistics_progress_cell39"
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell09"
+                    android:gravity="center"
                     android:text="-"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell19"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell29"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell39"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
-            
-            <!--  eleventh row -->
-            
+
             <TableRow
                 android:id="@+id/tableRow11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="2dip" >
-                  
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell010"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall" 
-                	android:gravity="center"/>
-                
-                 <TextView
-            		android:id="@+id/lbl_statistics_progress_cell110"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                 
-                  <TextView
-            		android:id="@+id/lbl_statistics_progress_cell210"
-           			android:text="-"
-            		android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
 
-                  <TextView
-                    android:id="@+id/lbl_statistics_progress_cell310"
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell010"
+                    android:gravity="center"
                     android:text="-"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                	android:gravity="center"/>
-                
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell110"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell210"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/lbl_statistics_progress_cell310"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
-            
         </TableLayout>
 
         <Space

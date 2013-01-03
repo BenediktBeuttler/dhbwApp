@@ -11,12 +11,14 @@ import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -396,7 +398,7 @@ public class StatisticsScreen extends FragmentActivity implements
 						int position, long id) {
 
 					String name = (String) parent.getItemAtPosition(position);
-					// setContent(name, (View) view.getParent().getParent());
+					setContent(name, (View) view.getParent().getParent());
 
 				}
 
@@ -411,7 +413,8 @@ public class StatisticsScreen extends FragmentActivity implements
 		
 		private void setContent(String name, View v){
 			
-			TextView[][] Cells = null;
+			TextView[][] Cells;
+			Cells = new TextView[10][4];
 			
 			Cells[0][0] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell01);
 			Cells[0][1] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell11);
@@ -462,6 +465,37 @@ public class StatisticsScreen extends FragmentActivity implements
 			Cells[9][1] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell110);
 			Cells[9][2] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell210);
 			Cells[9][3] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell310);
+			
+			//deleting content of table before filling with new data
+			for (int k = 0; k < 10; k++){
+				for (int l = 0; l < 4; l++){
+					Cells[k][l].setText("-");
+					Cells[k][l].setTextColor(Color.GRAY);
+				}
+			}
+			
+			
+			List<String> lastDates = Statistics.getInstance().getLastRunthroughDates();
+			int[][] progress = Statistics.getInstance().getLastProgress(name);
+			
+			Log.e("Statistics", Statistics.getInstance().getNumberOfRunthroughs(name) + " # runthroughs");
+			
+			for (int i = 0; i < Statistics.getInstance().getNumberOfRunthroughs(name); i++){
+				
+				Log.e("Statistics", "SetContent for reached");
+				
+				Cells[i][0].setText(lastDates.get(0));
+				
+				Cells[i][1].setText(progress[i][0] + "%");
+				if (progress[i][0] > 40){
+					Cells[i][1].setTextColor(Color.RED);
+				}else{
+					Cells[i][1].setTextColor(Color.GREEN);
+				}
+
+				Cells[i][2].setText(progress[i][1] + "%");
+				Cells[i][3].setText(progress[i][2] + "%");
+			}
 		}
 	}
 
