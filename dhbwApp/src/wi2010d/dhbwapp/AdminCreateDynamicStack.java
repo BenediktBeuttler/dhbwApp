@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,7 +51,6 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 						}
 					}
 					if (dynStackTagList.size() > 0) {
-						setResult(RESULT_OK);
 
 						if (Create.getInstance().newDynStack(name,
 								dynStackTagList)) {
@@ -60,8 +60,7 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 							toast.show();
 							//setResult(RESULT_OK);
 						}
-						finish();
-
+						finishIt();
 					}
 				}
 
@@ -77,6 +76,11 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 			fragmentTransaction.add(R.id.layout_admin_create_dyn_4_taglist,
 					tagList).commit();
 		}
+	}
+	
+	private void finishIt(){
+		setResult(RESULT_OK);
+		finish();
 	}
 
 	@Override
