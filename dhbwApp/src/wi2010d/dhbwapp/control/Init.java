@@ -14,7 +14,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ProgressBar;
 
 public class Init extends AsyncTask<Void, Void, Boolean> {
@@ -94,11 +93,10 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 			int isDynamicGeneratedInt = cursor.getInt(2);
 
 			if (isDynamicGeneratedInt == 0) {
-				isDynamicGenerated = true;
-			} else {
 				isDynamicGenerated = false;
+			} else {
+				isDynamicGenerated = true;
 			}
-
 			dontKnow = cursor.getInt(3);
 			notSure = cursor.getInt(4);
 			sure = cursor.getInt(5);
@@ -281,15 +279,15 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 					}
 				}
 			}
+			cursor.moveToNext();
 		}
 		cursor.close();
 		Database.getInstance().close();
 		return true;
 
 	}
-	
-	public static void resetInstance()
-	{
+
+	public static void resetInstance() {
 		init = null;
 	}
 

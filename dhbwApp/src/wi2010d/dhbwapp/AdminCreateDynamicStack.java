@@ -21,7 +21,7 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 	Fragment tagList;
 	EditText dynStackName;
 	ArrayList<Tag> dynStackTagList = new ArrayList<Tag>();
-	String name;
+	String name = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 				tag.setChecked(false);
 			}
 			dynStackName = (EditText) findViewById(R.id.txt_admin_create_dyn_stack_name);
-			
+
 			createDynStack = (Button) findViewById(R.id.btn_admin_create_dynamic_stack);
 			createDynStack.setOnClickListener(new OnClickListener() {
 				@Override
@@ -42,18 +42,26 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 					for (Tag tag : Tag.allTags) {
 						if (tag.isChecked()) {
 							dynStackTagList.add(tag);
-							if(dynStackName.getText().toString().equals("")){
+							if (dynStackName.getText().toString().equals("")) {
 								name = name + tag.getTagName();
+							} else {
+								name = dynStackName.getText().toString();
 							}
 						}
 					}
 					if (dynStackTagList.size() > 0) {
-						Create.getInstance().newDynStack(name, dynStackTagList);
-						Toast toast = Toast.makeText(v.getContext(),
-								"Dynamic Stack " + name + " created!",
-								Toast.LENGTH_LONG);
-						toast.show();
+						setResult(RESULT_OK);
+
+						if (Create.getInstance().newDynStack(name,
+								dynStackTagList)) {
+							Toast toast = Toast.makeText(v.getContext(),
+									"Dynamic Stack " + name + " created!",
+									Toast.LENGTH_LONG);
+							toast.show();
+							//setResult(RESULT_OK);
+						}
 						finish();
+
 					}
 				}
 

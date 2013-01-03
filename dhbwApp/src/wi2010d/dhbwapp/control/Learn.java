@@ -29,7 +29,7 @@ public class Learn {
 
 	public Card startLearning(Stack pStack) {
 
-		// reset
+		//reset
 		actualCard = 1;
 		run = 1;
 		statusAfter[0] = 0;
@@ -39,6 +39,8 @@ public class Learn {
 		sure = new CardQueue();
 		dontKnow = new CardQueue();
 		notSure = new CardQueue();
+
+		Log.v("Know it Owl", "Queues initialisiert");
 
 		stack = pStack;
 		cards = stack.getCards();
@@ -56,8 +58,6 @@ public class Learn {
 				sure.add(cd);
 				break;
 			}
-			Log.e("TB", "dontKnow: " + dontKnow.size() + ", notSure: "
-					+ notSure.size() + ", sure: " + sure.size());
 		}
 
 		// init statusBefore Array
@@ -116,65 +116,57 @@ public class Learn {
 			stack.addLastRunthrough(runthrough);
 			return null;
 		} else {
-			int oldValueActualCard = actualCard;
-			while (actualCard == oldValueActualCard) {
-				switch (run) {
-				case 1:
-					if (!notSure.isEmpty()) {
-						card = (Card) notSure.remove();
-						run = 2;
-						actualCard++;
-						break;
-					} else {
-						run = 2;
-					}
-				case 2:
-					if (!dontKnow.isEmpty()) {
-						card = (Card) dontKnow.remove();
-						run = 3;
-						actualCard++;
-						break;
-					} else {
-						run = 3;
-					}
-				case 3:
-					if (!sure.isEmpty()) {
-						card = (Card) sure.remove();
-						run = 4;
-						actualCard++;
-						break;
-					} else {
-						run = 4;
-					}
-				case 4:
-					if (!dontKnow.isEmpty()) {
-						card = (Card) dontKnow.remove();
-						run = 5;
-						actualCard++;
-						break;
-					} else {
-						run = 5;
-					}
-				case 5:
-					if (!notSure.isEmpty()) {
-						card = (Card) notSure.remove();
-						run = 6;
-						actualCard++;
-						break;
-					} else {
-						run = 6;
-					}
-				case 6:
-					if (!dontKnow.isEmpty()) {
-						card = (Card) dontKnow.remove();
-						run = 1;
-						actualCard++;
-						break;
-					} else {
-						run = 1;
-					}
+			switch (run) {
+			case 1:
+				if (!notSure.isEmpty()) {
+					card = (Card) notSure.remove();
+					run = 2;
+					break;
+				} else {
+					run = 2;
+				}
+			case 2:
+				if (!dontKnow.isEmpty()) {
+					card = (Card) dontKnow.remove();
+					run = 3;
+					break;
+				} else {
+					run = 3;
+				}
+			case 3:
+				if (!sure.isEmpty()) {
+					card = (Card) sure.remove();
+					run = 4;
+					break;
+				} else {
+					run = 4;
+				}
+			case 4:
+				if (!dontKnow.isEmpty()) {
+					card = (Card) dontKnow.remove();
+					run = 5;
+					break;
+				} else {
+					run = 5;
+				}
+			case 5:
+				if (!notSure.isEmpty()) {
+					card = (Card) notSure.remove();
+					run = 6;
+					break;
+				} else {
+					run = 6;
+				}
+			case 6:
+				if (!dontKnow.isEmpty()) {
+					card = (Card) dontKnow.remove();
+					run = 1;
+					break;
+				} else {
+					run = 1;
 				}
 			}
+			actualCard++;
 			return card;
 		}
 	}

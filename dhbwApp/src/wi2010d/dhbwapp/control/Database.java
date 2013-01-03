@@ -431,7 +431,7 @@ public class Database {
 
 		stackCardContent.put("stackID", stackID);
 		stackCardContent.put("cardID", cardID);
-		stackCardContent.put("_id", Integer.parseInt(stackID + "" + cardID));
+		//stackCardContent.put("_id", Integer.parseInt(stackID + "" + cardID));
 
 		this.openWrite();
 		database.insert("stackcard", null, stackCardContent);
@@ -454,7 +454,7 @@ public class Database {
 
 		StackTagValues.put("stackID", stackID);
 		StackTagValues.put("tagID", tagID);
-		StackTagValues.put("_id", Integer.parseInt(stackID + "" + tagID));
+		//StackTagValues.put("_id", Integer.parseInt(stackID + "" + tagID));
 
 		this.openWrite();
 		database.insert("stacktag", null, StackTagValues);
@@ -478,7 +478,7 @@ public class Database {
 
 		CardTagValues.put("cardID", cardID);
 		CardTagValues.put("tagID", tagID);
-		CardTagValues.put("_id", Integer.parseInt(cardID + "" + tagID));
+		//CardTagValues.put("_id", Integer.parseInt(cardID + "" + tagID));
 
 		this.openWrite();
 		database.insert("cardtag", null, CardTagValues);

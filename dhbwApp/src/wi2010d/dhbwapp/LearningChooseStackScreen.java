@@ -7,6 +7,7 @@ import wi2010d.dhbwapp.model.Stack;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,11 @@ public class LearningChooseStackScreen extends Activity implements
 
 	EditText card_front;
 	Button createDynStack;
+	ArrayList<String> items = new ArrayList<String>();
+	ListView lv;
+	ArrayAdapter<String> lvAdapter;
+	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,22 +39,16 @@ public class LearningChooseStackScreen extends Activity implements
 			
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(getApplicationContext(), AdminCreateDynamicStack.class));
+				startActivityForResult(new Intent(getApplicationContext(), AdminCreateDynamicStack.class),RESULT_OK);
 			}
 		});
 
-		ArrayList<String> items = new ArrayList<String>();
+		items = updateStack();
 
-		for (Stack stack : Stack.allStacks) {
-			items.add(stack.getStackName());
-		}
-		if (items.size() == 0) {
-			items.add("No stacks available");
-		}
-
-		ListView lv = (ListView) findViewById(R.id.learn_stack_list);
-		lv.setAdapter(new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, items));
+		lv = (ListView) findViewById(R.id.learn_stack_list);
+		lvAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, items);
+		lv.setAdapter(lvAdapter);
 
 		lv.setClickable(true);
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,13 +62,34 @@ public class LearningChooseStackScreen extends Activity implements
 					Intent i = new Intent(getApplicationContext(), LearningCard.class);
 					i.putExtra("stackName", stackName);
 					startActivity(i);
-					finish();
 				}
 
 			}
 		});
 	}
 	
+	private ArrayList<String> updateStack() {
+		items.clear();
+		for (Stack stack : Stack.allStacks) {
+			items.add(stack.getStackName());
+		}
+		if (items.size() == 0) {
+			items.add("No stacks available");
+		}		
+		return items;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.e("Drin", ""+resultCode);
+		if (resultCode == RESULT_OK) {
+			items = updateStack();
+			lvAdapter = new ArrayAdapter<String>(this,
+					android.R.layout.simple_list_item_1, items);
+			lv.setAdapter(lvAdapter);
+		}	
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
