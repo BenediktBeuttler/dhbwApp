@@ -75,15 +75,13 @@ public class AdminTagListFragment extends Fragment {
 									ErrorHandlerFragment newFragment = ErrorHandlerFragment
 											.newInstance(R.string.error_handler_name_taken, ErrorHandlerFragment.NAME_TAKEN );
 									newFragment.show(getActivity().getFragmentManager(), "dialog");	
-									//
-									/*Toast toast;
-									toast = Toast.makeText(getActivity(),
-											"Tag '" + newTagName
-													+ "' already exists.",
-											Toast.LENGTH_LONG);
-									toast.show();*/
 								} else {
+									//Create new Tag
 									Create.getInstance().newTag(newTagName);
+									//Update the TagList
+									tagListAdapter = new TagArrayAdapter(getActivity(), Tag.allTags);
+									mainListView.setAdapter(tagListAdapter);
+									
 									Toast toast;
 									toast = Toast.makeText(getActivity(),
 											"New Tag '" + newTagName
