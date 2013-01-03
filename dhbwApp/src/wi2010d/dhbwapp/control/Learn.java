@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 import android.util.Log;
 
@@ -26,10 +27,11 @@ public class Learn {
 	private Card card;
 	private Stack stack;
 	private static Learn learn;
+	private int cardsInQueues;
 
 	public Card startLearning(Stack pStack) {
 
-		//reset
+		// reset
 		actualCard = 1;
 		run = 1;
 		statusAfter[0] = 0;
@@ -39,8 +41,6 @@ public class Learn {
 		sure = new CardQueue();
 		dontKnow = new CardQueue();
 		notSure = new CardQueue();
-
-		Log.v("Know it Owl", "Queues initialisiert");
 
 		stack = pStack;
 		cards = stack.getCards();
@@ -64,6 +64,37 @@ public class Learn {
 		statusBefore[0] = dontKnow.size();
 		statusBefore[1] = notSure.size();
 		statusBefore[2] = sure.size();
+
+		Random generator = new Random();
+
+		if (notSure.size() > 1) {
+			int valueFor = notSure.size() / 2;
+			for (int i = 1; i <= valueFor; i++) {
+				int rnd = generator.nextInt(notSure.size() - 1);
+				notSure.remove(rnd);
+			}
+		}
+
+		if (sure.size() > 2) {
+			int valueFor = sure.size() / 3 * 2;
+			for (int i = 1; i <= valueFor; i++) {
+				int rnd = generator.nextInt(sure.size() - 1);
+
+				Log.e("TB Schleife",
+						"sure.size: " + sure.size() + ", sure.size / 3: "
+								+ (sure.size() / 3)
+								+ ", generator.nextInt(sure.size() - 1: )"
+								+ (generator.nextInt(sure.size() - 1)));
+
+				sure.remove(rnd);
+			}
+		} else {
+			if (sure.size() == 2) {
+				sure.remove(generator.nextInt(1));
+			}
+		}
+
+		cardsInQueues = dontKnow.size() + notSure.size() + sure.size();
 
 		// get the first card to start with
 		if (!dontKnow.isEmpty()) {
@@ -90,7 +121,7 @@ public class Learn {
 	public Card learnCard(int drawer) {
 		card.setDrawer(drawer);
 
-		if (actualCard >= cards.size()) {
+		if (actualCard >= cardsInQueues) {
 			// globale Variable runthroughDone auf true setzen
 
 			// read status after runthrough and store it in the runthrough
@@ -116,57 +147,65 @@ public class Learn {
 			stack.addLastRunthrough(runthrough);
 			return null;
 		} else {
-			switch (run) {
-			case 1:
-				if (!notSure.isEmpty()) {
-					card = (Card) notSure.remove();
-					run = 2;
-					break;
-				} else {
-					run = 2;
-				}
-			case 2:
-				if (!dontKnow.isEmpty()) {
-					card = (Card) dontKnow.remove();
-					run = 3;
-					break;
-				} else {
-					run = 3;
-				}
-			case 3:
-				if (!sure.isEmpty()) {
-					card = (Card) sure.remove();
-					run = 4;
-					break;
-				} else {
-					run = 4;
-				}
-			case 4:
-				if (!dontKnow.isEmpty()) {
-					card = (Card) dontKnow.remove();
-					run = 5;
-					break;
-				} else {
-					run = 5;
-				}
-			case 5:
-				if (!notSure.isEmpty()) {
-					card = (Card) notSure.remove();
-					run = 6;
-					break;
-				} else {
-					run = 6;
-				}
-			case 6:
-				if (!dontKnow.isEmpty()) {
-					card = (Card) dontKnow.remove();
-					run = 1;
-					break;
-				} else {
-					run = 1;
+			int oldValueActualCard = actualCard;
+			while (actualCard == oldValueActualCard) {
+				switch (run) {
+				case 1:
+					if (!notSure.isEmpty()) {
+						card = (Card) notSure.remove();
+						run = 2;
+						actualCard++;
+						break;
+					} else {
+						run = 2;
+					}
+				case 2:
+					if (!dontKnow.isEmpty()) {
+						card = (Card) dontKnow.remove();
+						run = 3;
+						actualCard++;
+						break;
+					} else {
+						run = 3;
+					}
+				case 3:
+					if (!sure.isEmpty()) {
+						card = (Card) sure.remove();
+						run = 4;
+						actualCard++;
+						break;
+					} else {
+						run = 4;
+					}
+				case 4:
+					if (!dontKnow.isEmpty()) {
+						card = (Card) dontKnow.remove();
+						run = 5;
+						actualCard++;
+						break;
+					} else {
+						run = 5;
+					}
+				case 5:
+					if (!notSure.isEmpty()) {
+						card = (Card) notSure.remove();
+						run = 6;
+						actualCard++;
+						break;
+					} else {
+						run = 6;
+					}
+				case 6:
+					if (!dontKnow.isEmpty()) {
+						card = (Card) dontKnow.remove();
+						run = 1;
+						actualCard++;
+						break;
+					} else {
+						run = 1;
+					}
 				}
 			}
-			actualCard++;
 			return card;
 		}
 	}
@@ -184,6 +223,11 @@ public class Learn {
 
 		public CardQueue() {
 			arrayList = new ArrayList<Card>();
+		}
+
+		public void remove(int index) {
+			queueSize--;
+			arrayList.remove(index);
 		}
 
 		public void add(Card card) {
