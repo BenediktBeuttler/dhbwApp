@@ -295,11 +295,22 @@ public class Statistics {
 	public ArrayList<String> getLastRunthroughDates(String name){
 		
 		List<String> lastDates = new ArrayList<String>();
-		SimpleDateFormat formater = new SimpleDateFormat();
+		//SimpleDateFormat formater = new SimpleDateFormat();
+		SimpleDateFormat sd = new SimpleDateFormat("dd.MM.yy',' HH:mm");
 		
 		for (Runthrough runthrough : getLastRunthroughs(name)){
-			lastDates.add(formater.format(runthrough.getEndDate()));
+			lastDates.add(sd.format(runthrough.getEndDate()));
+			Log.e("Statistics", "lastrunthroughdate: " + sd.format(runthrough.getEndDate()));
 		}
+		/*
+		if (lastRunthrough != null) {
+			SimpleDateFormat sd = new SimpleDateFormat("dd.MM.yyyy");
+			date = sd.format(lastRunthrough.getEndDate());
+			return date;
+		} else {
+			return "No Data available";
+		}
+		*/
 		
 		return (ArrayList<String>) lastDates;
 	}
@@ -317,11 +328,10 @@ public class Statistics {
 			
 			int statusAfter[] = lastRunthroughs.get(i).getStatusAfter();
 			int totalCards = statusAfter[0] + statusAfter[1] + statusAfter[2];
-			Log.e("Statistics", totalCards + "");
 			
 			if (totalCards != 0){
 				for (int j = 0; j < 3; j++){
-					result = (statusAfter[j] / totalCards) * 100;
+					result = (((float) statusAfter[j] / totalCards) * 100);
 					progress[i][j] = (int) result;
 				}
 			}
