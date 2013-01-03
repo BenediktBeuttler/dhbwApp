@@ -20,6 +20,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -81,8 +82,6 @@ public class AdminNewCard extends FragmentActivity implements
 				startActivityForResult(i, STACK_CHOSEN);
 			}
 		default:
-			ErrorHandler error = new ErrorHandler(getApplicationContext());
-			error.handleError(1);
 			return false;
 		}
 	}
@@ -280,6 +279,7 @@ public class AdminNewCard extends FragmentActivity implements
 		public NewCardFront() {
 		}
 
+		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -287,7 +287,7 @@ public class AdminNewCard extends FragmentActivity implements
 			// number argument value.
 			View v = inflater.inflate(R.layout.admin_new_card_front, null);
 
-			cardFront = (EditText) v.findViewById(R.id.txt_edit_card_front);
+			cardFront = (EditText) v.findViewById(R.id.txt_new_card_front);
 
 			return v;
 		}
@@ -299,7 +299,6 @@ public class AdminNewCard extends FragmentActivity implements
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
-		Button newCardNewStack, existingStack;
 
 		public NewCardBack() {
 		}
@@ -310,8 +309,8 @@ public class AdminNewCard extends FragmentActivity implements
 
 			View v = inflater.inflate(R.layout.admin_new_card_back, null);
 
-			cardBack = (EditText) v.findViewById(R.id.txt_edit_card_back);
-
+			cardBack = (EditText) v.findViewById(R.id.txt_new_card_back);
+			
 			return v;
 		}
 	}
