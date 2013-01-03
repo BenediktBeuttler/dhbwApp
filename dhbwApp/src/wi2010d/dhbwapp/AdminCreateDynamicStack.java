@@ -39,11 +39,15 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 			createDynStack.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					int i = 0;
 					for (Tag tag : Tag.allTags) {
 						if (tag.isChecked()) {
 							dynStackTagList.add(tag);
 							if (dynStackName.getText().toString().equals("")) {
-								name = name + tag.getTagName();
+								if(i<=3){
+								name = name +" - "+ tag.getTagName();
+								}
+								i++;
 							} else {
 								name = dynStackName.getText().toString();
 							}
