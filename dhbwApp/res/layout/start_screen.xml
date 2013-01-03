@@ -8,53 +8,57 @@
     tools:context=".StartScreen" >
 
     <TextView
-            android:id="@+id/lbl_app_name_start_screen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_launcher"
-            android:text="@string/app_name"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="40sp" />
+        android:id="@+id/lbl_app_name_start_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:drawableLeft="@drawable/ic_launcher"
+        android:text="@string/app_name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="40sp" />
 
     <Button
         android:id="@+id/btn_start_learning"
+        style="@style/style_iconButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/contact"
-        android:gravity="left|center_vertical"
         android:onClick="start_onButtonClick"
         android:text="@string/btn_start_learning" />
 
     <Button
         android:id="@+id/btn_start_admin"
+        style="@style/style_iconButton"
         android:layout_width="match_parent"
-        android:drawableLeft="@drawable/design"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/design"
         android:onClick="start_onButtonClick"
         android:text="@string/btn_start_admin" />
 
     <Button
         android:id="@+id/btn_start_statistic"
+        style="@style/style_iconButton"
         android:layout_width="match_parent"
-        android:drawableLeft="@drawable/statistics"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/statistics"
         android:onClick="start_onButtonClick"
         android:text="@string/btn_start_statistic" />
 
     <Button
         android:id="@+id/btn_start_settings"
+        style="@style/style_iconButton"
         android:layout_width="match_parent"
-        android:drawableLeft="@drawable/gear"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/gear"
         android:onClick="start_onButtonClick"
-        android:text="Settings" />
+        android:text="@string/btn_start_settings" />
 
     <Button
         android:id="@+id/btn_start_help"
+        style="@style/style_iconButton"
         android:layout_width="match_parent"
-        android:drawableLeft="@drawable/lightbulb"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/lightbulb"
         android:onClick="start_onButtonClick"
-        android:text="Help" />
+        android:text="@string/btn_start_help" />
 
 </LinearLayout>

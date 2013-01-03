@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wi2010d.dhbwapp.control.Create;
+import wi2010d.dhbwapp.control.Database;
 import wi2010d.dhbwapp.control.DatabaseManager;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import wi2010d.dhbwapp.model.Card;
+import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -92,66 +95,43 @@ public class SettingsScreen extends Activity implements OnClickListener{
 			break;
 		case R.id.btn_write_test_data:
 		List<Tag> tags = new ArrayList<Tag>();
-		tags.add(Create.getInstance().newTag("Penis"));
-
-				Create.getInstance().newStack("Stack 1",
-				Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
-				Create.getInstance().newStack("Stack 2",
-				Create.getInstance().newCard("Front 2", "Back 2", tags, "", ""));
-				Create.getInstance().newStack("Stack 3",
-				Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
-				Create.getInstance().newStack("Stack 4",
-				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
-				Create.getInstance().newStack("Stack 5",
-				Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
-				Create.getInstance().newStack("Stack 6",
-				Create.getInstance().newCard("Front 2", "Back 2", tags, "", ""));
-				Create.getInstance().newStack("Stack 7",
-				Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
-				Create.getInstance().newStack("Stack 8",
-				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
-				Create.getInstance().newStack("Stack 9",
-				Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
-				Create.getInstance().newStack("Stack 10",
-				Create.getInstance().newCard("Front 2", "Back 2", tags, "", ""));
-				Create.getInstance().newStack("Stack 11",
-				Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
-				Create.getInstance().newStack("Stack 12",
-				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
-				Create.getInstance().newStack("Stack 13",
-				Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
-				Create.getInstance().newStack("Stack 14",
-				Create.getInstance().newCard("Front 2", "Back 2", tags, "", ""));
-				Create.getInstance().newStack("Stack 15",
-				Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
-				Create.getInstance().newStack("Stack 16",
-				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
-				Create.getInstance().newStack("Stack 17",
-				Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
-				Create.getInstance().newStack("Stack 18",
-				Create.getInstance().newCard("Front 12bv", "Back 2", tags, "", ""));
-				Create.getInstance().newStack("Stack 19",
-				Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
-				Create.getInstance().newStack("Stack 20",
-				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
-				Create.getInstance().newStack("Stack 21",
-				Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
-				Create.getInstance().newStack("Stack 22",
-				Create.getInstance().newCard("Front 2", "Back 2", tags, "", ""));
-				Create.getInstance().newStack("Stack 23",
-				Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
-				Create.getInstance().newStack("Stack 24",
-				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
-				Create.getInstance().newStack("Stack 25",
-				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
-				Create.getInstance().newStack("Stack 26",
-				Create.getInstance().newCard("Hallo", "Welt", tags, "", ""));
-				Create.getInstance().newStack("Stack 27",
-				Create.getInstance().newCard("Front 2", "Back 2", tags, "", ""));
-				Create.getInstance().newStack("Stack 28",
-				Create.getInstance().newCard("Front 3", "Back dsakjdsalkjdsa 3,5", tags, "", ""));
-				Create.getInstance().newStack("Stack 29",
-				Create.getInstance().newCard("Front as d4", "lkjdsadsakdsal 4,5", tags, "", ""));
+		List<Card> cards = new ArrayList<Card>();
+		List<Card> cards1 = new ArrayList<Card>();
+		
+		Tag mundl = Create.getInstance().newTag("Mündlich");
+		Tag presentation = Create.getInstance().newTag("2. PA Präsentation");
+		
+		tags.add(mundl);
+		Card card1 =  Create.getInstance().newCard("Was ist Java?", "Java ist eine objektorientierte Programmiersprache.",tags ,"", "");
+		Card card2 =  Create.getInstance().newCard("Für was steht die Abkürzung JVM?", "Java Virtual Machine.",tags ,"", "");
+		Card card3 =  Create.getInstance().newCard("Welche Variabel Typen gibt es?", "Boolean, Gleitkomma-Zahl, Ganzzahl-Typen, Char, String, Array.",tags ,"", "");
+		Card card4 =  Create.getInstance().newCard("Für was steht die Abkürzung SDK?", "Software Development Kit.",tags ,"", "");
+		Card card5 =  Create.getInstance().newCard("Für was steht JRE?", "Java Runtime Environment.",tags ,"", "");
+		Card card6 =  Create.getInstance().newCard("Welche Methode kann Objekte erstellen?", "Der Konstrukt0r.",tags ,"", "");
+		cards.add(card1);
+		cards.add(card2);
+		cards.add(card3);
+		cards.add(card4);
+		cards.add(card5);
+		cards.add(card6);
+		Stack stack = new Stack (false, "Java", cards);
+		Database.getInstance().addNewStack(stack);
+		
+		tags.add(presentation);
+		Card card7 =  Create.getInstance().newCard("Was ist Java1?", "Java ist eine objektorientierte Programmiersprache1.",tags ,"", "");
+		Card card8 =  Create.getInstance().newCard("Was ist Java2?", "Java ist eine objektorientierte Programmiersprache2.",tags ,"", "");
+		Card card9 =  Create.getInstance().newCard("Was ist Java3?", "Java ist eine objektorientierte Programmiersprache3.",tags ,"", "");
+		Card card10 =  Create.getInstance().newCard("Was ist Java4?", "Java ist eine objektorientierte Programmiersprache4.",tags ,"", "");
+		Card card11 =  Create.getInstance().newCard("Was ist Java5?", "Java ist eine objektorientierte Programmiersprache5.",tags ,"", "");
+		cards1.add(card7);
+		cards1.add(card8);
+		cards1.add(card9);
+		cards1.add(card10);
+		cards1.add(card11);
+		Stack stack1 = new Stack (false, "EDV-Recht", cards1);
+		Database.getInstance().addNewStack(stack1);
+		
+				
 		Toast toast;
 		toast = Toast.makeText(getApplicationContext(),
 				"Test data written!",
