@@ -43,9 +43,7 @@ public class AdminTagListFragment extends Fragment {
 			newTag.setOnClickListener(new OnClickListener() {
 				
 				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					
+				public void onClick(View v) {					
 					AlertDialog.Builder alert = new AlertDialog.Builder(v.getContext());
 
 					alert.setTitle("New Tag");
@@ -98,8 +96,6 @@ public class AdminTagListFragment extends Fragment {
 			
 			// Find the ListView resource.
 			mainListView = (ListView) v.findViewById(R.id.tagsListView);
-			//IMPLEMENT A BUTTON JUST FOR TEST-CASES!!!!!***************!"§%§"§$%$§
-			//btn = (Button) findViewById(R.id.button1);
 
 			// When item is tapped, toggle checked properties of CheckBox and
 			// Tags.

@@ -66,6 +66,7 @@ public class Create {
 	 */
 	public boolean newDynStack(String name, List<Tag> tags) {
 		List<Card> cards = new ArrayList<Card>();
+		Stack dynamicStack;
 		
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
@@ -81,11 +82,13 @@ public class Create {
 				if (tags.contains(tag)) {
 					// add identified cards to list
 					cards.add(card);
+					
 				}
 			}
 		}
-
-		return Database.getInstance().addNewStack(new Stack(true, name, cards));
+		dynamicStack = new Stack(true, name, cards);
+		dynamicStack.setDynamicStackTags(tags);
+		return Database.getInstance().addNewStack(dynamicStack);
 
 	}
 

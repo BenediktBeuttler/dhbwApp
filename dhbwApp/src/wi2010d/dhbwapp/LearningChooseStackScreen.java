@@ -29,7 +29,13 @@ public class LearningChooseStackScreen extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.learning_choose_stack_screen);
 		createDynStack = (Button) findViewById(R.id.btn_learning_create_dyn_stack);
-		createDynStack.setOnClickListener(this);
+		createDynStack.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(getApplicationContext(), AdminCreateDynamicStack.class));
+			}
+		});
 
 		ArrayList<String> items = new ArrayList<String>();
 
@@ -95,9 +101,7 @@ public class LearningChooseStackScreen extends Activity implements
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		startActivity(new Intent(this, LearningCard.class));
-
 	}
 
 }

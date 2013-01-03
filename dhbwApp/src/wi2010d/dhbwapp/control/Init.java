@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ProgressBar;
 
 public class Init extends AsyncTask<Void, Void, Boolean> {
@@ -120,12 +121,10 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-
 			id = cursor.getInt(0);
 			name = cursor.getString(1);
 			totalCards = cursor.getInt(2);
 			new Tag(id, totalCards, name);
-
 			cursor.moveToNext();
 		}
 		cursor.close();

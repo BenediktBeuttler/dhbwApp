@@ -368,6 +368,7 @@ public class StatisticsScreen extends FragmentActivity implements
 					.findViewById(R.id.lbl_statistics_progress_stackSpinner);
 
 			List<String> items = new ArrayList<String>();
+			
 			// collect stack names in list
 			for (Stack stack : Stack.allStacks) {
 				items.add(stack.getStackName());
@@ -375,8 +376,7 @@ public class StatisticsScreen extends FragmentActivity implements
 			if (items.size() == 0) {
 				items.add("No stacks available");
 			} else {
-				Collections.sort(items);
-				items.add(0, "All Stacks");
+				Collections.sort(items);;
 			}
 
 			ArrayAdapter<String> adapter;
@@ -407,6 +407,61 @@ public class StatisticsScreen extends FragmentActivity implements
 			});
 
 			return v;
+		}
+		
+		private void setContent(String name, View v){
+			
+			TextView[][] Cells = null;
+			
+			Cells[0][0] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell01);
+			Cells[0][1] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell11);
+			Cells[0][2] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell21);
+			Cells[0][3] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell31);
+			
+			Cells[1][0] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell02);
+			Cells[1][1] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell12);
+			Cells[1][2] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell22);
+			Cells[1][3] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell32);
+			
+			Cells[2][0] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell03);
+			Cells[2][1] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell13);
+			Cells[2][2] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell23);
+			Cells[2][3] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell33);
+			
+			Cells[3][0] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell04);
+			Cells[3][1] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell14);
+			Cells[3][2] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell24);
+			Cells[3][3] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell34);
+			
+			Cells[4][0] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell05);
+			Cells[4][1] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell15);
+			Cells[4][2] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell25);
+			Cells[4][3] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell35);
+			
+			Cells[5][0] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell06);
+			Cells[5][1] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell16);
+			Cells[5][2] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell26);
+			Cells[5][3] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell36);
+			
+			Cells[6][0] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell07);
+			Cells[6][1] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell17);
+			Cells[6][2] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell27);
+			Cells[6][3] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell37);
+			
+			Cells[7][0] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell08);
+			Cells[7][1] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell18);
+			Cells[7][2] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell28);
+			Cells[7][3] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell38);
+			
+			Cells[8][0] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell09);
+			Cells[8][1] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell19);
+			Cells[8][2] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell29);
+			Cells[8][3] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell39);
+			
+			Cells[9][0] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell010);
+			Cells[9][1] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell110);
+			Cells[9][2] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell210);
+			Cells[9][3] = (TextView) v.findViewById(R.id.lbl_statistics_progress_cell310);
 		}
 	}
 
