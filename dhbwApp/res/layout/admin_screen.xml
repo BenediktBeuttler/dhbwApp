@@ -34,24 +34,18 @@
         android:id="@+id/btn_admin_edit_stack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/design"
         android:layout_above="@+id/btn_admin_import_export"
         android:layout_alignParentLeft="true"
         android:text="@string/btn_admin_editstack" />
 
     <Button
-        android:id="@+id/btn_admin_edit_card"
+        android:id="@+id/btn_admin_new_card_new_stack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_admin_edit_stack"
         android:layout_alignParentLeft="true"
-        android:text="@string/btn_admin_editcard" />
-
-    <Button
-        android:id="@+id/btn_admin_new_card_new_stack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_admin_edit_card"
-        android:layout_alignParentLeft="true"
+        android:drawableLeft="@drawable/plus"
         android:text="@string/btn_admin_newcard" />
 
 </RelativeLayout>
