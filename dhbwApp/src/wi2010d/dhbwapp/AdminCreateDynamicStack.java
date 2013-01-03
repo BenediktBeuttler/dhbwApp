@@ -51,16 +51,16 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 						}
 					}
 					if (dynStackTagList.size() > 0) {
-
+						setResult(RESULT_CANCELED);
 						if (Create.getInstance().newDynStack(name,
 								dynStackTagList)) {
 							Toast toast = Toast.makeText(v.getContext(),
 									"Dynamic Stack " + name + " created!",
 									Toast.LENGTH_LONG);
 							toast.show();
-							//setResult(RESULT_OK);
+							setResult(RESULT_OK);
 						}
-						finishIt();
+						finish();
 					}
 				}
 
@@ -78,11 +78,6 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 		}
 	}
 	
-	private void finishIt(){
-		setResult(RESULT_OK);
-		finish();
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
