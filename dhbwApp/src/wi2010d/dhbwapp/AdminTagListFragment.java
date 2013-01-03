@@ -3,6 +3,7 @@ package wi2010d.dhbwapp;
 import java.util.List;
 
 import wi2010d.dhbwapp.control.Create;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -70,13 +71,17 @@ public class AdminTagListFragment extends Fragment {
 								}
 
 								if (alreadyTaken) {
-									//TODO: BENE DEN TOAST HIER ERROR HANDLEN :D
-									Toast toast;
+									//ErrorHandling if TagName is already taken
+									ErrorHandlerFragment newFragment = ErrorHandlerFragment
+											.newInstance(R.string.error_handler_name_taken, ErrorHandlerFragment.NAME_TAKEN );
+									newFragment.show(getActivity().getFragmentManager(), "dialog");	
+									//
+									/*Toast toast;
 									toast = Toast.makeText(getActivity(),
 											"Tag '" + newTagName
 													+ "' already exists.",
 											Toast.LENGTH_LONG);
-									toast.show();
+									toast.show();*/
 								} else {
 									Create.getInstance().newTag(newTagName);
 									Toast toast;

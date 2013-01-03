@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 public class ErrorHandlerFragment extends DialogFragment{
@@ -14,7 +15,10 @@ public class ErrorHandlerFragment extends DialogFragment{
 	public static final int GENERAL_ERROR = 1;
 	public static final int IMPORT_ERROR = 2;
 	public static final int EXPORT_ERROR = 3;
-	public static final int RESET_DB = 4;
+	public static final int NO_SD = 4;
+	public static final int NAME_TAKEN = 5;
+	
+	public static final int RESET_DB = 10;
 
 	static int errorCode; 
 	
@@ -29,36 +33,57 @@ public class ErrorHandlerFragment extends DialogFragment{
 	
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
         int title = getArguments().getInt("title");
+        
+        if (errorCode > 9)					//Dialogs with ErrorCode 10 or higher get only OK-Button
+        {
+        	return new AlertDialog.Builder(getActivity())
+            .setIcon(R.drawable.alert)
+            .setTitle(title)
+            .setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    	onOk(errorCode);
+                    }
+                }
+            )
+            .setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    	onCancel();
+                    }
+                }
+            )
+            .create();
+        }
+        else
+        {
+        	return new AlertDialog.Builder(getActivity())
+            .setIcon(R.drawable.alert)
+            .setTitle(title)
+            .setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    	//nothing happends
+                    }
+                }
+            )
+            .create();
+        }
 
-        return new AlertDialog.Builder(getActivity())
-                .setIcon(R.drawable.alert)
-                .setTitle(title)
-                .setPositiveButton("OK",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                        	onOk(errorCode);
-                        }
-                    }
-                )
-                .setNegativeButton("Cancel",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                        	onCancel();
-                        }
-                    }
-                )
-                .create();
+        
     }
 
 	private void onOk(int errorCode) {
 		// TODO Auto-generated method stub
 		switch (errorCode) {
-		case 4:
+		case 10:
+		{
 			DatabaseManager.getInstance().deleteDB();
 			Toast toast;
 			toast = Toast.makeText(getActivity(),
 					"Databse deleted!", Toast.LENGTH_LONG);
 			toast.show();
+		}
 			break;
 		default:
 			break;
@@ -66,6 +91,6 @@ public class ErrorHandlerFragment extends DialogFragment{
 	}
 	
 	private void onCancel(){
-		
+		this.dismiss();
 	}
 }

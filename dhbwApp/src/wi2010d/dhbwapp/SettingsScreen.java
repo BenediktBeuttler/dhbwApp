@@ -147,7 +147,7 @@ public class SettingsScreen extends Activity implements OnClickListener {
 
 	void showDialog() {
 		ErrorHandlerFragment newFragment = ErrorHandlerFragment
-				.newInstance(R.string.error_handler_delete_db, 4);
+				.newInstance(R.string.error_handler_delete_db, ErrorHandlerFragment.RESET_DB);
 		newFragment.show(getFragmentManager(), "dialog");		
 	}
 
