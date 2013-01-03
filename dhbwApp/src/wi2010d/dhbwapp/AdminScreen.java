@@ -19,13 +19,11 @@ public class AdminScreen extends Activity implements OnClickListener{
 		setContentView(R.layout.admin_screen);
 		
 		new_card_new_stack = (Button)findViewById(R.id.btn_admin_new_card_new_stack);
-		edit_card = (Button)findViewById(R.id.btn_admin_edit_card);
 		edit_stack = (Button)findViewById(R.id.btn_admin_edit_stack);
 		import_export = (Button)findViewById(R.id.btn_admin_import_export);
 		new_dyn_stack = (Button)findViewById(R.id.btn_admin_new_dyn_stack);
 		
 		new_card_new_stack.setOnClickListener(this);
-		edit_card.setOnClickListener(this);
 		edit_stack.setOnClickListener(this);
 		import_export.setOnClickListener(this);
 		new_dyn_stack.setOnClickListener(this);
@@ -67,9 +65,6 @@ public class AdminScreen extends Activity implements OnClickListener{
 		switch (v.getId()) {
 		case R.id.btn_admin_new_card_new_stack:
 			startActivity(new Intent (this, AdminNewCard.class));
-			break;
-		case R.id.btn_admin_edit_card:
-			//startActivity(new Intent (this, EditScreen.class));
 			break;
 		case R.id.btn_admin_edit_stack:
 			startActivity(new Intent (this, AdminChooseStackScreen.class));
