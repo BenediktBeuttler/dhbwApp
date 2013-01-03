@@ -52,7 +52,7 @@
     <string name="title_activity_admin_screen">Administration</string>
     <string name="title_activity_admin_new_card_choose_stack_screen">Choose Stack</string>
     <string name="title_activity_admin_new_stack">New Stack</string>
-    <string name="title_activity_stapel_screen">Stack Screen</string>
+    <string name="title_activity_stapel_screen">Select Stack</string>
     <string name="help_learn_statistics">Hier steht die Erklärung für die Benutzung der Statistiken</string>
     <string name="help_import_export">Hier steht die Erklärung für die Benutzung von Import/Export</string>
     <string name="help_edit_card_stacks">Hier steht die Erklärung für die Verwaltung von Karten und Stacks</string>
@@ -68,7 +68,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_admin_edit_stack">Edit Stack</string>
-    <string name="title_activity_admin_choose_stack_screen">MainActivity</string>
+    <string name="title_activity_admin_choose_stack_screen">Select Stack</string>
     <string name="statistics_screen_tab_overview">Overview</string>
     <string name="statistics_screen_tab_progress">Progress</string>
     <string name="statistics_screen_tab_lastreview">Last Review</string>
@@ -85,7 +85,6 @@
     <string name="admin_export">Export</string>
     <string name="admin_import">Import</string>
     <string name="content_start_screen_logo">know it owl Logo</string>
-    <string name="title_activity_progress">know it owl</string>
     <string name="title_activity_admin_edit_card">Edit Card</string>
 
 </resources>
