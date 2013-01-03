@@ -470,7 +470,7 @@ public class StatisticsScreen extends FragmentActivity implements
 			for (int k = 0; k < 10; k++){
 				for (int l = 0; l < 4; l++){
 					Cells[k][l].setText("-");
-					Cells[k][l].setTextColor(Color.GRAY);
+					Cells[k][l].setTextColor(Color.WHITE);
 				}
 			}
 			
@@ -494,7 +494,18 @@ public class StatisticsScreen extends FragmentActivity implements
 				}
 
 				Cells[i][2].setText(progress[i][1] + "%");
+				if (progress[i][1] > 40){
+					Cells[i][2].setTextColor(Color.RED);
+				}else{
+					Cells[i][2].setTextColor(Color.GREEN);
+				}
+				
 				Cells[i][3].setText(progress[i][2] + "%");
+				if (progress[i][2] > 90){
+					Cells[i][3].setTextColor(Color.GREEN);
+				}else{
+					Cells[i][3].setTextColor(Color.RED);
+				}
 			}
 		}
 	}
