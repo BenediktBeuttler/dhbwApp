@@ -26,28 +26,6 @@ public class Database {
 	private final String QUERY_CARD_TAG = "Select cardID, tagID from cardtag;";
 	private final String QUERY_STACK_TAG = "Select stackID, tagID from stacktag;";
 
-	// Delete Strings
-	// --- Delete queries for Stack and all references
-	private final String DELETE_STACK = "Delete from stack where _id = ?;";
-	private final String DELETE_STACK_CARD_STACK = "Delete from stackcard where stackID = ?;";
-	private final String DELETE_STACK_TAG_STACK = "Delete from stacktag where stackID = ?;";
-
-	// --- Delete queries for Card and all references
-	private final String DELETE_CARD = "Delete from card where _id = ?;";
-	private final String DELETE_STACK_CARD_CARD = "Delete from stackcard where cardID = ?;";
-	private final String DELETE_CARD_TAG_CARD = "Delete from cardtag where cardID = ?";
-
-	// --- Delete queries for Tag and all references
-	private final String DELETE_TAG = "Delete from tag where _id = ?;";
-	private final String DELETE_CARD_TAG_TAG = "Delete from cardtag where tagID = ?";
-	private final String DELETE_STACK_TAG_TAG = "Delete from stacktag where tagID = ?;";
-
-	// Delete queries for Runthrough
-	private final String DELETE_RUNTHROUGH = "Delete from tag where _id = ?;";
-
-	// Delete queries for Correlations
-	private final String DELETE_CARD_STACK_CORRELATION = "Delete from stackcard where stackID = ? and cardID = ?;";
-	private final String DELETE_CARD_TAG_CORRELATION = "Delete from cardtag where cardID = ? and tagID = ?";
 
 	// -------------END VAR DECLARATION ------------------
 	// --------- CONSTRUCTOR // OPEN/CLOSE METHODS --------
@@ -159,12 +137,11 @@ public class Database {
 	public boolean deleteStack(Stack stack) {
 		this.openWrite();
 
-		database.execSQL(DELETE_STACK, new String[] { "" + stack.getStackID() });
-
-		database.execSQL(DELETE_STACK_TAG_STACK,
+		database.delete("stack", "_id = ?",
 				new String[] { "" + stack.getStackID() });
-
-		database.execSQL(DELETE_STACK_CARD_STACK,
+		database.delete("stacktag", "stackID = ?",
+				new String[] { "" + stack.getStackID() });
+		database.delete("stackcard", "stackID = ?",
 				new String[] { "" + stack.getStackID() });
 
 		this.close();
@@ -181,12 +158,11 @@ public class Database {
 	public boolean deleteCard(Card card) {
 		this.openWrite();
 
-		database.execSQL(DELETE_CARD, new String[] { "" + card.getCardID() });
-
-		database.execSQL(DELETE_STACK_CARD_CARD,
+		database.delete("card", "_id = ?",
 				new String[] { "" + card.getCardID() });
-
-		database.execSQL(DELETE_CARD_TAG_CARD,
+		database.delete("stackcard", "cardID = ?",
+				new String[] { "" + card.getCardID() });
+		database.delete("cardtag", "cardID = ?",
 				new String[] { "" + card.getCardID() });
 
 		this.close();
@@ -203,12 +179,10 @@ public class Database {
 	public boolean deleteTag(Tag tag) {
 		this.openWrite();
 
-		database.execSQL(DELETE_TAG, new String[] { "" + tag.getTagID() });
-
-		database.execSQL(DELETE_CARD_TAG_TAG,
+		database.delete("tag", "_id = ?", new String[] { "" + tag.getTagID() });
+		database.delete("cardtag", "tagID = ?",
 				new String[] { "" + tag.getTagID() });
-
-		database.execSQL(DELETE_STACK_TAG_TAG,
+		database.delete("stacktag", "tagID = ?",
 				new String[] { "" + tag.getTagID() });
 
 		this.close();
@@ -225,9 +199,8 @@ public class Database {
 	public boolean deleteRunthrough(Runthrough run) {
 		this.openWrite();
 
-		database.execSQL(DELETE_RUNTHROUGH,
+		database.delete("runthrough", "_id = ?",
 				new String[] { "" + run.getRunthroughID() });
-
 		this.close();
 		return true;
 	}
@@ -244,8 +217,8 @@ public class Database {
 	public boolean deleteCardStackCorrelation(int stackID, int cardID) {
 		this.openWrite();
 
-		database.execSQL(DELETE_CARD_STACK_CORRELATION, new String[] {
-				"" + stackID, "" + cardID });
+		database.delete("stackcard", "stackID = ? AND cardID = ?",
+				new String[] { "" + stackID, "" + cardID });
 
 		this.close();
 		return true;
@@ -263,7 +236,7 @@ public class Database {
 	public boolean deleteCardTagCorrelation(int cardID, int tagID) {
 		this.openWrite();
 
-		database.execSQL(DELETE_CARD_TAG_CORRELATION, new String[] {
+		database.delete("cardtag", "cardID = ? and tagID = ?", new String[] {
 				"" + cardID, "" + tagID });
 
 		this.close();
@@ -431,7 +404,7 @@ public class Database {
 
 		stackCardContent.put("stackID", stackID);
 		stackCardContent.put("cardID", cardID);
-		stackCardContent.put("_id", Integer.parseInt(stackID + "" + cardID));
+		// stackCardContent.put("_id", Integer.parseInt(stackID + "" + cardID));
 
 		this.openWrite();
 		database.insert("stackcard", null, stackCardContent);
@@ -454,7 +427,7 @@ public class Database {
 
 		StackTagValues.put("stackID", stackID);
 		StackTagValues.put("tagID", tagID);
-		StackTagValues.put("_id", Integer.parseInt(stackID + "" + tagID));
+		// StackTagValues.put("_id", Integer.parseInt(stackID + "" + tagID));
 
 		this.openWrite();
 		database.insert("stacktag", null, StackTagValues);
@@ -478,7 +451,7 @@ public class Database {
 
 		CardTagValues.put("cardID", cardID);
 		CardTagValues.put("tagID", tagID);
-		CardTagValues.put("_id", Integer.parseInt(cardID + "" + tagID));
+		// CardTagValues.put("_id", Integer.parseInt(cardID + "" + tagID));
 
 		this.openWrite();
 		database.insert("cardtag", null, CardTagValues);
@@ -503,8 +476,8 @@ public class Database {
 	 */
 	public boolean changeStack(Stack stack) {
 		this.openWrite();
-
-		database.execSQL(DELETE_STACK, new String[] { "" + stack.getStackID() });
+		database.delete("stack", "_id = ?",
+				new String[] { "" + stack.getStackID() });
 
 		ContentValues stackContent = putStackValues(stack);
 		database.insert("stack", null, stackContent);
@@ -523,8 +496,8 @@ public class Database {
 	public boolean changeCard(Card card) {
 
 		this.openWrite();
-		database.execSQL(DELETE_CARD, new String[] { "" + card.getCardID() });
-
+		database.delete("card", "_id = ?",
+				new String[] { "" + card.getCardID() });
 		ContentValues cardContent = putCardValues(card);
 
 		database.insert("card", null, cardContent);
@@ -543,7 +516,7 @@ public class Database {
 	 */
 	public boolean changeRunthrough(Runthrough run) {
 		this.openWrite();
-		database.execSQL(DELETE_RUNTHROUGH,
+		database.delete("runthrough", "_id = ?",
 				new String[] { "" + run.getRunthroughID() });
 
 		ContentValues runthroughContent = putRunthroughValues(run);
@@ -563,7 +536,7 @@ public class Database {
 	 */
 	public boolean changeTag(Tag tag) {
 		this.openWrite();
-		database.execSQL(DELETE_TAG, new String[] { "" + tag.getTagID() });
+		database.delete("tag", "_id = ?", new String[] { "" + tag.getTagID() });
 
 		ContentValues tagValues = putTagValues(tag);
 

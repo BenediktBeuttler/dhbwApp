@@ -16,12 +16,14 @@
         android:id="@+id/btn_reset_database"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/xion"
         android:onClick="OnClick"
         android:text="@string/label_settings_resetdatabase" />
 
     <Button 
         android:id="@+id/btn_write_test_data"
         android:layout_width="wrap_content"
+        android:drawableLeft="@drawable/writing"
         android:layout_height="wrap_content"
         android:text="Write Test Data" />
 

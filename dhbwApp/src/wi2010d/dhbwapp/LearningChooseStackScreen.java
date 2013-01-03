@@ -48,7 +48,7 @@ public class LearningChooseStackScreen extends Activity implements
 
 		ListView lv = (ListView) findViewById(R.id.learn_stack_list);
 		lv.setAdapter(new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, items));
+				R.layout.layout_listitem, items));
 
 		lv.setClickable(true);
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

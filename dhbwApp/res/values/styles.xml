@@ -18,14 +18,17 @@
     </style>
     
     <style name="style_button">
-        <item name="android:gravity">center_vertical|center_horizontal</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
-        <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:layout_marginTop">6dp</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
-        <item name="android:padding">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:paddingTop">12dp</item>
     </style>
+    
     
     <style name="style_label" parent="android:Widget.Holo.TextView">
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
@@ -55,7 +58,8 @@
         <item name="android:layout_marginRight">16dp</item>
         <item name="android:paddingBottom">12dp</item>
         <item name="android:paddingTop">12dp</item>  
-        <item name="android:paddingLeft">2dp</item> 
+        <item name="android:paddingLeft">2dp</item>
+         
     </style>
     
        <style name="style_iconButton" parent="android:Widget.Holo.Button">
@@ -68,5 +72,7 @@
               <item name="android:textSize">24sp</item>
               <item name="android:layout_marginBottom">6dp</item>
         	  <item name="android:layout_marginTop">6dp</item>
+        	  <item name="android:layout_marginLeft">16dp</item>
+       		  <item name="android:layout_marginRight">16dp</item>
        </style>
 </resources>
