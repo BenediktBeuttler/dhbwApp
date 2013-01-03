@@ -87,7 +87,9 @@
     <string name="content_start_screen_logo">know it owl Logo</string>
     <string name="title_activity_progress"></string>
     <string name="title_activity_admin_edit_card">Edit Card</string>
-        <string name="title_activity_admin_create_dynamic_stack">Create Dynamic Stack</string>
+    <string name="title_activity_admin_create_dynamic_stack">Create Dynamic Stack</string>
+    <string name="error_handler_delete_db">Delete Database?</string>
+    <string name="error_handler_no_sd">No SD Card</string>
     
 
 </resources>

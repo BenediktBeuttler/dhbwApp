@@ -38,15 +38,15 @@ public class LearningChooseStackScreen extends Activity implements
 			@Override
 			public void onClick(View v) {
 				startActivityForResult(new Intent(getApplicationContext(),
-						AdminCreateDynamicStack.class), RESULT_OK);
+						AdminCreateDynamicStack.class), 1);
 			}
 		});
 
 		items = updateStack();
 
-		ListView lv = (ListView) findViewById(R.id.learn_stack_list);
-		lvAdapter = new ArrayAdapter<String>(this,
-				R.layout.layout_listitem, items);
+		lv = (ListView) findViewById(R.id.learn_stack_list);
+		lvAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,
+				items);
 		lv.setAdapter(lvAdapter);
 
 		lv.setClickable(true);
@@ -82,11 +82,14 @@ public class LearningChooseStackScreen extends Activity implements
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Log.e("Drin", "" + resultCode);
-		if (requestCode == RESULT_OK) {
+		if (resultCode == RESULT_OK) {
 			items = updateStack();
 			lvAdapter = new ArrayAdapter<String>(this,
 					R.layout.layout_listitem, items);
 			lv.setAdapter(lvAdapter);
+		}
+		if (resultCode == RESULT_CANCELED) {
+			// TODO: BENE ERROR HANDLER
 		}
 	}
 

@@ -1,6 +1,6 @@
 package wi2010d.dhbwapp;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Database;
@@ -9,10 +9,7 @@ import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,20 +17,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,14 +48,22 @@ public class AdminNewCard extends FragmentActivity implements
 			return true;
 		case R.id.btn_admin_new_card_new_stack:
 			if (isCardNotEmpty()) {
+				// find the checked Tags from the list
+				cardTagList.clear();
+				for (Tag tag : Tag.allTags) {
+					if (tag.isChecked()) {
+						cardTagList.add(tag);
+					}
+				}
+
 				card = Create.getInstance().newCard(
 						cardFront.getText().toString(),
-						cardBack.getText().toString(), null, "", "");
-				
+						cardBack.getText().toString(), cardTagList, "", "");
+
 				Intent i = new Intent(getApplicationContext(),
 						AdminNewStack.class);
 				startActivityForResult(i, NEW_STACK);
-				
+
 			}
 			return true;
 		case R.id.btn_admin_new_card_existing_stack:
@@ -73,10 +71,17 @@ public class AdminNewCard extends FragmentActivity implements
 				ErrorHandler.getInstance().handleError(
 						ErrorHandler.getInstance().NO_STACK_AVAILABLE);
 			} else if (isCardNotEmpty()) {
+				// find the checked Tags from the list
+				cardTagList.clear();
+				for (Tag tag : Tag.allTags) {
+					if (tag.isChecked()) {
+						cardTagList.add(tag);
+					}
+				}
 				card = Create.getInstance().newCard(
 						cardFront.getText().toString(),
-						cardBack.getText().toString(), null, "", "");
-				
+						cardBack.getText().toString(), cardTagList, "", "");
+
 				Intent i = new Intent(getApplicationContext(),
 						AdminNewCardChooseStack.class);
 				startActivityForResult(i, STACK_CHOSEN);
@@ -113,7 +118,8 @@ public class AdminNewCard extends FragmentActivity implements
 		this.card = card;
 	}
 
-	Card card;
+	private Card card;
+	private ArrayList<Tag> cardTagList = new ArrayList<Tag>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -206,6 +212,10 @@ public class AdminNewCard extends FragmentActivity implements
 				fragment = new NewCardBack();
 				break;
 			case 2:
+				// set all tags unchecked
+				for (Tag tag : Tag.allTags) {
+					tag.setChecked(false);
+				}
 				fragment = new AdminTagListFragment();
 
 			default:
@@ -221,7 +231,7 @@ public class AdminNewCard extends FragmentActivity implements
 
 		@Override
 		public int getCount() {
-			// Show 2 total pages.
+			// Show 3 total pages.
 			return 3;
 		}
 
@@ -279,7 +289,6 @@ public class AdminNewCard extends FragmentActivity implements
 		public NewCardFront() {
 		}
 
-		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -310,7 +319,7 @@ public class AdminNewCard extends FragmentActivity implements
 			View v = inflater.inflate(R.layout.admin_new_card_back, null);
 
 			cardBack = (EditText) v.findViewById(R.id.txt_new_card_back);
-			
+
 			return v;
 		}
 	}
@@ -364,5 +373,4 @@ public class AdminNewCard extends FragmentActivity implements
 			break;
 		}
 	}
-	}
-
+}

@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,16 +50,16 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 						}
 					}
 					if (dynStackTagList.size() > 0) {
-
+						setResult(RESULT_CANCELED);
 						if (Create.getInstance().newDynStack(name,
 								dynStackTagList)) {
 							Toast toast = Toast.makeText(v.getContext(),
 									"Dynamic Stack " + name + " created!",
 									Toast.LENGTH_LONG);
 							toast.show();
-							//setResult(RESULT_OK);
+							setResult(RESULT_OK);
 						}
-						finishIt();
+						finish();
 					}
 				}
 
@@ -76,11 +75,6 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 			fragmentTransaction.add(R.id.layout_admin_create_dyn_4_taglist,
 					tagList).commit();
 		}
-	}
-	
-	private void finishIt(){
-		setResult(RESULT_OK);
-		finish();
 	}
 
 	@Override
