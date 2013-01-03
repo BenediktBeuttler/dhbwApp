@@ -316,13 +316,14 @@ public class Statistics {
 		for (int i = 0; i < numberOfRunthroughs; i++){
 			
 			int statusAfter[] = lastRunthroughs.get(i).getStatusAfter();
-			//int totalCards = statusAfter[0] + statusAfter[1] + statusAfter[2];
-			int totalCards = 10;
+			int totalCards = statusAfter[0] + statusAfter[1] + statusAfter[2];
 			Log.e("Statistics", totalCards + "");
 			
-			for (int j = 0; j < 3; j++){
-				result = (statusAfter[j] / totalCards) * 100;
-				progress[i][j] = (int) result;
+			if (totalCards != 0){
+				for (int j = 0; j < 3; j++){
+					result = (statusAfter[j] / totalCards) * 100;
+					progress[i][j] = (int) result;
+				}
 			}
 		}
 		
