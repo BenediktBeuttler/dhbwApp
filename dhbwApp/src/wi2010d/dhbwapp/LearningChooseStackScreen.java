@@ -45,8 +45,8 @@ public class LearningChooseStackScreen extends Activity implements
 		items = updateStack();
 
 		lv = (ListView) findViewById(R.id.learn_stack_list);
-		lvAdapter = new ArrayAdapter<String>(this,
-				R.layout.layout_listitem, items);
+		lvAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,
+				items);
 		lv.setAdapter(lvAdapter);
 
 		lv.setClickable(true);
@@ -88,9 +88,8 @@ public class LearningChooseStackScreen extends Activity implements
 					R.layout.layout_listitem, items);
 			lv.setAdapter(lvAdapter);
 		}
-		if(resultCode == RESULT_CANCELED)
-		{
-			//TODO: BENE ERROR HANDLER
+		if (resultCode == RESULT_CANCELED) {
+			// TODO: BENE ERROR HANDLER
 		}
 	}
 
