@@ -1,10 +1,12 @@
 package wi2010d.dhbwapp;
 
-import wi2010d.dhbwapp.control.Create;
+import java.util.ArrayList;
+
 import wi2010d.dhbwapp.control.Database;
+import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
-import wi2010d.dhbwapp.model.Stack;
+import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -20,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -45,6 +46,8 @@ public class AdminEditCard extends FragmentActivity implements
 	EditText cardBack;
 	Card card;
 	int cardID;
+
+	private ArrayList<Tag> cardTagList = new ArrayList<Tag>();
 
 	public Card getCard() {
 		return card;
@@ -137,10 +140,18 @@ public class AdminEditCard extends FragmentActivity implements
 			return true;
 		case R.id.btn_admin_edit_card_save:
 			if (isCardNotEmpty()) {
-				card.setCardBack(cardBack.getText().toString());
-				card.setCardFront(cardFront.getText().toString());
+				// find the checked Tags from the list
+				cardTagList .clear();
+				for (Tag tag : Tag.allTags) {
+					if (tag.isChecked()) {
+						cardTagList.add(tag);
+					}
+				}
+				String back = cardBack.getText().toString();
+				String front = cardFront.getText().toString();
+				
 				setResult(LearningCard.RESULT_CHANGED);
-				Database.getInstance().changeCard(card);
+				Edit.getInstance().changeCard(front, back, "", "", cardTagList, card);
 				finish();
 			}
 			return true;
@@ -193,7 +204,15 @@ public class AdminEditCard extends FragmentActivity implements
 			case 1:
 				fragment = new EditCardBack();
 				break;
-
+			case 2:
+				// Uncheck all tags, then check the ones from the card
+				for (Tag tag : Tag.allTags) {
+					tag.setChecked(false);
+				}
+				for(Tag tag : card.getTags()){
+					tag.setChecked(true);
+				}
+				fragment = new AdminTagListFragment();
 			default:
 				break;
 			}
@@ -207,8 +226,8 @@ public class AdminEditCard extends FragmentActivity implements
 
 		@Override
 		public int getCount() {
-			// Show 2 total pages.
-			return 2;
+			// Show 3 total pages.
+			return 3;
 		}
 
 		@Override
@@ -219,6 +238,9 @@ public class AdminEditCard extends FragmentActivity implements
 						.toUpperCase();
 			case 1:
 				return getString(R.string.admin_screen_tab_card_back)
+						.toUpperCase();
+			case 2:
+				return getString(R.string.admin_screen_tab_card_tags)
 						.toUpperCase();
 			}
 			return null;
@@ -272,20 +294,6 @@ public class AdminEditCard extends FragmentActivity implements
 
 			cardFront = (EditText) v.findViewById(R.id.txt_edit_card_front);
 			cardFront.setText(card.getCardFront());
-
-			/*
-			 * save = (Button) v.findViewById(R.id.btn_admin_edit_card_save);
-			 * 
-			 * save.setOnClickListener(new View.OnClickListener() {
-			 * 
-			 * public void onClick(View view) { if (isCardNotEmpty()) {
-			 * card.setCardBack(cardBack.getText().toString());
-			 * card.setCardFront(cardFront.getText().toString());
-			 * setResult(LearningCard.RESULT_CHANGED);
-			 * Database.getInstance().changeCard(card); finish(); } }
-			 * 
-			 * });
-			 */
 			return v;
 		}
 	}
@@ -309,19 +317,6 @@ public class AdminEditCard extends FragmentActivity implements
 
 			cardBack = (EditText) v.findViewById(R.id.txt_edit_card_back);
 			cardBack.setText(card.getCardBack());
-			/*
-			 * save = (Button) v.findViewById(R.id.btn_admin_edit_card_save);
-			 * 
-			 * save.setOnClickListener(new View.OnClickListener() {
-			 * 
-			 * public void onClick(View view) { if (isCardNotEmpty()) {
-			 * card.setCardBack(cardBack.getText().toString());
-			 * card.setCardFront(cardFront.getText().toString());
-			 * setResult(LearningCard.RESULT_CHANGED);
-			 * Database.getInstance().changeCard(card); finish(); } }
-			 * 
-			 * });
-			 */
 			return v;
 		}
 	}

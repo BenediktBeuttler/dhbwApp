@@ -499,7 +499,7 @@ public class Database {
 		database.delete("card", "_id = ?",
 				new String[] { "" + card.getCardID() });
 		ContentValues cardContent = putCardValues(card);
-
+		
 		database.insert("card", null, cardContent);
 		this.close();
 
