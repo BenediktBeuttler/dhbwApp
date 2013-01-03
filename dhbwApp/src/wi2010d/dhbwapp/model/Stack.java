@@ -170,6 +170,10 @@ public class Stack {
 		Database.getInstance().changeStack(this);
 	}
 
+	public void setDynamicStackTags(List<Tag> dynamicStackTags) {
+		this.dynamicStackTags = dynamicStackTags;
+	}
+
 	public int getSure() {
 		return sure;
 	}
