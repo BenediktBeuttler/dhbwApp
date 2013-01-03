@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.util.Log;
+
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
@@ -249,9 +251,26 @@ public class Statistics {
 	}
 
 	// ----------------Return Data for Progress Screen------------
+
+	/**
+	 * returns number of runthroughs for selected stack
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public int getNumberOfRunthroughs(String name){
+		
+		for (Stack stack : Stack.allStacks){
+			if (stack.getStackName().equals(name)){
+				return stack.getLastRunthroughs().size();
+			}
+		}
+		
+		return 0;
+	}
 	
 	/**
-	 * Get last runthrough dates of all Stacks
+	 * Get last runthrough dates of all Stacks - NOT USED right now
 	 * 
 	 * @return
 	 */
@@ -285,6 +304,31 @@ public class Statistics {
 		return (ArrayList<String>) lastDates;
 	}
 	
+	
+	public int[][] getLastProgress(String name){
+		
+		int[][] progress;
+		progress = new int[10][3];
+		List<Runthrough> lastRunthroughs = getLastRunthroughs(name);
+		int numberOfRunthroughs = lastRunthroughs.size();
+		float result;
+		
+		for (int i = 0; i < numberOfRunthroughs; i++){
+			
+			int statusAfter[] = lastRunthroughs.get(i).getStatusAfter();
+			//int totalCards = statusAfter[0] + statusAfter[1] + statusAfter[2];
+			int totalCards = 10;
+			Log.e("Statistics", totalCards + "");
+			
+			for (int j = 0; j < 3; j++){
+				result = (statusAfter[j] / totalCards) * 100;
+				progress[i][j] = (int) result;
+			}
+		}
+		
+		return progress;
+	}
+	
 	/**
 	 * Method returns list of strings with the last progress (+/- change for selected drawer)
 	 * drawer = 0 = dont Know, drawer = 1 = not Sure, drawer = 2 = sure
@@ -313,7 +357,7 @@ public class Statistics {
 	
 	
 	/**
-	 * Get last runthroughs of all Stacks
+	 * Get last runthroughs of all Stacks - NOT USED right now
 	 * @return
 	 */
 	private List<Runthrough> getLastRunthroughs(){
@@ -336,22 +380,14 @@ public class Statistics {
 	 */
 	private List<Runthrough> getLastRunthroughs(String name){
 		
-		List<Runthrough> lastRunthroughs = new ArrayList<Runthrough>();
-		
 		for (Stack stack : Stack.allStacks){
 			
 			if (stack.getStackName().equals(name)){
-			
-				for (Runthrough runthrough : stack.getLastRunthroughs()){
-					lastRunthroughs.add(runthrough);
-				}
-				
+				return stack.getLastRunthroughs();
 			}
-				
 		}
 		
-		return lastRunthroughs;
-		
+		return null;
 	}
 
 	// ----------------Return Status of Drawers-------------------
