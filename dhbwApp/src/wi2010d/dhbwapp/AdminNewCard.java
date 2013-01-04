@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Database;
+import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
@@ -349,9 +350,9 @@ public class AdminNewCard extends FragmentActivity implements
 			stackName = data.getExtras().getString("stackName");
 			for (Stack stack : Stack.allStacks) {
 				if (stack.getStackName().equals(stackName)) {
-					stack.getCards().add(card);
-					Database.getInstance().addStackCardCorrelation(
-							stack.getStackID(), card.getCardID());
+
+					Edit.getInstance().addCardToStack(stack, card);
+					
 					toast = Toast.makeText(this, "Card added to stack "
 							+ stackName, Toast.LENGTH_SHORT);
 					toast.show();
@@ -363,7 +364,9 @@ public class AdminNewCard extends FragmentActivity implements
 
 		case NEW_STACK:
 			stackName = data.getExtras().getString("stackName");
+			
 			Create.getInstance().newStack(stackName, card);
+			
 			toast = Toast.makeText(this, "Stack " + stackName
 					+ " created and Card added", Toast.LENGTH_SHORT);
 			toast.show();
