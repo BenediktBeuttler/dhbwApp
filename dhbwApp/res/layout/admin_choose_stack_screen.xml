@@ -5,9 +5,11 @@
 
     <ListView
         android:id="@+id/admin_stack_list"
+        style="@style/style_listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp" >
+
     </ListView>
 
 </LinearLayout>

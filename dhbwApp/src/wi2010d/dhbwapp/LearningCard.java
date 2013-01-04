@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -50,8 +51,8 @@ public class LearningCard extends FragmentActivity implements
 
 	TextView txt_counter_front;
 	TextView txt_counter_back;
-	EditText txt_front;
-	EditText txt_back;
+	TextView txt_front;
+	TextView txt_back;
 	Button sure, dontKnow, notSure;
 
 	@Override
@@ -349,7 +350,8 @@ public class LearningCard extends FragmentActivity implements
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
 			View v = inflater.inflate(R.layout.learning_card_front, null);
-			txt_front = (EditText) v.findViewById(R.id.txt_card_front);
+			txt_front = (TextView) v.findViewById(R.id.txt_card_front);
+			txt_front.setMovementMethod(new ScrollingMovementMethod());
 			txt_front.setText(card.getCardFront());
 			txt_counter_front = (TextView) v.findViewById(R.id.txt_learning_counter);
 			txt_counter_front.setText(Learn.getInstance().getActualProgressAsString());
@@ -373,7 +375,8 @@ public class LearningCard extends FragmentActivity implements
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
 			View v = inflater.inflate(R.layout.learning_card_back, null);
-			txt_back = (EditText) v.findViewById(R.id.txt_card_back);
+			txt_back = (TextView) v.findViewById(R.id.txt_card_back);
+			txt_back.setMovementMethod(new ScrollingMovementMethod());
 			txt_back.setText(card.getCardBack());
 			txt_counter_back = (TextView) v.findViewById(R.id.txt_learning_counter);
 			txt_counter_back.setText(Learn.getInstance().getActualProgressAsString());
