@@ -1,5 +1,7 @@
 package wi2010d.dhbwapp;
 
+import wi2010d.dhbwapp.control.Create;
+import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import android.app.Activity;
 import android.content.Intent;
@@ -9,9 +11,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class AdminScreen extends Activity implements OnClickListener{
-	Button new_card_new_stack, edit_card, edit_stack, import_export, new_dyn_stack;
+	Button new_card_new_stack;
+	Button edit_card; 
+	Button edit_stack;
+	Button import_export;
+	Button new_dyn_stack;
+	Button update_dyn_stacks;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +30,14 @@ public class AdminScreen extends Activity implements OnClickListener{
 		edit_stack = (Button)findViewById(R.id.btn_admin_edit_stack);
 		import_export = (Button)findViewById(R.id.btn_admin_import_export);
 		new_dyn_stack = (Button)findViewById(R.id.btn_admin_new_dyn_stack);
+		update_dyn_stacks = (Button)findViewById(R.id.btn_admin_update_dyn_stack);
+		
 		
 		new_card_new_stack.setOnClickListener(this);
 		edit_stack.setOnClickListener(this);
 		import_export.setOnClickListener(this);
 		new_dyn_stack.setOnClickListener(this);
+		update_dyn_stacks.setOnClickListener(this);
 		
 	}
 
@@ -75,7 +86,13 @@ public class AdminScreen extends Activity implements OnClickListener{
 		case R.id.btn_admin_new_dyn_stack:
 			startActivity(new Intent (this, AdminCreateDynamicStack.class));
 			break;
-
+		case R.id.btn_admin_update_dyn_stack:
+			Create.getInstance().updateDynStacks();
+			Toast toast = Toast.makeText(getApplicationContext(),
+					"All dynamic Stacks have been updated successfully",
+					Toast.LENGTH_SHORT);
+			toast.show();
+			break;
 		default:
 			break;
 		}
