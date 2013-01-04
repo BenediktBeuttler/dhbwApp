@@ -33,6 +33,7 @@
     <string name="list_admin_stacklist">Please choose your Stack:</string>
     <string name="list_admin_cardlist">Please choose your Card:</string>
     <string name="btn_admin_save">save</string>
+    <string name="btn_admin_reset_stack">Reset Stack</string>
     <string name="btn_admin_create">save</string>
     <string name="btn_admin_import">Import</string>
     <string name="btn_admin_export">Export</string>
