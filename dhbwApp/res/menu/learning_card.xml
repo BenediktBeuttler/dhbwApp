@@ -2,19 +2,19 @@
 
     <item
         android:id="@+id/btn_learning_card_front_sure"
-        android:icon="@android:drawable/ic_input_add"
+        android:icon="@drawable/accept"
         android:orderInCategory="100"
         android:showAsAction="always"
         android:title="@string/btn_learn_sure"/>
     <item
         android:id="@+id/btn_learning_card_front_notSure"
-        android:icon="@android:drawable/ic_menu_help"
+        android:icon="@drawable/help"
         android:orderInCategory="100"
         android:showAsAction="always"
         android:title="@string/btn_learn_notsure"/>
     <item
         android:id="@+id/btn_learning_card_front_dontKnow"
-        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:icon="@drawable/cancel"
         android:orderInCategory="100"
         android:showAsAction="always"
         android:title="@string/btn_learn_dontknow"/>
