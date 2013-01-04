@@ -119,7 +119,8 @@ public class Learn {
 	}
 
 	public Card learnCard(int drawer) {
-		card.setDrawer(drawer);
+		
+		Edit.getInstance().setDrawer(card, drawer);
 
 		if (actualCard >= cardsInQueues) {
 			// globale Variable runthroughDone auf true setzen

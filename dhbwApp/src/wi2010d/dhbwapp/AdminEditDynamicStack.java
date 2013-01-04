@@ -1,13 +1,12 @@
 package wi2010d.dhbwapp;
 
-import wi2010d.dhbwapp.control.Delete;
-import wi2010d.dhbwapp.control.Learn;
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
-import wi2010d.dhbwapp.model.Card;
+import java.util.ArrayList;
+
+import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.model.Stack;
+import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -20,14 +19,54 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class LearningCard extends FragmentActivity implements
+public class AdminEditDynamicStack extends FragmentActivity implements
 		ActionBar.TabListener {
 
-	public static final int RESULT_CHANGED = 66;
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		// TODO: OPTIONS MENU!
+		/*
+		 * Code für on Click:
+		 * 
+		 * 
+		 * 
+		 */
+		Stack foundStack;
+		for(Stack stack : Stack.allStacks)
+		{
+			if(stack.getStackName().equals(stackName)){
+				foundStack = stack;
+				if(txt_stack_name.getText().toString().equals(""))
+				{
+					//TODO: BENE ERROR: KEIN NAME EINGEGEBEN!
+					break;
+				}
+				Edit.getInstance().changeStackName(txt_stack_name.getText().toString(),foundStack);
+				for(Tag tag : Tag.allTags){
+					if(tag.isChecked()){
+						stackTagList.add(tag);
+					}
+				}
+				if(stackTagList.size()<=0)
+				{
+					//TODO: BENE ERROR: KEINE TAGS SELECTED
+					break;
+				}
+				else{
+					foundStack.setDynamicStackTags(stackTagList);
+					//TODO: Reppe: Create.udpatedynStack
+				}
+				
+				break;
+			}
+		}
+
+		return false;
+	}
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -43,19 +82,15 @@ public class LearningCard extends FragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
-	Card card;
-	Stack stack;
-	String stackName;
-
-	EditText txt_front;
-	EditText txt_back;
-	Button sure, dontKnow, notSure;
+	private ArrayList<Tag> stackTagList = new ArrayList<Tag>();
+	private Stack stack;
+	private String stackName;
+	private EditText txt_stack_name;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.learning_card);
+		setContentView(R.layout.admin_new_card);
 
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
@@ -68,15 +103,12 @@ public class LearningCard extends FragmentActivity implements
 			stackName = (String) savedInstanceState
 					.getSerializable("stackName");
 		}
-
-		for (Stack stack : Stack.allStacks) {
-			if (stack.getStackName().equals(stackName)) {
-				this.stack = stack;
+		for (Stack searchStack : Stack.allStacks) {
+			if (searchStack.getStackName().equals(stackName)) {
+				stack = searchStack;
 				break;
 			}
 		}
-
-		card = Learn.getInstance().startLearning(stack);
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -88,7 +120,7 @@ public class LearningCard extends FragmentActivity implements
 				getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
-		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager = (ViewPager) findViewById(R.id.newCard);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// When swiping between different sections, select the corresponding
@@ -117,7 +149,7 @@ public class LearningCard extends FragmentActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.learning_card, menu);
+		getMenuInflater().inflate(R.menu.admin_new_card, menu);
 		return true;
 	}
 
@@ -130,98 +162,13 @@ public class LearningCard extends FragmentActivity implements
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.btn_learning_card_front_sure:
-			card = Learn.getInstance().learnCard(2);
-			if (card == null) {
-				Intent intent = (new Intent(this, StatisticsScreen.class));
-				intent.putExtra("Tab", 3);
-				startActivity(intent);
-				finish();
-			} else {
-				mViewPager.setCurrentItem(0);
-				txt_front.setText(card.getCardFront());
-				txt_back.setText(card.getCardBack());
-			}
-			return true;
-		case R.id.btn_learning_card_front_dontKnow:
-			card = Learn.getInstance().learnCard(0);
-			if (card == null) {
-				Intent intent = (new Intent(this, StatisticsScreen.class));
-				intent.putExtra("Tab", 3);
-				startActivity(intent);
-				finish();
-			} else {
-				mViewPager.setCurrentItem(0);
-				txt_front.setText(card.getCardFront());
-				txt_back.setText(card.getCardBack());
-			}
-			return true;
-		case R.id.btn_learning_card_front_notSure:
-			card = Learn.getInstance().learnCard(1);
-			if (card == null) {
-				Intent intent = (new Intent(this, StatisticsScreen.class));
-				intent.putExtra("Tab", 3);
-				startActivity(intent);
-				finish();
-			} else {
-				mViewPager.setCurrentItem(0);
-				txt_front.setText(card.getCardFront());
-				txt_back.setText(card.getCardBack());
-			}
-			return true;
-		case R.id.btn_admin_edit_card:
-			Intent intent = new Intent(this, AdminEditCard.class);
-			intent.putExtra("cardID", card.getCardID());
-			startActivityForResult(intent, RESULT_CHANGED);
-			return true;
-		case R.id.btn_admin_delete_card:
-			Delete.getInstance().deleteCard(card);
-			return true;
-		default:
-			ErrorHandler error = new ErrorHandler(getApplicationContext());
-			error.handleError(1);
-			return false;
-		}
-
-	}
-
-	@Override
 	public void onTabUnselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (resultCode) {
-		case RESULT_CHANGED:
-			for (Card searchCard : Card.allCards) {
-				if (searchCard.getCardID() == this.card.getCardID()) {
-					this.card = searchCard;
-					break;
-				}
-			}
-			txt_front.setText(card.getCardFront());
-			txt_back.setText(card.getCardBack());
-			break;
-		default:
-			break;
-		}
-	}
-
-	@Override
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
-	}
-
-	public Card getCard() {
-		return card;
-	}
-
-	public void setCard(Card card) {
-		this.card = card;
 	}
 
 	/**
@@ -243,14 +190,19 @@ public class LearningCard extends FragmentActivity implements
 
 			switch (position) {
 			case 0:
-				fragment = new CardFront();
+				fragment = new EditDynStack();
 				break;
 			case 1:
-				fragment = new CardBack();
-				break;
+				// set all tags unchecked
+				for (Tag tag : Tag.allTags) {
+					tag.setChecked(false);
+				}
+				// set the stacks' tags checked
+				for (Tag tag : stack.getDynamicStackTags()) {
+					tag.setChecked(true);
+				}
+				fragment = new AdminTagListFragment();
 			default:
-				ErrorHandler error = new ErrorHandler(getApplicationContext());
-				error.handleError(1);
 				break;
 			}
 
@@ -271,11 +223,9 @@ public class LearningCard extends FragmentActivity implements
 		public CharSequence getPageTitle(int position) {
 			switch (position) {
 			case 0:
-				return getString(R.string.learning_screen_tab_card_front)
-						.toUpperCase();
+				return "Edit Name";
 			case 1:
-				return getString(R.string.learning_screen_tab_card_back)
-						.toUpperCase();
+				return "Edit Tags";
 			}
 			return null;
 		}
@@ -308,14 +258,14 @@ public class LearningCard extends FragmentActivity implements
 		}
 	}
 
-	public class CardFront extends Fragment {
+	public class EditDynStack extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
-		public final String ARG_SECTION_NUMBER = "section_number";
+		public static final String ARG_SECTION_NUMBER = "section_number";
 
-		public CardFront() {
+		public EditDynStack() {
 		}
 
 		@Override
@@ -323,32 +273,14 @@ public class LearningCard extends FragmentActivity implements
 				Bundle savedInstanceState) {
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
-			View v = inflater.inflate(R.layout.learning_card_front, null);
-			txt_front = (EditText) v.findViewById(R.id.txt_card_front);
-			txt_front.setText(card.getCardFront());
+			View v = inflater.inflate(R.layout.admin_edit_stack_screen, null);
+
+			txt_stack_name = (EditText) v
+					.findViewById(R.id.txt_admin_edit_stack);
+			txt_stack_name.setText(stackName);
+
 			return v;
 		}
 	}
 
-	public class CardBack extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public final String ARG_SECTION_NUMBER = "section_number";
-
-		public CardBack() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			// Create a new TextView and set its text to the fragment's section
-			// number argument value.
-			View v = inflater.inflate(R.layout.learning_card_back, null);
-			txt_back = (EditText) v.findViewById(R.id.txt_card_back);
-			txt_back.setText(card.getCardBack());
-			return v;
-		}
-	}
 }

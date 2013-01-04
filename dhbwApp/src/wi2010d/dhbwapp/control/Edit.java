@@ -38,6 +38,7 @@ public class Edit {
 	public boolean addCardToStack(Stack stack, Card card) {
 		stack.getCards().add(card);
 		card.increaseTotalStacks();
+		Database.getInstance().changeCard(card);
 		Database.getInstance().addStackCardCorrelation(stack.getStackID(),
 				card.getCardID());
 		return true;
@@ -52,9 +53,10 @@ public class Edit {
 	 */
 	public boolean removeCardFromStack(Stack stack, Card card) {
 		stack.getCards().remove(card);
+		card.decreaseTotalStacks();
+		Database.getInstance().changeCard(card);
 		Database.getInstance().deleteCardStackCorrelation(stack.getStackID(),
 				card.getCardID());
-		card.decreaseTotalStacks();
 		return true;
 	}
 
@@ -158,6 +160,12 @@ public class Edit {
 
 		}
 
+		return true;
+	}
+	
+	public boolean setDrawer(Card card, int drawer){
+		card.setDrawer(drawer);
+		Database.getInstance().changeCard(card);
 		return true;
 	}
 
