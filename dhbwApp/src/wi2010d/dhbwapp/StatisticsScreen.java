@@ -246,7 +246,8 @@ public class StatisticsScreen extends FragmentActivity implements
 		TextView sure;
 
 		Spinner spinner;
-
+		boolean stacksAvailable;
+		
 		public Overview() {
 		}
 
@@ -257,7 +258,7 @@ public class StatisticsScreen extends FragmentActivity implements
 			// number argument value.
 			View v = inflater
 					.inflate(R.layout.statistics_screen_overview, null);
-
+			
 			spinner = (Spinner) v
 					.findViewById(R.id.lbl_statistics_overview_stackSpinner);
 
@@ -267,9 +268,11 @@ public class StatisticsScreen extends FragmentActivity implements
 				items.add(stack.getStackName());
 			}
 			if (items.size() == 0) {
+				stacksAvailable = false;
 				items.add("No stacks available");
 			} else {
 				Collections.sort(items);
+				stacksAvailable = true;
 				items.add(0, "All Stacks");
 			}
 
@@ -288,10 +291,10 @@ public class StatisticsScreen extends FragmentActivity implements
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view,
 						int position, long id) {
-
-					String name = (String) parent.getItemAtPosition(position);
-					setContent(name, (View) view.getParent().getParent());
-
+					if (stacksAvailable){
+						String name = (String) parent.getItemAtPosition(position);
+						setContent(name, (View) view.getParent().getParent());
+					}
 				}
 
 				@Override
@@ -300,7 +303,9 @@ public class StatisticsScreen extends FragmentActivity implements
 				}
 			});
 
-			setContent("All Stacks", v);
+			if (stacksAvailable){
+				setContent("All Stacks", v);
+			}
 
 			return v;
 		}
@@ -354,6 +359,7 @@ public class StatisticsScreen extends FragmentActivity implements
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
 		Spinner spinner;
+		boolean stacksAvailable = true;
 
 		public Progress() {
 		}
@@ -376,9 +382,10 @@ public class StatisticsScreen extends FragmentActivity implements
 				items.add(stack.getStackName());
 			}
 			if (items.size() == 0) {
+				stacksAvailable = false;
 				items.add("No stacks available");
 			} else {
-				Collections.sort(items);;
+				Collections.sort(items);
 			}
 
 			ArrayAdapter<String> adapter;
@@ -396,10 +403,11 @@ public class StatisticsScreen extends FragmentActivity implements
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view,
 						int position, long id) {
-
-					String name = (String) parent.getItemAtPosition(position);
-					setContent(name, (View) view.getParent().getParent());
-
+					
+					if (stacksAvailable){
+						String name = (String) parent.getItemAtPosition(position);
+						setContent(name, (View) view.getParent().getParent());
+					}
 				}
 
 				@Override
@@ -408,6 +416,7 @@ public class StatisticsScreen extends FragmentActivity implements
 				}
 			});
 
+			
 			return v;
 		}
 		
@@ -474,8 +483,7 @@ public class StatisticsScreen extends FragmentActivity implements
 				}
 			}
 			
-			
-			List<String> lastDates = Statistics.getInstance().getLastRunthroughDates();
+			List<String> lastDates = Statistics.getInstance().getLastRunthroughDates(name);
 			int[][] progress = Statistics.getInstance().getLastProgress(name);
 			
 			Log.e("Statistics", Statistics.getInstance().getNumberOfRunthroughs(name) + " # runthroughs");
@@ -484,7 +492,7 @@ public class StatisticsScreen extends FragmentActivity implements
 				
 				Log.e("Statistics", "SetContent for reached");
 				
-				Cells[i][0].setText(lastDates.get(0));
+				Cells[i][0].setText(lastDates.get(i));
 				
 				Cells[i][1].setText(progress[i][0] + "%");
 				if (progress[i][0] > 40){
@@ -531,6 +539,8 @@ public class StatisticsScreen extends FragmentActivity implements
 
 		String[] statusBefore = Statistics.getInstance().getStatusBefore();
 		String[] statusAfter = Statistics.getInstance().getStatusAfter();
+		
+		boolean stacksAvailable;
 
 		public LastReview() {
 		}
@@ -542,43 +552,49 @@ public class StatisticsScreen extends FragmentActivity implements
 			// number argument value.
 			View v = inflater.inflate(R.layout.statistics_screen_lastreview,
 					null);
-			stackName = (TextView) v
-					.findViewById(R.id.lbl_statistics_lastReview_stackName);
-			stackName.setText(Statistics.getInstance().getLastRunthroughName());
+			
+			if (Stack.allStacks.isEmpty()){
+				;
+			}else{
+			
+				stackName = (TextView) v
+						.findViewById(R.id.lbl_statistics_lastReview_stackName);
+				stackName.setText(Statistics.getInstance().getLastRunthroughName());
+	
+				lastRunthrough = (TextView) v
+						.findViewById(R.id.lbl_statistics_lastReview_lastRunthrough);
+				lastRunthrough.setText(Statistics.getInstance()
+						.getLastRunthroughDate());
+	
+				duration = (TextView) v
+						.findViewById(R.id.lbl_statistics_lastReview_duration);
+				duration.setText(Statistics.getInstance()
+						.getDurationOfLastRunthrough());
+	
+				dontKnowBefore = (TextView) v
+						.findViewById(R.id.lbl_statistics_lastReview_dontKnowBefore);
+				dontKnowBefore.setText(statusBefore[0]);
+	
+				notSureBefore = (TextView) v
+						.findViewById(R.id.lbl_statistics_lastReview_notSureBefore);
+				notSureBefore.setText(statusBefore[1]);
+	
+				sureBefore = (TextView) v
+						.findViewById(R.id.lbl_statistics_lastReview_sureBefore);
+				sureBefore.setText(statusBefore[2]);
+	
+				dontKnowAfter = (TextView) v
+						.findViewById(R.id.lbl_statistics_lastReview_dontKnowAfter);
+				dontKnowAfter.setText(statusAfter[0]);
+	
+				notSureAfter = (TextView) v
+						.findViewById(R.id.lbl_statistics_lastReview_notSureAfter);
+				notSureAfter.setText(statusAfter[1]);
 
-			lastRunthrough = (TextView) v
-					.findViewById(R.id.lbl_statistics_lastReview_lastRunthrough);
-			lastRunthrough.setText(Statistics.getInstance()
-					.getLastRunthroughDate());
-
-			duration = (TextView) v
-					.findViewById(R.id.lbl_statistics_lastReview_duration);
-			duration.setText(Statistics.getInstance()
-					.getDurationOfLastRunthrough());
-
-			dontKnowBefore = (TextView) v
-					.findViewById(R.id.lbl_statistics_lastReview_dontKnowBefore);
-			dontKnowBefore.setText(statusBefore[0]);
-
-			notSureBefore = (TextView) v
-					.findViewById(R.id.lbl_statistics_lastReview_notSureBefore);
-			notSureBefore.setText(statusBefore[1]);
-
-			sureBefore = (TextView) v
-					.findViewById(R.id.lbl_statistics_lastReview_sureBefore);
-			sureBefore.setText(statusBefore[2]);
-
-			dontKnowAfter = (TextView) v
-					.findViewById(R.id.lbl_statistics_lastReview_dontKnowAfter);
-			dontKnowAfter.setText(statusAfter[0]);
-
-			notSureAfter = (TextView) v
-					.findViewById(R.id.lbl_statistics_lastReview_notSureAfter);
-			notSureAfter.setText(statusAfter[1]);
-
-			sureAfter = (TextView) v
-					.findViewById(R.id.lbl_statistics_lastReview_sureAfter);
-			sureAfter.setText(statusAfter[2]);
+				sureAfter = (TextView) v
+						.findViewById(R.id.lbl_statistics_lastReview_sureAfter);
+				sureAfter.setText(statusAfter[2]);
+			}
 
 			return v;
 		}

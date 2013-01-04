@@ -1,5 +1,7 @@
 package wi2010d.dhbwapp;
 
+import wi2010d.dhbwapp.control.Edit;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.Activity;
 import android.os.Bundle;
@@ -40,20 +42,29 @@ public class AdminEditStack extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				String newStackName = (txt_stack_name.getText().toString());
 				for (Stack stack : Stack.allStacks) {
-					if (stack.getStackName().equals(stackName)) {
-						//TODO: ÜBERPRÜFEN!!! HIER!
-						stack.setStackName(txt_stack_name.getText().toString());
+					if(stack.getStackName().equals(newStackName))
+					{
+						//ErrorHandling if StackName is already taken
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_name_taken, ErrorHandlerFragment.NAME_TAKEN );
+						newFragment.show(getFragmentManager(), "dialog");	
+						//
+						break;
+					}
+					else if (stack.getStackName().equals(stackName)) {
+						Edit.getInstance().changeStackName(newStackName, stack);
 						Toast toast = Toast.makeText(getApplicationContext(),
 								"Stack name changed to "
 										+ txt_stack_name.getText().toString(),
 								Toast.LENGTH_SHORT);
 						toast.show();
 						setResult(AdminChooseStackScreen.RESULT_OK);
-						break;
+						finish();
 					}
 				}
-				finish();
+				
 			}
 		});
 	}
