@@ -206,7 +206,7 @@ public class LearningCard extends FragmentActivity implements
 			// set dialog message
 			alertDialogBuilder
 					.setMessage("Are you sure you want to delete this card?")
-					.setIcon(R.drawable.helpicon)
+					.setIcon(R.drawable.question)
 					.setCancelable(false)
 					.setPositiveButton("Yes",
 							new DialogInterface.OnClickListener() {
