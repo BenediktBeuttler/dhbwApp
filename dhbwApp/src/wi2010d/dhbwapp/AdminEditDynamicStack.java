@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AdminEditDynamicStack extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -74,7 +75,16 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 			}
 			return true;
 		case R.id.btn_admin_edit_reset_stack:
-			//TODO: Niklas : Reset Drawer
+			for (Stack stack : Stack.allStacks){
+				if (stack.getStackName().equals(stackName)){
+					Edit.getInstance().resetDrawer(stack);
+					Toast toast = Toast.makeText(getApplicationContext(),
+							"Stack has been resetted successfully",
+							Toast.LENGTH_SHORT);
+					toast.show();
+					break;
+				}
+			}
 			
 			return true;
 		default:
