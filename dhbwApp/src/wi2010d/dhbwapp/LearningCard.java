@@ -1,5 +1,6 @@
 package wi2010d.dhbwapp;
 
+import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Learn;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
@@ -175,6 +176,9 @@ public class LearningCard extends FragmentActivity implements
 			Intent intent = new Intent(this, AdminEditCard.class);
 			intent.putExtra("cardID", card.getCardID());
 			startActivityForResult(intent, RESULT_CHANGED);
+			return true;
+		case R.id.btn_admin_delete_card:
+			Delete.getInstance().deleteCard(card);
 			return true;
 		default:
 			ErrorHandler error = new ErrorHandler(getApplicationContext());
