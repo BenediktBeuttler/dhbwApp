@@ -50,16 +50,14 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 					alert.setMessage("Insert Tag Name");
 
 					// Set an EditText view to get user input
-					final EditText input = new EditText(v.getContext());
+					EditText input = new EditText(v.getContext());
 					int i = 0;
 					for (Tag tag : Tag.allTags) {
 						if (tag.isChecked()) {
 							dynStackTagList.add(tag);
 							if (input.getText().toString().equals("")) {
-
 								if (i <= 3) {
 									name = name + " - " + tag.getTagName();
-									input.setText(name);
 								}
 								i++;
 							} else {
@@ -67,7 +65,7 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 							}
 						}
 					}
-
+					input.setText(name);
 					alert.setView(input);
 
 					alert.setPositiveButton("Ok",
