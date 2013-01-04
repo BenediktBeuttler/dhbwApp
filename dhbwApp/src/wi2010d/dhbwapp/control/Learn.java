@@ -70,15 +70,18 @@ public class Learn {
 		if (notSure.size() > 1) {
 			int valueFor = notSure.size() / 2;
 			for (int i = 1; i <= valueFor; i++) {
-				int rnd = generator.nextInt(notSure.size() - 1);
+				int rnd = generator.nextInt(notSure.size());
 				notSure.remove(rnd);
 			}
 		}
 
 		if (sure.size() > 2) {
 			int valueFor = sure.size() / 3 * 2;
+			if (sure.size() % 3 == 2) {
+				valueFor++;
+			}
 			for (int i = 1; i <= valueFor; i++) {
-				int rnd = generator.nextInt(sure.size() - 1);
+				int rnd = generator.nextInt(sure.size());
 
 				Log.e("TB Schleife",
 						"sure.size: " + sure.size() + ", sure.size / 3: "
@@ -90,7 +93,7 @@ public class Learn {
 			}
 		} else {
 			if (sure.size() == 2) {
-				sure.remove(generator.nextInt(1));
+				sure.remove(generator.nextInt(2));
 			}
 		}
 
@@ -119,7 +122,7 @@ public class Learn {
 	}
 
 	public Card learnCard(int drawer) {
-		
+
 		Edit.getInstance().setDrawer(card, drawer);
 
 		if (actualCard >= cardsInQueues) {

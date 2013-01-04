@@ -97,7 +97,11 @@
         <activity
             android:name="wi2010d.dhbwapp.AdminCreateDynamicStack"
             android:label="@string/title_activity_admin_create_dynamic_stack" >
+        </activity><activity
+            android:name="wi2010d.dhbwapp.AdminEditDynamicStack"
+            android:label="@string/title_activity_admin_edit_dynamic_stack" >
         </activity>
     </application>
 
 </manifest>
+
