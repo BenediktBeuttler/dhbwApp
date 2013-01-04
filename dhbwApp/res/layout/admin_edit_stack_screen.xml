@@ -23,16 +23,6 @@
             android:layout_row="1"
             android:text="@string/title_activity_admin_edit_stack" />
 
-        <Button
-            android:id="@+id/btn_admin_edit_reset_stack"
-            android:layout_width="241dp"
-            android:layout_column="1"
-            android:layout_columnSpan="2"
-            android:layout_gravity="left|bottom"
-            android:layout_row="3"
-            android:drawableLeft="@drawable/refresh"
-            android:text="@string/btn_admin_reset_stack" />
-
         <TextView
             android:id="@+id/textView2"
             android:layout_column="1"
