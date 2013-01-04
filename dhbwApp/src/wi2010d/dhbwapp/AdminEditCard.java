@@ -2,7 +2,6 @@ package wi2010d.dhbwapp;
 
 import java.util.ArrayList;
 
-import wi2010d.dhbwapp.control.Database;
 import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
