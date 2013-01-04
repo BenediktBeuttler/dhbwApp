@@ -65,16 +65,16 @@ Button introduction, learn_statistics, edit_cards_stacks, settings, import_expor
 			startActivity(new Intent (this, HelpIntroductionScreen.class));
 			break;
 		case R.id.btn_help_learnstatistics:
-			startActivity(new Intent (this, HelpLearnstatisticsScreen.class));
+			//startActivity(new Intent (this, HelpLearnstatisticsScreen.class));
 			break;
 		case R.id.btn_help_editcardsstacks:
-			startActivity(new Intent (this, HelpEditcardsstackScreen.class));
+			//startActivity(new Intent (this, HelpEditcardsstackScreen.class));
 			break;
 		case R.id.btn_help_settings:
 			startActivity(new Intent (this, HelpSettingsScreen.class));
 			break; 
 		case R.id.btn_help_importexport:
-			startActivity(new Intent (this, HelpImportexportScreen.class));
+			//startActivity(new Intent (this, HelpImportexportScreen.class));
 			break;
 
 		default:
