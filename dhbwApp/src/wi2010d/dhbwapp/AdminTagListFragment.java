@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,9 +29,11 @@ public class AdminTagListFragment extends Fragment {
 	 * The fragment argument representing the section number for this fragment.
 	 */
 	public static final String ARG_SECTION_NUMBER = "section_number";
-	Button newTag;
+	private Button newTag;
 	private ListView mainListView;
 	private ArrayAdapter<Tag> tagListAdapter;
+	private Boolean fromLearning = false;
+	private Boolean fromAdminChooseStack = false;
 
 	public AdminTagListFragment() {
 	}
@@ -41,7 +44,14 @@ public class AdminTagListFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.admin_new_card_tags, null);
 		newTag = (Button) v.findViewById(R.id.btn_admin_new_card_new_tag);
-
+		
+		fromLearning = getArguments().getBoolean("fromLearning");
+		fromAdminChooseStack = getArguments().getBoolean("fromAdminChooseStack");
+		if (fromLearning || fromAdminChooseStack)
+		{
+			Log.d("fromLearning", "is true");
+			newTag.setVisibility(View.GONE);
+		}
 		newTag.setOnClickListener(new OnClickListener() {
 
 			@Override
