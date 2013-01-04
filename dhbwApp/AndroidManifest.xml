@@ -7,16 +7,19 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="17" />
-    
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
- 
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:logo="@drawable/ic_launcher"
-        android:theme="@android:style/Theme.Holo" android:uiOptions="splitActionBarWhenNarrow">
-        <activity android:name="wi2010d.dhbwapp.Progress" android:label="@string/app_name">
+        android:theme="@android:style/Theme.Holo"
+        android:uiOptions="splitActionBarWhenNarrow" >
+        <activity
+            android:name="wi2010d.dhbwapp.Progress"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,104 +28,120 @@
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.StartScreen"
-            android:label="@string/app_name" 
-            android:screenOrientation="portrait">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.LearningScreen"
-            android:label="@string/title_activity_learning_screen" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_learning_screen"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.AdminScreen"
-            android:label="@string/title_activity_admin_screen" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_admin_screen"
+            android:screenOrientation="portrait" >
         </activity>
-         <activity
+        <activity
             android:name="wi2010d.dhbwapp.HelpScreen"
-            android:label="@string/title_activity_help_screen" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_help_screen"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.LearningChooseStackScreen"
-            android:label="@string/title_activity_stapel_screen" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_stapel_screen"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.LearningCardFront"
-            android:label="@string/title_activity_show_card_front" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_show_card_front"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.LearningCardBack"
-            android:label="@string/title_activity_show_card_back" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_show_card_back"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.SettingsScreen"
-            android:label="@string/title_activity_settings" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.AdminEditNewStack"
-            android:label="@string/title_activity_admin_edit_stack" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_admin_edit_stack"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.AdminNewStack"
-            android:label="@string/title_activity_admin_new_stack" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_admin_new_stack"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.AdminChooseStackScreen"
             android:label="@string/title_activity_admin_choose_stack_screen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.AdminNewCardChooseStack"
             android:label="@string/title_activity_admin_new_card_choose_stack_screen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.StatisticsScreen"
             android:label="@string/title_activity_statistics_screen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.AdminNewCard"
             android:label="@string/title_activity_new_card"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.LearningCard"
-            android:label="@string/title_activity_learning_card" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_learning_card"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.AdminImportExport"
-            android:label="@string/title_activity_admin_import_export" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_admin_import_export"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:mimeType="*/*" />
+                <data android:scheme="file" />
+                <data android:host="*" />
+                <data android:pathPattern="*.xml" />
+                <data android:pathPattern=".*\\.xml" />
+                <data android:pathPattern=".*\\..*\\.xml" />
+                <data android:pathPattern=".*\\..*\\..*\\.xml" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.xml" />
+            </intent-filter>
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.AdminEditCard"
-            android:label="@string/title_activity_admin_edit_card" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_admin_edit_card"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.AdminEditStack"
-            android:label="@string/title_activity_admin_edit_stack" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_admin_edit_stack"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.AdminCreateDynamicStack"
-            android:label="@string/title_activity_admin_create_dynamic_stack" 
-            android:screenOrientation="portrait">
-        </activity><activity
+            android:label="@string/title_activity_admin_create_dynamic_stack"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="wi2010d.dhbwapp.AdminEditDynamicStack"
-            android:label="@string/title_activity_admin_edit_dynamic_stack" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_admin_edit_dynamic_stack"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 
 </manifest>
-

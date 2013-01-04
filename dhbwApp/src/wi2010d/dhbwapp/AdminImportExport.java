@@ -1,9 +1,14 @@
 package wi2010d.dhbwapp;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import wi2010d.dhbwapp.control.Exchange;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
@@ -96,6 +101,33 @@ public class AdminImportExport extends FragmentActivity implements
 			actionBar.addTab(actionBar.newTab()
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
+		}
+
+		if (getIntent().getData() != null) {
+			String path = getIntent().getData().getPath();
+			int end = path.lastIndexOf("/");
+            String str1 = path.substring(end+1, path.length());
+			String dest = Environment.getExternalStorageDirectory().getPath() + "/knowItOwl/" + str1;
+			try {
+				copyFile(new File(path), new File(dest));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+	public static void copyFile(File src, File dst) throws IOException {
+		FileChannel inChannel = new FileInputStream(src).getChannel();
+		FileChannel outChannel = new FileOutputStream(dst).getChannel();
+		try {
+			inChannel.transferTo(0, inChannel.size(), outChannel);
+		} finally {
+			if (inChannel != null)
+				inChannel.close();
+			if (outChannel != null)
+				outChannel.close();
 		}
 	}
 
