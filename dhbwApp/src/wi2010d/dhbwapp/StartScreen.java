@@ -37,13 +37,6 @@ public class StartScreen extends Activity implements OnClickListener {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.start_screen, menu);
-		return true;
-	}
-
-	@Override
 	public void onClick(View v) {
 
 		switch (v.getId()) {

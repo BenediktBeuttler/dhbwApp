@@ -24,6 +24,7 @@
     <string name="btn_learn_dontknow">Do not know</string>
     <string name="btn_admin_newcard">New Card/Stack</string>
     <string name="btn_admin_editcard">Edit Card</string>
+    <string name="btn_admin_delete_card">Delete Card</string>
     <string name="btn_admin_editstack">Edit Stack</string>
     <string name="btn_admin_importexport">Import/Export</string>
     <string name="btn_admin_newdynstack">New dyn. Stack</string>
