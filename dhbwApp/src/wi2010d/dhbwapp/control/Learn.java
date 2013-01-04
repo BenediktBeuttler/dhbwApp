@@ -121,6 +121,12 @@ public class Learn {
 		return card;
 	}
 
+	public String getActualProgressAsString() {
+		String progress = "";
+		progress = "Karte " + actualCard + " von " + cardsInQueues;
+		return progress;
+	}
+
 	public Card learnCard(int drawer) {
 
 		Edit.getInstance().setDrawer(card, drawer);

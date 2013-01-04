@@ -54,6 +54,7 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 
 	@Override
 	protected Boolean doInBackground(Void... Params) {
+		DatabaseManager.getInstance().resetVariables();
 		return this.loadFromDB();
 	}
 
