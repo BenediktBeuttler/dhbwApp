@@ -12,17 +12,26 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:columnCount="5" >
+        android:columnCount="4" >
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_columnSpan="5"
-            android:layout_gravity="center_horizontal"
+            android:layout_column="2"
+            android:layout_gravity="left|bottom"
             android:layout_row="1"
             android:text="@string/title_activity_admin_edit_stack" />
+
+        <Button
+            android:id="@+id/btn_admin_edit_reset_stack"
+            android:layout_width="241dp"
+            android:layout_column="1"
+            android:layout_columnSpan="2"
+            android:layout_gravity="left|bottom"
+            android:layout_row="3"
+            android:drawableLeft="@drawable/refresh"
+            android:text="@string/btn_admin_reset_stack" />
 
         <TextView
             android:id="@+id/textView2"
@@ -34,24 +43,13 @@
 
         <EditText
             android:id="@+id/txt_admin_edit_stack"
-            android:layout_column="3"
-            android:layout_columnSpan="2"
+            android:layout_column="2"
             android:layout_gravity="left"
             android:layout_row="3"
             android:ems="10" >
 
             <requestFocus />
         </EditText>
-
-        <Button
-            android:id="@+id/btn_admin_edit_stack_save"
-            android:layout_width="186dp"
-            android:layout_column="0"
-            android:layout_columnSpan="5"
-            android:layout_gravity="center_horizontal"
-            android:layout_row="4"
-            android:onClick="onClick"
-            android:text="@string/btn_admin_save" />
 
         <Space
             android:layout_width="1dp"
@@ -72,27 +70,39 @@
             android:layout_row="3" />
 
         <Space
-            android:layout_width="21dp"
-            android:layout_height="1dp"
-            android:layout_column="0"
-            android:layout_row="0" />
-
-        <Space
-            android:layout_width="10dp"
+            android:layout_width="60dp"
             android:layout_height="1dp"
             android:layout_column="2"
             android:layout_row="0" />
 
         <Space
-            android:layout_width="17dp"
+            android:layout_width="158dp"
             android:layout_height="1dp"
             android:layout_column="3"
             android:layout_row="0" />
 
         <Space
-            android:layout_width="230dp"
-            android:layout_height="15dp"
-            android:layout_column="4" />
+            android:layout_width="37dp"
+            android:layout_height="1dp"
+            android:layout_column="0"
+            android:layout_row="0" />
+
+        <Space
+            android:layout_width="63dp"
+            android:layout_height="53dp"
+            android:layout_column="1"
+            android:layout_row="4" />
+
+        <Space
+            android:layout_width="100dp"
+            android:layout_height="52dp"
+            android:layout_column="2"
+            android:layout_row="4" />
+
+        <Space
+            android:layout_width="100dp"
+            android:layout_height="52dp"
+            android:layout_row="4" />
     </GridLayout>
 
 </LinearLayout>
