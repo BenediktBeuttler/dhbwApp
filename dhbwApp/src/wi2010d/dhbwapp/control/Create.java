@@ -67,6 +67,7 @@ public class Create {
 	public boolean newDynStack(String name, List<Tag> tags) {
 		List<Card> cards = new ArrayList<Card>();
 		Stack dynamicStack;
+		boolean containsTag;
 		
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
@@ -78,12 +79,16 @@ public class Create {
 
 		// identify all cards that contain the selected tags
 		for (Card card : Card.allCards) {
+			containsTag = false;
 			for (Tag tag : card.getTags()) {
 				if (tags.contains(tag)) {
-					// add identified cards to list
-					cards.add(card);
-					
+					containsTag = true;
 				}
+			}
+			 
+			if (containsTag = true){
+				// add identified cards to list
+				cards.add(card);	
 			}
 		}
 		dynamicStack = new Stack(true, name, cards);
@@ -98,7 +103,7 @@ public class Create {
 	 * 
 	 * @return
 	 */
-	public boolean updateDynStack() {
+	public boolean updateDynStacks() {
 		for (Stack stack : Stack.allStacks) {
 			if (stack.isDynamicGenerated()) {
 				for (Card card : Card.allCards) {
@@ -120,6 +125,33 @@ public class Create {
 			}
 		}
 
+		return true;
+	}
+	
+	/**
+	 * Update all dynamic stacks
+	 * 
+	 * @return
+	 */
+	public boolean updateDynStack(Stack stack) {
+		
+		if (stack.isDynamicGenerated()) {
+			for (Card card : Card.allCards) {
+				for (Tag tag : card.getTags()) {
+					// If card has same tag as stack and is not in the
+					// actual stack
+					if (stack.getDynamicStackTags().contains(tag)
+							&& !stack.getCards().contains(card)) {
+						Edit.getInstance().addCardToStack(stack, card);
+					}
+					// If card is in stack but doesn't have the tag anymore
+					if (stack.getCards().contains(card)
+							&& !stack.getDynamicStackTags().contains(tag)) {
+						Edit.getInstance().removeCardFromStack(stack, card);
+					}
+				}
+			}
+		}		
 		return true;
 	}
 

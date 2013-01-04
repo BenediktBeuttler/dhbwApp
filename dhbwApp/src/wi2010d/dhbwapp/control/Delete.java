@@ -37,6 +37,7 @@ public class Delete {
 		// delete it
 		for (Card card : stack.getCards()) {
 			int totalStacks = card.decreaseTotalStacks();
+			Database.getInstance().changeCard(card);
 			if (totalStacks == 0) {
 				deleteCard(card);
 			}
