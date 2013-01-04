@@ -3,6 +3,7 @@ package wi2010d.dhbwapp;
 import java.util.ArrayList;
 
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.Activity;
 import android.content.Intent;
@@ -83,7 +84,6 @@ public class LearningChooseStackScreen extends Activity implements
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.e("Drin", "" + resultCode);
 		if (resultCode == RESULT_OK) {
 			items = updateStack();
 			lvAdapter = new ArrayAdapter<String>(this,
@@ -91,7 +91,11 @@ public class LearningChooseStackScreen extends Activity implements
 			lv.setAdapter(lvAdapter);
 		}
 		if (resultCode == RESULT_CANCELED) {
-			// TODO: BENE ERROR HANDLER
+			//ErrorHandler started, if Result is canceled
+			ErrorHandlerFragment newFragment = ErrorHandlerFragment
+					.newInstance(R.string.error_handler_general,
+							ErrorHandlerFragment.GENERAL_ERROR);
+			newFragment.show(getFragmentManager(), "dialog");
 		}
 	}
 
