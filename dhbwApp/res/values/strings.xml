@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">know it owl</string>
+    <string name="app_name">know it Owl</string>
     <string name="btn_start_learning">Start Learning</string>
     <string name="btn_start_admin">Administration</string>
     <string name="btn_start_statistic">Statistics</string>
@@ -85,11 +85,13 @@
     <string name="admin_export">Export</string>
     <string name="admin_import">Import</string>
     <string name="content_start_screen_logo">know it owl Logo</string>
-    <string name="title_activity_progress"></string>
+    <string name="title_activity_progress">know-it-Owl</string>
     <string name="title_activity_admin_edit_card">Edit Card</string>
     <string name="title_activity_admin_create_dynamic_stack">Create Dynamic Stack</string>
     <string name="error_handler_delete_db">Delete Database?</string>
-    <string name="error_handler_no_sd">No SD Card</string>
+    <string name="error_handler_import_error">Import Error</string>
+    <string name="error_handler_name_taken">Name already exists</string>
+    <string name="error_handler_no_sd">No SD Card available</string>
     
 
 </resources>

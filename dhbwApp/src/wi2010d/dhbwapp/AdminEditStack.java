@@ -46,7 +46,11 @@ public class AdminEditStack extends Activity {
 				for (Stack stack : Stack.allStacks) {
 					if(stack.getStackName().equals(newStackName))
 					{
-						//TODO: BENE ADD NAME ALREADY TAKEN!
+						//ErrorHandling if StackName is already taken
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_name_taken, ErrorHandlerFragment.NAME_TAKEN );
+						newFragment.show(getFragmentManager(), "dialog");	
+						//
 						break;
 					}
 					else if (stack.getStackName().equals(stackName)) {

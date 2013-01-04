@@ -7,6 +7,7 @@ import java.util.List;
 
 import wi2010d.dhbwapp.control.Exchange;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -282,6 +283,7 @@ public class AdminImportExport extends FragmentActivity implements
 														"No stacks for import found, please ensure that the XML-Files are in the folder /sdcard/knowItOwl/",
 														Toast.LENGTH_LONG);
 										toast.show();
+										
 									} else {
 										try {
 											Exchange.getInstance()
@@ -300,11 +302,7 @@ public class AdminImportExport extends FragmentActivity implements
 															Toast.LENGTH_SHORT);
 											toast.show();
 										} catch (Exception e) {
-											ErrorHandler
-													.getInstance()
-													.handleError(
-															ErrorHandler
-																	.getInstance().IMPORT_ERROR);
+											ErrorHandler.getInstance().handleError(ErrorHandler.getInstance().IMPORT_ERROR);
 										}
 									}
 								}
@@ -313,9 +311,12 @@ public class AdminImportExport extends FragmentActivity implements
 				}
 
 			} else {
-				toast = Toast.makeText(getActivity(), "No sdcard available!",
+				/*toast = Toast.makeText(getActivity(), "No sdcard available!",
 						Toast.LENGTH_SHORT);
-				toast.show();
+				toast.show();*/
+				ErrorHandlerFragment newFragment = ErrorHandlerFragment
+						.newInstance(R.string.error_handler_no_sd, ErrorHandlerFragment.NO_SD );
+				newFragment.show(getActivity().getFragmentManager(), "dialog");	
 			}
 
 			return v;
@@ -481,9 +482,12 @@ public class AdminImportExport extends FragmentActivity implements
 						}
 
 					} else {
-						toast = Toast.makeText(getActivity(),
+						/*toast = Toast.makeText(getActivity(),
 								"No sdcard available!", Toast.LENGTH_SHORT);
-						toast.show();
+						toast.show();*/
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_no_sd, ErrorHandlerFragment.NO_SD );
+						newFragment.show(getActivity().getFragmentManager(), "dialog");	
 					}
 				}
 			});

@@ -14,8 +14,6 @@ import org.jdom2.JDOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import android.provider.ContactsContract.Contacts.Data;
-
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Runthrough;
@@ -118,6 +116,7 @@ public class Exchange {
 	/**
 	 * Import the Stack from the given xml file and attach it to the structure
 	 * Fails, if the stack already exists
+	 * 
 	 * @param pathToXML
 	 *            The path to the xml file to import
 	 * @return true if it worked, otherwise false and a Toast will be shown
@@ -170,10 +169,9 @@ public class Exchange {
 
 			if (stack.isDynamicGenerated()) {
 				for (org.jdom2.Element tagElem : rootElem.getChildren()) {
-					if(tagElem.getName().equals("tag"))
-					{
-						String tagName =  tagElem.getAttributeValue("name");
-						stack.getDynamicStackTags().add(new Tag(tagName));
+					if (tagElem.getName().equals("tag")) {
+						String tagName = tagElem.getAttributeValue("name");
+						stack.getDynamicStackTags().add(Create.getInstance().newTag(tagName));
 					}
 				}
 
@@ -185,10 +183,10 @@ public class Exchange {
 				stack.getCards().add(card);
 				stack.setDontKnow(stack.getDontKnow() + 1);
 			}
-			
-			//write everything to the DB
+
+			// write everything to the DB
 			Database.getInstance().addNewStack(stack);
-			
+
 		} else {
 			ErrorHandler handler = ErrorHandler.getInstance();
 			handler.handleError(handler.IMPORT_ERROR);
@@ -229,10 +227,10 @@ public class Exchange {
 					if (foundTag >= 0) {
 						tagList.add(Tag.allTags.get(foundTag));
 					} else {
-						tagList.add(new Tag(tagElem.getAttributeValue("name")));
+						tagList.add(Create.getInstance().newTag(tagElem.getAttributeValue("name")));
 					}
 				}
-				cardList.add(new Card(front, back, frontPic, backPic, tagList));
+				cardList.add(Create.getInstance().newCard(front, back,tagList, frontPic, backPic ));
 			}
 		}
 		return cardList;
