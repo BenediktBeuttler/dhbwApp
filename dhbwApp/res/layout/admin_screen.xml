@@ -48,4 +48,13 @@
         android:drawableLeft="@drawable/plus"
         android:text="@string/btn_admin_newcard" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/btn_admin_new_dyn_stack"
+        android:layout_marginTop="50dp"
+        android:text="@string/btn_admin_update_dynstack" />
+
 </RelativeLayout>
