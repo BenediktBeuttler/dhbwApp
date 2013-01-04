@@ -41,6 +41,7 @@ public class ErrorHandlerFragment extends DialogFragment{
         	return new AlertDialog.Builder(getActivity())
             .setIcon(R.drawable.alert)
             .setTitle(title)
+            .setCancelable(false)
             .setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
@@ -62,6 +63,7 @@ public class ErrorHandlerFragment extends DialogFragment{
         	return new AlertDialog.Builder(getActivity())
             .setIcon(R.drawable.alert)
             .setTitle(title)
+            .setCancelable(false)
             .setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {

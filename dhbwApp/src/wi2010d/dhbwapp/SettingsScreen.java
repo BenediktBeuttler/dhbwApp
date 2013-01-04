@@ -66,7 +66,9 @@ public class SettingsScreen extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_reset_database:
-			showDialog();
+			ErrorHandlerFragment newFragment = ErrorHandlerFragment
+			.newInstance(R.string.error_handler_delete_db, ErrorHandlerFragment.RESET_DB);
+			newFragment.show(getFragmentManager(), "dialog");	
 			break;
 			
 		case R.id.btn_write_test_data:
@@ -152,11 +154,4 @@ public class SettingsScreen extends Activity implements OnClickListener {
 			break;
 		}
 	}
-
-	void showDialog() {
-		ErrorHandlerFragment newFragment = ErrorHandlerFragment
-				.newInstance(R.string.error_handler_delete_db, ErrorHandlerFragment.RESET_DB);
-		newFragment.show(getFragmentManager(), "dialog");		
-	}
-
 }

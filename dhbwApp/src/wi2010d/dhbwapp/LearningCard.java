@@ -3,6 +3,7 @@ package wi2010d.dhbwapp;
 import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Learn;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
@@ -148,9 +149,11 @@ public class LearningCard extends FragmentActivity implements
 				finish();
 			} else {
 				mViewPager.setCurrentItem(0);
-				Log.e("TB",Learn.getInstance().getActualProgressAsString());
-				txt_counter_front.setText(Learn.getInstance().getActualProgressAsString());
-				txt_counter_back.setText(Learn.getInstance().getActualProgressAsString());
+				Log.e("TB", Learn.getInstance().getActualProgressAsString());
+				txt_counter_front.setText(Learn.getInstance()
+						.getActualProgressAsString());
+				txt_counter_back.setText(Learn.getInstance()
+						.getActualProgressAsString());
 				txt_front.setText(card.getCardFront());
 				txt_back.setText(card.getCardBack());
 			}
@@ -164,8 +167,10 @@ public class LearningCard extends FragmentActivity implements
 				finish();
 			} else {
 				mViewPager.setCurrentItem(0);
-				txt_counter_front.setText(Learn.getInstance().getActualProgressAsString());
-				txt_counter_back.setText(Learn.getInstance().getActualProgressAsString());
+				txt_counter_front.setText(Learn.getInstance()
+						.getActualProgressAsString());
+				txt_counter_back.setText(Learn.getInstance()
+						.getActualProgressAsString());
 				txt_front.setText(card.getCardFront());
 				txt_back.setText(card.getCardBack());
 			}
@@ -179,8 +184,10 @@ public class LearningCard extends FragmentActivity implements
 				finish();
 			} else {
 				mViewPager.setCurrentItem(0);
-				txt_counter_front.setText(Learn.getInstance().getActualProgressAsString());
-				txt_counter_back.setText(Learn.getInstance().getActualProgressAsString());
+				txt_counter_front.setText(Learn.getInstance()
+						.getActualProgressAsString());
+				txt_counter_back.setText(Learn.getInstance()
+						.getActualProgressAsString());
 				txt_front.setText(card.getCardFront());
 				txt_back.setText(card.getCardBack());
 			}
@@ -191,40 +198,60 @@ public class LearningCard extends FragmentActivity implements
 			startActivityForResult(intent, RESULT_CHANGED);
 			return true;
 		case R.id.btn_admin_delete_card:
-			new AlertDialog.Builder(getApplicationContext())
-            .setIcon(R.drawable.alert)
-            .setTitle("Delete Card?")
-            .setPositiveButton("Delete",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                    	
-                    	Delete.getInstance().deleteCard(card);
-            			card = Learn.getInstance().learnCard(3);
-            			if (card == null) {
-            				Intent deleteCard = (new Intent(getParent(), StatisticsScreen.class));
-            				deleteCard.putExtra("Tab", 3);
-            				startActivity(deleteCard);
-            				finish();
-            			} else {
-            				mViewPager.setCurrentItem(0);
-            				txt_counter_front.setText(Learn.getInstance().getActualProgressAsString());
-            				txt_counter_back.setText(Learn.getInstance().getActualProgressAsString());
-            				txt_front.setText(card.getCardFront());
-            				txt_back.setText(card.getCardBack());
-            			}
-            			
-                    }
-                }
-            )
-            .setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                    	//
-                    }
-                }
-            )
-            .create();
+
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					this);
+			// set title
+			alertDialogBuilder.setTitle("Delete Card");
+			// set dialog message
+			alertDialogBuilder
+					.setMessage("Are you sure you want to delete this card?")
+					.setIcon(R.drawable.helpicon)
+					.setCancelable(false)
+					.setPositiveButton("Yes",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									Delete.getInstance().deleteCard(card);
+									card = Learn.getInstance().learnCard(3);
+									if (card == null) {
+										Intent deleteCard = (new Intent(
+												getParent(),
+												StatisticsScreen.class));
+										deleteCard.putExtra("Tab", 3);
+										startActivity(deleteCard);
+										finish();
+									} else {
+										mViewPager.setCurrentItem(0);
+										txt_counter_front.setText(Learn
+												.getInstance()
+												.getActualProgressAsString());
+										txt_counter_back.setText(Learn
+												.getInstance()
+												.getActualProgressAsString());
+										txt_front.setText(card.getCardFront());
+										txt_back.setText(card.getCardBack());
+									}
+								}
+							})
+					.setNegativeButton("No",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									// if this button is clicked, just close
+									// the dialog box and do nothing
+									dialog.cancel();
+								}
+							});
+			// create alert dialog
+			AlertDialog alertDialog = alertDialogBuilder.create();
+
+			// show it
+			alertDialog.show();
+			
+			
 			return true;
+
 		default:
 			ErrorHandler error = new ErrorHandler(getApplicationContext());
 			error.handleError(1);
@@ -250,8 +277,10 @@ public class LearningCard extends FragmentActivity implements
 			}
 			txt_front.setText(card.getCardFront());
 			txt_back.setText(card.getCardBack());
-			txt_counter_front.setText(Learn.getInstance().getActualProgressAsString());
-			txt_counter_back.setText(Learn.getInstance().getActualProgressAsString());
+			txt_counter_front.setText(Learn.getInstance()
+					.getActualProgressAsString());
+			txt_counter_back.setText(Learn.getInstance()
+					.getActualProgressAsString());
 			break;
 		default:
 			break;
@@ -374,8 +403,10 @@ public class LearningCard extends FragmentActivity implements
 			txt_front = (TextView) v.findViewById(R.id.txt_card_front);
 			txt_front.setMovementMethod(new ScrollingMovementMethod());
 			txt_front.setText(card.getCardFront());
-			txt_counter_front = (TextView) v.findViewById(R.id.txt_learning_counter);
-			txt_counter_front.setText(Learn.getInstance().getActualProgressAsString());
+			txt_counter_front = (TextView) v
+					.findViewById(R.id.txt_learning_counter);
+			txt_counter_front.setText(Learn.getInstance()
+					.getActualProgressAsString());
 			return v;
 		}
 	}
@@ -399,8 +430,10 @@ public class LearningCard extends FragmentActivity implements
 			txt_back = (TextView) v.findViewById(R.id.txt_card_back);
 			txt_back.setMovementMethod(new ScrollingMovementMethod());
 			txt_back.setText(card.getCardBack());
-			txt_counter_back = (TextView) v.findViewById(R.id.txt_learning_counter);
-			txt_counter_back.setText(Learn.getInstance().getActualProgressAsString());
+			txt_counter_back = (TextView) v
+					.findViewById(R.id.txt_learning_counter);
+			txt_counter_back.setText(Learn.getInstance()
+					.getActualProgressAsString());
 			return v;
 		}
 	}
