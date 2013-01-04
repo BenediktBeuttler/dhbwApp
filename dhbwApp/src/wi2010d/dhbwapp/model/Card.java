@@ -79,7 +79,6 @@ public class Card {
 
 	public void setDrawer(int drawer) {
 		this.drawer = drawer;
-		Database.getInstance().changeCard(this);
 	}
 
 	public String getCardFront() {
