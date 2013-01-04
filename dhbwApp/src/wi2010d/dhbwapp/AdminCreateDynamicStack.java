@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.model.Tag;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -21,7 +19,7 @@ import android.widget.Toast;
 public class AdminCreateDynamicStack extends FragmentActivity {
 	Button createDynStack;
 	Fragment tagList;
-	// EditText dynStackName;
+	EditText dynStackName;
 	ArrayList<Tag> dynStackTagList = new ArrayList<Tag>();
 	String name = "";
 
@@ -35,77 +33,38 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 			for (Tag tag : Tag.allTags) {
 				tag.setChecked(false);
 			}
-			// dynStackName = (EditText)
-			// findViewById(R.id.txt_admin_create_dyn_stack_name);
+			dynStackName = (EditText) findViewById(R.id.txt_admin_create_dyn_stack_name);
 
 			createDynStack = (Button) findViewById(R.id.btn_admin_create_dynamic_stack);
 			createDynStack.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-
-					AlertDialog.Builder alert = new AlertDialog.Builder(v
-							.getContext());
-
-					alert.setTitle("New Tag");
-					alert.setMessage("Insert Tag Name");
-
-					// Set an EditText view to get user input
-					EditText input = new EditText(v.getContext());
 					int i = 0;
 					for (Tag tag : Tag.allTags) {
 						if (tag.isChecked()) {
 							dynStackTagList.add(tag);
-							if (input.getText().toString().equals("")) {
-								if (i <= 3) {
-									name = name + " - " + tag.getTagName();
+							if (dynStackName.getText().toString().equals("")) {
+								if(i<=3){
+								name = name +" - "+ tag.getTagName();
 								}
 								i++;
 							} else {
-								name = input.getText().toString();
+								name = dynStackName.getText().toString();
 							}
 						}
 					}
-					input.setText(name);
-					alert.setView(input);
-
-					alert.setPositiveButton("Ok",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									if (dynStackTagList.size() > 0) {
-										setResult(RESULT_CANCELED);
-										if (Create.getInstance().newDynStack(
-												name, dynStackTagList)) {
-											Toast toast = Toast.makeText(
-													getApplicationContext(),
-													"Dynamic Stack " + name
-															+ " created!",
-													Toast.LENGTH_LONG);
-											toast.show();
-											setResult(RESULT_OK);
-										}
-										finish();
-									}
-								}
-							});
-
-					alert.setNegativeButton("Cancel",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									// Canceled.
-								}
-							});
-					alert.show();
-
-					/*
-					 * for (Tag tag : Tag.allTags) { if (tag.isChecked()) {
-					 * dynStackTagList.add(tag); if
-					 * (dynStackName.getText().toString().equals("")) { name =
-					 * name + tag.getTagName(); } else { name =
-					 * dynStackName.getText().toString(); } } }
-					 */
-
+					if (dynStackTagList.size() > 0) {
+						setResult(RESULT_CANCELED);
+						if (Create.getInstance().newDynStack(name,
+								dynStackTagList)) {
+							Toast toast = Toast.makeText(v.getContext(),
+									"Dynamic Stack " + name + " created!",
+									Toast.LENGTH_LONG);
+							toast.show();
+							setResult(RESULT_OK);
+						}
+						finish();
+					}
 				}
 
 			});

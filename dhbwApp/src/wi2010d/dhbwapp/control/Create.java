@@ -86,17 +86,10 @@ public class Create {
 				}
 			}
 		}
-		
-		if (cards.size() > 0){
-			dynamicStack = new Stack(true, name, cards);
-			Log.e("StackID: ", ""+Stack.getNextStackID());
-			dynamicStack.setDynamicStackTags(tags);
-			return Database.getInstance().addNewStack(dynamicStack);
-		}else{
-			//TODO: Bene: Error handler
-			//ErrorHandler.blablabla
-			return false;
-		}
+		dynamicStack = new Stack(true, name, cards);
+		Log.e("StackID: ", ""+Stack.getNextStackID());
+		dynamicStack.setDynamicStackTags(tags);
+		return Database.getInstance().addNewStack(dynamicStack);
 
 	}
 

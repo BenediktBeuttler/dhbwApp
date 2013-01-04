@@ -42,10 +42,26 @@ public class AdminChooseStackScreen extends Activity {
 				String stackName = ((TextView) v).getText().toString();
 
 				if (!stackName.equals("No stacks available")) {
-					Intent i = new Intent(getApplicationContext(),
-							AdminEditStack.class);
-					i.putExtra("stackName", stackName);
-					startActivityForResult(i, 1);
+					for (Stack stack : Stack.allStacks) {
+						if (stack.getStackName().equals(stackName)) {
+							if (stack.isDynamicGenerated()) {
+								Intent i = new Intent(getApplicationContext(),
+										AdminEditDynamicStack.class);
+								i.putExtra("stackName", stackName);
+								startActivityForResult(i, 1);
+								break;
+
+
+							} else {
+								Intent i = new Intent(getApplicationContext(),
+										AdminEditStack.class);
+								i.putExtra("stackName", stackName);
+								startActivityForResult(i, 1);
+								break;
+							}
+						}
+					}
+
 				}
 			}
 		});

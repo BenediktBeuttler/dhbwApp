@@ -273,7 +273,7 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 				if (stack.isDynamicGenerated() && stackID == stack.getStackID()) {
 					for (Tag tag : Tag.allTags) {
 						if (tagID == tag.getTagID()) {
-							stack.getDynamicStackTags();
+							stack.getDynamicStackTags().add(tag);
 							break;
 						}
 					}
