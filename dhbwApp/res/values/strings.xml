@@ -91,10 +91,10 @@
     <string name="title_activity_progress">know-it-Owl</string>
     <string name="title_activity_admin_edit_card">Edit Card</string>
     <string name="title_activity_admin_create_dynamic_stack">Create Dynamic Stack</string>
+    <string name="title_activity_admin_edit_dynamic_stack">Create Dynamic Stack</string>
     <string name="error_handler_delete_db">Delete Database?</string>
     <string name="error_handler_import_error">Import Error</string>
     <string name="error_handler_name_taken">Name already exists</string>
     <string name="error_handler_no_sd">No SD Card available</string>
-    
 
 </resources>

@@ -56,7 +56,6 @@ public class Tag {
 
 	public void setTagName(String tagName) {
 		this.tagName = tagName;
-		Database.getInstance().changeTag(this);
 	}
 
 	public int getTagID() {

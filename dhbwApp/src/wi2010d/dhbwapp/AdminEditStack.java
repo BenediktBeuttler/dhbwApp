@@ -19,8 +19,7 @@ import android.widget.Toast;
 public class AdminEditStack extends FragmentActivity {
 	String stackName;
 	EditText txt_stack_name;
-	//Button save;
-
+	
 	public AdminEditStack() {
 		super();
 	}
@@ -30,8 +29,7 @@ public class AdminEditStack extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_edit_stack_screen);
 		txt_stack_name = (EditText) findViewById(R.id.txt_admin_edit_stack);
-		//save = (Button) findViewById(R.id.btn_admin_edit_stack_save);
-
+		
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras == null) {
@@ -44,28 +42,7 @@ public class AdminEditStack extends FragmentActivity {
 					.getSerializable("stackName");
 		}
 		txt_stack_name.setText(stackName);
-		/*
-		 * save.setOnClickListener(new OnClickListener() {
-		 * 
-		 * @Override public void onClick(View v) { String newStackName =
-		 * (txt_stack_name.getText().toString()); for (Stack stack :
-		 * Stack.allStacks) { if(stack.getStackName().equals(newStackName)) {
-		 * //ErrorHandling if StackName is already taken ErrorHandlerFragment
-		 * newFragment = ErrorHandlerFragment
-		 * .newInstance(R.string.error_handler_name_taken,
-		 * ErrorHandlerFragment.NAME_TAKEN );
-		 * newFragment.show(getFragmentManager(), "dialog"); // break; } else if
-		 * (stack.getStackName().equals(stackName)) {
-		 * Edit.getInstance().changeStackName(newStackName, stack); Toast toast
-		 * = Toast.makeText(getApplicationContext(), "Stack name changed to " +
-		 * txt_stack_name.getText().toString(), Toast.LENGTH_SHORT);
-		 * toast.show(); setResult(AdminChooseStackScreen.RESULT_OK); finish();
-		 * } }
-		 * 
-		 * }
-		 * 
-		 * });
-		 */
+
 	}
 
 	@Override
@@ -95,7 +72,7 @@ public class AdminEditStack extends FragmentActivity {
 			String newStackName = (txt_stack_name.getText().toString());
 			for (Stack stack : Stack.allStacks) {
 				if (stack.getStackName().equals(newStackName)) {
-					// ErrorHandling if StackName is already taken
+					// TODO: BENE :ErrorHandling if StackName is already taken
 					ErrorHandlerFragment newFragment = ErrorHandlerFragment
 							.newInstance(R.string.error_handler_name_taken,
 									ErrorHandlerFragment.NAME_TAKEN);
@@ -111,6 +88,19 @@ public class AdminEditStack extends FragmentActivity {
 					toast.show();
 					setResult(AdminChooseStackScreen.RESULT_OK);
 					finish();
+				}
+			}
+			return true;
+		case R.id.btn_admin_edit_reset_stack:
+			for (Stack stack : Stack.allStacks){
+				if (stack.getStackName().equals(stackName)){
+					Edit.getInstance().resetDrawer(stack);
+					Toast toast = Toast.makeText(getApplicationContext(),
+							"Stack has been resetted successfully",
+							Toast.LENGTH_SHORT);
+					toast.show();
+					setResult(AdminChooseStackScreen.RESULT_OK);
+					break;
 				}
 			}
 			return true;

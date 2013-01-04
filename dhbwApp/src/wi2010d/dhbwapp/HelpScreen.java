@@ -35,7 +35,7 @@ Button introduction, learn_statistics, edit_cards_stacks, settings, import_expor
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.admin_screen, menu);
+		getMenuInflater().inflate(R.menu.help_screen, menu);
 		return true;
 	}
 	
@@ -45,10 +45,6 @@ Button introduction, learn_statistics, edit_cards_stacks, settings, import_expor
 		switch (item.getItemId()) {
 		case R.id.menu_start_screen:
 			startActivity(new Intent(this, StartScreen.class));
-			finish();
-			return true;
-		case R.id.menu_help:
-			startActivity(new Intent(this, HelpScreen.class));
 			finish();
 			return true;
 		case R.id.menu_settings:
