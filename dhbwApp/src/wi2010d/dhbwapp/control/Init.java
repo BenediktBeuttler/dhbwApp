@@ -16,6 +16,10 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.widget.ProgressBar;
 
+/**
+ * Reads all the data from the DB and initializes the objects. While doing that,
+ * the loading screen is shown, afterwards the MainScreen is shown.
+ */
 public class Init extends AsyncTask<Void, Void, Boolean> {
 
 	private Database database;
@@ -29,6 +33,9 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		this.startScreenActivity = activity;
 	}
 
+	/**
+	 * Show the loading screen while executing the task
+	 */
 	@Override
 	protected void onPreExecute() {
 
@@ -37,9 +44,11 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 
 		ProgressBar pb = (ProgressBar) startScreenActivity
 				.findViewById(R.id.progress_bar_progress_screen);
-
 	}
 
+	/**
+	 * When finished, show the start screen
+	 */
 	@Override
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
@@ -52,12 +61,21 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 
 	}
 
+	/**
+	 * First, reset all the variables to prevent multiple objects, then
+	 * initialize everything
+	 */
 	@Override
 	protected Boolean doInBackground(Void... Params) {
 		DatabaseManager.getInstance().resetVariables();
 		return this.loadFromDB();
 	}
 
+	/**
+	 * Starts all the loading tasks one after the other
+	 * 
+	 * @return true, if everything worked
+	 */
 	public boolean loadFromDB() {
 		// load the objects from DB
 		this.loadStacks();
@@ -74,6 +92,11 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		return true;
 	}
 
+	/**
+	 * Reads the stacks from the database and initializes them as java objects
+	 * 
+	 * @return
+	 */
 	private boolean loadStacks() {
 
 		int id;
@@ -83,7 +106,7 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		int notSure;
 		int dontKnow;
 
-		Cursor cursor = database.queryStack();
+		Cursor cursor = database.queryStack(); // get stacks from db
 
 		cursor.moveToFirst();
 
@@ -111,6 +134,11 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		return true;
 	}
 
+	/**
+	 * Reads the tags from the database and initializes them as java objects
+	 * 
+	 * @return true, if it worked
+	 */
 	private boolean loadTags() {
 		int id;
 		int totalCards;
@@ -132,6 +160,11 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 
 	}
 
+	/**
+	 * Reads the cards from the database and initializes them as java objects
+	 * 
+	 * @return true, if it worked
+	 */
 	private boolean loadCards() {
 		int id;
 		int drawer;
@@ -162,6 +195,12 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 
 	}
 
+	/**
+	 * Reads the runthroughs from the database and initializes them as java
+	 * objects
+	 * 
+	 * @return
+	 */
 	private boolean loadRunthroughs() {
 
 		int id;
@@ -191,8 +230,11 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 				isOverall = true;
 			}
 
+			// dates are stored as long vars
 			startDate = new Date(cursor.getLong(3));
 			endDate = new Date(cursor.getLong(4));
+
+			// read data for the arrays
 			dontKnowBefore = cursor.getInt(5);
 			notSureBefore = cursor.getInt(6);
 			sureBefore = cursor.getInt(7);
@@ -200,6 +242,7 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 			notSureAfter = cursor.getInt(9);
 			sureAfter = cursor.getInt(10);
 
+			// initialize the arrays
 			int[] statusBefore = { dontKnowBefore, notSureBefore, sureBefore };
 			int[] statusAfter = { dontKnowAfter, notSureAfter, sureAfter };
 			new Runthrough(id, stackID, isOverall, startDate, endDate,
@@ -213,6 +256,11 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		return true;
 	}
 
+	/**
+	 * Reads the Card Stack correlations from the DB and assigns them
+	 * 
+	 * @return true, if it worked
+	 */
 	private boolean assignCardsToStacks() {
 		Cursor cursor = database.queryStackCard();
 		cursor.moveToFirst();
@@ -238,6 +286,11 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		return true;
 	}
 
+	/**
+	 * Reads the Tag Card correlations from the DB and assigns them
+	 * 
+	 * @return true, if it worked
+	 */
 	private boolean assignTagsToCards() {
 		Cursor cursor = database.queryCardTag();
 		cursor.moveToFirst();
@@ -262,6 +315,11 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		return true;
 	}
 
+	/**
+	 * Reads the Tag Stack correlations from the DB and assigns them
+	 * 
+	 * @return true, if it worked
+	 */
 	private boolean assignTagstoStacks() {
 		Cursor cursor = database.queryStackTag();
 		cursor.moveToFirst();
@@ -288,10 +346,22 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 
 	}
 
+	/**
+	 * Resets the instance, so the task can be executed again
+	 */
 	public static void resetInstance() {
 		init = null;
 	}
 
+	/**
+	 * 'Singleton' method, returns the current object of Init
+	 * 
+	 * @param context
+	 *            The Applications' context
+	 * @param activity
+	 *            The loading screen activity
+	 * @return the current object of init
+	 */
 	public static Init getInstance(Context context, Activity activity) {
 		if (init == null) {
 			init = new Init(context, activity);

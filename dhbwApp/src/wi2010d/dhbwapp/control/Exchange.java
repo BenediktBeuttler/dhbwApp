@@ -146,6 +146,7 @@ public class Exchange {
 			// check if the stack is already existing
 			for (Stack stack : Stack.allStacks) {
 				if (stack.getStackName().equals(stackName)) {
+					// TODO: Bene, braucht man hier en Alert?
 					ErrorHandler.getInstance().handleError(
 							ErrorHandler.getInstance().STACK_EXISTING);
 					return false;
@@ -171,7 +172,8 @@ public class Exchange {
 				for (org.jdom2.Element tagElem : rootElem.getChildren()) {
 					if (tagElem.getName().equals("tag")) {
 						String tagName = tagElem.getAttributeValue("name");
-						stack.getDynamicStackTags().add(Create.getInstance().newTag(tagName));
+						stack.getDynamicStackTags().add(
+								Create.getInstance().newTag(tagName));
 					}
 				}
 
@@ -188,6 +190,7 @@ public class Exchange {
 			Database.getInstance().addNewStack(stack);
 
 		} else {
+			// TODO: Bene, Alert mit Import Error
 			ErrorHandler handler = ErrorHandler.getInstance();
 			handler.handleError(handler.IMPORT_ERROR);
 			return false;
@@ -227,10 +230,12 @@ public class Exchange {
 					if (foundTag >= 0) {
 						tagList.add(Tag.allTags.get(foundTag));
 					} else {
-						tagList.add(Create.getInstance().newTag(tagElem.getAttributeValue("name")));
+						tagList.add(Create.getInstance().newTag(
+								tagElem.getAttributeValue("name")));
 					}
 				}
-				cardList.add(Create.getInstance().newCard(front, back,tagList, frontPic, backPic ));
+				cardList.add(Create.getInstance().newCard(front, back, tagList,
+						frontPic, backPic));
 			}
 		}
 		return cardList;

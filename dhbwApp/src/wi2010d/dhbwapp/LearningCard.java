@@ -10,7 +10,6 @@ import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -56,7 +55,7 @@ public class LearningCard extends FragmentActivity implements
 	TextView txt_counter_back;
 	TextView txt_front;
 	TextView txt_back;
-	Button sure, dontKnow, notSure, showPicture;
+	Button sure, dontKnow, notSure;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +83,6 @@ public class LearningCard extends FragmentActivity implements
 		}
 
 		card = Learn.getInstance().startLearning(stack);
-		
-		
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -121,8 +118,6 @@ public class LearningCard extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
-		
-		
 	}
 
 	@Override
@@ -406,19 +401,6 @@ public class LearningCard extends FragmentActivity implements
 			txt_back.setText(card.getCardBack());
 			txt_counter_back = (TextView) v.findViewById(R.id.txt_learning_counter);
 			txt_counter_back.setText(Learn.getInstance().getActualProgressAsString());
-			showPicture = (Button) v.findViewById(R.id.btn_learning_card_back_picture);
-			showPicture.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					if (card.getCardBackPicture() != "!"){
-						Intent showPicture = new Intent();
-						showPicture.setAction(Intent.ACTION_VIEW);
-						showPicture.setDataAndType(Uri.parse("/mnt/sdcard/Pic.jpg"), "image/*");
-						startActivity(showPicture);
-					}
-				}
-			});
 			return v;
 		}
 	}

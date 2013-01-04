@@ -67,6 +67,18 @@ public class AdminChooseStackScreen extends Activity {
 				}
 			}
 		});
+		
+		lv.setOnLongClickListener(new View.OnLongClickListener() {
+			
+			@Override
+			public boolean onLongClick(View v) {
+				// TODO Bene, hier Dialog mit 3 Buttons: Edit / Delete / Archive
+				//OnClick: Edit --> AdminEditStackScreen, vorher stackName übergeben
+				//OnClick: Delete --> Delete.getInstance().deleteStack(stack), vorher stack raussuchen, dann onActivityResult(0,RESULT_OK,null) ausführen
+				//OnClick: Archive --> Erst Exchange.exportStack, dann delete
+				return false;
+			}
+		});
 	}
 
 	@Override

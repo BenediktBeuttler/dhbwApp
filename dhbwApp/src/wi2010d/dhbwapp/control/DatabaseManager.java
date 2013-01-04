@@ -11,6 +11,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * Holds and manages the current SQLite Database Methods for creating, deleting
+ * and reseting the DB are implemented
+ * 
+ */
 public class DatabaseManager extends SQLiteOpenHelper {
 
 	private static final String DB_NAME = "knowitowl.db";
@@ -38,6 +43,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
 		super(context, DB_NAME, null, DB_VERSION);
 	}
 
+	/**
+	 * Create the DB
+	 */
 	@Override
 	public void onCreate(SQLiteDatabase database) {
 		Log.d("Database Manager", "Create Database");
@@ -52,6 +60,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
 	}
 
+	/**
+	 * Upgrade the DB with a new version
+	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase database, int oldVersion,
 			int newVersion) {
@@ -69,9 +80,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
 		onCreate(database);
 	}
 
+	/**
+	 * Delete the DB and create a new one
+	 * 
+	 * @return
+	 */
 	public boolean deleteDB() {
-		
-		resetVariables();
+
+		resetVariables(); // reset all the objects
 
 		SQLiteDatabase database = this.getWritableDatabase();
 		database.execSQL(DROP_STACK);
@@ -86,6 +102,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
 		return true;
 	}
 
+	/**
+	 * Resets all the objects, so there are no duplicates when loading again
+	 * 
+	 * @return
+	 */
 	public boolean resetVariables() {
 
 		for (Stack stack : Stack.allStacks) {
@@ -114,11 +135,23 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
 	}
 
+	/**
+	 * 'Singleton' method
+	 * 
+	 * @return The current object of DBManager
+	 */
 	public static DatabaseManager getInstance() {
 
 		return databaseManager;
 	}
 
+	/**
+	 * Singleton method for initialization
+	 * 
+	 * @param context
+	 *            The applications' context
+	 * @return The current object of DBManager
+	 */
 	public static DatabaseManager getInstance(Context context) {
 		databaseManager = new DatabaseManager(context);
 		return databaseManager;

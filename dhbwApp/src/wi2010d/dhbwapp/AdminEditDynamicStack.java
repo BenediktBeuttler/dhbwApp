@@ -245,13 +245,13 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 					tag.setChecked(true);
 				}
 				fragment = new AdminTagListFragment();
-				fragment.setArguments(getIntent().getExtras());
 			default:
 				break;
 			}
 
 			Bundle args = new Bundle();
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+			args.putBoolean("buttonInvisible", true);
 			fragment.setArguments(args);
 
 			return fragment;
