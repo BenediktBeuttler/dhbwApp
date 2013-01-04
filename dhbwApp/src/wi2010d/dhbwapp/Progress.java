@@ -16,9 +16,7 @@ public class Progress extends Activity {
 		// Load everything in a new thread
 		Init.resetInstance(); // Async Tasks can only be executed once, so we
 								// delete it before starting
-		Init init = Init.getInstance(getApplicationContext(), this);
-		init.execute();
-
+		Init.getInstance(getApplicationContext(), this).execute();
 	}
 
 	@Override
