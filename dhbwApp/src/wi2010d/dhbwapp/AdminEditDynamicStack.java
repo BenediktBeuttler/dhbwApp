@@ -3,10 +3,12 @@ package wi2010d.dhbwapp;
 import java.util.ArrayList;
 
 import wi2010d.dhbwapp.control.Edit;
+import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -28,44 +30,55 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
-		// TODO: OPTIONS MENU!
-		/*
-		 * Code für on Click:
-		 * 
-		 * 
-		 * 
-		 */
-		Stack foundStack;
-		for(Stack stack : Stack.allStacks)
-		{
-			if(stack.getStackName().equals(stackName)){
-				foundStack = stack;
-				if(txt_stack_name.getText().toString().equals(""))
-				{
-					//TODO: BENE ERROR: KEIN NAME EINGEGEBEN!
-					break;
-				}
-				Edit.getInstance().changeStackName(txt_stack_name.getText().toString(),foundStack);
-				for(Tag tag : Tag.allTags){
-					if(tag.isChecked()){
-						stackTagList.add(tag);
+		switch (item.getItemId()) {
+		case R.id.menu_start_screen:
+			startActivity(new Intent(this, StartScreen.class));
+			finish();
+			return true;
+		case R.id.menu_help:
+			startActivity(new Intent(this, HelpScreen.class));
+			finish();
+			return true;
+		case R.id.menu_settings:
+			startActivity(new Intent(this, SettingsScreen.class));
+			finish();
+			return true;
+		case R.id.btn_admin_edit_stack_save:
+			Stack foundStack;
+			for(Stack stack : Stack.allStacks)
+			{
+				if(stack.getStackName().equals(stackName)){
+					foundStack = stack;
+					if(txt_stack_name.getText().toString().equals(""))
+					{
+						//TODO: BENE ERROR: KEIN NAME EINGEGEBEN!
+						break;
 					}
-				}
-				if(stackTagList.size()<=0)
-				{
-					//TODO: BENE ERROR: KEINE TAGS SELECTED
+					Edit.getInstance().changeStackName(txt_stack_name.getText().toString(),foundStack);
+					for(Tag tag : Tag.allTags){
+						if(tag.isChecked()){
+							stackTagList.add(tag);
+						}
+					}
+					if(stackTagList.size()<=0)
+					{
+						//TODO: BENE ERROR: KEINE TAGS SELECTED
+						break;
+					}
+					else{
+						foundStack.setDynamicStackTags(stackTagList);
+						//TODO: Reppe: Create.udpatedynStack
+					}
+					
 					break;
 				}
-				else{
-					foundStack.setDynamicStackTags(stackTagList);
-					//TODO: Reppe: Create.udpatedynStack
-				}
-				
-				break;
 			}
+			return true;
+		default:
+			ErrorHandler error = new ErrorHandler(getApplicationContext());
+			error.handleError(1);
+			return false;
 		}
-
-		return false;
 	}
 
 	/**
