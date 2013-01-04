@@ -67,6 +67,7 @@ public class Create {
 	public boolean newDynStack(String name, List<Tag> tags) {
 		List<Card> cards = new ArrayList<Card>();
 		Stack dynamicStack;
+		boolean containsTag;
 		
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
@@ -78,12 +79,16 @@ public class Create {
 
 		// identify all cards that contain the selected tags
 		for (Card card : Card.allCards) {
+			containsTag = false;
 			for (Tag tag : card.getTags()) {
 				if (tags.contains(tag)) {
-					// add identified cards to list
-					cards.add(card);
-					
+					containsTag = true;
 				}
+			}
+			 
+			if (containsTag = true){
+				// add identified cards to list
+				cards.add(card);	
 			}
 		}
 		dynamicStack = new Stack(true, name, cards);
