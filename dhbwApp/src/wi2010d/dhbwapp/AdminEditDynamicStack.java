@@ -162,7 +162,7 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.admin_new_card, menu);
+		getMenuInflater().inflate(R.menu.admin_edit_dynamic_stack, menu);
 		return true;
 	}
 
