@@ -31,6 +31,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+
 public class StatisticsScreen extends FragmentActivity implements
 		ActionBar.TabListener {
 
@@ -306,6 +307,8 @@ public class StatisticsScreen extends FragmentActivity implements
 			if (stacksAvailable){
 				setContent("All Stacks", v);
 			}
+			
+			
 
 			return v;
 		}

@@ -24,6 +24,7 @@ public class LearningChooseStackScreen extends Activity implements
 
 	EditText card_front;
 	Button createDynStack;
+	Boolean fromLearning = true;
 	ArrayList<String> items = new ArrayList<String>();
 	ListView lv;
 	ArrayAdapter<String> lvAdapter;
@@ -37,8 +38,9 @@ public class LearningChooseStackScreen extends Activity implements
 
 			@Override
 			public void onClick(View v) {
-				startActivityForResult(new Intent(getApplicationContext(),
-						AdminCreateDynamicStack.class), 1);
+				Intent i = new Intent(getApplicationContext(), AdminCreateDynamicStack.class);
+				i.putExtra("fromLearning", fromLearning);
+				startActivityForResult(i, 1);
 			}
 		});
 

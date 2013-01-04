@@ -28,6 +28,7 @@
     <string name="btn_admin_editstack">Edit Stack</string>
     <string name="btn_admin_importexport">Import/Export</string>
     <string name="btn_admin_newdynstack">New dyn. Stack</string>
+    <string name="btn_admin_update_dynstack">Update dyn. Stack</string>
     <string name="btn_admin_exist">Exist</string>
     <string name="btn_admin_new">New</string>
     <string name="list_admin_stacklist">Please choose your Stack:</string>
