@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_admin_new_dyn_stack"
         android:layout_alignParentLeft="true"
+        android:drawableLeft="@drawable/impexport"
         android:text="@string/btn_admin_importexport" />
 
     <Button
@@ -27,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:drawableLeft="@drawable/dynamicstack"
         android:layout_marginBottom="113dp"
         android:text="@string/btn_admin_newdynstack" />
 
@@ -49,12 +51,13 @@
         android:text="@string/btn_admin_newcard" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btn_admin_update_dyn_stack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/btn_admin_new_dyn_stack"
         android:layout_marginTop="50dp"
+        android:drawableLeft="@drawable/refresh"
         android:text="@string/btn_admin_update_dynstack" />
 
 </RelativeLayout>
