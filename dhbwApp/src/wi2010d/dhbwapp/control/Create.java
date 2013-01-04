@@ -103,7 +103,7 @@ public class Create {
 	 * 
 	 * @return
 	 */
-	public boolean updateDynStack() {
+	public boolean updateDynStacks() {
 		for (Stack stack : Stack.allStacks) {
 			if (stack.isDynamicGenerated()) {
 				for (Card card : Card.allCards) {
@@ -125,6 +125,33 @@ public class Create {
 			}
 		}
 
+		return true;
+	}
+	
+	/**
+	 * Update all dynamic stacks
+	 * 
+	 * @return
+	 */
+	public boolean updateDynStack(Stack stack) {
+		
+		if (stack.isDynamicGenerated()) {
+			for (Card card : Card.allCards) {
+				for (Tag tag : card.getTags()) {
+					// If card has same tag as stack and is not in the
+					// actual stack
+					if (stack.getDynamicStackTags().contains(tag)
+							&& !stack.getCards().contains(card)) {
+						Edit.getInstance().addCardToStack(stack, card);
+					}
+					// If card is in stack but doesn't have the tag anymore
+					if (stack.getCards().contains(card)
+							&& !stack.getDynamicStackTags().contains(tag)) {
+						Edit.getInstance().removeCardFromStack(stack, card);
+					}
+				}
+			}
+		}		
 		return true;
 	}
 

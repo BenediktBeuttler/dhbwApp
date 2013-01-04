@@ -2,6 +2,7 @@ package wi2010d.dhbwapp;
 
 import java.util.ArrayList;
 
+import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
@@ -12,14 +13,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -30,6 +29,42 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		// TODO: OPTIONS MENU!
+		/*
+		 * Code für on Click:
+		 * 
+		 * 
+		 * 
+		 */
+		Stack foundStack;
+		for(Stack stack : Stack.allStacks)
+		{
+			if(stack.getStackName().equals(stackName)){
+				foundStack = stack;
+				if(txt_stack_name.getText().toString().equals(""))
+				{
+					//TODO: BENE ERROR: KEIN NAME EINGEGEBEN!
+					break;
+				}
+				Edit.getInstance().changeStackName(txt_stack_name.getText().toString(),foundStack);
+				for(Tag tag : Tag.allTags){
+					if(tag.isChecked()){
+						stackTagList.add(tag);
+					}
+				}
+				if(stackTagList.size()<=0)
+				{
+					//TODO: BENE ERROR: KEINE TAGS SELECTED
+					break;
+				}
+				else{
+					foundStack.setDynamicStackTags(stackTagList);
+					//TODO: Reppe: Create.udpatedynStack
+				}
+				
+				break;
+			}
+		}
+
 		return false;
 	}
 
@@ -50,12 +85,13 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 	private ArrayList<Tag> stackTagList = new ArrayList<Tag>();
 	private Stack stack;
 	private String stackName;
+	private EditText txt_stack_name;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_new_card);
-		
+
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras == null) {
@@ -67,14 +103,12 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 			stackName = (String) savedInstanceState
 					.getSerializable("stackName");
 		}
-		for(Stack searchStack : Stack.allStacks)
-		{
-			if(searchStack.getStackName().equals(stackName)){
+		for (Stack searchStack : Stack.allStacks) {
+			if (searchStack.getStackName().equals(stackName)) {
 				stack = searchStack;
 				break;
 			}
 		}
-
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -163,7 +197,7 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 				for (Tag tag : Tag.allTags) {
 					tag.setChecked(false);
 				}
-				//set the stacks' tags checked
+				// set the stacks' tags checked
 				for (Tag tag : stack.getDynamicStackTags()) {
 					tag.setChecked(true);
 				}
@@ -172,7 +206,7 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 				break;
 			}
 
-		 	Bundle args = new Bundle();
+			Bundle args = new Bundle();
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
 
@@ -223,7 +257,7 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 			return textView;
 		}
 	}
-	
+
 	public class EditDynStack extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
@@ -240,16 +274,10 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
 			View v = inflater.inflate(R.layout.admin_edit_stack_screen, null);
-			
-			EditText txt_stack_name;
-			Button save;
-			
-			txt_stack_name = (EditText) v.findViewById(R.id.txt_admin_edit_stack);
-			txt_stack_name.setText(stackName);
-			
-			save = (Button) v.findViewById(R.id.btn_admin_edit_stack_save);
-			save.setVisibility(0);
 
+			txt_stack_name = (EditText) v
+					.findViewById(R.id.txt_admin_edit_stack);
+			txt_stack_name.setText(stackName);
 
 			return v;
 		}
