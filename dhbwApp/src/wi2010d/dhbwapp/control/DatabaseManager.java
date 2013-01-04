@@ -41,7 +41,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase database) {
 		Log.d("Database Manager", "Create Database");
-		
+
 		database.execSQL(STACK_CREATE);
 		database.execSQL(CARD_CREATE);
 		database.execSQL(RUNTHROUGH_CREATE);
@@ -69,7 +69,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
 		onCreate(database);
 	}
 
-public void deleteDB() {
+	public boolean deleteDB() {
+		
+		resetVariables();
 
 		SQLiteDatabase database = this.getWritableDatabase();
 		database.execSQL(DROP_STACK);
@@ -79,6 +81,12 @@ public void deleteDB() {
 		database.execSQL(DROP_STACK_CARD);
 		database.execSQL(DROP_STACK_TAG);
 		database.execSQL(DROP_CARD_TAG);
+
+		onCreate(database);
+		return true;
+	}
+
+	public boolean resetVariables() {
 
 		for (Stack stack : Stack.allStacks) {
 			stack = null;
@@ -96,13 +104,14 @@ public void deleteDB() {
 		Card.allCards = new ArrayList<Card>();
 		Tag.allTags = new ArrayList<Tag>();
 		Runthrough.allRunthroughs = new ArrayList<Runthrough>();
-		
+
 		Stack.resetLastStackID();
 		Card.resetLastCardID();
 		Tag.resetLastTagID();
 		Runthrough.resetLastRunthroughID();
-		
-		onCreate(database);
+
+		return true;
+
 	}
 
 	public static DatabaseManager getInstance() {
@@ -111,7 +120,7 @@ public void deleteDB() {
 	}
 
 	public static DatabaseManager getInstance(Context context) {
-			databaseManager = new DatabaseManager(context);
+		databaseManager = new DatabaseManager(context);
 		return databaseManager;
 	}
 

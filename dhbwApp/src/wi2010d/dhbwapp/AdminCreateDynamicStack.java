@@ -78,7 +78,7 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 												input.getText().toString(), dynStackTagList)) {
 											Toast toast = Toast.makeText(
 													getApplicationContext(),
-													"Dynamic Stack " + name
+													"Dynamic Stack " + input.getText().toString()
 															+ " created!",
 													Toast.LENGTH_LONG);
 											toast.show();
