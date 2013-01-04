@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:drawableLeft="@drawable/dynamicstack"
         android:text="Create Dynamic Stack" />
 
     <FrameLayout
