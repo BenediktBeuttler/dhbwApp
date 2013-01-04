@@ -150,16 +150,10 @@ public class Stack {
 
 	public void setDynamicGenerated(boolean isDynamicGenerated) {
 		this.isDynamicGenerated = isDynamicGenerated;
-		Database.getInstance().changeStack(this);
 	}
 
 	public int getStackID() {
 		return stackID;
-	}
-
-	public void setStackID(int stackID) {
-		this.stackID = stackID;
-		Database.getInstance().changeStack(this);
 	}
 
 	public String getStackName() {
@@ -168,7 +162,6 @@ public class Stack {
 
 	public void setStackName(String stackName) {
 		this.stackName = stackName;
-		Database.getInstance().changeStack(this);
 	}
 
 	public void setDynamicStackTags(List<Tag> dynamicStackTags) {
@@ -181,7 +174,6 @@ public class Stack {
 
 	public void setSure(int sure) {
 		this.sure = sure;
-		Database.getInstance().changeStack(this);
 	}
 
 	public int getNotSure() {
@@ -190,7 +182,6 @@ public class Stack {
 
 	public void setNotSure(int notSure) {
 		this.notSure = notSure;
-		Database.getInstance().changeStack(this);
 	}
 
 	public int getDontKnow() {
@@ -199,7 +190,6 @@ public class Stack {
 
 	public void setDontKnow(int dontKnow) {
 		this.dontKnow = dontKnow;
-		Database.getInstance().changeStack(this);
 	}
 
 	public Runthrough getOverallRunthrough() {
