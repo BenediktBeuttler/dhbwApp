@@ -174,7 +174,6 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 					@Override
 					public void onPageSelected(int position) {
 						actionBar.setSelectedNavigationItem(position);
-						AdminTagListFragment.getNewTag().setVisibility(View.GONE);
 					}
 				});
 
@@ -246,6 +245,7 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 					tag.setChecked(true);
 				}
 				fragment = new AdminTagListFragment();
+				fragment.setArguments(getIntent().getExtras());
 			default:
 				break;
 			}
