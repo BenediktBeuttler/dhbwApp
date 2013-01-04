@@ -1,60 +1,51 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".AdminScreen" >
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/menu_admin"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Button
-        android:id="@+id/btn_admin_import_export"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_admin_new_dyn_stack"
-        android:layout_alignParentLeft="true"
-        android:text="@string/btn_admin_importexport" />
-
-    <Button
-        android:id="@+id/btn_admin_new_dyn_stack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="113dp"
-        android:text="@string/btn_admin_newdynstack" />
-
-    <Button
-        android:id="@+id/btn_admin_edit_stack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/design"
-        android:layout_above="@+id/btn_admin_import_export"
-        android:layout_alignParentLeft="true"
-        android:text="@string/btn_admin_editstack" />
 
     <Button
         android:id="@+id/btn_admin_new_card_new_stack"
+        style="@style/style_iconButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_admin_edit_stack"
-        android:layout_alignParentLeft="true"
+        android:layout_marginTop="15dp"
         android:drawableLeft="@drawable/plus"
         android:text="@string/btn_admin_newcard" />
 
     <Button
-        android:id="@+id/btn_admin_update_dyn_stack"
+        android:id="@+id/btn_admin_edit_stack"
+        style="@style/style_iconButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/btn_admin_new_dyn_stack"
-        android:layout_marginTop="50dp"
+        android:drawableLeft="@drawable/design"
+        android:text="@string/btn_admin_editstack" />
+
+    <Button
+        android:id="@+id/btn_admin_import_export"
+        style="@style/style_iconButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/impexport"
+        android:text="@string/btn_admin_importexport" />
+
+    <Button
+        android:id="@+id/btn_admin_new_dyn_stack"
+        style="@style/style_iconButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/dynamicstack"
+        android:text="@string/btn_admin_newdynstack" />
+
+    <Button
+        android:id="@+id/btn_admin_update_dyn_stack"
+        style="@style/style_iconButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/refresh"
         android:text="@string/btn_admin_update_dynstack" />
 
-</RelativeLayout>
+</LinearLayout>

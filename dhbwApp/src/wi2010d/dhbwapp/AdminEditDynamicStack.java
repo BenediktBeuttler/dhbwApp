@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
@@ -51,7 +52,12 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 				if (stack.getStackName().equals(stackName)) {
 					foundStack = stack;
 					if (txt_stack_name.getText().toString().equals("")) {
-						// TODO: BENE ERROR: KEIN NAME EINGEGEBEN!
+						//ErrorHandler started, if name is empty
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_no_input,
+										ErrorHandlerFragment.NO_INPUT);
+						newFragment.show(getFragmentManager(), "dialog");
+						//
 						break;
 					}
 					Edit.getInstance().changeStackName(
@@ -62,7 +68,11 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 						}
 					}
 					if (stackTagList.size() <= 0) {
-						// TODO: BENE ERROR: KEINE TAGS SELECTED
+						//ErrorHandler started, if no tags are selected
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_no_tag,
+										ErrorHandlerFragment.NO_TAG);
+						newFragment.show(getFragmentManager(), "dialog");
 						break;
 					} else {
 						foundStack.setDynamicStackTags(stackTagList);
@@ -235,6 +245,7 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 					tag.setChecked(true);
 				}
 				fragment = new AdminTagListFragment();
+				fragment.setArguments(getIntent().getExtras());
 			default:
 				break;
 			}

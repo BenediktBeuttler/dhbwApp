@@ -17,6 +17,8 @@ public class ErrorHandlerFragment extends DialogFragment{
 	public static final int EXPORT_ERROR = 3;
 	public static final int NO_SD = 4;
 	public static final int NAME_TAKEN = 5;
+	public static final int NO_INPUT = 6;
+	public static final int NO_TAG = 7;
 	
 	public static final int RESET_DB = 10;
 
