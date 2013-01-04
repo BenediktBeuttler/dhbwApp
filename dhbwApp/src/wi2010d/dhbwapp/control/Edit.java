@@ -160,6 +160,12 @@ public class Edit {
 
 		return true;
 	}
+	
+	public boolean setDrawer(Card card, int drawer){
+		card.setDrawer(drawer);
+		Database.getInstance().changeCard(card);
+		return true;
+	}
 
 	/**
 	 * Edit tag name
