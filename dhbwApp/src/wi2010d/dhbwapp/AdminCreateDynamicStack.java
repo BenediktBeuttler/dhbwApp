@@ -46,8 +46,8 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 					AlertDialog.Builder alert = new AlertDialog.Builder(v
 							.getContext());
 
-					alert.setTitle("New Tag");
-					alert.setMessage("Insert Tag Name");
+					alert.setTitle("New Stack");
+					alert.setMessage("Insert Stack Name");
 
 					// Set an EditText view to get user input
 					final EditText input = new EditText(v.getContext());
@@ -101,7 +101,6 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 
 			});
 			tagList = new AdminTagListFragment();
-			tagList.setArguments(getIntent().getExtras());
 			// Create the TagListFragment and bind it to the layout
 			FragmentManager fragmentManager = getSupportFragmentManager();
 			FragmentTransaction fragmentTransaction = fragmentManager
@@ -109,6 +108,9 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 
 			fragmentTransaction.add(R.id.layout_admin_create_dyn_4_taglist,
 					tagList).commit();
+			
+			AdminTagListFragment.getNewTag().setVisibility(View.GONE);
+
 		}
 	}
 

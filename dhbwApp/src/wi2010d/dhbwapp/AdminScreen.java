@@ -84,7 +84,9 @@ public class AdminScreen extends Activity implements OnClickListener{
 			startActivity(new Intent (this, AdminImportExport.class));
 			break;
 		case R.id.btn_admin_new_dyn_stack:
-			startActivity(new Intent (this, AdminCreateDynamicStack.class));
+			Intent i = new Intent (this, AdminCreateDynamicStack.class);
+			i.putExtra("setTagButtonInvisible", true);
+			startActivity(i);
 			break;
 		case R.id.btn_admin_update_dyn_stack:
 			Create.getInstance().updateDynStacks();

@@ -90,13 +90,6 @@ public class LearningChooseStackScreen extends Activity implements
 					R.layout.layout_listitem, items);
 			lv.setAdapter(lvAdapter);
 		}
-		if (resultCode == RESULT_CANCELED) {
-			//ErrorHandler started, if Result is canceled
-			ErrorHandlerFragment newFragment = ErrorHandlerFragment
-					.newInstance(R.string.error_handler_general,
-							ErrorHandlerFragment.GENERAL_ERROR);
-			newFragment.show(getFragmentManager(), "dialog");
-		}
 	}
 
 	@Override
