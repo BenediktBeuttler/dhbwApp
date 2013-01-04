@@ -1,28 +1,40 @@
 package wi2010d.dhbwapp;
 
+import java.io.File;
 import java.util.ArrayList;
+
 
 import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AdminEditCard extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -45,7 +57,8 @@ public class AdminEditCard extends FragmentActivity implements
 	EditText cardBack;
 	Card card;
 	int cardID;
-
+	
+	
 	private ArrayList<Tag> cardTagList = new ArrayList<Tag>();
 
 	public Card getCard() {
@@ -77,7 +90,7 @@ public class AdminEditCard extends FragmentActivity implements
 				break;
 			}
 		}
-
+		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -279,7 +292,7 @@ public class AdminEditCard extends FragmentActivity implements
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
-
+		
 		public EditCardFront() {
 		}
 
@@ -293,8 +306,11 @@ public class AdminEditCard extends FragmentActivity implements
 
 			cardFront = (EditText) v.findViewById(R.id.txt_edit_card_front);
 			cardFront.setText(card.getCardFront());
+			
+
 			return v;
 		}
+		
 	}
 
 	public class EditCardBack extends Fragment {
@@ -304,6 +320,10 @@ public class AdminEditCard extends FragmentActivity implements
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 		//Button save;
+		
+		private Button editPicture;
+		public Uri imageUri;
+		private static final int TAKE_PICTURE = 1;
 
 		public EditCardBack() {
 		}
@@ -316,8 +336,38 @@ public class AdminEditCard extends FragmentActivity implements
 
 			cardBack = (EditText) v.findViewById(R.id.txt_edit_card_back);
 			cardBack.setText(card.getCardBack());
+			
+			// Set up edit picture button
+			editPicture = (Button) v.findViewById(R.id.btn_admin_edit_card_picture);
+			editPicture.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent takePicture = new Intent("android.media.action.IMAGE_CAPTURE");
+				    File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
+				    takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
+				            Uri.fromFile(photo));
+				    imageUri = Uri.fromFile(photo);
+				    startActivityForResult(takePicture, TAKE_PICTURE);
+				}
+			});
 			return v;
 		}
+		
+		@Override
+		public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		    super.onActivityResult(requestCode, resultCode, data);
+		    
+		       if (resultCode == Activity.RESULT_OK) {
+				    card.setCardFrontPicture(imageUri.getPath());
+				    //TODO: test ob in db geschrieben
+				    
+					Toast toast;
+					toast = Toast.makeText(getApplicationContext(),
+							"Image saved under: " +  imageUri.getPath(), Toast.LENGTH_LONG);
+					toast.show();
+		        }
+		  }
 	}
 
 	protected boolean isCardNotEmpty() {
@@ -334,5 +384,6 @@ public class AdminEditCard extends FragmentActivity implements
 		} else
 			return true;
 	}
+
 
 }
