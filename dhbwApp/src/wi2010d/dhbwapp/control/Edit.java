@@ -153,7 +153,8 @@ public class Edit {
 		stack.setDontKnow(stack.getCards().size());
 		stack.setNotSure(0);
 		stack.setSure(0);
-
+		Database.getInstance().changeStack(stack);
+		
 		for (Card card : stack.getCards()) {
 			card.setDrawer(0);
 			Database.getInstance().changeCard(card);

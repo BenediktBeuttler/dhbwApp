@@ -2,9 +2,7 @@ package wi2010d.dhbwapp;
 
 import java.util.ArrayList;
 
-import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
-import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.Activity;
 import android.content.Intent;
@@ -16,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class AdminChooseStackScreen extends Activity {
 
@@ -31,7 +28,7 @@ public class AdminChooseStackScreen extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_choose_stack_screen);
 
-		items = updateStacks();
+		items = updateStackList();
 
 		lv = (ListView) findViewById(R.id.admin_stack_list);
 		lvAdapter = new ArrayAdapter<String>(this,
@@ -56,7 +53,6 @@ public class AdminChooseStackScreen extends Activity {
 								startActivityForResult(i, 1);
 								break;
 
-
 							} else {
 								Intent i = new Intent(getApplicationContext(),
 										AdminEditStack.class);
@@ -75,14 +71,14 @@ public class AdminChooseStackScreen extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
-			items = updateStacks();
+			items = updateStackList();
 			lvAdapter = new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_1, items);
 			lv.setAdapter(lvAdapter);
 		}
 	}
 
-	public ArrayList<String> updateStacks() {
+	public ArrayList<String> updateStackList() {
 		ArrayList<String> items = new ArrayList<String>();
 		for (Stack stack : Stack.allStacks) {
 			items.add(stack.getStackName());
@@ -99,7 +95,7 @@ public class AdminChooseStackScreen extends Activity {
 		getMenuInflater().inflate(R.menu.admin_choose_stack_screen, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
