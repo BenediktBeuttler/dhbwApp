@@ -47,9 +47,14 @@ public class AdminTagListFragment extends Fragment {
 		
 		fromLearning = getArguments().getBoolean("fromLearning");
 		fromAdminChooseStack = getArguments().getBoolean("fromAdminChooseStack");
-		if (fromLearning || fromAdminChooseStack)
+		if (fromLearning)
 		{
-			Log.d("fromLearning", "is true");
+			Log.e("fromLearning", "is true");
+			newTag.setVisibility(View.GONE);
+		}
+		if (fromAdminChooseStack) 
+		{
+			Log.e("fromAdminChooseStack", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 			newTag.setVisibility(View.GONE);
 		}
 		newTag.setOnClickListener(new OnClickListener() {
