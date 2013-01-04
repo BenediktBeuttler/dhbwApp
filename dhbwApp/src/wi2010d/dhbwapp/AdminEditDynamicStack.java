@@ -45,34 +45,34 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 			return true;
 		case R.id.btn_admin_edit_stack_save:
 			Stack foundStack;
-			for(Stack stack : Stack.allStacks)
-			{
-				if(stack.getStackName().equals(stackName)){
+			for (Stack stack : Stack.allStacks) {
+				if (stack.getStackName().equals(stackName)) {
 					foundStack = stack;
-					if(txt_stack_name.getText().toString().equals(""))
-					{
-						//TODO: BENE ERROR: KEIN NAME EINGEGEBEN!
+					if (txt_stack_name.getText().toString().equals("")) {
+						// TODO: BENE ERROR: KEIN NAME EINGEGEBEN!
 						break;
 					}
-					Edit.getInstance().changeStackName(txt_stack_name.getText().toString(),foundStack);
-					for(Tag tag : Tag.allTags){
-						if(tag.isChecked()){
+					Edit.getInstance().changeStackName(
+							txt_stack_name.getText().toString(), foundStack);
+					for (Tag tag : Tag.allTags) {
+						if (tag.isChecked()) {
 							stackTagList.add(tag);
 						}
 					}
-					if(stackTagList.size()<=0)
-					{
-						//TODO: BENE ERROR: KEINE TAGS SELECTED
+					if (stackTagList.size() <= 0) {
+						// TODO: BENE ERROR: KEINE TAGS SELECTED
 						break;
-					}
-					else{
+					} else {
 						foundStack.setDynamicStackTags(stackTagList);
-						//TODO: Reppe: Create.udpatedynStack
+						// TODO: Reppe: Create.udpatedynStack
 					}
-					
+
 					break;
 				}
 			}
+			return true;
+		case R.id.btn_admin_edit_reset_stack:
+			// TODO: Reppe: update dynamic stack
 			return true;
 		default:
 			ErrorHandler error = new ErrorHandler(getApplicationContext());
