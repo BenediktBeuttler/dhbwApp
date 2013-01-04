@@ -6,7 +6,9 @@ import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -189,20 +191,39 @@ public class LearningCard extends FragmentActivity implements
 			startActivityForResult(intent, RESULT_CHANGED);
 			return true;
 		case R.id.btn_admin_delete_card:
-			Delete.getInstance().deleteCard(card);
-			card = Learn.getInstance().learnCard(3);
-			if (card == null) {
-				Intent intent1 = (new Intent(this, StatisticsScreen.class));
-				intent1.putExtra("Tab", 3);
-				startActivity(intent1);
-				finish();
-			} else {
-				mViewPager.setCurrentItem(0);
-				txt_counter_front.setText(Learn.getInstance().getActualProgressAsString());
-				txt_counter_back.setText(Learn.getInstance().getActualProgressAsString());
-				txt_front.setText(card.getCardFront());
-				txt_back.setText(card.getCardBack());
-			}
+			new AlertDialog.Builder(getApplicationContext())
+            .setIcon(R.drawable.alert)
+            .setTitle("Delete Card?")
+            .setPositiveButton("Delete",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    	
+                    	Delete.getInstance().deleteCard(card);
+            			card = Learn.getInstance().learnCard(3);
+            			if (card == null) {
+            				Intent deleteCard = (new Intent(getParent(), StatisticsScreen.class));
+            				deleteCard.putExtra("Tab", 3);
+            				startActivity(deleteCard);
+            				finish();
+            			} else {
+            				mViewPager.setCurrentItem(0);
+            				txt_counter_front.setText(Learn.getInstance().getActualProgressAsString());
+            				txt_counter_back.setText(Learn.getInstance().getActualProgressAsString());
+            				txt_front.setText(card.getCardFront());
+            				txt_back.setText(card.getCardBack());
+            			}
+            			
+                    }
+                }
+            )
+            .setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    	//
+                    }
+                }
+            )
+            .create();
 			return true;
 		default:
 			ErrorHandler error = new ErrorHandler(getApplicationContext());
