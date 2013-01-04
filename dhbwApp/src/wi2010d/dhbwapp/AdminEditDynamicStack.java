@@ -235,6 +235,7 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 					tag.setChecked(true);
 				}
 				fragment = new AdminTagListFragment();
+				fragment.setArguments(getIntent().getExtras());
 			default:
 				break;
 			}
