@@ -11,8 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:drawableLeft="@drawable/dynamicstack"
         android:onClick="onClick"
-        android:text="@string/btn_learn_dynstack" />
+        android:text="@string/btn_learn_dynstack"
+        android:textSize="22sp" />
 
     <ListView
         android:id="@+id/learn_stack_list"
