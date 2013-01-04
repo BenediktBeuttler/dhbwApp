@@ -72,7 +72,7 @@ public class AdminEditStack extends FragmentActivity {
 			String newStackName = (txt_stack_name.getText().toString());
 			for (Stack stack : Stack.allStacks) {
 				if (stack.getStackName().equals(newStackName)) {
-					// TODO: BENE :ErrorHandling if StackName is already taken
+					//ErrorHandling, if stack name is already taken.
 					ErrorHandlerFragment newFragment = ErrorHandlerFragment
 							.newInstance(R.string.error_handler_name_taken,
 									ErrorHandlerFragment.NAME_TAKEN);

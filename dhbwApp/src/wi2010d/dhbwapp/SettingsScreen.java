@@ -70,67 +70,75 @@ public class SettingsScreen extends Activity implements OnClickListener {
 			break;
 			
 		case R.id.btn_write_test_data:
-			List<Tag> tags = new ArrayList<Tag>();
-			List<Card> cards = new ArrayList<Card>();
-			List<Card> cards1 = new ArrayList<Card>();
-
+			
+			List<Tag> tags0 = new ArrayList<Tag>();
+			List<Tag> tags1 = new ArrayList<Tag>();
+			List<Tag> tags2 = new ArrayList<Tag>();
+			List<Tag> tags3 = new ArrayList<Tag>();
+			List<Tag> tags4 = null;
+			
+			List<Card> allCards = new ArrayList<Card>();
+			
 			Tag mundl = Create.getInstance().newTag("Mündlich");
-			Tag presentation = Create.getInstance()
-					.newTag("2. PA Präsentation");
+			Tag presentation = Create.getInstance().newTag("2. PA Präsentation");
+			Tag nachpruefung = Create.getInstance().newTag("Nachprüfung Recht");
+			Tag projektmgmt = Create.getInstance().newTag("Projektmgmt. Zertifizierung");
 
-			tags.add(mundl);
-			Card card1 = Create.getInstance().newCard("Was ist Java?",
-					"Java ist eine objektorientierte Programmiersprache.",
-					tags, "", "");
-			Card card2 = Create.getInstance().newCard(
-					"Für was steht die Abkürzung JVM?",
-					"Java Virtual Machine.", tags, "", "");
-			Card card3 = Create
-					.getInstance()
-					.newCard(
-							"Welche Variabel Typen gibt es?",
-							"Boolean, Gleitkomma-Zahl, Ganzzahl-Typen, Char, String, Array.",
-							tags, "", "");
-			Card card4 = Create.getInstance().newCard(
-					"Für was steht die Abkürzung SDK?",
-					"Software Development Kit.", tags, "", "");
-			Card card5 = Create.getInstance().newCard("Für was steht JRE?",
-					"Java Runtime Environment.", tags, "", "");
-			Card card6 = Create.getInstance().newCard(
-					"Welche Methode kann Objekte erstellen?",
-					"Der Konstrukt0r.", tags, "", "");
-			cards.add(card1);
-			cards.add(card2);
-			cards.add(card3);
-			cards.add(card4);
-			cards.add(card5);
-			cards.add(card6);
-			Stack stack = new Stack(false, "Java", cards);
-			Database.getInstance().addNewStack(stack);
+			tags0.add(mundl);
+			tags0.add(presentation);
+			tags1.add(nachpruefung);
+			tags1.add(projektmgmt);
+			tags2.add(nachpruefung);
+			tags3.add(projektmgmt);
+			tags3.add(mundl);
+			tags3.add(presentation);
 
-			tags.add(presentation);
-			Card card7 = Create.getInstance().newCard("Was ist Java1?",
-					"Java ist eine objektorientierte Programmiersprache1.",
-					tags, "", "");
-			Card card8 = Create.getInstance().newCard("Was ist Java2?",
-					"Java ist eine objektorientierte Programmiersprache2.",
-					tags, "", "");
-			Card card9 = Create.getInstance().newCard("Was ist Java3?",
-					"Java ist eine objektorientierte Programmiersprache3.",
-					tags, "", "");
-			Card card10 = Create.getInstance().newCard("Was ist Java4?",
-					"Java ist eine objektorientierte Programmiersprache4.",
-					tags, "", "");
-			Card card11 = Create.getInstance().newCard("Was ist Java5?",
-					"Java ist eine objektorientierte Programmiersprache5.",
-					tags, "", "");
-			cards1.add(card7);
-			cards1.add(card8);
-			cards1.add(card9);
-			cards1.add(card10);
-			cards1.add(card11);
-			Stack stack1 = new Stack(false, "EDV-Recht", cards1);
-			Database.getInstance().addNewStack(stack1);
+			for (int i = 0; i < 100; i++){
+				
+				if (i < 25){
+					allCards.add(Create.getInstance().newCard("Card " + i + " front", 
+							"Card " + i + " back", tags0, "", ""));
+				}
+				
+				if ((24 < i) && (i < 45)){
+					allCards.add(Create.getInstance().newCard("Card " + i + " front", 
+							"Card " + i + " back", tags1, "", ""));
+				}
+				
+				if ((44 < i) && (i < 60)){
+					allCards.add(Create.getInstance().newCard("Card " + i + " front", 
+							"Card " + i + " back", tags2, "", ""));
+				}
+				
+				if ((59 < i) && (i < 80)){
+					allCards.add(Create.getInstance().newCard("Card " + i + " front", 
+							"Card " + i + " back", tags3, "", ""));
+				}
+				
+				if (i > 79){
+					allCards.add(Create.getInstance().newCard("Card " + i + " front", 
+							"Card " + i + " back", tags4, "", ""));
+				}
+			}
+			
+			int cardNumber = 100;
+			int randomNumber;
+			List<Card> cards = new ArrayList<Card>();
+			
+			for (int i = 0; i < 25; i++){
+				
+				cards.clear();
+				
+				for (int j = 0; j < 4; j++){
+					
+					randomNumber = (int)Math.floor((Math.random() * cardNumber));
+					cardNumber = cardNumber - 1;
+					cards.add(allCards.get(randomNumber));
+					allCards.remove(randomNumber);
+				}
+				
+				Database.getInstance().addNewStack(new Stack(false, "Stack " + i, cards));
+			}
 
 			Toast toast;
 			toast = Toast.makeText(getApplicationContext(),
