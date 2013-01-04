@@ -25,7 +25,7 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 	Fragment tagList;
 	ArrayList<Tag> dynStackTagList = new ArrayList<Tag>();
 	String name = "";
-	boolean setTagButtonInvisible = false;
+	boolean buttonInvisible = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,6 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 
 		if (savedInstanceState == null) {
 			// set all tags unchecked, then create the list
-			
-			
-			
 			for (Tag tag : Tag.allTags) {
 				tag.setChecked(false);
 			}
@@ -104,6 +101,8 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 
 			});
 			tagList = new AdminTagListFragment();
+			getIntent().putExtra("buttonInvisible", buttonInvisible);
+			tagList.setArguments(getIntent().getExtras());
 			// Create the TagListFragment and bind it to the layout
 			FragmentManager fragmentManager = getSupportFragmentManager();
 			FragmentTransaction fragmentTransaction = fragmentManager
@@ -111,9 +110,6 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 
 			fragmentTransaction.add(R.id.layout_admin_create_dyn_4_taglist,
 					tagList).commit();
-			
-			AdminTagListFragment.getNewTag().setVisibility(View.GONE);
-
 		}
 	}
 

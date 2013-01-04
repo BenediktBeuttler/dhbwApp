@@ -44,12 +44,13 @@ public class AdminTagListFragment extends Fragment {
 		View v = inflater.inflate(R.layout.admin_new_card_tags, null);
 		newTag = (Button) v.findViewById(R.id.btn_admin_new_card_new_tag);
 		
+		if(savedInstanceState == null){
 		buttonInvisible = getArguments().getBoolean("buttonInvisible");
 		if (buttonInvisible)
 		{
 			newTag.setVisibility(View.GONE);
 		}
-
+		}
 		newTag.setOnClickListener(new OnClickListener() {
 
 			@Override
