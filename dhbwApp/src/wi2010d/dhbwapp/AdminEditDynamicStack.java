@@ -2,6 +2,7 @@ package wi2010d.dhbwapp;
 
 import java.util.ArrayList;
 
+import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Stack;
@@ -64,7 +65,8 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 						break;
 					} else {
 						foundStack.setDynamicStackTags(stackTagList);
-						// TODO: Reppe: Create.udpatedynStack
+						Create.getInstance().updateDynStack(foundStack);
+						finish();
 					}
 
 					break;
@@ -72,7 +74,8 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 			}
 			return true;
 		case R.id.btn_admin_edit_reset_stack:
-			// TODO: Reppe: update dynamic stack
+			//TODO: Niklas : Reset Drawer
+			
 			return true;
 		default:
 			ErrorHandler error = new ErrorHandler(getApplicationContext());
