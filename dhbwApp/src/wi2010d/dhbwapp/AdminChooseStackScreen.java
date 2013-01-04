@@ -22,7 +22,6 @@ public class AdminChooseStackScreen extends Activity {
 	private ArrayList<String> items = new ArrayList<String>();
 	private ListView lv;
 	private ArrayAdapter<String> lvAdapter;
-	private Boolean fromAdminChooseStack = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,7 @@ public class AdminChooseStackScreen extends Activity {
 								Intent i = new Intent(getApplicationContext(),
 										AdminEditDynamicStack.class);
 								i.putExtra("stackName", stackName);
-								i.putExtra("fromAdminChooseStack", fromAdminChooseStack);
+								i.putExtra("buttonInvisible", true);
 								startActivityForResult(i, 1);
 								break;
 

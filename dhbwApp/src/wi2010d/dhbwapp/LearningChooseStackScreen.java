@@ -40,7 +40,6 @@ public class LearningChooseStackScreen extends Activity implements
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(getApplicationContext(), AdminCreateDynamicStack.class);
-				i.putExtra("fromLearning", fromLearning);
 				startActivityForResult(i, 1);
 			}
 		});
@@ -89,6 +88,13 @@ public class LearningChooseStackScreen extends Activity implements
 			lvAdapter = new ArrayAdapter<String>(this,
 					R.layout.layout_listitem, items);
 			lv.setAdapter(lvAdapter);
+		}
+		if (resultCode == RESULT_CANCELED) {
+			//ErrorHandler started, if Result is canceled
+			ErrorHandlerFragment newFragment = ErrorHandlerFragment
+					.newInstance(R.string.error_handler_general,
+							ErrorHandlerFragment.GENERAL_ERROR);
+			newFragment.show(getFragmentManager(), "dialog");
 		}
 	}
 

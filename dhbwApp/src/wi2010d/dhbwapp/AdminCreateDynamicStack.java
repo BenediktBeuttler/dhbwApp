@@ -25,6 +25,7 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 	Fragment tagList;
 	ArrayList<Tag> dynStackTagList = new ArrayList<Tag>();
 	String name = "";
+	boolean setTagButtonInvisible = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,8 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 
 		if (savedInstanceState == null) {
 			// set all tags unchecked, then create the list
+			
+			
 			
 			for (Tag tag : Tag.allTags) {
 				tag.setChecked(false);

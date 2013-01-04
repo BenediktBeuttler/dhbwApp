@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +32,7 @@ public class AdminTagListFragment extends Fragment {
 	private ListView mainListView;
 	private ArrayAdapter<Tag> tagListAdapter;
 	private static Button newTag;
+	private boolean buttonInvisible = false;
 
 	public AdminTagListFragment() {
 	}
@@ -41,6 +43,13 @@ public class AdminTagListFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.admin_new_card_tags, null);
 		newTag = (Button) v.findViewById(R.id.btn_admin_new_card_new_tag);
+		
+		buttonInvisible = getArguments().getBoolean("buttonInvisible");
+		if (buttonInvisible)
+		{
+			newTag.setVisibility(View.GONE);
+		}
+
 		newTag.setOnClickListener(new OnClickListener() {
 
 			@Override
