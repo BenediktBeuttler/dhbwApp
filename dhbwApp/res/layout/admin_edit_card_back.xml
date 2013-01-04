@@ -14,4 +14,14 @@
         android:ems="10"
         android:inputType="textMultiLine" />
 
+    <Button
+        android:id="@+id/btn_admin_edit_card_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txt_edit_card_back"
+        android:layout_alignLeft="@+id/txt_edit_card_back"
+        android:layout_marginBottom="18dp"
+        android:layout_marginLeft="14dp"
+        android:text="Edit Front Picture" />
+
 </RelativeLayout>

@@ -33,7 +33,7 @@ public class AdminChooseStackScreen extends Activity {
 
 		lv = (ListView) findViewById(R.id.admin_stack_list);
 		lvAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, items);
+				R.layout.layout_listitem, items);
 		lv.setAdapter(lvAdapter);
 
 		lv.setClickable(true);
@@ -75,7 +75,7 @@ public class AdminChooseStackScreen extends Activity {
 		if (resultCode == RESULT_OK) {
 			items = updateStackList();
 			lvAdapter = new ArrayAdapter<String>(this,
-					android.R.layout.simple_list_item_1, items);
+					R.layout.layout_listitem, items);
 			lv.setAdapter(lvAdapter);
 		}
 	}

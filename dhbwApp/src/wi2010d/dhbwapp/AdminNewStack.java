@@ -19,7 +19,7 @@ public class AdminNewStack extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_new_stack);
 		txt_stack_name = (EditText) findViewById(R.id.txt_admin_new_stack);
-		save = (Button) findViewById(R.id.btn_admin_new_stack_save);
+		//save = (Button) findViewById(R.id.btn_admin_new_stack_save);
 
 		save.setOnClickListener(new OnClickListener() {
 

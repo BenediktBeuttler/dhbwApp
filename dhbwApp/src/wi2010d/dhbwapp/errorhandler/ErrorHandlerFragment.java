@@ -83,7 +83,7 @@ public class ErrorHandlerFragment extends DialogFragment{
 			DatabaseManager.getInstance().deleteDB();
 			Toast toast;
 			toast = Toast.makeText(getActivity(),
-					"Databse deleted!", Toast.LENGTH_LONG);
+					"Database deleted!", Toast.LENGTH_LONG);
 			toast.show();
 		}
 			break;

@@ -75,4 +75,10 @@
         	  <item name="android:layout_marginLeft">16dp</item>
        		  <item name="android:layout_marginRight">16dp</item>
        </style>
+       <style name="style_listView" parent="android:Widget.Holo.ListView">
+              <item name="android:dividerHeight">2dp</item>
+              <item name="android:layout_marginBottom">6dp</item>
+              <item name="android:layout_marginLeft">16dp</item>
+              <item name="android:layout_marginRight">16dp</item>
+       </style>
 </resources>

@@ -12,6 +12,7 @@ import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -104,8 +105,7 @@ public class AdminImportExport extends FragmentActivity implements
 		getMenuInflater().inflate(R.menu.admin_import_export, menu);
 		return true;
 	}
-	
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
@@ -128,7 +128,6 @@ public class AdminImportExport extends FragmentActivity implements
 			return false;
 		}
 	}
-
 
 	@Override
 	public void onTabSelected(ActionBar.Tab tab,
@@ -310,7 +309,7 @@ public class AdminImportExport extends FragmentActivity implements
 														"No stacks for import found, please ensure that the XML-Files are in the folder /sdcard/knowItOwl/",
 														Toast.LENGTH_LONG);
 										toast.show();
-										
+
 									} else {
 										try {
 											Exchange.getInstance()
@@ -329,7 +328,11 @@ public class AdminImportExport extends FragmentActivity implements
 															Toast.LENGTH_SHORT);
 											toast.show();
 										} catch (Exception e) {
-											ErrorHandler.getInstance().handleError(ErrorHandler.getInstance().IMPORT_ERROR);
+											ErrorHandler
+													.getInstance()
+													.handleError(
+															ErrorHandler
+																	.getInstance().IMPORT_ERROR);
 										}
 									}
 								}
@@ -338,12 +341,14 @@ public class AdminImportExport extends FragmentActivity implements
 				}
 
 			} else {
-				/*toast = Toast.makeText(getActivity(), "No sdcard available!",
-						Toast.LENGTH_SHORT);
-				toast.show();*/
+				/*
+				 * toast = Toast.makeText(getActivity(), "No sdcard available!",
+				 * Toast.LENGTH_SHORT); toast.show();
+				 */
 				ErrorHandlerFragment newFragment = ErrorHandlerFragment
-						.newInstance(R.string.error_handler_no_sd, ErrorHandlerFragment.NO_SD );
-				newFragment.show(getActivity().getFragmentManager(), "dialog");	
+						.newInstance(R.string.error_handler_no_sd,
+								ErrorHandlerFragment.NO_SD);
+				newFragment.show(getActivity().getFragmentManager(), "dialog");
 			}
 
 			return v;
@@ -428,6 +433,8 @@ public class AdminImportExport extends FragmentActivity implements
 							if (stackName.equals("All Stacks")) {
 
 								final Runnable r = new Runnable() {
+									ArrayList<Uri> uris = new ArrayList<Uri>();
+
 									public void run() {
 										for (Stack stack : Stack.allStacks) {
 											try {
@@ -439,6 +446,16 @@ public class AdminImportExport extends FragmentActivity implements
 																		.getPath()
 																		+ "/knowItOwl/",
 																stack.getStackName());
+												String s = "file:/"
+														+ Environment
+																.getExternalStorageDirectory()
+																.getPath()
+														+ "/knowItOwl/"
+														+ stack.getStackName()
+														+ ".xml";
+												File f = new File(s);
+												Uri u = Uri.fromFile(f);
+												uris.add(u);
 											} catch (Exception e) {
 												ErrorHandler
 														.getInstance()
@@ -456,6 +473,16 @@ public class AdminImportExport extends FragmentActivity implements
 										toast.show();
 										AdminImportExport.importList.setAdapter(AdminImportExport
 												.updateImportListAdapter());
+										Intent intent = new Intent(
+												Intent.ACTION_SEND_MULTIPLE);
+										intent.setType("file/xml");
+										intent.putParcelableArrayListExtra(
+												Intent.EXTRA_STREAM, uris);
+										intent.putExtra(Intent.EXTRA_SUBJECT,
+												"Export of my 'know it owl'-Stacks");
+										intent.putExtra(Intent.EXTRA_TEXT,
+												"Here are my 'know it owl'-Stacks");
+										startActivity(intent);
 									}
 								};
 								r.run();
@@ -495,6 +522,25 @@ public class AdminImportExport extends FragmentActivity implements
 												AdminImportExport.importList
 														.setAdapter(AdminImportExport
 																.updateImportListAdapter());
+												Intent intent = new Intent(
+														Intent.ACTION_SEND);
+												intent.setType("file/xml");
+												intent.putExtra(
+														Intent.EXTRA_STREAM,
+														Uri.parse("file:/"
+																+ Environment
+																		.getExternalStorageDirectory()
+																		.getPath()
+																+ "/knowItOwl/"
+																+ stackName
+																+ ".xml"));
+												intent.putExtra(
+														Intent.EXTRA_SUBJECT,
+														"Export of my 'know it owl'-Stack");
+												intent.putExtra(
+														Intent.EXTRA_TEXT,
+														"Here is my 'know it owl'-Stack");
+												startActivity(intent);
 											}
 										}
 									}
@@ -509,12 +555,16 @@ public class AdminImportExport extends FragmentActivity implements
 						}
 
 					} else {
-						/*toast = Toast.makeText(getActivity(),
-								"No sdcard available!", Toast.LENGTH_SHORT);
-						toast.show();*/
+						/*
+						 * toast = Toast.makeText(getActivity(),
+						 * "No sdcard available!", Toast.LENGTH_SHORT);
+						 * toast.show();
+						 */
 						ErrorHandlerFragment newFragment = ErrorHandlerFragment
-								.newInstance(R.string.error_handler_no_sd, ErrorHandlerFragment.NO_SD );
-						newFragment.show(getActivity().getFragmentManager(), "dialog");	
+								.newInstance(R.string.error_handler_no_sd,
+										ErrorHandlerFragment.NO_SD);
+						newFragment.show(getActivity().getFragmentManager(),
+								"dialog");
 					}
 				}
 			});
