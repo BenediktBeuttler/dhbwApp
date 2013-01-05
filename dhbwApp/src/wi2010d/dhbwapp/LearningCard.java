@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -417,6 +418,8 @@ public class LearningCard extends FragmentActivity implements
 		 * fragment.
 		 */
 		public final String ARG_SECTION_NUMBER = "section_number";
+		
+		Button showPicture;
 
 		public CardBack() {
 		}
@@ -434,6 +437,19 @@ public class LearningCard extends FragmentActivity implements
 					.findViewById(R.id.txt_learning_counter);
 			txt_counter_back.setText(Learn.getInstance()
 					.getActualProgressAsString());
+			
+			showPicture = (Button) v.findViewById(R.id.btn_learning_card_back_picture);
+			showPicture.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent show = new Intent();
+					show.setAction(Intent.ACTION_VIEW);
+					show.setDataAndType(Uri.parse(card.getCardBackPicture()), "image/*");
+					startActivity(show);		
+				}
+			});
+			
 			return v;
 		}
 	}

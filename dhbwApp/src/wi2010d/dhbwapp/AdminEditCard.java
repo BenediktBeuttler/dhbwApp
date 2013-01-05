@@ -325,7 +325,7 @@ public class AdminEditCard extends FragmentActivity implements
 		
 		private Button editPicture;
 		public Uri imageUri;
-		private static final int TAKE_PICTURE = 1;
+		public static final int TAKE_PICTURE = 1;
 
 		public EditCardBack() {
 		}
@@ -347,13 +347,21 @@ public class AdminEditCard extends FragmentActivity implements
 				public void onClick(View v) {
 					Intent takePicture = new Intent("android.media.action.IMAGE_CAPTURE");
 					Date date = new Date();
-					SimpleDateFormat sd = new SimpleDateFormat("ddMMyyhhmmss");
+					SimpleDateFormat sd = new SimpleDateFormat("yyMMddhhmmss");
 					String picName = sd.format(date);
-				    File photo = new File(Environment.getExternalStorageDirectory() + "/knowItOwl/",  picName + ".jpg");
+					
+					if (!new File(Environment.getExternalStorageDirectory().getPath()
+							+ "/knowItOwl/pictures").exists()) {
+						new File(Environment.getExternalStorageDirectory().getPath()
+								+ "/knowItOwl/pictures").mkdir();
+					}
+					
+				    File photo = new File(Environment.getExternalStorageDirectory() 
+				    		+ "/knowItOwl/pictures",  picName + ".jpg");
 				    takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
 				            Uri.fromFile(photo));
 				    imageUri = Uri.fromFile(photo);
-				    Log.e("AdminEditCard", "test");
+				    Log.e("AdminEditCard", "test: " + imageUri.getPath());
 				    startActivityForResult(takePicture, TAKE_PICTURE);
 				}
 			});
