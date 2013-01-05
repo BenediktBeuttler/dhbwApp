@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AdminChooseStackScreen extends Activity {
 
@@ -72,10 +75,18 @@ public class AdminChooseStackScreen extends Activity {
 			
 			@Override
 			public boolean onLongClick(View v) {
-				// TODO Bene, hier Dialog mit 3 Buttons: Edit / Delete / Archive
-				//OnClick: Edit --> AdminEditStackScreen, vorher stackName übergeben
-				//OnClick: Delete --> Delete.getInstance().deleteStack(stack), vorher stack raussuchen, dann onActivityResult(0,RESULT_OK,null) ausführen
-				//OnClick: Archive --> Erst Exchange.exportStack, dann delete
+				// TODO Bene, hier Dialog mit 3 Buttons: Edit / Delete / Archive	
+				//kein LongClick: siehe http://developer.android.com/guide/topics/ui/menus.html#context-menu
+				//bsp: http://www.stealthcopter.com/blog/2010/04/android-context-menu-example-on-long-press-gridview/
+				//bsp 2 :http://saigeethamn.blogspot.de/2011/05/context-menu-android-developer-tutorial.html
+				
+										//TODO: OnClick: Edit --> AdminEditStackScreen, vorher stackName übergeben
+									
+										//TODO: OnClick: Delete --> Delete.getInstance().deleteStack(stack), vorher stack raussuchen, dann onActivityResult(0,RESULT_OK,null) ausführen
+									
+										//TODO: OnClick: Archive --> Erst Exchange.exportStack, dann delete
+									
+				
 				return false;
 			}
 		});
