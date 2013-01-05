@@ -1,7 +1,9 @@
 package wi2010d.dhbwapp;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 import wi2010d.dhbwapp.control.Edit;
@@ -344,10 +346,14 @@ public class AdminEditCard extends FragmentActivity implements
 				@Override
 				public void onClick(View v) {
 					Intent takePicture = new Intent("android.media.action.IMAGE_CAPTURE");
-				    File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
+					Date date = new Date();
+					SimpleDateFormat sd = new SimpleDateFormat("ddMMyyhhmmss");
+					String picName = sd.format(date);
+				    File photo = new File(Environment.getExternalStorageDirectory() + "/knowItOwl/",  picName + ".jpg");
 				    takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
 				            Uri.fromFile(photo));
 				    imageUri = Uri.fromFile(photo);
+				    Log.e("AdminEditCard", "test");
 				    startActivityForResult(takePicture, TAKE_PICTURE);
 				}
 			});
@@ -356,8 +362,8 @@ public class AdminEditCard extends FragmentActivity implements
 		
 		@Override
 		public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		    super.onActivityResult(requestCode, resultCode, data);
-		    
+		    	
+					Log.e("AdminEditCard", "test2");
 		       if (resultCode == Activity.RESULT_OK) {
 				    card.setCardFrontPicture(imageUri.getPath());
 				    //TODO: test ob in db geschrieben
