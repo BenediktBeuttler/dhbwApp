@@ -378,7 +378,7 @@ public class AdminEditCard extends FragmentActivity implements
 				    
 					Toast toast;
 					toast = Toast.makeText(getApplicationContext(),
-							"Image saved under: " +  imageUri.getPath(), Toast.LENGTH_LONG);
+							"Picture saved under: " +  imageUri.getPath(), Toast.LENGTH_LONG);
 					toast.show();
 		        }
 		  }
