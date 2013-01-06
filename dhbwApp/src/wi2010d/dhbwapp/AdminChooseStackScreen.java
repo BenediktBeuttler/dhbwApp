@@ -2,8 +2,7 @@ package wi2010d.dhbwapp;
 
 import java.util.ArrayList;
 
-import wi2010d.dhbwapp.control.Delete;
-import wi2010d.dhbwapp.control.Learn;
+import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.Activity;
@@ -16,10 +15,12 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AdminChooseStackScreen extends Activity {
 
@@ -28,7 +29,8 @@ public class AdminChooseStackScreen extends Activity {
 	private ArrayList<String> items = new ArrayList<String>();
 	private ListView lv;
 	private ArrayAdapter<String> lvAdapter;
-
+	//tell android that we want this view to create a menu when it is long pressed. Method onCreateContextMenu is further relevant
+			//registerForContextMenu(lv);
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,32 +39,43 @@ public class AdminChooseStackScreen extends Activity {
 		items = updateStackList();
 
 		lv = (ListView) findViewById(R.id.admin_stack_list);
-		//tell android that we want this view to create a menu when it is long pressed. Method onCreateContextMenu is further relevant
-		registerForContextMenu(lv);
-		
 		lvAdapter = new ArrayAdapter<String>(this,
 				R.layout.layout_listitem, items);
 		lv.setAdapter(lvAdapter);
-		lv.setClickable(true);
+		//tell android that we want this view to create a menu when it is long pressed. Method onCreateContextMenu is further relevant
+		registerForContextMenu(lv);
 		
-	}
+		lv.setClickable(true);
+		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+			@Override
+			public void onItemClick(AdapterView<?> parent, View v,
+					int position, long id) {
+				parent.showContextMenuForChild(v);  
+			}
+		});		
+	}
+		
 	//When the registered view receives a long-click event, the system calls the onCreateContextMenu() method. This is where the menu items are defined.
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 	    super.onCreateContextMenu(menu, v, menuInfo);
-
-	    menu.add(0, v.getId(), 0, "Edit");  
-	    menu.add(0, v.getId(), 1, "Delete"); 
-	    menu.add(0, v.getId(), 2, "Archive"); 
+	    
+	    //AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;	
+    	
+	    menu.add(0, v.getId(), 0, "Change Name"); 
+	    menu.add(0, v.getId(), 1, "Reset Drawer"); 
+	    menu.add(0, v.getId(), 2, "Delete"); 
+	    menu.add(0, v.getId(), 3, "Archive"); 
 	}
 	//Define what happends when the item in list is long pressed
 	@Override  
 	public boolean onContextItemSelected(MenuItem item) {
-	        if(item.getTitle()=="Edit"){
+	        if(item.getTitle()=="Change Name"){
 	        	//pass the stack name to the edit activity and wheater it is an dynamic generated stack or not, edit it
 	        	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();	
 	        	String stackName = ((TextView) info.targetView).getText().toString();
+	        	
 				if (!stackName.equals("No stacks available")) {
 					for (Stack stack : Stack.allStacks) {
 						if (stack.getStackName().equals(stackName)) {
@@ -86,6 +99,23 @@ public class AdminChooseStackScreen extends Activity {
 
 				}
 	        }  
+	    else if(item.getTitle()=="Reset Drawer"){
+		    	//all cards of this stack get resetted and set back to the drawer: don't know
+	    	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();	
+        	String stackName = ((TextView) info.targetView).getText().toString();
+        	
+	    	for (Stack stack : Stack.allStacks) {
+				if (stack.getStackName().equals(stackName)) {
+					Edit.getInstance().resetDrawer(stack);
+					Toast toast = Toast.makeText(getApplicationContext(),
+							"Stack has been resetted successfully",
+							Toast.LENGTH_SHORT);
+					toast.show();
+					setResult(AdminChooseStackScreen.RESULT_OK);
+					break;
+				}
+			}
+		    }  
 	    else if(item.getTitle()=="Delete"){
 	    	//TODO: OnClick: Delete --> Delete.getInstance().deleteStack(stack), vorher stack raussuchen, dann onActivityResult(0,RESULT_OK,null) ausführen
 	    	//Delete the selected stack, after the user is asked to delete the stack
