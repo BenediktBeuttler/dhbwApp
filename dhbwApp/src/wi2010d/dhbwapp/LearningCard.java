@@ -21,6 +21,7 @@ import android.support.v4.view.ViewPager;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -300,6 +301,43 @@ public class LearningCard extends FragmentActivity implements
 	public void setCard(Card card) {
 		this.card = card;
 	}
+	
+	public void abortLearning(){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				this);
+		// set title
+		alertDialogBuilder.setTitle("Abort Learning");
+		// set dialog message
+		alertDialogBuilder
+				.setMessage("Are you sure you want to abort this learning session?")
+				.setIcon(R.drawable.question)
+				.setCancelable(false)
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int id) {
+								card = Learn.getInstance().learnCard(4);
+								Intent intent = (new Intent(getApplicationContext(), StatisticsScreen.class));
+								intent.putExtra("Tab", 3);
+								startActivity(intent);
+								finish();
+							}
+						})
+				.setNegativeButton("No",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int id) {
+								// if this button is clicked, just close
+								// the dialog box and do nothing
+								dialog.cancel();
+							}
+						});
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
+	}
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -410,6 +448,8 @@ public class LearningCard extends FragmentActivity implements
 					.getActualProgressAsString());
 			return v;
 		}
+		
+		
 	}
 
 	public class CardBack extends Fragment {
@@ -452,5 +492,16 @@ public class LearningCard extends FragmentActivity implements
 			
 			return v;
 		}
+	}
+
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK)
+        {
+			abortLearning();
+			return true;
+        }
+		return false;
 	}
 }
