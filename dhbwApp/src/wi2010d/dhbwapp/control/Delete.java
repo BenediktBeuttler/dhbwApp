@@ -35,6 +35,8 @@ public class Delete {
 	public boolean deleteStack(Stack stack) {
 		// delete the card from the stack, if the card isn't in any stack,
 		// delete it
+		
+		//For the occured Error, see: http://michaelscharf.blogspot.de/2008/10/concurrentmodificationexception-why-do.html
 		for (Card card : stack.getCards()) {
 			int totalStacks = card.decreaseTotalStacks();
 			Database.getInstance().changeCard(card);

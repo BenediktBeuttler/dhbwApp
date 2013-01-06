@@ -219,8 +219,9 @@ public class AdminChooseStackScreen extends Activity {
 										if (stack.getStackName().equals(
 												stackName)) {
 											//Delete the stack
+											//For the occured Error, see: http://michaelscharf.blogspot.de/2008/10/concurrentmodificationexception-why-do.html
 											Delete.getInstance().deleteStack(stack);
-											//reset the stackList
+											//Update the stackList
 											items = updateStackList();
 											lvAdapter = new ArrayAdapter<String>(getApplicationContext(),
 													R.layout.layout_listitem, items);
