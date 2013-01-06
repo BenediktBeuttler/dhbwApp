@@ -5,18 +5,17 @@ import java.util.ArrayList;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class AdminChooseStackScreen extends Activity {
 
@@ -34,18 +33,32 @@ public class AdminChooseStackScreen extends Activity {
 		items = updateStackList();
 
 		lv = (ListView) findViewById(R.id.admin_stack_list);
+		//tell android that we want this view to create a menu when it is long pressed. Method onCreateContextMenu is further relevant
+		registerForContextMenu(lv);
+		
 		lvAdapter = new ArrayAdapter<String>(this,
 				R.layout.layout_listitem, items);
 		lv.setAdapter(lvAdapter);
-
 		lv.setClickable(true);
-		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		
+	}
 
-			@Override
-			public void onItemClick(AdapterView<?> parent, View v,
-					int position, long id) {
-				String stackName = ((TextView) v).getText().toString();
+	//When the registered view receives a long-click event, the system calls the onCreateContextMenu() method. This is where the menu items are defined.
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+	    super.onCreateContextMenu(menu, v, menuInfo);
 
+	    menu.add(0, v.getId(), 0, "Edit");  
+	    menu.add(0, v.getId(), 1, "Delete"); 
+	    menu.add(0, v.getId(), 2, "Archive"); 
+	}
+	//Define what happends when the item in list is long pressed
+	@Override  
+	public boolean onContextItemSelected(MenuItem item) {
+	        if(item.getTitle()=="Edit"){
+	        	//pass the stack name to the edit activity and wheater it is an dynamic generated stack or not, edit it
+	        	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();	
+	        	String stackName = ((TextView) info.targetView).getText().toString();
 				if (!stackName.equals("No stacks available")) {
 					for (Stack stack : Stack.allStacks) {
 						if (stack.getStackName().equals(stackName)) {
@@ -68,30 +81,20 @@ public class AdminChooseStackScreen extends Activity {
 					}
 
 				}
-			}
-		});
-		
-		lv.setOnLongClickListener(new View.OnLongClickListener() {
-			
-			@Override
-			public boolean onLongClick(View v) {
-				// TODO Bene, hier Dialog mit 3 Buttons: Edit / Delete / Archive	
-				//kein LongClick: siehe http://developer.android.com/guide/topics/ui/menus.html#context-menu
-				//bsp: http://www.stealthcopter.com/blog/2010/04/android-context-menu-example-on-long-press-gridview/
-				//bsp 2 :http://saigeethamn.blogspot.de/2011/05/context-menu-android-developer-tutorial.html
-				
-										//TODO: OnClick: Edit --> AdminEditStackScreen, vorher stackName übergeben
-									
-										//TODO: OnClick: Delete --> Delete.getInstance().deleteStack(stack), vorher stack raussuchen, dann onActivityResult(0,RESULT_OK,null) ausführen
-									
-										//TODO: OnClick: Archive --> Erst Exchange.exportStack, dann delete
-									
-				
-				return false;
-			}
-		});
-	}
+	        }  
+	    else if(item.getTitle()=="Delete"){
+	    	//TODO: OnClick: Delete --> Delete.getInstance().deleteStack(stack), vorher stack raussuchen, dann onActivityResult(0,RESULT_OK,null) ausführen
+	    	//delete the selected stack
+	    }  
+	    else if(item.getTitle()=="Archive"){
+	    	//TODO: OnClick: Archive --> Erst Exchange.exportStack, dann delete
+	    	//first the stack gets exported to the knowitowl-directory, then the stack gets deleted
+	    }  
+	    else {return false;}  
 
+	return true;  
+	}  
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
