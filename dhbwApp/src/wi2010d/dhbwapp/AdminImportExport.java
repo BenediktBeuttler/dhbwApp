@@ -1,6 +1,10 @@
 package wi2010d.dhbwapp;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -61,13 +65,32 @@ public class AdminImportExport extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		if (getIntent().getExtras() != null) {
+			Bundle extras = getIntent().getExtras();
+			if (extras.getString("Path") != null) {
+				String path = extras.getString("Path");
+				int end = path.lastIndexOf("/");
+				String str1 = path.substring(end + 1, path.length());
+				String dest = Environment.getExternalStorageDirectory()
+						.getPath() + "/knowItOwl/" + str1;
+				try {
+					copyFile(new File(path), new File(dest));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
 		setContentView(R.layout.admin_import_export_screen);
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-		// Create the adapter that will return a fragment for each of the three
+		// Create the adapter that will return a fragment for each of the
+		// three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
@@ -89,13 +112,29 @@ public class AdminImportExport extends FragmentActivity implements
 
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-			// Create a tab with text corresponding to the page title defined by
-			// the adapter. Also specify this Activity object, which implements
-			// the TabListener interface, as the callback (listener) for when
+			// Create a tab with text corresponding to the page title
+			// defined by
+			// the adapter. Also specify this Activity object, which
+			// implements
+			// the TabListener interface, as the callback (listener) for
+			// when
 			// this tab is selected.
 			actionBar.addTab(actionBar.newTab()
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
+		}
+	}
+
+	public static void copyFile(File src, File dst) throws IOException {
+		FileChannel inChannel = new FileInputStream(src).getChannel();
+		FileChannel outChannel = new FileOutputStream(dst).getChannel();
+		try {
+			inChannel.transferTo(0, inChannel.size(), outChannel);
+		} finally {
+			if (inChannel != null)
+				inChannel.close();
+			if (outChannel != null)
+				outChannel.close();
 		}
 	}
 
@@ -449,15 +488,13 @@ public class AdminImportExport extends FragmentActivity implements
 																		.getPath()
 																		+ "/knowItOwl/",
 																stack.getStackName());
-												String s = "file:/"
-														+ Environment
-																.getExternalStorageDirectory()
-																.getPath()
-														+ "/knowItOwl/"
-														+ stack.getStackName()
-														+ ".xml";
-												File f = new File(s);
-												Uri u = Uri.fromFile(f);
+												Uri u = Uri
+														.fromFile(new File(
+																(Environment
+																		.getExternalStorageDirectory()
+																		.getPath()
+																		+ "/knowItOwl/"
+																		+ stack.getStackName() + ".xml")));
 												uris.add(u);
 											} catch (Exception e) {
 												ErrorHandler
@@ -478,14 +515,15 @@ public class AdminImportExport extends FragmentActivity implements
 												.updateImportListAdapter());
 										Intent intent = new Intent(
 												Intent.ACTION_SEND_MULTIPLE);
-										intent.setType("file/xml");
+										intent.setType("file/*");
 										intent.putParcelableArrayListExtra(
 												Intent.EXTRA_STREAM, uris);
 										intent.putExtra(Intent.EXTRA_SUBJECT,
 												"Export of my 'know it owl'-Stacks");
 										intent.putExtra(Intent.EXTRA_TEXT,
 												"Here are my 'know it owl'-Stacks");
-										startActivity(intent);
+										startActivity(Intent.createChooser(
+												intent, "Send"));
 									}
 								};
 								r.run();
@@ -519,7 +557,13 @@ public class AdminImportExport extends FragmentActivity implements
 																getActivity(),
 																"Stack "
 																		+ stackName
-																		+ " exported to /sdcard/knowItOwl/",
+																		+ " exported to "
+																		+ Environment
+																				.getExternalStorageDirectory()
+																				.getPath()
+																		+ "/knowItOwl/"
+																		+ stackName
+																		+ ".xml",
 																Toast.LENGTH_SHORT);
 												toast.show();
 												AdminImportExport.importList
@@ -527,23 +571,25 @@ public class AdminImportExport extends FragmentActivity implements
 																.updateImportListAdapter());
 												Intent intent = new Intent(
 														Intent.ACTION_SEND);
-												intent.setType("file/xml");
+												intent.setType("file/*");
 												intent.putExtra(
 														Intent.EXTRA_STREAM,
-														Uri.parse("file:/"
-																+ Environment
+														Uri.fromFile(new File(
+																Environment
 																		.getExternalStorageDirectory()
 																		.getPath()
-																+ "/knowItOwl/"
-																+ stackName
-																+ ".xml"));
+																		+ "/knowItOwl/"
+																		+ stackName
+																		+ ".xml")));
 												intent.putExtra(
 														Intent.EXTRA_SUBJECT,
 														"Export of my 'know it owl'-Stack");
 												intent.putExtra(
 														Intent.EXTRA_TEXT,
 														"Here is my 'know it owl'-Stack");
-												startActivity(intent);
+												startActivity(Intent
+														.createChooser(intent,
+																"Send"));
 											}
 										}
 									}

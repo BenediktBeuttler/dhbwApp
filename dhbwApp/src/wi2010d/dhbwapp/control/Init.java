@@ -2,6 +2,7 @@ package wi2010d.dhbwapp.control;
 
 import java.util.Date;
 
+import wi2010d.dhbwapp.AdminImportExport;
 import wi2010d.dhbwapp.R;
 import wi2010d.dhbwapp.StartScreen;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
@@ -14,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ProgressBar;
 
 /**
@@ -52,13 +54,21 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 	@Override
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
-
 		new ErrorHandler(startScreenActivity.getApplicationContext());
-		Intent i = new Intent(startScreenActivity.getApplicationContext(),
-				StartScreen.class);
+
+		if (startScreenActivity.getIntent().getData() != null
+				&& startScreenActivity.getIntent().getData().getPath() != null) {
+			String path = startScreenActivity.getIntent().getData().getPath();
+			Intent intent = new Intent(startScreenActivity.getApplicationContext(), AdminImportExport.class);
+			intent.putExtra("Path", path);
+			startScreenActivity.startActivity(intent);
+			startScreenActivity.finish();
+		}
+		else{
+		Intent i = new Intent(startScreenActivity.getApplicationContext(),StartScreen.class);
 		startScreenActivity.startActivity(i);
 		startScreenActivity.finish();
-
+		}
 	}
 
 	/**

@@ -25,6 +25,22 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:mimeType="*/*" />
+                <data android:scheme="file" />
+                <data android:host="*" />
+                <data android:pathPattern="*.xml" />
+                <data android:pathPattern=".*\\.xml" />
+                <data android:pathPattern=".*\\..*\\.xml" />
+                <data android:pathPattern=".*\\..*\\..*\\.xml" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.xml" />
+            </intent-filter>
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.StartScreen"
@@ -105,22 +121,6 @@
             android:name="wi2010d.dhbwapp.AdminImportExport"
             android:label="@string/title_activity_admin_import_export"
             android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.EDIT" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:mimeType="*/*" />
-                <data android:scheme="file" />
-                <data android:host="*" />
-                <data android:pathPattern="*.xml" />
-                <data android:pathPattern=".*\\.xml" />
-                <data android:pathPattern=".*\\..*\\.xml" />
-                <data android:pathPattern=".*\\..*\\..*\\.xml" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.xml" />
-            </intent-filter>
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.AdminEditCard"
