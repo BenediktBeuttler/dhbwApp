@@ -77,7 +77,7 @@ public class Learn {
 
 		if (sure.size() > 2) {
 			int valueFor = sure.size() / 3 * 2;
-			if (sure.size() % 3 == 2) {
+			if (sure.size() % 3 >= 1) {
 				valueFor++;
 			}
 			for (int i = 1; i <= valueFor; i++) {
