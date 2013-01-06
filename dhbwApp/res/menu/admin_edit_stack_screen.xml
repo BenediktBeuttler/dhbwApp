@@ -28,4 +28,5 @@
         android:showAsAction="always"
         android:title="@string/btn_admin_reset_stack"/>
 
+
 </menu>
