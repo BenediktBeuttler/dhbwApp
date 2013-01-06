@@ -2,6 +2,7 @@ package wi2010d.dhbwapp;
 
 import java.util.ArrayList;
 
+import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Stack;
@@ -90,20 +91,18 @@ public class AdminChooseStackScreen extends Activity {
 		}
 	}
 
-	// Define what happends when the item in list is long pressed
+	// Define what happens when the item in list is long pressed
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info;
 		final String stackName;
-		
+
 		if (item.getTitle() == "Change Name") {
 
-			// pass the stack name to the edit activity and wheater it is an
+			// pass the stack name to the edit activity and whether it is an
 			// dynamic generated stack or not, edit it
-			info = (AdapterContextMenuInfo) item
-					.getMenuInfo();
-			stackName = ((TextView) info.targetView).getText()
-					.toString();
+			info = (AdapterContextMenuInfo) item.getMenuInfo();
+			stackName = ((TextView) info.targetView).getText().toString();
 
 			if (!stackName.equals("No stacks available")) {
 				for (Stack stack : Stack.allStacks) {
@@ -119,12 +118,10 @@ public class AdminChooseStackScreen extends Activity {
 
 			}
 		} else if (item.getTitle() == "Change Name and Tags") {
-			// pass the stack name to the edit activity and wheater it is an
+			// pass the stack name to the edit activity and whether it is an
 			// dynamic generated stack or not, edit it
-			info = (AdapterContextMenuInfo) item
-					.getMenuInfo();
-			stackName = ((TextView) info.targetView).getText()
-					.toString();
+			info = (AdapterContextMenuInfo) item.getMenuInfo();
+			stackName = ((TextView) info.targetView).getText().toString();
 
 			if (!stackName.equals("No stacks available")) {
 				for (Stack stack : Stack.allStacks) {
@@ -142,20 +139,19 @@ public class AdminChooseStackScreen extends Activity {
 
 			}
 		} else if (item.getTitle() == "Reset Drawer") {
-			// all cards of this stack get resetted and set back to the drawer:
+			// all cards of this stack get reseted and set back to the drawer:
 			// don't know
-			info = (AdapterContextMenuInfo) item
-					.getMenuInfo();
-			stackName = ((TextView) info.targetView).getText()
-					.toString();
-			
+			info = (AdapterContextMenuInfo) item.getMenuInfo();
+			stackName = ((TextView) info.targetView).getText().toString();
+
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 					this);
 			// set title
 			alertDialogBuilder.setTitle("Delete Card");
 			// set dialog message
 			alertDialogBuilder
-					.setMessage("Are you sure you want to reset all cards in this stack to 'don't know'?")
+					.setMessage(
+							"Are you sure you want to reset all cards in this stack to 'don't know'?")
 					.setIcon(R.drawable.question)
 					.setCancelable(false)
 					.setPositiveButton("Yes",
@@ -164,11 +160,15 @@ public class AdminChooseStackScreen extends Activity {
 										int id) {
 									// reset all cards to don't know
 									for (Stack stack : Stack.allStacks) {
-										if (stack.getStackName().equals(stackName)) {
-											Edit.getInstance().resetDrawer(stack);
-											Toast toast = Toast.makeText(getApplicationContext(),
-													"Stack has been resetted successfully",
-													Toast.LENGTH_SHORT);
+										if (stack.getStackName().equals(
+												stackName)) {
+											Edit.getInstance().resetDrawer(
+													stack);
+											Toast toast = Toast
+													.makeText(
+															getApplicationContext(),
+															"Stack has been resetted successfully",
+															Toast.LENGTH_SHORT);
 											toast.show();
 											setResult(AdminChooseStackScreen.RESULT_OK);
 											break;
@@ -190,16 +190,20 @@ public class AdminChooseStackScreen extends Activity {
 
 			// show it
 			alertDialog.show();
-		
+
 		} else if (item.getTitle() == "Delete") {
 			// TODO: OnClick: Delete -->
 			// Delete.getInstance().deleteStack(stack), vorher stack raussuchen,
 			// dann onActivityResult(0,RESULT_OK,null) ausführen
-			
+
 			// Delete the selected stack, after asking the user
 
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 					this);
+			info = (AdapterContextMenuInfo) item.getMenuInfo();
+
+			stackName = ((TextView) info.targetView).getText().toString();
+
 			// set title
 			alertDialogBuilder.setTitle("Delete Card");
 			// set dialog message
@@ -211,8 +215,19 @@ public class AdminChooseStackScreen extends Activity {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int id) {
-									// delete here
-									
+									for (Stack stack : Stack.allStacks) {
+										if (stack.getStackName().equals(
+												stackName)) {
+											//Delete the stack
+											Delete.getInstance().deleteStack(stack);
+											//reset the stackList
+											items = updateStackList();
+											lvAdapter = new ArrayAdapter<String>(getApplicationContext(),
+													R.layout.layout_listitem, items);
+											lv.setAdapter(lvAdapter);
+
+										}
+									}
 								}
 							})
 					.setNegativeButton("No",
