@@ -2,9 +2,13 @@ package wi2010d.dhbwapp;
 
 import java.util.ArrayList;
 
+import wi2010d.dhbwapp.control.Delete;
+import wi2010d.dhbwapp.control.Learn;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -84,7 +88,38 @@ public class AdminChooseStackScreen extends Activity {
 	        }  
 	    else if(item.getTitle()=="Delete"){
 	    	//TODO: OnClick: Delete --> Delete.getInstance().deleteStack(stack), vorher stack raussuchen, dann onActivityResult(0,RESULT_OK,null) ausführen
-	    	//delete the selected stack
+	    	//Delete the selected stack, after the user is asked to delete the stack
+	    	
+	    	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					this);
+			// set title
+			alertDialogBuilder.setTitle("Delete Card");
+			// set dialog message
+			alertDialogBuilder
+					.setMessage("Are you sure you want to delete this stack?")
+					.setIcon(R.drawable.question)
+					.setCancelable(false)
+					.setPositiveButton("Yes",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									//delete here
+								}
+							})
+					.setNegativeButton("No",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									// if this button is clicked, just close
+									// the dialog box and do nothing
+									dialog.cancel();
+								}
+							});
+			// create alert dialog
+			AlertDialog alertDialog = alertDialogBuilder.create();
+
+			// show it
+			alertDialog.show();
 	    }  
 	    else if(item.getTitle()=="Archive"){
 	    	//TODO: OnClick: Archive --> Erst Exchange.exportStack, dann delete
