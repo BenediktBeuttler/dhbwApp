@@ -1,10 +1,14 @@
 package wi2010d.dhbwapp;
 
+import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Edit;
+import wi2010d.dhbwapp.control.Learn;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -19,7 +23,7 @@ import android.widget.Toast;
 public class AdminEditStack extends FragmentActivity {
 	String stackName;
 	EditText txt_stack_name;
-	
+
 	public AdminEditStack() {
 		super();
 	}
@@ -29,7 +33,7 @@ public class AdminEditStack extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_edit_stack_screen);
 		txt_stack_name = (EditText) findViewById(R.id.txt_admin_edit_stack);
-		
+
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras == null) {
@@ -72,7 +76,7 @@ public class AdminEditStack extends FragmentActivity {
 			String newStackName = (txt_stack_name.getText().toString());
 			for (Stack stack : Stack.allStacks) {
 				if (stack.getStackName().equals(newStackName)) {
-					//ErrorHandling, if stack name is already taken.
+					// ErrorHandling, if stack name is already taken.
 					ErrorHandlerFragment newFragment = ErrorHandlerFragment
 							.newInstance(R.string.error_handler_name_taken,
 									ErrorHandlerFragment.NAME_TAKEN);
@@ -92,8 +96,8 @@ public class AdminEditStack extends FragmentActivity {
 			}
 			return true;
 		case R.id.btn_admin_edit_reset_stack:
-			for (Stack stack : Stack.allStacks){
-				if (stack.getStackName().equals(stackName)){
+			for (Stack stack : Stack.allStacks) {
+				if (stack.getStackName().equals(stackName)) {
 					Edit.getInstance().resetDrawer(stack);
 					Toast toast = Toast.makeText(getApplicationContext(),
 							"Stack has been resetted successfully",
@@ -103,6 +107,56 @@ public class AdminEditStack extends FragmentActivity {
 					break;
 				}
 			}
+			return true;
+		case R.id.btn_admin_edit_delete_stack:
+
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					this);
+			// set title
+			alertDialogBuilder.setTitle("Delete Stack");
+			// set dialog message
+			alertDialogBuilder
+					.setMessage("Are you sure you want to delete this stack?")
+					.setIcon(R.drawable.question)
+					.setCancelable(false)
+					.setPositiveButton("Yes",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									for (Stack stack : Stack.allStacks) {
+										if (stack.getStackName().equals(
+												stackName)) {
+											Delete.getInstance().deleteStack(
+													stack);
+											Toast toast = Toast
+													.makeText(
+															getApplicationContext(),
+															"Stack has been deleted successfully",
+															Toast.LENGTH_SHORT);
+											toast.show();
+											setResult(AdminChooseStackScreen.RESULT_OK);
+											finish();
+											break;
+										}
+									}
+
+								}
+							})
+					.setNegativeButton("No",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									// if this button is clicked, just close
+									// the dialog box and do nothing
+									dialog.cancel();
+								}
+							});
+			// create alert dialog
+			AlertDialog alertDialog = alertDialogBuilder.create();
+
+			// show it
+			alertDialog.show();
+
 			return true;
 		default:
 			ErrorHandler error = new ErrorHandler(getApplicationContext());

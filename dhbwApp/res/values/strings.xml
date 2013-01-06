@@ -9,6 +9,7 @@
     <string name="btn_start_help">Help</string>
     <string name="btn_admin_new_card_new_stack">New Stack</string>
     <string name="btn_admin_new_card_existing_stack">Existing Stack</string>
+    <string name="btn_admin_delete_stack">Delete Stack</string>
     <string name="menu_learning">Learning Menu</string>
     <string name="menu_admin">Administration Menu</string>
     <string name="menu_statistics">Statistics Menu</string>
