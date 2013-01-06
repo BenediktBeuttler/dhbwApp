@@ -27,11 +27,6 @@
         android:orderInCategory="100"
         android:showAsAction="always"
         android:title="@string/btn_admin_reset_stack"/>
-    <item
-        android:id="@+id/btn_admin_edit_delete_stack"
-        android:icon="@drawable/cancel"
-        android:orderInCategory="100"
-        android:showAsAction="always"
-        android:title="@string/btn_admin_delete_stack"/>
+
 
 </menu>

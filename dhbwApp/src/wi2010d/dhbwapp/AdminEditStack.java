@@ -108,56 +108,6 @@ public class AdminEditStack extends FragmentActivity {
 				}
 			}
 			return true;
-		case R.id.btn_admin_edit_delete_stack:
-
-			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-					this);
-			// set title
-			alertDialogBuilder.setTitle("Delete Stack");
-			// set dialog message
-			alertDialogBuilder
-					.setMessage("Are you sure you want to delete this stack?")
-					.setIcon(R.drawable.question)
-					.setCancelable(false)
-					.setPositiveButton("Yes",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									for (Stack stack : Stack.allStacks) {
-										if (stack.getStackName().equals(
-												stackName)) {
-											Delete.getInstance().deleteStack(
-													stack);
-											Toast toast = Toast
-													.makeText(
-															getApplicationContext(),
-															"Stack has been deleted successfully",
-															Toast.LENGTH_SHORT);
-											toast.show();
-											setResult(AdminChooseStackScreen.RESULT_OK);
-											finish();
-											break;
-										}
-									}
-
-								}
-							})
-					.setNegativeButton("No",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									// if this button is clicked, just close
-									// the dialog box and do nothing
-									dialog.cancel();
-								}
-							});
-			// create alert dialog
-			AlertDialog alertDialog = alertDialogBuilder.create();
-
-			// show it
-			alertDialog.show();
-
-			return true;
 		default:
 			ErrorHandler error = new ErrorHandler(getApplicationContext());
 			error.handleError(1);
