@@ -129,10 +129,16 @@ public class Learn {
 
 	public Card learnCard(int drawer) {
 
+		//if drawer 4 is delivered, the learning session will be aborted
+		if (drawer == 4) {
+			actualCard=cardsInQueues;
+		}
+
+		//if drawer is 0, 1 or 2, the actual card's drawer will be updated
 		if (drawer <= 2) {
 			Edit.getInstance().setDrawer(card, drawer);
 		}
-		
+
 		if (actualCard >= cardsInQueues) {
 			// globale Variable runthroughDone auf true setzen
 
