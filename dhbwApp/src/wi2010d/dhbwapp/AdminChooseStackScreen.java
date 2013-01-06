@@ -29,8 +29,10 @@ public class AdminChooseStackScreen extends Activity {
 	private ArrayList<String> items = new ArrayList<String>();
 	private ListView lv;
 	private ArrayAdapter<String> lvAdapter;
-	//tell android that we want this view to create a menu when it is long pressed. Method onCreateContextMenu is further relevant
-			//registerForContextMenu(lv);
+
+	// tell android that we want this view to create a menu when it is long
+	// pressed. Method onCreateContextMenu is further relevant
+	// registerForContextMenu(lv);
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,72 +41,98 @@ public class AdminChooseStackScreen extends Activity {
 		items = updateStackList();
 
 		lv = (ListView) findViewById(R.id.admin_stack_list);
-		lvAdapter = new ArrayAdapter<String>(this,
-				R.layout.layout_listitem, items);
+		lvAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,
+				items);
 		lv.setAdapter(lvAdapter);
-		//tell android that we want this view to create a menu when it is long pressed. Method onCreateContextMenu is further relevant
+		// tell android that we want this view to create a menu when it is long
+		// pressed. Method onCreateContextMenu is further relevant
 		registerForContextMenu(lv);
-		
+
 		lv.setClickable(true);
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
-				parent.showContextMenuForChild(v);  
+				parent.showContextMenuForChild(v);
 			}
-		});		
+		});
 	}
-		
-	//When the registered view receives a long-click event, the system calls the onCreateContextMenu() method. This is where the menu items are defined.
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-	    super.onCreateContextMenu(menu, v, menuInfo);
-	    
-	    //AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;	
-    	
-	    menu.add(0, v.getId(), 0, "Change Name"); 
-	    menu.add(0, v.getId(), 1, "Reset Drawer"); 
-	    menu.add(0, v.getId(), 2, "Delete"); 
-	    menu.add(0, v.getId(), 3, "Archive"); 
-	}
-	//Define what happends when the item in list is long pressed
-	@Override  
-	public boolean onContextItemSelected(MenuItem item) {
-	        if(item.getTitle()=="Change Name"){
-	        	//pass the stack name to the edit activity and wheater it is an dynamic generated stack or not, edit it
-	        	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();	
-	        	String stackName = ((TextView) info.targetView).getText().toString();
-	        	
-				if (!stackName.equals("No stacks available")) {
-					for (Stack stack : Stack.allStacks) {
-						if (stack.getStackName().equals(stackName)) {
-							if (stack.isDynamicGenerated()) {
-								Intent i = new Intent(getApplicationContext(),
-										AdminEditDynamicStack.class);
-								i.putExtra("stackName", stackName);
-								i.putExtra("buttonInvisible", true);
-								startActivityForResult(i, 1);
-								break;
 
-							} else {
-								Intent i = new Intent(getApplicationContext(),
-										AdminEditStack.class);
-								i.putExtra("stackName", stackName);
-								startActivityForResult(i, 1);
-								break;
-							}
+	// When the registered view receives a long-click event, the system calls
+	// the onCreateContextMenu() method. This is where the menu items are
+	// defined.
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+		String sName = ((TextView) info.targetView).getText().toString();
+		boolean isDynamic = false;
+		for (Stack stack : Stack.allStacks) {
+			if (stack.getStackName().equals(sName)) {
+				if (stack.isDynamicGenerated()) {
+					isDynamic = true;
+				}
+			}
+		}
+		if (isDynamic) {
+			menu.add(0, v.getId(), 0, "Change Name and Tags");
+			menu.add(0, v.getId(), 1, "Reset Drawer");
+			menu.add(0, v.getId(), 2, "Delete");
+			menu.add(0, v.getId(), 3, "Archive");
+		} else {
+			menu.add(0, v.getId(), 0, "Change Name");
+			menu.add(0, v.getId(), 1, "Reset Drawer");
+			menu.add(0, v.getId(), 2, "Delete");
+			menu.add(0, v.getId(), 3, "Archive");
+		}
+	}
+
+	// Define what happends when the item in list is long pressed
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		if (item.getTitle() == "Change Name") {
+
+			// pass the stack name to the edit activity and wheater it is an
+			// dynamic generated stack or not, edit it
+			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+					.getMenuInfo();
+			String stackName = ((TextView) info.targetView).getText()
+					.toString();
+
+			if (!stackName.equals("No stacks available")) {
+				for (Stack stack : Stack.allStacks) {
+					if (stack.getStackName().equals(stackName)) {
+						if (stack.isDynamicGenerated()) {
+							Intent i = new Intent(getApplicationContext(),
+									AdminEditDynamicStack.class);
+							i.putExtra("stackName", stackName);
+							i.putExtra("buttonInvisible", true);
+							startActivityForResult(i, 1);
+							break;
+
+						} else {
+							Intent i = new Intent(getApplicationContext(),
+									AdminEditStack.class);
+							i.putExtra("stackName", stackName);
+							startActivityForResult(i, 1);
+							break;
 						}
 					}
-
 				}
-	        }  
-	    else if(item.getTitle()=="Reset Drawer"){
-		    	//all cards of this stack get resetted and set back to the drawer: don't know
-	    	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();	
-        	String stackName = ((TextView) info.targetView).getText().toString();
-        	
-	    	for (Stack stack : Stack.allStacks) {
+
+			}
+		} else if (item.getTitle() == "Reset Drawer") {
+			// all cards of this stack get resetted and set back to the drawer:
+			// don't know
+			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+					.getMenuInfo();
+			String stackName = ((TextView) info.targetView).getText()
+					.toString();
+
+			for (Stack stack : Stack.allStacks) {
 				if (stack.getStackName().equals(stackName)) {
 					Edit.getInstance().resetDrawer(stack);
 					Toast toast = Toast.makeText(getApplicationContext(),
@@ -115,12 +143,14 @@ public class AdminChooseStackScreen extends Activity {
 					break;
 				}
 			}
-		    }  
-	    else if(item.getTitle()=="Delete"){
-	    	//TODO: OnClick: Delete --> Delete.getInstance().deleteStack(stack), vorher stack raussuchen, dann onActivityResult(0,RESULT_OK,null) ausführen
-	    	//Delete the selected stack, after the user is asked to delete the stack
-	    	
-	    	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+		} else if (item.getTitle() == "Delete") {
+			// TODO: OnClick: Delete -->
+			// Delete.getInstance().deleteStack(stack), vorher stack raussuchen,
+			// dann onActivityResult(0,RESULT_OK,null) ausführen
+			// Delete the selected stack, after the user is asked to delete the
+			// stack
+
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 					this);
 			// set title
 			alertDialogBuilder.setTitle("Delete Card");
@@ -133,7 +163,7 @@ public class AdminChooseStackScreen extends Activity {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int id) {
-									//delete here
+									// delete here
 								}
 							})
 					.setNegativeButton("No",
@@ -150,16 +180,17 @@ public class AdminChooseStackScreen extends Activity {
 
 			// show it
 			alertDialog.show();
-	    }  
-	    else if(item.getTitle()=="Archive"){
-	    	//TODO: OnClick: Archive --> Erst Exchange.exportStack, dann delete
-	    	//first the stack gets exported to the knowitowl-directory, then the stack gets deleted
-	    }  
-	    else {return false;}  
+		} else if (item.getTitle() == "Archive") {
+			// TODO: OnClick: Archive --> Erst Exchange.exportStack, dann delete
+			// first the stack gets exported to the knowitowl-directory, then
+			// the stack gets deleted
+		} else {
+			return false;
+		}
 
-	return true;  
-	}  
-	
+		return true;
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
