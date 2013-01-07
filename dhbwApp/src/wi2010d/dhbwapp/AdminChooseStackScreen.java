@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +32,6 @@ public class AdminChooseStackScreen extends Activity {
 
 	public final static int RESULT_OK = 1;
 	public final static int RESULT_FAIL = 2;
-	private ArrayList<String> items = new ArrayList<String>();
 	private ListView lv;
 	private ArrayAdapter<String> lvAdapter;
 
@@ -106,10 +106,75 @@ public class AdminChooseStackScreen extends Activity {
 				// pass the stack name to the edit activity and whether it is an
 				// dynamic generated stack or not, edit it
 
-				Intent i = new Intent(getApplicationContext(),
-						AdminEditStack.class);
-				i.putExtra("stackName", stackName);
-				startActivityForResult(i, 1);
+				/*
+				 * Intent i = new Intent(getApplicationContext(),
+				 * AdminEditStack.class); i.putExtra("stackName", stackName);
+				 * startActivityForResult(i, 1);
+				 */
+
+				// create dialog to insert name of new stack
+				AlertDialog.Builder alert = new AlertDialog.Builder(this);
+				alert.setTitle("Edit Stack");
+				alert.setMessage("Change the name of the stack");
+
+				// Set an EditText view to get user input
+				final EditText input = new EditText(this);
+				input.setText(stackName);
+				alert.setView(input);
+
+				alert.setPositiveButton("Update",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								// do sth
+								Toast toast;
+								if (input.getText().toString().equals("")) {
+									toast = Toast.makeText(
+											getApplicationContext(),
+											"Please insert a stack name!",
+											Toast.LENGTH_SHORT);
+									toast.show();
+								} else if (input.getText().toString()
+										.equals("All Stacks")) {
+									toast = Toast
+											.makeText(
+													getApplicationContext(),
+													"Stack name cannot be 'All Stacks', please select another one!",
+													Toast.LENGTH_LONG);
+									toast.show();
+
+								} else {
+									Stack clickedStack = null;
+									for (Stack stack : Stack.allStacks) {
+										if (stack.getStackName().equals(
+												stackName)) {
+											clickedStack = stack;
+											break;
+										}
+									}
+									String clickedStackName = input.getText()
+											.toString();
+									Edit.getInstance().changeStackName(
+											clickedStackName, clickedStack);
+									toast = Toast.makeText(
+											getApplicationContext(), "Stack "
+													+ clickedStackName
+													+ " changed succesfully",
+											Toast.LENGTH_LONG);
+									toast.show();
+									updateStackList();
+								}
+							}
+						});
+
+				alert.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.cancel();
+							}
+						});
+				alert.show();
 
 			} else if (item.getTitle() == "Change Name and Tags") {
 				// pass the stack name to the edit activity and whether it is an
@@ -256,14 +321,16 @@ public class AdminChooseStackScreen extends Activity {
 					} catch (Exception e) {
 						// TODO Bisl ErrorBeuttlern ExportError
 						ErrorHandlerFragment newFragment = ErrorHandlerFragment
-								.newInstance(R.string.error_handler_general, ErrorHandlerFragment.GENERAL_ERROR );
-						newFragment.show(this.getFragmentManager(), "dialog");	
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(this.getFragmentManager(), "dialog");
 					}
 				} else {
-					//SD KArte nicht gefunden!
+					// SD KArte nicht gefunden!
 					ErrorHandlerFragment newFragment = ErrorHandlerFragment
-							.newInstance(R.string.error_handler_no_sd, ErrorHandlerFragment.NO_SD );
-					newFragment.show(this.getFragmentManager(), "dialog");	
+							.newInstance(R.string.error_handler_no_sd,
+									ErrorHandlerFragment.NO_SD);
+					newFragment.show(this.getFragmentManager(), "dialog");
 				}
 			} else {
 				return false;
@@ -271,13 +338,6 @@ public class AdminChooseStackScreen extends Activity {
 		}
 
 		return true;
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == RESULT_OK) {
-			updateStackList();
-		}
 	}
 
 	public boolean updateStackList() {
