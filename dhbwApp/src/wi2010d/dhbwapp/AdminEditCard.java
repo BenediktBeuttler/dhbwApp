@@ -165,7 +165,8 @@ public class AdminEditCard extends FragmentActivity implements
 				String front = cardFront.getText().toString();
 				
 				setResult(LearningCard.RESULT_CHANGED);
-				Edit.getInstance().changeCard(front, back, "", "", cardTagList, card);
+				Edit.getInstance().changeCard(front, back, card.getCardFrontPicture(), 
+						card.getCardBackPicture(), cardTagList, card);
 				finish();
 			}
 			return true;
@@ -342,7 +343,7 @@ public class AdminEditCard extends FragmentActivity implements
 			});
 			
 			//Set up Button for showing the actual picture
-			showPictureButton = (Button) v.findViewById(R.id.btn_edit_picture_back_show);
+			showPictureButton = (Button) v.findViewById(R.id.btn_edit_picture_front_show);
 			showPictureButton.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
