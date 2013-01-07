@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wi2010d.dhbwapp.control.Create;
+import wi2010d.dhbwapp.control.Delete;
+import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.AlertDialog;
@@ -157,7 +159,7 @@ public class AdminTagListFragment extends Fragment {
 	public boolean onContextItemSelected(MenuItem item) {
 		final AdapterContextMenuInfo info;
 		info = (AdapterContextMenuInfo) item.getMenuInfo();
-		//String tagName = ((TextView) info.targetView).getText().toString();
+		final String tagName = tagListAdapter.getItem(info.position).getTagName();
 
 		if (true/*!tagName.equals("No stacks available")*/) {
 			if (item.getTitle() == "Edit") {
@@ -169,22 +171,26 @@ public class AdminTagListFragment extends Fragment {
 				alert.setMessage("Edit the tag name");
 				// Set an EditText view to get user input
 				final EditText input = new EditText(getActivity());
-				//input.setText(tagName);
+				input.setText(tagName);
+				//pass the string to the textView
 				alert.setView(input);
 				alert.setPositiveButton("Save",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
-								//TODO for the beuttler
-								input.setText(tagListAdapter.getItem(info.position).getTagName());
-
-							}
-						});
-				alert.setNeutralButton("Delete",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								//DELETE HERE
+								//update the ListView by finding the selected tag name and edit it
+								for(Tag tag:Tag.allTags)
+								{
+									if (tagName.equals(tag.getTagName())){
+										Edit.getInstance().editTag(input.getText().toString(), tag);
+										break;
+									}
+								}
+								tagListAdapter = new TagArrayAdapter(getActivity(), getTagsWithCards());
+								mainListView.setAdapter(tagListAdapter);	
+								Toast toast;
+								toast = Toast.makeText(getActivity(),tagName + " changed to " + input.getText().toString(),	Toast.LENGTH_LONG);
+								toast.show();
 							}
 						});
 				alert.setNegativeButton("Cancel",
@@ -198,6 +204,41 @@ public class AdminTagListFragment extends Fragment {
 				alert.show();
 
 			} else if (item.getTitle() == "Delete") {
+				// create a dialog to change the tag name
+				AlertDialog.Builder alert = new AlertDialog.Builder(
+						getActivity());
+				alert.setTitle("Delete");
+				alert.setMessage("Are you sure you want to delete this tag?");
+				alert.setIcon(R.drawable.question);
+				//pass the string to the textView
+				alert.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								for(Tag tag:Tag.allTags)
+								{
+									if (tagName.equals(tag.getTagName())){
+										Delete.getInstance().deleteTag(tag);
+										break;
+									}
+								}
+								tagListAdapter = new TagArrayAdapter(getActivity(), getTagsWithCards());
+								mainListView.setAdapter(tagListAdapter);
+								Toast toast;
+								toast = Toast.makeText(getActivity(),tagName + " has been deleted.", Toast.LENGTH_LONG);
+								toast.show();
+							}
+						});
+				alert.setNegativeButton("No",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								// Canceled.
+								dialog.cancel();
+							}
+						});
+				alert.show();
+				
 			} else {
 				return false;
 			}
