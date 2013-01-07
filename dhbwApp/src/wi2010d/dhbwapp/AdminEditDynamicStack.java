@@ -307,7 +307,7 @@ public class AdminEditDynamicStack extends FragmentActivity implements
 			View v = inflater.inflate(R.layout.admin_edit_stack_screen, null);
 
 			txt_stack_name = (EditText) v
-					.findViewById(R.id.txt_admin_edit_stack);
+					.findViewById(R.id.txt_admin_edit_stack); 
 			txt_stack_name.setText(stackName);
 
 			return v;
