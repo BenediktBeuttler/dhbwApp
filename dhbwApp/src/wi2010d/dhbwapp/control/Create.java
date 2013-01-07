@@ -43,7 +43,6 @@ public class Create {
 	public boolean newStack(String name, Card card) {
 		List<Card> cards = new ArrayList<Card>();
 		cards.add(card);
-		
 
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
@@ -52,8 +51,9 @@ public class Create {
 				return false;
 			}
 		}
-		 Database.getInstance()
-			.addNewStack(new Stack(false, name, cards));
+		card.increaseTotalStacks();
+		Database.getInstance().changeCard(card);
+		Database.getInstance().addNewStack(new Stack(false, name, cards));
 		return true;
 	}
 
@@ -68,7 +68,7 @@ public class Create {
 		List<Card> cards = new ArrayList<Card>();
 		Stack dynamicStack;
 		boolean containsTag;
-		
+
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
 				ErrorHandler.getInstance().handleError(
@@ -80,21 +80,22 @@ public class Create {
 		// identify all cards that contain the selected tags
 		for (Card card : Card.allCards) {
 			containsTag = false;
-			
+
 			for (Tag tag : card.getTags()) {
 				if (tags.contains(tag)) {
 					containsTag = true;
 				}
 			}
-			 
-			if (containsTag){
+
+			if (containsTag) {
 				// add identified cards to list
-				cards.add(card);	
+				cards.add(card);
+				card.increaseTotalStacks();
+				Database.getInstance().changeCard(card);
 			}
 		}
-		
+
 		dynamicStack = new Stack(true, name, cards);
-		Log.e("StackID: ", ""+Stack.getNextStackID());
 		dynamicStack.setDynamicStackTags(tags);
 		return Database.getInstance().addNewStack(dynamicStack);
 
@@ -129,14 +130,14 @@ public class Create {
 
 		return true;
 	}
-	
+
 	/**
 	 * Update all dynamic stacks
 	 * 
 	 * @return
 	 */
 	public boolean updateDynStack(Stack stack) {
-		
+
 		if (stack.isDynamicGenerated()) {
 			for (Card card : Card.allCards) {
 				for (Tag tag : card.getTags()) {
@@ -153,7 +154,7 @@ public class Create {
 					}
 				}
 			}
-		}		
+		}
 		return true;
 	}
 
@@ -189,15 +190,13 @@ public class Create {
 	 * @return
 	 */
 	public Tag newTag(String name) {
-		
-		for(Tag tag : Tag.allTags)
-		{ 
-			if(tag.getTagName().equals(name))
-			{
+
+		for (Tag tag : Tag.allTags) {
+			if (tag.getTagName().equals(name)) {
 				return null;
 			}
 		}
-		
+
 		Tag tag = new Tag(name);
 		Database.getInstance().addNewTag(tag);
 		return tag;

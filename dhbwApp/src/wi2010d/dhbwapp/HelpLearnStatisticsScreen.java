@@ -1,8 +1,7 @@
 package wi2010d.dhbwapp;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
+import android.os.Bundle;
 
 public class HelpLearnStatisticsScreen extends Activity {
 
@@ -11,6 +10,4 @@ public class HelpLearnStatisticsScreen extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.help_learn_statistics_screen);
 	}
-
-
 }
