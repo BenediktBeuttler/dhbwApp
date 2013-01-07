@@ -9,6 +9,7 @@ public class Delete {
 
 	private Database db = Database.getInstance();
 	private static Delete delete;
+	private boolean fromDeleteStack = false;
 
 	public Delete() {
 		super();
@@ -35,10 +36,14 @@ public class Delete {
 	public boolean deleteStack(Stack stack) {
 		// delete the card from the stack, if the card isn't in any stack,
 		// delete it
+
+		// For the occured Error, see:
+		// http://michaelscharf.blogspot.de/2008/10/concurrentmodificationexception-why-do.html
 		for (Card card : stack.getCards()) {
 			int totalStacks = card.decreaseTotalStacks();
 			Database.getInstance().changeCard(card);
 			if (totalStacks == 0) {
+				fromDeleteStack = true;
 				deleteCard(card);
 			}
 		}
@@ -59,6 +64,7 @@ public class Delete {
 
 		db.deleteStack(stack);
 		stack = null;
+		fromDeleteStack = false;
 		return true;
 	}
 
@@ -92,16 +98,18 @@ public class Delete {
 			}
 		}
 
-		// remove the card from every stack it is in
-		for (Stack stack : Stack.allStacks) {
-			stack.getCards().remove(card);
+		if (fromDeleteStack == false) { // workaround to avoid
+										// ConcurrentModificationException
+			// remove the card from every stack it is in
+			for (Stack stack : Stack.allStacks) {
+				stack.getCards().remove(card);
 
-			// if there's no card in the stack, delete it
-			if (stack.getCards().size() == 0) {
-				deleteStack(stack);
+				// if there's no card in the stack, delete it
+				if (stack.getCards().size() == 0) {
+					deleteStack(stack);
+				}
 			}
 		}
-
 		// Delete the card from the cardlist
 		Card.allCards.remove(card);
 

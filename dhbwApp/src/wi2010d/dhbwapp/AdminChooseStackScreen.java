@@ -2,6 +2,7 @@ package wi2010d.dhbwapp;
 
 import java.util.ArrayList;
 
+import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Stack;
@@ -90,102 +91,152 @@ public class AdminChooseStackScreen extends Activity {
 		}
 	}
 
-	// Define what happends when the item in list is long pressed
+	// Define what happens when the item in list is long pressed
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		if (item.getTitle() == "Change Name") {
+		AdapterContextMenuInfo info;
+		info = (AdapterContextMenuInfo) item.getMenuInfo();
+		final String stackName = ((TextView) info.targetView).getText().toString();
 
-			// pass the stack name to the edit activity and wheater it is an
-			// dynamic generated stack or not, edit it
-			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-					.getMenuInfo();
-			String stackName = ((TextView) info.targetView).getText()
-					.toString();
+		if (!stackName.equals("No stacks available")) {
+			if (item.getTitle() == "Change Name") {
 
-			if (!stackName.equals("No stacks available")) {
-				for (Stack stack : Stack.allStacks) {
-					if (stack.getStackName().equals(stackName)) {
-						if (stack.isDynamicGenerated()) {
-							Intent i = new Intent(getApplicationContext(),
-									AdminEditDynamicStack.class);
-							i.putExtra("stackName", stackName);
-							i.putExtra("buttonInvisible", true);
-							startActivityForResult(i, 1);
-							break;
+				// pass the stack name to the edit activity and whether it is an
+				// dynamic generated stack or not, edit it
 
-						} else {
-							Intent i = new Intent(getApplicationContext(),
-									AdminEditStack.class);
-							i.putExtra("stackName", stackName);
-							startActivityForResult(i, 1);
-							break;
-						}
-					}
-				}
+				Intent i = new Intent(getApplicationContext(),
+						AdminEditStack.class);
+				i.putExtra("stackName", stackName);
+				startActivityForResult(i, 1);
 
+			} else if (item.getTitle() == "Change Name and Tags") {
+				// pass the stack name to the edit activity and whether it is an
+				// dynamic generated stack or not, edit it
+
+				Intent i = new Intent(getApplicationContext(),
+						AdminEditDynamicStack.class);
+				i.putExtra("stackName", stackName);
+				i.putExtra("buttonInvisible", true);
+				startActivityForResult(i, 1);
+
+			} else if (item.getTitle() == "Reset Drawer") {
+				// all cards of this stack get reseted and set back to the
+				// drawer:
+				// don't know
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						this);
+				// set title
+				alertDialogBuilder.setTitle("Delete Card");
+				// set dialog message
+				alertDialogBuilder
+						.setMessage(
+								"Are you sure you want to reset all cards in this stack to 'don't know'?")
+						.setIcon(R.drawable.question)
+						.setCancelable(false)
+						.setPositiveButton("Yes",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										Stack clickedStack = null;
+										for (Stack stack : Stack.allStacks) {
+											if (stack.getStackName().equals(stackName)) {
+												clickedStack = stack;
+												break;
+											}
+										}						
+										
+										// reset all cards to don't know
+										Edit.getInstance().resetDrawer(
+												clickedStack);
+										Toast toast = Toast
+												.makeText(
+														getApplicationContext(),
+														stackName
+																+ " has been resetted successfully",
+														Toast.LENGTH_SHORT);
+										toast.show();
+										setResult(AdminChooseStackScreen.RESULT_OK);
+
+									}
+								})
+						.setNegativeButton("No",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										// if this button is clicked, just close
+										// the dialog box and do nothing
+										dialog.cancel();
+									}
+								});
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+
+				// show it
+				alertDialog.show();
+
+			} else if (item.getTitle() == "Delete") {
+				// Delete the selected stack, after asking the user
+
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						this);
+				// set title
+				alertDialogBuilder.setTitle("Delete Card");
+				// set dialog message
+				alertDialogBuilder
+						.setMessage(
+								"Are you sure you want to delete this stack?")
+						.setIcon(R.drawable.question)
+						.setCancelable(false)
+						.setPositiveButton("Yes",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										Stack clickedStack = null; 
+										for (Stack stack : Stack.allStacks) {
+											if (stack.getStackName().equals(stackName)) {
+												clickedStack = stack;
+												break;
+											}
+										}						
+										
+										// Delete the stack
+										// For the occured Error, see:
+										// http://michaelscharf.blogspot.de/2008/10/concurrentmodificationexception-why-do.html
+										Delete.getInstance().deleteStack(
+												clickedStack);
+
+										// Update the stackList
+										items = updateStackList();
+										lvAdapter = new ArrayAdapter<String>(
+												getApplicationContext(),
+												R.layout.layout_listitem, items);
+										lv.setAdapter(lvAdapter);
+
+									}
+								})
+						.setNegativeButton("No",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										// if this button is clicked, just close
+										// the dialog box and do nothing
+										dialog.cancel();
+									}
+								});
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+
+				// show it
+				alertDialog.show();
+			} else if (item.getTitle() == "Archive") {
+				// TODO: OnClick: Archive --> Erst Exchange.exportStack, dann
+				// delete
+				// first the stack gets exported to the knowitowl-directory,
+				// then
+				// the stack gets deleted
+			} else {
+				return false;
 			}
-		} else if (item.getTitle() == "Reset Drawer") {
-			// all cards of this stack get resetted and set back to the drawer:
-			// don't know
-			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-					.getMenuInfo();
-			String stackName = ((TextView) info.targetView).getText()
-					.toString();
-
-			for (Stack stack : Stack.allStacks) {
-				if (stack.getStackName().equals(stackName)) {
-					Edit.getInstance().resetDrawer(stack);
-					Toast toast = Toast.makeText(getApplicationContext(),
-							"Stack has been resetted successfully",
-							Toast.LENGTH_SHORT);
-					toast.show();
-					setResult(AdminChooseStackScreen.RESULT_OK);
-					break;
-				}
-			}
-		} else if (item.getTitle() == "Delete") {
-			// TODO: OnClick: Delete -->
-			// Delete.getInstance().deleteStack(stack), vorher stack raussuchen,
-			// dann onActivityResult(0,RESULT_OK,null) ausführen
-			// Delete the selected stack, after the user is asked to delete the
-			// stack
-
-			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-					this);
-			// set title
-			alertDialogBuilder.setTitle("Delete Card");
-			// set dialog message
-			alertDialogBuilder
-					.setMessage("Are you sure you want to delete this stack?")
-					.setIcon(R.drawable.question)
-					.setCancelable(false)
-					.setPositiveButton("Yes",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									// delete here
-								}
-							})
-					.setNegativeButton("No",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									// if this button is clicked, just close
-									// the dialog box and do nothing
-									dialog.cancel();
-								}
-							});
-			// create alert dialog
-			AlertDialog alertDialog = alertDialogBuilder.create();
-
-			// show it
-			alertDialog.show();
-		} else if (item.getTitle() == "Archive") {
-			// TODO: OnClick: Archive --> Erst Exchange.exportStack, dann delete
-			// first the stack gets exported to the knowitowl-directory, then
-			// the stack gets deleted
-		} else {
-			return false;
 		}
 
 		return true;
