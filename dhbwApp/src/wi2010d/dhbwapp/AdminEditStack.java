@@ -95,19 +95,6 @@ public class AdminEditStack extends FragmentActivity {
 				}
 			}
 			return true;
-		case R.id.btn_admin_edit_reset_stack:
-			for (Stack stack : Stack.allStacks) {
-				if (stack.getStackName().equals(stackName)) {
-					Edit.getInstance().resetDrawer(stack);
-					Toast toast = Toast.makeText(getApplicationContext(),
-							"Stack has been resetted successfully",
-							Toast.LENGTH_SHORT);
-					toast.show();
-					setResult(AdminChooseStackScreen.RESULT_OK);
-					break;
-				}
-			}
-			return true;
 		default:
 			ErrorHandler error = new ErrorHandler(getApplicationContext());
 			error.handleError(1);

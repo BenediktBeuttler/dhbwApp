@@ -20,7 +20,7 @@
         android:icon="@drawable/dynamicstack"
         android:orderInCategory="100"
         android:showAsAction="always|withText"
-        android:title="@string/btn_learn_dynstack"/>
+        android:title="@string/btn_admin_create_dynamic_stack"/>
     
 
 </menu>
