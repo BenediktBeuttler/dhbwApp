@@ -1,9 +1,11 @@
 package wi2010d.dhbwapp;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Edit;
+import wi2010d.dhbwapp.control.Exchange;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.Activity;
@@ -11,6 +13,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -38,16 +41,13 @@ public class AdminChooseStackScreen extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_choose_stack_screen);
-
-		items = updateStackList();
-
 		lv = (ListView) findViewById(R.id.admin_stack_list);
-		lvAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,
-				items);
-		lv.setAdapter(lvAdapter);
+
 		// tell android that we want this view to create a menu when it is long
 		// pressed. Method onCreateContextMenu is further relevant
 		registerForContextMenu(lv);
+
+		updateStackList();
 
 		lv.setClickable(true);
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -96,7 +96,8 @@ public class AdminChooseStackScreen extends Activity {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info;
 		info = (AdapterContextMenuInfo) item.getMenuInfo();
-		final String stackName = ((TextView) info.targetView).getText().toString();
+		final String stackName = ((TextView) info.targetView).getText()
+				.toString();
 
 		if (!stackName.equals("No stacks available")) {
 			if (item.getTitle() == "Change Name") {
@@ -139,12 +140,13 @@ public class AdminChooseStackScreen extends Activity {
 											int id) {
 										Stack clickedStack = null;
 										for (Stack stack : Stack.allStacks) {
-											if (stack.getStackName().equals(stackName)) {
+											if (stack.getStackName().equals(
+													stackName)) {
 												clickedStack = stack;
 												break;
 											}
-										}						
-										
+										}
+
 										// reset all cards to don't know
 										Edit.getInstance().resetDrawer(
 												clickedStack);
@@ -191,27 +193,21 @@ public class AdminChooseStackScreen extends Activity {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-										Stack clickedStack = null; 
+										Stack clickedStack = null;
 										for (Stack stack : Stack.allStacks) {
-											if (stack.getStackName().equals(stackName)) {
+											if (stack.getStackName().equals(
+													stackName)) {
 												clickedStack = stack;
 												break;
 											}
-										}						
-										
+										}
+
 										// Delete the stack
-										// For the occured Error, see:
-										// http://michaelscharf.blogspot.de/2008/10/concurrentmodificationexception-why-do.html
 										Delete.getInstance().deleteStack(
 												clickedStack);
 
 										// Update the stackList
-										items = updateStackList();
-										lvAdapter = new ArrayAdapter<String>(
-												getApplicationContext(),
-												R.layout.layout_listitem, items);
-										lv.setAdapter(lvAdapter);
-
+										updateStackList();
 									}
 								})
 						.setNegativeButton("No",
@@ -229,11 +225,39 @@ public class AdminChooseStackScreen extends Activity {
 				// show it
 				alertDialog.show();
 			} else if (item.getTitle() == "Archive") {
-				// TODO: OnClick: Archive --> Erst Exchange.exportStack, dann
-				// delete
-				// first the stack gets exported to the knowitowl-directory,
-				// then
-				// the stack gets deleted
+				Stack clickedStack = null;
+				for (Stack stack : Stack.allStacks) {
+					if (stack.getStackName().equals(stackName)) {
+						clickedStack = stack;
+						break;
+					}
+				}
+				if (!Environment.getExternalStorageState().equals(
+						Environment.MEDIA_UNMOUNTED)
+						|| !Environment.getExternalStorageState().equals(
+								Environment.MEDIA_MOUNTED_READ_ONLY)
+						|| new File(Environment.getExternalStorageDirectory()
+								.getPath() + "/knowItOwl/").canWrite()) {
+					try {
+						Exchange.getInstance().exportStack(
+								clickedStack,
+								Environment.getExternalStorageDirectory()
+										.getPath() + "/knowItOwl/", stackName);
+
+						Delete.getInstance().deleteStack(clickedStack);
+
+						updateStackList();
+
+						Toast toast = Toast.makeText(getApplicationContext(),
+								stackName + " archived successfully!",
+								Toast.LENGTH_SHORT);
+						toast.show();
+					} catch (Exception e) {
+						// TODO Bisl ErrorBeuttlern ExportError
+					}
+				} else {
+					// TODO Mehr Errorn --> SD KArte nicht gefunden!
+				}
 			} else {
 				return false;
 			}
@@ -245,14 +269,11 @@ public class AdminChooseStackScreen extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
-			items = updateStackList();
-			lvAdapter = new ArrayAdapter<String>(this,
-					R.layout.layout_listitem, items);
-			lv.setAdapter(lvAdapter);
+			updateStackList();
 		}
 	}
 
-	public ArrayList<String> updateStackList() {
+	public boolean updateStackList() {
 		ArrayList<String> items = new ArrayList<String>();
 		for (Stack stack : Stack.allStacks) {
 			items.add(stack.getStackName());
@@ -260,7 +281,10 @@ public class AdminChooseStackScreen extends Activity {
 		if (items.size() == 0) {
 			items.add("No stacks available");
 		}
-		return items;
+		lvAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,
+				items);
+		lv.setAdapter(lvAdapter);
+		return true;
 	}
 
 	@Override
