@@ -11,8 +11,13 @@ import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -62,11 +67,11 @@ public class LearningCard extends FragmentActivity implements
 	TextView txt_front;
 	TextView txt_back;
 	Button sure, dontKnow, notSure;
+	boolean isRandomStack;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
-		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.learning_card);
 
@@ -76,12 +81,13 @@ public class LearningCard extends FragmentActivity implements
 				stackName = null;
 			} else {
 				stackName = extras.getString("stackName");
+				isRandomStack = extras.getBoolean("isRandomStack", false);
 			}
 		} else {
 			stackName = (String) savedInstanceState
 					.getSerializable("stackName");
 		}
-		setTitle("Learning - "+ stackName);
+		setTitle("Learning - " + stackName);
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(stackName)) {
 				this.stack = stack;
@@ -125,6 +131,7 @@ public class LearningCard extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+
 	}
 
 	@Override
@@ -151,6 +158,7 @@ public class LearningCard extends FragmentActivity implements
 			if (card == null) {
 				Intent intent = (new Intent(this, StatisticsScreen.class));
 				intent.putExtra("Tab", 3);
+				intent.putExtra("isRandomStack", isRandomStack);
 				startActivity(intent);
 				finish();
 			} else {
@@ -169,6 +177,7 @@ public class LearningCard extends FragmentActivity implements
 			if (card == null) {
 				Intent intent = (new Intent(this, StatisticsScreen.class));
 				intent.putExtra("Tab", 3);
+				intent.putExtra("isRandomStack", isRandomStack);
 				startActivity(intent);
 				finish();
 			} else {
@@ -186,6 +195,7 @@ public class LearningCard extends FragmentActivity implements
 			if (card == null) {
 				Intent intent = (new Intent(this, StatisticsScreen.class));
 				intent.putExtra("Tab", 3);
+				intent.putExtra("isRandomStack", isRandomStack);
 				startActivity(intent);
 				finish();
 			} else {
@@ -225,6 +235,7 @@ public class LearningCard extends FragmentActivity implements
 												getApplicationContext(),
 												StatisticsScreen.class));
 										deleteCard.putExtra("Tab", 3);
+										deleteCard.putExtra("isRandomStack", isRandomStack);
 										startActivity(deleteCard);
 										finish();
 									} else {
@@ -254,8 +265,7 @@ public class LearningCard extends FragmentActivity implements
 
 			// show it
 			alertDialog.show();
-			
-			
+
 			return true;
 
 		default:
@@ -305,37 +315,37 @@ public class LearningCard extends FragmentActivity implements
 	public void setCard(Card card) {
 		this.card = card;
 	}
-	
-	public void abortLearning(){
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				this);
+
+	public void abortLearning() {
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		// set title
 		alertDialogBuilder.setTitle("Abort Learning");
 		// set dialog message
 		alertDialogBuilder
-				.setMessage("Are you sure you want to abort this learning session?")
+				.setMessage(
+						"Are you sure you want to abort this learning session?")
 				.setIcon(R.drawable.question)
 				.setCancelable(false)
 				.setPositiveButton("Yes",
 						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int id) {
+							public void onClick(DialogInterface dialog, int id) {
 								card = Learn.getInstance().learnCard(4);
-								Intent intent = (new Intent(getApplicationContext(), StatisticsScreen.class));
+								Intent intent = (new Intent(
+										getApplicationContext(),
+										StatisticsScreen.class));
 								intent.putExtra("Tab", 3);
+								intent.putExtra("isRandomStack", isRandomStack);
 								startActivity(intent);
 								finish();
 							}
 						})
-				.setNegativeButton("No",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int id) {
-								// if this button is clicked, just close
-								// the dialog box and do nothing
-								dialog.cancel();
-							}
-						});
+				.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// if this button is clicked, just close
+						// the dialog box and do nothing
+						dialog.cancel();
+					}
+				});
 		// create alert dialog
 		AlertDialog alertDialog = alertDialogBuilder.create();
 
@@ -452,8 +462,7 @@ public class LearningCard extends FragmentActivity implements
 					.getActualProgressAsString());
 			return v;
 		}
-		
-		
+
 	}
 
 	public class CardBack extends Fragment {
@@ -462,7 +471,7 @@ public class LearningCard extends FragmentActivity implements
 		 * fragment.
 		 */
 		public final String ARG_SECTION_NUMBER = "section_number";
-		
+
 		Button showPicture;
 
 		public CardBack() {
@@ -481,42 +490,41 @@ public class LearningCard extends FragmentActivity implements
 					.findViewById(R.id.txt_learning_counter);
 			txt_counter_back.setText(Learn.getInstance()
 					.getActualProgressAsString());
-			
-			showPicture = (Button) v.findViewById(R.id.btn_learning_card_back_picture);
+
+			showPicture = (Button) v
+					.findViewById(R.id.btn_learning_card_back_picture);
 			showPicture.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					
-				Toast toast;
-				toast = Toast.makeText(getApplicationContext(),
-						"Path: " +  card.getCardBackPicture(), Toast.LENGTH_LONG);
-				toast.show();
-					
-				
-				if (card.getCardBackPicture() != ""){						
-					Intent show = new Intent();
-					show.setAction(Intent.ACTION_VIEW);
-					show.setDataAndType(Uri.fromFile(new File(card.getCardBackPicture())), "image/*");
-					startActivity(show);
-				}
-				
-					
+
+					Toast toast;
+					toast = Toast.makeText(getApplicationContext(), "Path: "
+							+ card.getCardBackPicture(), Toast.LENGTH_LONG);
+					toast.show();
+
+					if (card.getCardBackPicture() != "") {
+						Intent show = new Intent();
+						show.setAction(Intent.ACTION_VIEW);
+						show.setDataAndType(Uri.fromFile(new File(card
+								.getCardBackPicture())), "image/*");
+						startActivity(show);
+					}
+
 				}
 			});
-			
+
 			return v;
 		}
 	}
 
-
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_BACK)
-        {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			abortLearning();
 			return true;
-        }
+		}
 		return false;
 	}
+
 }

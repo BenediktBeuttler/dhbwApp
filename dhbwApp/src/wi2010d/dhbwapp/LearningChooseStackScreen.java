@@ -2,19 +2,29 @@ package wi2010d.dhbwapp;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
 
+import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.control.Exchange;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
+import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,10 +49,58 @@ public class LearningChooseStackScreen extends Activity implements
 	ArrayList<String> items = new ArrayList<String>();
 	ListView lv;
 	ArrayAdapter<String> lvAdapter;
+	private SensorManager mSensorManager;
+	private float mAccel; // acceleration apart from gravity
+	private float mAccelCurrent; // current acceleration including gravity
+	private float mAccelLast; // last acceleration including gravity
+
+	private final SensorEventListener mSensorListener = new SensorEventListener() {
+
+		@Override
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		}
+
+		@Override
+		public void onSensorChanged(SensorEvent event) {
+			float x = event.values[0];
+			float y = event.values[1];
+			float z = event.values[2];
+			mAccelLast = mAccelCurrent;
+			mAccelCurrent = (float) Math.sqrt((double) (x * x + y * y + z * z));
+			float delta = mAccelCurrent - mAccelLast;
+			mAccel = mAccel * 0.9f + delta;
+			if (mAccel > 10) {
+				Random generator = new Random();
+				Stack rndStack = Create.getInstance().newRandomStack(
+						"RandomStack" + new Date(),
+						Card.allCards.get(generator.nextInt(Card.allCards
+								.size())));
+				Intent i = new Intent(getApplicationContext(),
+						LearningCard.class);
+				if (rndStack != null) {
+					i.putExtra("stackName", rndStack.getStackName());
+					i.putExtra("isRandomStack", true);
+					startActivity(i);
+				}
+				else{
+					ErrorHandler.getInstance().handleError(
+							ErrorHandler.getInstance().GENERAL_ERROR);
+				}
+			}
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
+		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		mSensorManager.registerListener(mSensorListener,
+				mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+				SensorManager.SENSOR_DELAY_NORMAL);
+		mAccel = 0.00f;
+		mAccelCurrent = SensorManager.GRAVITY_EARTH;
+		mAccelLast = SensorManager.GRAVITY_EARTH;
 		setContentView(R.layout.learning_choose_stack_screen);
 		createDynStack = (Button) findViewById(R.id.btn_learning_create_dyn_stack);
 		createDynStack.setOnClickListener(new OnClickListener() {
@@ -54,7 +112,6 @@ public class LearningChooseStackScreen extends Activity implements
 				startActivityForResult(i, 1);
 			}
 		});
-
 
 		lv = (ListView) findViewById(R.id.learn_stack_list);
 		updateStackList();
@@ -414,6 +471,20 @@ public class LearningChooseStackScreen extends Activity implements
 	@Override
 	public void onClick(View v) {
 		startActivity(new Intent(this, LearningCard.class));
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mSensorManager.registerListener(mSensorListener,
+				mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+				SensorManager.SENSOR_DELAY_NORMAL);
+	}
+
+	@Override
+	protected void onPause() {
+		mSensorManager.unregisterListener(mSensorListener);
+		super.onPause();
 	}
 
 }

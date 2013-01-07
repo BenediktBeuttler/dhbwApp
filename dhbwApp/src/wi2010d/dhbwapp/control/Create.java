@@ -7,6 +7,7 @@ import wi2010d.dhbwapp.model.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import android.util.Log;
 
@@ -55,6 +56,26 @@ public class Create {
 		Database.getInstance().changeCard(card);
 		Database.getInstance().addNewStack(new Stack(false, name, cards));
 		return true;
+	}
+	
+	public Stack newRandomStack(String name, Card card){
+		List<Card> cards = new ArrayList<Card>();
+		cards.add(card);
+
+		for (Stack stack : Stack.allStacks) {
+			if (stack.getStackName().equals(name)) {
+				ErrorHandler.getInstance().handleError(
+						ErrorHandler.getInstance().NAME_ALREADY_TAKEN);
+				return null;
+			}
+		}
+		Random generator = new Random();
+		
+		for(int i=0;i<=Card.allCards.size()/5;i++){
+			cards.add(Card.allCards.get(generator.nextInt(Card.allCards.size())));
+		}
+		
+		return new Stack(false, name, cards);
 	}
 
 	/**
