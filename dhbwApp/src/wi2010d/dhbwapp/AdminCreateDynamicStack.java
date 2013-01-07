@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +14,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -28,13 +27,16 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 	ArrayList<Tag> dynStackTagList = new ArrayList<Tag>();
 	String name = "";
 	boolean buttonInvisible = true;
+	Context createDynamicStackContext;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.admin_create_dynamic_stack);
 		super.onCreate(savedInstanceState);
+		createDynamicStackContext = this;
 
 		if (savedInstanceState == null) {
+			
 			// set all tags unchecked, then create the list
 			for (Tag tag : Tag.allTags) {
 				tag.setChecked(false);
@@ -107,19 +109,27 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 								int whichButton) {
 							if (dynStackTagList.size() > 0) {
 								setResult(RESULT_CANCELED);
-								if (Create.getInstance().newDynStack(
-										input.getText().toString(),
-										dynStackTagList)) {
-									Toast toast = Toast.makeText(
-											getApplicationContext(),
-											"Dynamic Stack "
-													+ input.getText()
-															.toString()
-													+ " created!",
-											Toast.LENGTH_LONG);
-									toast.show();
-									setResult(RESULT_OK);
-								}
+
+								Runnable r = new Runnable() {
+
+									@Override
+									public void run() {
+										if (Create.getInstance().newDynStack(
+												input.getText().toString(),
+												dynStackTagList)) {
+											Toast toast = Toast.makeText(
+													getApplicationContext(),
+													"Dynamic Stack "
+															+ input.getText()
+																	.toString()
+															+ " created!",
+													Toast.LENGTH_LONG);
+											toast.show();
+											setResult(RESULT_OK);
+										}
+									}
+								};
+								r.run();
 								finish();
 							}
 						}
@@ -133,6 +143,8 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 						}
 					});
 			alert.show();
+			
+			
 			return true;
 		default:
 			return false;
