@@ -373,7 +373,9 @@ public class AdminEditCard extends FragmentActivity implements
 		    	
 					Log.e("AdminEditCard", "test2");
 		       if (resultCode == Activity.RESULT_OK) {
-				    card.setCardFrontPicture(imageUri.getPath());
+				    
+		    	   card.setCardBackPicture(imageUri.getPath());
+				    
 				    //TODO: test ob in db geschrieben
 				    
 					Toast toast;
