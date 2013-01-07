@@ -55,12 +55,9 @@ public class LearningChooseStackScreen extends Activity implements
 			}
 		});
 
-		items = updateStack();
 
 		lv = (ListView) findViewById(R.id.learn_stack_list);
-		lvAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,
-				items);
-		lv.setAdapter(lvAdapter);
+		updateStackList();
 		// tell android that we want this view to create a menu when it is long
 		// pressed. Method onCreateContextMenu is further relevant
 		registerForContextMenu(lv);
@@ -107,13 +104,13 @@ public class LearningChooseStackScreen extends Activity implements
 			menu.add(0, v.getId(), 2, "Reset Anwsers");
 			menu.add(0, v.getId(), 3, "Delete");
 			menu.add(0, v.getId(), 4, "Archive");
-		} else 
+		} else
 			menu.add(0, v.getId(), 0, "Start Learning");
-			menu.add(0, v.getId(), 1, "Change Name");
-			menu.add(0, v.getId(), 2, "Reset Anwsers");
-			menu.add(0, v.getId(), 3, "Delete");
-			menu.add(0, v.getId(), 4, "Archive");
-		}
+		menu.add(0, v.getId(), 1, "Change Name");
+		menu.add(0, v.getId(), 2, "Reset Anwsers");
+		menu.add(0, v.getId(), 3, "Delete");
+		menu.add(0, v.getId(), 4, "Archive");
+	}
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
@@ -124,14 +121,73 @@ public class LearningChooseStackScreen extends Activity implements
 
 		if (!stackName.equals("No stacks available")) {
 			if (item.getTitle() == "Change Name") {
+				// TODO
 
-				// pass the stack name to the edit activity and whether it is an
-				// dynamic generated stack or not, edit it
+				// create dialog to insert name of new stack
+				AlertDialog.Builder alert = new AlertDialog.Builder(this);
+				alert.setTitle("Edit Stack");
+				alert.setMessage("Change the name of the stack");
 
+				// Set an EditText view to get user input
+				final EditText input = new EditText(this);
+				input.setText(stackName);
+				alert.setView(input);
 
-				//TODO: BENE, hier PopUp einfügen
+				alert.setPositiveButton("Update",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								Toast toast;
+								if (input.getText().toString().equals("")) {
+									toast = Toast.makeText(
+											getApplicationContext(),
+											"Please insert a stack name!",
+											Toast.LENGTH_SHORT);
+									toast.show();
+								} else if (input.getText().toString()
+										.equals("All Stacks")) {
+									toast = Toast
+											.makeText(
+													getApplicationContext(),
+													"Stack name cannot be 'All Stacks', please select another one!",
+													Toast.LENGTH_LONG);
+									toast.show();
+
+								} else {
+									Stack clickedStack = null;
+									for (Stack stack : Stack.allStacks) {
+										if (stack.getStackName().equals(
+												stackName)) {
+											clickedStack = stack;
+											break;
+										}
+									}
+									String clickedStackName = input.getText()
+											.toString();
+									Edit.getInstance().changeStackName(
+											clickedStackName, clickedStack);
+									toast = Toast.makeText(
+											getApplicationContext(), "Stack "
+													+ clickedStackName
+													+ " changed succesfully",
+											Toast.LENGTH_LONG);
+									toast.show();
+									updateStackList();
+								}
+							}
+						});
+
+				alert.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.cancel();
+							}
+						});
+				alert.show();
+
 			} else if (item.getTitle() == "Start Learning") {
-			
+
 				if (!stackName.equals("No stacks available")) {
 					Intent i = new Intent(getApplicationContext(),
 							LearningCard.class);
@@ -139,8 +195,7 @@ public class LearningChooseStackScreen extends Activity implements
 					startActivity(i);
 				}
 
-			}
-			else if (item.getTitle() == "Change Name and Tags") {
+			} else if (item.getTitle() == "Change Name and Tags") {
 				// pass the stack name to the edit activity and whether it is an
 				// dynamic generated stack or not, edit it
 
@@ -237,7 +292,7 @@ public class LearningChooseStackScreen extends Activity implements
 												clickedStack);
 
 										// Update the stackList
-										updateStack();
+										updateStackList();
 									}
 								})
 						.setNegativeButton("No",
@@ -276,23 +331,23 @@ public class LearningChooseStackScreen extends Activity implements
 
 						Delete.getInstance().deleteStack(clickedStack);
 
-						updateStack();
+						updateStackList();
 
 						Toast toast = Toast.makeText(getApplicationContext(),
 								stackName + " archived successfully!",
 								Toast.LENGTH_SHORT);
 						toast.show();
 					} catch (Exception e) {
-						// TODO Bisl ErrorBeuttlern ExportError
 						ErrorHandlerFragment newFragment = ErrorHandlerFragment
-								.newInstance(R.string.error_handler_general, ErrorHandlerFragment.GENERAL_ERROR );
-						newFragment.show(this.getFragmentManager(), "dialog");	
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(this.getFragmentManager(), "dialog");
 					}
 				} else {
-					//SD KArte nicht gefunden!
 					ErrorHandlerFragment newFragment = ErrorHandlerFragment
-							.newInstance(R.string.error_handler_no_sd, ErrorHandlerFragment.NO_SD );
-					newFragment.show(this.getFragmentManager(), "dialog");	
+							.newInstance(R.string.error_handler_no_sd,
+									ErrorHandlerFragment.NO_SD);
+					newFragment.show(this.getFragmentManager(), "dialog");
 				}
 			} else {
 				return false;
@@ -302,24 +357,24 @@ public class LearningChooseStackScreen extends Activity implements
 		return true;
 	}
 
-	private ArrayList<String> updateStack() {
-		items.clear();
+	public boolean updateStackList() {
+		ArrayList<String> items = new ArrayList<String>();
 		for (Stack stack : Stack.allStacks) {
 			items.add(stack.getStackName());
 		}
 		if (items.size() == 0) {
 			items.add("No stacks available");
 		}
-		return items;
+		lvAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,
+				items);
+		lv.setAdapter(lvAdapter);
+		return true;
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
-			items = updateStack();
-			lvAdapter = new ArrayAdapter<String>(this,
-					R.layout.layout_listitem, items);
-			lv.setAdapter(lvAdapter);
+			updateStackList();
 		}
 		if (resultCode == RESULT_CANCELED) {
 			// nothing happens if result is canceled

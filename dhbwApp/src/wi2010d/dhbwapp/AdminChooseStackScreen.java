@@ -106,12 +106,6 @@ public class AdminChooseStackScreen extends Activity {
 				// pass the stack name to the edit activity and whether it is an
 				// dynamic generated stack or not, edit it
 
-				/*
-				 * Intent i = new Intent(getApplicationContext(),
-				 * AdminEditStack.class); i.putExtra("stackName", stackName);
-				 * startActivityForResult(i, 1);
-				 */
-
 				// create dialog to insert name of new stack
 				AlertDialog.Builder alert = new AlertDialog.Builder(this);
 				alert.setTitle("Edit Stack");
@@ -126,7 +120,6 @@ public class AdminChooseStackScreen extends Activity {
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
-								// do sth
 								Toast toast;
 								if (input.getText().toString().equals("")) {
 									toast = Toast.makeText(
@@ -319,14 +312,12 @@ public class AdminChooseStackScreen extends Activity {
 								Toast.LENGTH_SHORT);
 						toast.show();
 					} catch (Exception e) {
-						// TODO Bisl ErrorBeuttlern ExportError
 						ErrorHandlerFragment newFragment = ErrorHandlerFragment
 								.newInstance(R.string.error_handler_general,
 										ErrorHandlerFragment.GENERAL_ERROR);
 						newFragment.show(this.getFragmentManager(), "dialog");
 					}
 				} else {
-					// SD KArte nicht gefunden!
 					ErrorHandlerFragment newFragment = ErrorHandlerFragment
 							.newInstance(R.string.error_handler_no_sd,
 									ErrorHandlerFragment.NO_SD);
