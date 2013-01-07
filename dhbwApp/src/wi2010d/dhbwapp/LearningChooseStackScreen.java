@@ -72,7 +72,7 @@ public class LearningChooseStackScreen extends Activity implements
 			if (mAccel > 10) {
 				Random generator = new Random();
 				Stack rndStack = Create.getInstance().newRandomStack(
-						"RandomStack" + new Date(),
+						"RandomStack " + new Date(),
 						Card.allCards.get(generator.nextInt(Card.allCards
 								.size())));
 				Intent i = new Intent(getApplicationContext(),

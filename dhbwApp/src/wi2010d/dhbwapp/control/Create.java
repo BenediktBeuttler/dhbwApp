@@ -61,6 +61,7 @@ public class Create {
 	public Stack newRandomStack(String name, Card card){
 		List<Card> cards = new ArrayList<Card>();
 		cards.add(card);
+		card.increaseTotalStacks();
 
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
@@ -72,7 +73,9 @@ public class Create {
 		Random generator = new Random();
 		
 		for(int i=0;i<=Card.allCards.size()/5;i++){
-			cards.add(Card.allCards.get(generator.nextInt(Card.allCards.size())));
+			Card cardToAdd = Card.allCards.get(generator.nextInt(Card.allCards.size()));
+			cards.add(cardToAdd);
+			cardToAdd.increaseTotalStacks();
 		}
 		
 		return new Stack(false, name, cards);
