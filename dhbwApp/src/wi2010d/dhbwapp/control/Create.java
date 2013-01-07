@@ -175,6 +175,7 @@ public class Create {
 		if (tags != null) {
 			for (Tag tag : tags) {
 				tag.increaseTotalCards();
+				Database.getInstance().changeTag(tag);
 			}
 		}
 		Database.getInstance().addNewCard(card);

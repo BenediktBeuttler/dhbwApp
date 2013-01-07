@@ -486,7 +486,7 @@ public class LearningCard extends FragmentActivity implements
 				public void onClick(View v) {
 					Intent show = new Intent();
 					show.setAction(Intent.ACTION_VIEW);
-					show.setDataAndType(Uri.parse("file://" + card.getCardBackPicture()), "image/*");
+					show.setDataAndType(Uri.parse(card.getCardBackPicture()), "image/*");
 					startActivity(show);		
 				}
 			});
