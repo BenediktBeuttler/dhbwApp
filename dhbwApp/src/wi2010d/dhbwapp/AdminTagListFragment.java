@@ -11,12 +11,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -34,7 +37,7 @@ public class AdminTagListFragment extends Fragment {
 	private ArrayAdapter<Tag> tagListAdapter;
 	private static Button newTag;
 	private boolean buttonInvisible = false;
-	private ArrayList<Tag> newTagList  = new ArrayList<Tag>();
+	private ArrayList<Tag> newTagList = new ArrayList<Tag>();
 
 	public AdminTagListFragment() {
 	}
@@ -45,13 +48,12 @@ public class AdminTagListFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.admin_new_card_tags, null);
 		newTag = (Button) v.findViewById(R.id.btn_admin_new_card_new_tag);
-		
-		if(savedInstanceState == null){
-		buttonInvisible = getArguments().getBoolean("buttonInvisible");
-		if (buttonInvisible)
-		{
-			newTag.setVisibility(View.GONE);
-		}
+
+		if (savedInstanceState == null) {
+			buttonInvisible = getArguments().getBoolean("buttonInvisible");
+			if (buttonInvisible) {
+				newTag.setVisibility(View.GONE);
+			}
 		}
 		newTag.setOnClickListener(new OnClickListener() {
 
@@ -82,19 +84,24 @@ public class AdminTagListFragment extends Fragment {
 								}
 
 								if (alreadyTaken) {
-									//ErrorHandling if TagName is already taken
+									// ErrorHandling if TagName is already taken
 									ErrorHandlerFragment newFragment = ErrorHandlerFragment
-											.newInstance(R.string.error_handler_name_taken, ErrorHandlerFragment.NAME_TAKEN );
-									newFragment.show(getActivity().getFragmentManager(), "dialog");	
+											.newInstance(
+													R.string.error_handler_name_taken,
+													ErrorHandlerFragment.NAME_TAKEN);
+									newFragment.show(getActivity()
+											.getFragmentManager(), "dialog");
 								} else {
-									//Create new Tag
-									Tag newTag = Create.getInstance().newTag(newTagName);
-									//Update the TagList
+									// Create new Tag
+									Tag newTag = Create.getInstance().newTag(
+											newTagName);
+									// Update the TagList
 									getTagsWithCards();
 									newTagList.add(newTag);
-									tagListAdapter = new TagArrayAdapter(getActivity(), newTagList);
+									tagListAdapter = new TagArrayAdapter(
+											getActivity(), newTagList);
 									mainListView.setAdapter(tagListAdapter);
-									
+
 									Toast toast;
 									toast = Toast.makeText(getActivity(),
 											"New Tag '" + newTagName
@@ -115,18 +122,12 @@ public class AdminTagListFragment extends Fragment {
 				alert.show();
 			}
 		});
-		
-		newTag.setOnLongClickListener(new OnLongClickListener() {
-			
-			@Override
-			public boolean onLongClick(View v) {
-				Toast toast = Toast.makeText(getActivity(), "Döner", Toast.LENGTH_LONG);
-				return true;
-			}
-		});
 
 		// Find the ListView resource.
 		mainListView = (ListView) v.findViewById(R.id.tagsListView);
+		// tell android that we want this view to create a menu when it is long
+		// pressed.
+		registerForContextMenu(mainListView);
 
 		// When item is tapped, toggle checked properties of CheckBox and
 		// Tags.
@@ -145,16 +146,77 @@ public class AdminTagListFragment extends Fragment {
 
 		// Create and populate TagList.
 		// Set our custom array adapter as the ListView's adapter.
-		
+
 		tagListAdapter = new TagArrayAdapter(getActivity(), getTagsWithCards());
 		mainListView.setAdapter(tagListAdapter);
 		return v;
 	}
-	
-	public ArrayList<Tag> getTagsWithCards(){
+
+	// Define what happens when the item in list is long pressed
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info;
+		info = (AdapterContextMenuInfo) item.getMenuInfo();
+		//String tagName = ((TextView) info.targetView).getText().toString();
+
+		if (true/*!tagName.equals("No stacks available")*/) {
+			if (item.getTitle() == "Edit") {
+
+				// create a dialog to change the tag name
+				AlertDialog.Builder alert = new AlertDialog.Builder(
+						getActivity());
+				alert.setTitle("Edit");
+				alert.setMessage("Edit the tag name");
+				// Set an EditText view to get user input
+				final EditText input = new EditText(getActivity());
+				//input.setText(tagName);
+				alert.setView(input);
+				alert.setPositiveButton("Save",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								//SAVE HERE
+
+							}
+						});
+				alert.setNeutralButton("Delete",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								//DELETE HERE
+							}
+						});
+				alert.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								// Canceled.
+								dialog.cancel();
+							}
+						});
+				alert.show();
+
+			} else if (item.getTitle() == "Delete") {
+			} else {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		menu.add(0, v.getId(), 0, "Edit");
+		menu.add(0, v.getId(), 1, "Delete");
+	}
+
+	public ArrayList<Tag> getTagsWithCards() {
 		newTagList.clear();
-		for(Tag tag : Tag.allTags){
-			if(tag.getTotalCards()>0){
+		for (Tag tag : Tag.allTags) {
+			if (tag.getTotalCards() > 0) {
 				newTagList.add(tag);
 			}
 		}
