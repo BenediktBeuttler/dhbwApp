@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LearningCard extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -484,10 +485,18 @@ public class LearningCard extends FragmentActivity implements
 				
 				@Override
 				public void onClick(View v) {
+					
+					Toast toast;
+					toast = Toast.makeText(getApplicationContext(),
+							"Path: " +  card.getCardBackPicture(), Toast.LENGTH_LONG);
+					toast.show();
+					
+					/*
 					Intent show = new Intent();
 					show.setAction(Intent.ACTION_VIEW);
 					show.setDataAndType(Uri.parse(card.getCardBackPicture()), "image/*");
-					startActivity(show);		
+					startActivity(show);	
+					*/	
 				}
 			});
 			
