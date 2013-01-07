@@ -218,7 +218,7 @@ public class LearningCard extends FragmentActivity implements
 									card = Learn.getInstance().learnCard(3);
 									if (card == null) {
 										Intent deleteCard = (new Intent(
-												getParent(),
+												getApplicationContext(),
 												StatisticsScreen.class));
 										deleteCard.putExtra("Tab", 3);
 										startActivity(deleteCard);
