@@ -30,15 +30,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -314,8 +311,22 @@ public class AdminImportExport extends FragmentActivity implements
 						+ "/knowItOwl/");
 				File[] fileList = knowItOwlDir.listFiles();
 				if (fileList != null) {
-					for (File stackName : fileList) {
-						items.add(stackName.getName());
+					for (File stackFileXml : fileList) {
+
+						String extension = "";
+						int i = stackFileXml.toString().lastIndexOf('.');
+						if (i > 0) {
+							extension = stackFileXml.toString()
+									.substring(i + 1); // get the file extension
+						}
+
+						if (stackFileXml.isFile()
+								&& extension.equalsIgnoreCase("xml")) { // only
+																		// add
+																		// XML
+																		// Files
+							items.add(stackFileXml.getName());
+						}
 					}
 				}
 				if (items.size() == 0) {
@@ -328,8 +339,7 @@ public class AdminImportExport extends FragmentActivity implements
 					items.add("No stacks available");
 				} else {
 					importListAdapter = new ArrayAdapter<String>(
-							v.getContext(),
-							R.layout.layout_listitem, items);
+							v.getContext(), R.layout.layout_listitem, items);
 					AdminImportExport.importListAdapter = importListAdapter;
 
 					importList.setAdapter(importListAdapter);
