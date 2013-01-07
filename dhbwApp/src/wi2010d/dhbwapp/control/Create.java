@@ -80,17 +80,19 @@ public class Create {
 		// identify all cards that contain the selected tags
 		for (Card card : Card.allCards) {
 			containsTag = false;
+			
 			for (Tag tag : card.getTags()) {
 				if (tags.contains(tag)) {
 					containsTag = true;
 				}
 			}
 			 
-			if (containsTag = true){
+			if (containsTag){
 				// add identified cards to list
 				cards.add(card);	
 			}
 		}
+		
 		dynamicStack = new Stack(true, name, cards);
 		Log.e("StackID: ", ""+Stack.getNextStackID());
 		dynamicStack.setDynamicStackTags(tags);
