@@ -1,5 +1,7 @@
 package wi2010d.dhbwapp;
 
+import java.io.File;
+
 import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Learn;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
@@ -30,6 +32,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LearningCard extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -484,10 +487,21 @@ public class LearningCard extends FragmentActivity implements
 				
 				@Override
 				public void onClick(View v) {
+					
+				Toast toast;
+				toast = Toast.makeText(getApplicationContext(),
+						"Path: " +  card.getCardBackPicture(), Toast.LENGTH_LONG);
+				toast.show();
+					
+				
+				if (card.getCardBackPicture() != ""){						
 					Intent show = new Intent();
 					show.setAction(Intent.ACTION_VIEW);
-					show.setDataAndType(Uri.parse("file://" + card.getCardBackPicture()), "image/*");
-					startActivity(show);		
+					show.setDataAndType(Uri.fromFile(new File(card.getCardBackPicture())), "image/*");
+					startActivity(show);
+				}
+				
+					
 				}
 			});
 			

@@ -3,14 +3,15 @@ package wi2010d.dhbwapp;
 import java.util.ArrayList;
 
 import wi2010d.dhbwapp.control.Create;
-import wi2010d.dhbwapp.control.Database;
 import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -48,6 +49,7 @@ public class AdminNewCard extends FragmentActivity implements
 			finish();
 			return true;
 		case R.id.btn_admin_new_card_new_stack:
+			
 			if (isCardNotEmpty()) {
 				// find the checked Tags from the list
 				cardTagList.clear();
@@ -61,10 +63,55 @@ public class AdminNewCard extends FragmentActivity implements
 						cardFront.getText().toString(),
 						cardBack.getText().toString(), cardTagList, "", "");
 
-				Intent i = new Intent(getApplicationContext(),
-						AdminNewStack.class);
-				startActivityForResult(i, NEW_STACK);
+				//create dialog to insert name of new stack
+				AlertDialog.Builder alert = new AlertDialog.Builder(this);
+				alert.setTitle("New Stack");
+				alert.setMessage("Name of the new stack");
 
+				// Set an EditText view to get user input
+				final EditText input = new EditText(this);
+				alert.setView(input);
+
+				alert.setPositiveButton("Create",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								//do sth
+								Toast toast;
+								if (input.getText().toString().equals("")) {
+									toast = Toast.makeText(getApplicationContext(),
+											"Please insert a stack name!", Toast.LENGTH_SHORT);
+									toast.show();
+								} else if (input.getText().toString()
+										.equals("All Stacks")) {
+									toast = Toast
+											.makeText(
+													getApplicationContext(),
+													"Stack name cannot be 'All Stacks', please select another one!",
+													Toast.LENGTH_LONG);
+									toast.show();
+
+								} else {
+									String stackName = input.getText().toString();
+									Create.getInstance().newStack(stackName, card);
+									
+									toast = Toast.makeText(getApplicationContext(), "Stack " + stackName
+											+ " created and Card added", Toast.LENGTH_LONG);
+									toast.show();
+									finish();
+									//finish();
+								}
+							}
+						});
+
+				alert.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.cancel();
+							}
+						});
+				alert.show();
 			}
 			return true;
 		case R.id.btn_admin_new_card_existing_stack:
@@ -109,7 +156,6 @@ public class AdminNewCard extends FragmentActivity implements
 	EditText cardFront;
 	EditText cardBack;
 	public static final int STACK_CHOSEN = 10;
-	public static final int NEW_STACK = 11;
 
 	public Card getCard() {
 		return card;
@@ -360,17 +406,6 @@ public class AdminNewCard extends FragmentActivity implements
 					break;
 				}
 			}
-			break;
-
-		case NEW_STACK:
-			stackName = data.getExtras().getString("stackName");
-			
-			Create.getInstance().newStack(stackName, card);
-			
-			toast = Toast.makeText(this, "Stack " + stackName
-					+ " created and Card added", Toast.LENGTH_SHORT);
-			toast.show();
-			finish();
 			break;
 		default:
 			break;

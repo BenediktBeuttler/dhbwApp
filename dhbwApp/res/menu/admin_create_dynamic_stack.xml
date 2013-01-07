@@ -17,9 +17,8 @@
         android:title="@string/menu_help"/>
     <item
         android:id="@+id/btn_admin_create_dynamic_stack"
-        android:icon="@drawable/dynamicstack"
         android:orderInCategory="100"
-        android:showAsAction="always|withText"
+        android:showAsAction="always"
         android:title="@string/btn_admin_create_dynamic_stack"/>
     
 
