@@ -63,6 +63,7 @@ public class LearningCard extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.learning_card);
 
@@ -77,7 +78,7 @@ public class LearningCard extends FragmentActivity implements
 			stackName = (String) savedInstanceState
 					.getSerializable("stackName");
 		}
-
+		setTitle("Learning - "+ stackName);
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(stackName)) {
 				this.stack = stack;
