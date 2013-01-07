@@ -294,6 +294,10 @@ public class AdminEditCard extends FragmentActivity implements
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
+		private Button editPicture;
+		private Button showPictureButton;
+		public Uri imageUriFront;
+		public static final int TAKE_PICTURE = 1;
 		
 		public EditCardFront() {
 		}
@@ -309,9 +313,76 @@ public class AdminEditCard extends FragmentActivity implements
 			cardFront = (EditText) v.findViewById(R.id.txt_edit_card_front);
 			cardFront.setText(card.getCardFront());
 			
+			//Set up button for taking new picture
+			editPicture = (Button) v.findViewById(R.id.btn_edit_picture_front);
+			editPicture.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Intent takePicture = new Intent("android.media.action.IMAGE_CAPTURE");
+					Date date = new Date();
+					SimpleDateFormat sd = new SimpleDateFormat("yyMMddhhmmss");
+					String picName = sd.format(date);
+					
+					if (!new File(Environment.getExternalStorageDirectory().getPath()
+							+ "/knowItOwl/pictures").exists()) {
+						new File(Environment.getExternalStorageDirectory().getPath()
+								+ "/knowItOwl/pictures").mkdir();
+					}
+					
+				    File photo = new File(Environment.getExternalStorageDirectory() 
+				    		+ "/knowItOwl/pictures",  picName + ".jpg");
+				    takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
+				            Uri.fromFile(photo));
+				    imageUriFront = Uri.fromFile(photo);
+				    Log.e("AdminEditCard", "test: " + imageUriFront.getPath());
+				    startActivityForResult(takePicture, TAKE_PICTURE);
+				}
+			});
+			
+			//Set up Button for showing the actual picture
+			showPictureButton = (Button) v.findViewById(R.id.btn_edit_picture_back_show);
+			showPictureButton.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					if (card.getCardFrontPicture() != ""){						
+						Intent show = new Intent();
+						show.setAction(Intent.ACTION_VIEW);
+						show.setDataAndType(Uri.fromFile(new File(card.getCardFrontPicture())), "image/*");
+						startActivity(show);
+					}
+					else{
+						Toast toast;
+						toast = Toast.makeText(getApplicationContext(),
+							"No existing picture for the front of this card", Toast.LENGTH_LONG);
+						toast.show();
+					}
+				}
+			});
 
 			return v;
 		}
+		
+		@Override
+		public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		    	
+					Log.e("AdminEditCard", "test2");
+		       if (resultCode == Activity.RESULT_OK) {
+				    
+		    	   card.setCardFrontPicture(imageUriFront.getPath());
+				    
+		    	   //TODO: String speichern
+				    //TODO: test ob in db geschrieben
+				    
+					Toast toast;
+					toast = Toast.makeText(getApplicationContext(),
+							"Picture saved under: " +  imageUriFront.getPath(), Toast.LENGTH_LONG);
+					toast.show();
+		        }
+		  }
 		
 	}
 
@@ -324,6 +395,7 @@ public class AdminEditCard extends FragmentActivity implements
 		//Button save;
 		
 		private Button editPicture;
+		private Button showPictureButton;
 		public Uri imageUri;
 		public static final int TAKE_PICTURE = 1;
 
@@ -365,6 +437,29 @@ public class AdminEditCard extends FragmentActivity implements
 				    startActivityForResult(takePicture, TAKE_PICTURE);
 				}
 			});
+			
+			//Set up show picture button
+			showPictureButton = (Button) v.findViewById(R.id.btn_edit_picture_back_show);
+			showPictureButton.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					if (card.getCardBackPicture() != ""){						
+						Intent show = new Intent();
+						show.setAction(Intent.ACTION_VIEW);
+						show.setDataAndType(Uri.fromFile(new File(card.getCardBackPicture())), "image/*");
+						startActivity(show);
+					}
+					else{
+						Toast toast;
+						toast = Toast.makeText(getApplicationContext(),
+							"No existing picture for the back of this card", Toast.LENGTH_LONG);
+						toast.show();
+					}
+				}
+			});
+			
 			return v;
 		}
 		
@@ -376,6 +471,7 @@ public class AdminEditCard extends FragmentActivity implements
 				    
 		    	   card.setCardBackPicture(imageUri.getPath());
 				    
+		    	   //TODO: String speichern
 				    //TODO: test ob in db geschrieben
 				    
 					Toast toast;

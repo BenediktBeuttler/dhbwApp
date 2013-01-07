@@ -9,10 +9,22 @@
         android:id="@+id/txt_edit_card_front"
         style="@style/style_textViewFront"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="266dp"
         android:layout_gravity="center_vertical|center_horizontal"
         android:ems="10"
         android:inputType="textMultiLine" >
     </EditText>
+
+    <Button
+        android:id="@+id/btn_edit_picture_front"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take new picture" />
+
+    <Button
+        android:id="@+id/btn_edit_picture_front_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show picture" />
 
 </LinearLayout>
