@@ -171,7 +171,12 @@ public class Create {
 			String frontPic, String backPic) {
 		Log.d("Card front:", front);
 		Card card = new Card(front, back, frontPic, backPic, tags);
-		Log.d("Card ID: ", ""+card.getCardID());
+
+		if (tags != null) {
+			for (Tag tag : tags) {
+				tag.increaseTotalCards();
+			}
+		}
 		Database.getInstance().addNewCard(card);
 		return card;
 	}
