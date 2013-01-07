@@ -7,6 +7,7 @@ import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.control.Exchange;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -254,9 +255,15 @@ public class AdminChooseStackScreen extends Activity {
 						toast.show();
 					} catch (Exception e) {
 						// TODO Bisl ErrorBeuttlern ExportError
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_general, ErrorHandlerFragment.GENERAL_ERROR );
+						newFragment.show(this.getFragmentManager(), "dialog");	
 					}
 				} else {
-					// TODO Mehr Errorn --> SD KArte nicht gefunden!
+					//SD KArte nicht gefunden!
+					ErrorHandlerFragment newFragment = ErrorHandlerFragment
+							.newInstance(R.string.error_handler_no_sd, ErrorHandlerFragment.NO_SD );
+					newFragment.show(this.getFragmentManager(), "dialog");	
 				}
 			} else {
 				return false;
