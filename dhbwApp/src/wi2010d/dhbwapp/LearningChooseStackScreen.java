@@ -128,11 +128,8 @@ public class LearningChooseStackScreen extends Activity implements
 				// pass the stack name to the edit activity and whether it is an
 				// dynamic generated stack or not, edit it
 
-				Intent i = new Intent(getApplicationContext(),
-						AdminEditStack.class);
-				i.putExtra("stackName", stackName);
-				startActivityForResult(i, 1);
 
+				//TODO: BENE, hier PopUp einfügen
 			} else if (item.getTitle() == "Start Learning") {
 			
 				if (!stackName.equals("No stacks available")) {

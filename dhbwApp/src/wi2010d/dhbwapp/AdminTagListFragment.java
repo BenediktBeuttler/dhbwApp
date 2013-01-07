@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -112,6 +113,15 @@ public class AdminTagListFragment extends Fragment {
 							}
 						});
 				alert.show();
+			}
+		});
+		
+		newTag.setOnLongClickListener(new OnLongClickListener() {
+			
+			@Override
+			public boolean onLongClick(View v) {
+				Toast toast = Toast.makeText(getActivity(), "Döner", Toast.LENGTH_LONG);
+				return true;
 			}
 		});
 
@@ -241,13 +251,5 @@ public class AdminTagListFragment extends Fragment {
 			return convertView;
 		}
 
-	}
-
-	public static Button getNewTag() {
-		return newTag;
-	}
-
-	public Object onRetainNonConfigurationInstance() {
-		return Tag.allTags;
 	}
 }
