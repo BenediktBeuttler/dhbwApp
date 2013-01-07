@@ -155,7 +155,7 @@ public class AdminTagListFragment extends Fragment {
 	// Define what happens when the item in list is long pressed
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info;
+		final AdapterContextMenuInfo info;
 		info = (AdapterContextMenuInfo) item.getMenuInfo();
 		//String tagName = ((TextView) info.targetView).getText().toString();
 
@@ -175,7 +175,8 @@ public class AdminTagListFragment extends Fragment {
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
-								//SAVE HERE
+								//TODO for the beuttler
+								input.setText(tagListAdapter.getItem(info.position).getTagName());
 
 							}
 						});
