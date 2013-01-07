@@ -1,5 +1,6 @@
 package wi2010d.dhbwapp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import wi2010d.dhbwapp.control.Create;
@@ -10,7 +11,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +33,7 @@ public class AdminTagListFragment extends Fragment {
 	private ArrayAdapter<Tag> tagListAdapter;
 	private static Button newTag;
 	private boolean buttonInvisible = false;
+	private ArrayList<Tag> newTagList  = new ArrayList<Tag>();
 
 	public AdminTagListFragment() {
 	}
@@ -86,9 +87,11 @@ public class AdminTagListFragment extends Fragment {
 									newFragment.show(getActivity().getFragmentManager(), "dialog");	
 								} else {
 									//Create new Tag
-									Create.getInstance().newTag(newTagName);
+									Tag newTag = Create.getInstance().newTag(newTagName);
 									//Update the TagList
-									tagListAdapter = new TagArrayAdapter(getActivity(), Tag.allTags);
+									getTagsWithCards();
+									newTagList.add(newTag);
+									tagListAdapter = new TagArrayAdapter(getActivity(), newTagList);
 									mainListView.setAdapter(tagListAdapter);
 									
 									Toast toast;
@@ -132,9 +135,20 @@ public class AdminTagListFragment extends Fragment {
 
 		// Create and populate TagList.
 		// Set our custom array adapter as the ListView's adapter.
-		tagListAdapter = new TagArrayAdapter(getActivity(), Tag.allTags);
+		
+		tagListAdapter = new TagArrayAdapter(getActivity(), getTagsWithCards());
 		mainListView.setAdapter(tagListAdapter);
 		return v;
+	}
+	
+	public ArrayList<Tag> getTagsWithCards(){
+		newTagList.clear();
+		for(Tag tag : Tag.allTags){
+			if(tag.getTotalCards()>0){
+				newTagList.add(tag);
+			}
+		}
+		return newTagList;
 	}
 
 	/** Holds child views for one row. */
