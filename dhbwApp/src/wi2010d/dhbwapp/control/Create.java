@@ -80,17 +80,19 @@ public class Create {
 		// identify all cards that contain the selected tags
 		for (Card card : Card.allCards) {
 			containsTag = false;
+			
 			for (Tag tag : card.getTags()) {
 				if (tags.contains(tag)) {
 					containsTag = true;
 				}
 			}
 			 
-			if (containsTag = true){
+			if (containsTag){
 				// add identified cards to list
 				cards.add(card);	
 			}
 		}
+		
 		dynamicStack = new Stack(true, name, cards);
 		Log.e("StackID: ", ""+Stack.getNextStackID());
 		dynamicStack.setDynamicStackTags(tags);
@@ -169,7 +171,13 @@ public class Create {
 			String frontPic, String backPic) {
 		Log.d("Card front:", front);
 		Card card = new Card(front, back, frontPic, backPic, tags);
-		Log.d("Card ID: ", ""+card.getCardID());
+
+		if (tags != null) {
+			for (Tag tag : tags) {
+				tag.increaseTotalCards();
+				Database.getInstance().changeTag(tag);
+			}
+		}
 		Database.getInstance().addNewCard(card);
 		return card;
 	}
