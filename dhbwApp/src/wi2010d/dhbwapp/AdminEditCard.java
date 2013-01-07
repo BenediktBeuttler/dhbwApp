@@ -340,7 +340,7 @@ public class AdminEditCard extends FragmentActivity implements
 			cardBack.setText(card.getCardBack());
 			
 			// Set up edit picture button
-			editPicture = (Button) v.findViewById(R.id.btn_admin_edit_card_picture);
+			editPicture = (Button) v.findViewById(R.id.btn_edit_picture_back);
 			editPicture.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
