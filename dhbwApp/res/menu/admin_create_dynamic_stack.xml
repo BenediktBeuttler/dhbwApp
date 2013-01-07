@@ -1,10 +1,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/menu_start_screen"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_start_screen"/>
+    <item
         android:id="@+id/menu_settings"
         android:orderInCategory="100"
-        android:icon="@drawable/options"
         android:showAsAction="never"
         android:title="@string/menu_settings"/>
+    <item
+        android:id="@+id/menu_help"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_help"/>
+    <item
+        android:id="@+id/btn_admin_create_dynamic_stack"
+        android:icon="@drawable/dynamicstack"
+        android:orderInCategory="100"
+        android:showAsAction="always|withText"
+        android:title="@string/btn_admin_create_dynamic_stack"/>
+    
 
 </menu>

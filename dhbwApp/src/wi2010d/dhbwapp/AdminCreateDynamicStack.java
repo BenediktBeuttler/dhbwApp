@@ -5,16 +5,17 @@ import java.util.ArrayList;
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,80 +27,21 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 	ArrayList<Tag> dynStackTagList = new ArrayList<Tag>();
 	String name = "";
 	boolean buttonInvisible = true;
+	Context createDynamicStackContext;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.admin_create_dynamic_stack);
 		super.onCreate(savedInstanceState);
+		createDynamicStackContext = this;
 
 		if (savedInstanceState == null) {
+			
 			// set all tags unchecked, then create the list
 			for (Tag tag : Tag.allTags) {
 				tag.setChecked(false);
 			}
 
-			createDynStack = (Button) findViewById(R.id.btn_admin_create_dynamic_stack);			
-			createDynStack.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-
-					AlertDialog.Builder alert = new AlertDialog.Builder(v
-							.getContext());
-
-					alert.setTitle("New Stack");
-					alert.setMessage("Insert Stack Name");
-
-					// Set an EditText view to get user input
-					final EditText input = new EditText(v.getContext());
-					int i = 0;
-					for (Tag tag : Tag.allTags) {
-						if (tag.isChecked()) {
-							dynStackTagList.add(tag);
-							if (input.getText().toString().equals("")) {
-								if (i <= 3) {
-									name = name + " - " + tag.getTagName();
-								}
-								i++;
-							} else {
-								name = input.getText().toString();
-							}
-						}
-					}
-					input.setText(name);
-					alert.setView(input);
-
-					alert.setPositiveButton("Ok",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									if (dynStackTagList.size() > 0) {
-										setResult(RESULT_CANCELED);
-										if (Create.getInstance().newDynStack(
-												input.getText().toString(), dynStackTagList)) {
-											Toast toast = Toast.makeText(
-													getApplicationContext(),
-													"Dynamic Stack " + input.getText().toString()
-															+ " created!",
-													Toast.LENGTH_LONG);
-											toast.show();
-											setResult(RESULT_OK);
-										}
-										finish();
-									}
-								}
-							});
-
-					alert.setNegativeButton("Cancel",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									// Canceled.
-								}
-							});
-					alert.show();
-				}
-
-			});
 			tagList = new AdminTagListFragment();
 			getIntent().putExtra("buttonInvisible", buttonInvisible);
 			tagList.setArguments(getIntent().getExtras());
@@ -118,6 +60,95 @@ public class AdminCreateDynamicStack extends FragmentActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.admin_create_dynamic_stack, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.menu_start_screen:
+			startActivity(new Intent(this, StartScreen.class));
+			finish();
+			return true;
+		case R.id.menu_help:
+			startActivity(new Intent(this, HelpScreen.class));
+			finish();
+			return true;
+		case R.id.menu_settings:
+			startActivity(new Intent(this, SettingsScreen.class));
+			finish();
+			return true;
+		case R.id.btn_admin_create_dynamic_stack:
+			AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+			alert.setTitle("New Stack");
+			alert.setMessage("Insert Stack Name");
+
+			// Set an EditText view to get user input
+			final EditText input = new EditText(this);
+			int i = 0;
+			for (Tag tag : Tag.allTags) {
+				if (tag.isChecked()) {
+					dynStackTagList.add(tag);
+					if (input.getText().toString().equals("")) {
+						if (i <= 3) {
+							name = name + " - " + tag.getTagName();
+						}
+						i++;
+					} else {
+						name = input.getText().toString();
+					}
+				}
+			}
+			input.setText(name);
+			alert.setView(input);
+
+			alert.setPositiveButton("Ok",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							if (dynStackTagList.size() > 0) {
+								setResult(RESULT_CANCELED);
+
+								Runnable r = new Runnable() {
+
+									@Override
+									public void run() {
+										if (Create.getInstance().newDynStack(
+												input.getText().toString(),
+												dynStackTagList)) {
+											Toast toast = Toast.makeText(
+													getApplicationContext(),
+													"Dynamic Stack "
+															+ input.getText()
+																	.toString()
+															+ " created!",
+													Toast.LENGTH_LONG);
+											toast.show();
+											setResult(RESULT_OK);
+										}
+									}
+								};
+								r.run();
+								finish();
+							}
+						}
+					});
+
+			alert.setNegativeButton("Cancel",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							// Canceled.
+						}
+					});
+			alert.show();
+			
+			
+			return true;
+		default:
+			return false;
+		}
 	}
 
 }

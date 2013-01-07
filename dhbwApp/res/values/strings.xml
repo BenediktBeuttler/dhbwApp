@@ -29,6 +29,7 @@
     <string name="btn_admin_editstack">Edit Stack</string>
     <string name="btn_admin_importexport">Import/Export</string>
     <string name="btn_admin_newdynstack">New dyn. Stack</string>
+    <string name="btn_admin_create_dynamic_stack">Create dyn. Stack</string>
     <string name="btn_admin_update_dynstack">Update dyn. Stack</string>
     <string name="btn_admin_exist">Exist</string>
     <string name="btn_admin_new">New</string>
@@ -95,7 +96,7 @@
     <string name="title_activity_admin_edit_dynamic_stack">Create Dynamic Stack</string>
     
     <string name="error_handler_delete_db">Delete Database?</string>
-    <string name="error_handler_general">General Error</string>
+    <string name="error_handler_general">An Error has occured</string>
     <string name="error_handler_import_error">Import Error</string>
     <string name="error_handler_name_taken">Name already exists</string>
     <string name="error_handler_no_sd">No SD Card available</string>

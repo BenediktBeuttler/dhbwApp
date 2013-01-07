@@ -21,11 +21,5 @@
         android:orderInCategory="100"
         android:showAsAction="always"
         android:title="@string/btn_admin_save"/>
-    <item
-        android:id="@+id/btn_admin_edit_reset_stack"
-        android:icon="@drawable/refresh"
-        android:orderInCategory="100"
-        android:showAsAction="always"
-        android:title="@string/btn_admin_reset_stack"/>
 
 </menu>
