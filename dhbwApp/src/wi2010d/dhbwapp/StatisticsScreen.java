@@ -45,6 +45,8 @@ public class StatisticsScreen extends FragmentActivity implements
 	 */
 	SectionsPagerAdapter mSectionsPagerAdapter;
 
+	boolean backPressed = false;
+
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
@@ -649,25 +651,21 @@ public class StatisticsScreen extends FragmentActivity implements
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			Runnable r = new Runnable() {
-
-				@Override
-				public void run() {
-					if (getIntent() != null && getIntent().getExtras() != null) {
-						if (getIntent().getExtras().getBoolean("isRandomStack",
-								false)) {
-							for (Stack stack : Stack.allStacks) {
-								if (stack.getStackName().equals(
-										Statistics.getInstance()
-												.getLastRunthroughName())) {
-									Delete.getInstance().deleteStack(stack);
-								}
+			if (!backPressed) {
+				backPressed = true;
+				if (getIntent() != null && getIntent().getExtras() != null) {
+					if (getIntent().getExtras().getBoolean("isRandomStack",
+							false)) {
+						for (Stack stack : Stack.allStacks) {
+							if (stack.getStackName().equals(
+									Statistics.getInstance()
+											.getLastRunthroughName())) {
+								Delete.getInstance().deleteStack(stack);
 							}
 						}
 					}
 				}
-			};
-			r.run();
+			}
 			finish();
 			return true;
 		}
