@@ -15,7 +15,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ProgressBar;
 
 /**
@@ -59,15 +58,17 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		if (startScreenActivity.getIntent().getData() != null
 				&& startScreenActivity.getIntent().getData().getPath() != null) {
 			String path = startScreenActivity.getIntent().getData().getPath();
-			Intent intent = new Intent(startScreenActivity.getApplicationContext(), AdminImportExport.class);
+			Intent intent = new Intent(
+					startScreenActivity.getApplicationContext(),
+					AdminImportExport.class);
 			intent.putExtra("Path", path);
 			startScreenActivity.startActivity(intent);
 			startScreenActivity.finish();
-		}
-		else{
-		Intent i = new Intent(startScreenActivity.getApplicationContext(),StartScreen.class);
-		startScreenActivity.startActivity(i);
-		startScreenActivity.finish();
+		} else {
+			Intent i = new Intent(startScreenActivity.getApplicationContext(),
+					StartScreen.class);
+			startScreenActivity.startActivity(i);
+			startScreenActivity.finish();
 		}
 	}
 
@@ -357,6 +358,21 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 	}
 
 	/**
+	 * Checks if one or more Variables got garbage collected
+	 * 
+	 * @return true, if one or more variable got garbage collected
+	 */
+	public static boolean isSthGarabageCollected() {
+		// optimization: Sorted the requests from the big to little, because
+		// bigger variables are collected more likely
+		if (Card.allCards == null || Runthrough.allRunthroughs == null
+				|| Stack.allStacks == null || Tag.allTags == null) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Resets the instance, so the task can be executed again
 	 */
 	public static void resetInstance() {
@@ -379,5 +395,4 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		return init;
 
 	}
-
 }
