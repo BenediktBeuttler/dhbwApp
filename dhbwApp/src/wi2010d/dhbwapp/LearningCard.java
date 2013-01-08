@@ -454,7 +454,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 					.getActualProgressAsString());
 			
 			showPicture = (Button) v
-					.findViewById(R.id.btn_learning_card_back_picture);
+					.findViewById(R.id.btn_learning_card_front_picture);
 			showPicture.setOnClickListener(new View.OnClickListener() {
 
 				@Override
