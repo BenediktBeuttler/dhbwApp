@@ -69,7 +69,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 			mAccelCurrent = (float) Math.sqrt((double) (x * x + y * y + z * z));
 			float delta = mAccelCurrent - mAccelLast;
 			mAccel = mAccel * 0.9f + delta;
-			if (mAccel > 10) {
+			if (mAccel > 7) {
 				Random generator = new Random();
 				Stack rndStack = Create.getInstance().newRandomStack(
 						"RandomStack " + new Date(),

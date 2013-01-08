@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LearningCard extends OnResumeFragmentActivity implements
 		ActionBar.TabListener {
@@ -84,6 +85,11 @@ public class LearningCard extends OnResumeFragmentActivity implements
 				this.stack = stack;
 				break;
 			}
+		}
+		
+		if(isRandomStack){
+			Toast toast = Toast.makeText(this, "You are now learning with random cards from all stacks", Toast.LENGTH_LONG);
+			toast.show();
 		}
 
 		card = Learn.getInstance().startLearning(stack);
