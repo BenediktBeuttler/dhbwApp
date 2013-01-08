@@ -9,7 +9,7 @@
         android:id="@+id/txt_new_card_front"
         style="@style/style_textViewFront"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:layout_gravity="center_vertical|center_horizontal"
         android:background="@drawable/front"
         android:ems="10"
@@ -17,5 +17,17 @@
 
         <requestFocus />
     </EditText>
+
+    <Button
+        android:id="@+id/btn_admin_new_card_picture_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take new picture" />
+
+    <Button
+        android:id="@+id/btn_admin_new_card_picture_back_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show picture" />
 
 </LinearLayout>

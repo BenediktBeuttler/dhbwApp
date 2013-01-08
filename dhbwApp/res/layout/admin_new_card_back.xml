@@ -8,11 +8,23 @@
     <EditText
         android:id="@+id/txt_new_card_back"
         style="@style/style_textViewBack"
-		android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="252dp"
         android:layout_gravity="center_vertical|center_horizontal"
         android:background="@drawable/back"
         android:ems="10"
         android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/btn_admin_new_card_picture_front"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take new picture" />
+
+    <Button
+        android:id="@+id/btn_admin_new_card_picture_front_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show picture" />
 
 </LinearLayout>
