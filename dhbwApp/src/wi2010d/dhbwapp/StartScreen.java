@@ -2,22 +2,23 @@ package wi2010d.dhbwapp;
 
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class StartScreen extends OnResumeActivity implements OnClickListener {
 	Button learning, admin, settings, statistic, help;
+	TextView appName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.start_screen);
 
+		appName = (TextView) findViewById(R.id.lbl_app_name_start_screen);
 		learning = (Button) findViewById(R.id.btn_start_learning);
 		admin = (Button) findViewById(R.id.btn_start_admin);
 		settings = (Button) findViewById(R.id.btn_start_settings);
