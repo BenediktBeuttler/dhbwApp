@@ -480,16 +480,16 @@ public class LearningCard extends OnResumeFragmentActivity implements
 
 			imageFrontPicture = (ImageButton) v.findViewById(R.id.btn_learning_card_front_picture_test);
 			
-			if (card.getCardFrontPicture() != ""){
+			if (!card.getCardFrontPicture().equals("")){
 	            FileInputStream fis = null;
-				try {
-					fis = new FileInputStream(new File(card.getCardFrontPicture()));
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					try {
+						fis = new FileInputStream(new File(card.getCardFrontPicture()));
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
 	            Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
-	
 	            imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 
 	            		THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
 	
@@ -501,7 +501,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 
 				imageFrontPicture.setImageBitmap(imageBitmap);
 			}
-			
+			   
 			imageFrontPicture.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
