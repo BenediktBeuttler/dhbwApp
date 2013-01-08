@@ -466,13 +466,6 @@ public class LearningCard extends OnResumeFragmentActivity implements
 				@Override
 				public void onClick(View v) {
 
-					/*
-					Toast toast;
-					toast = Toast.makeText(getApplicationContext(), "Path: "
-							+ card.getCardBackPicture(), Toast.LENGTH_LONG);
-					toast.show();
-					*/
-
 					if (card.getCardFrontPicture() != "") {
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);

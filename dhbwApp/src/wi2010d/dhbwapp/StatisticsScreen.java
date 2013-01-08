@@ -667,8 +667,8 @@ public class StatisticsScreen extends FragmentActivity implements
 					}
 				}
 			};
-			r.run();
 			finish();
+			r.run();
 			return true;
 		}
 		finish();
