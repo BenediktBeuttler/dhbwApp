@@ -118,10 +118,10 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		});
 
 		lv = (ListView) findViewById(R.id.learn_stack_list);
-		updateStackList();
 		// tell android that we want this view to create a menu when it is long
 		// pressed. Method onCreateContextMenu is further relevant
 		registerForContextMenu(lv);
+		updateStackList();
 		lv.setClickable(true);
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -166,11 +166,13 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 			menu.add(0, v.getId(), 3, "Delete");
 			menu.add(0, v.getId(), 4, "Archive");
 		} else
-			menu.add(0, v.getId(), 0, "Start Learning");
+		{
+		menu.add(0, v.getId(), 0, "Start Learning");
 		menu.add(0, v.getId(), 1, "Change Name");
 		menu.add(0, v.getId(), 2, "Reset Anwsers");
 		menu.add(0, v.getId(), 3, "Delete");
 		menu.add(0, v.getId(), 4, "Archive");
+		}
 	}
 
 	@Override

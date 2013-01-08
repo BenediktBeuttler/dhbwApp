@@ -34,9 +34,6 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 	private ListView lv;
 	private ArrayAdapter<String> lvAdapter;
 
-	// tell android that we want this view to create a menu when it is long
-	// pressed. Method onCreateContextMenu is further relevant
-	// registerForContextMenu(lv);
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
