@@ -19,13 +19,13 @@
     </EditText>
 
     <Button
-        android:id="@+id/btn_admin_new_card_picture_back"
+        android:id="@+id/btn_admin_new_card_picture_front"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Take new picture" />
 
     <Button
-        android:id="@+id/btn_admin_new_card_picture_back_show"
+        android:id="@+id/btn_admin_new_card_picture_front_show"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Show picture" />
