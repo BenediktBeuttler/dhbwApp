@@ -374,9 +374,10 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		    	
 		       if (resultCode == Activity.RESULT_OK) {
 				    
-		    	   //card.setCardFrontPicture(imageUriFront.getPath());
 		    	   Edit.getInstance().addNewPicToCard(true, imageUriFront.getPath(), card); 
 				    
+		    	   updateImageButtonAdminEdit(true, showPictureButton);
+		    	   
 					Toast toast;
 					toast = Toast.makeText(getApplicationContext(),
 							"Picture saved under: " +  imageUriFront.getPath(), Toast.LENGTH_LONG);
@@ -465,11 +466,10 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		    	
 					Log.e("AdminEditCard", "test2");
 		       if (resultCode == Activity.RESULT_OK) {
-				    
-		    	   //card.setCardBackPicture(imageUri.getPath());
 		    	   
 		    	   Edit.getInstance().addNewPicToCard(false, imageUri.getPath(), card);
-				    
+				   
+				   updateImageButtonAdminEdit(false, showPictureButton);
 				    
 					Toast toast;
 					toast = Toast.makeText(getApplicationContext(),
