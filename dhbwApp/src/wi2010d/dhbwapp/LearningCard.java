@@ -443,6 +443,7 @@ public class LearningCard extends FragmentActivity implements
 		 * fragment.
 		 */
 		public final String ARG_SECTION_NUMBER = "section_number";
+		private Button showPicture;
 
 		public CardFront() {
 		}
@@ -460,6 +461,31 @@ public class LearningCard extends FragmentActivity implements
 					.findViewById(R.id.txt_learning_counter);
 			txt_counter_front.setText(Learn.getInstance()
 					.getActualProgressAsString());
+			
+			showPicture = (Button) v
+					.findViewById(R.id.btn_learning_card_back_picture);
+			showPicture.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					/*
+					Toast toast;
+					toast = Toast.makeText(getApplicationContext(), "Path: "
+							+ card.getCardBackPicture(), Toast.LENGTH_LONG);
+					toast.show();
+					*/
+
+					if (card.getCardFrontPicture() != "") {
+						Intent show = new Intent();
+						show.setAction(Intent.ACTION_VIEW);
+						show.setDataAndType(Uri.fromFile(new File(card
+								.getCardFrontPicture())), "image/*");
+						startActivity(show);
+					}
+
+				}
+			});
 			return v;
 		}
 
@@ -498,10 +524,12 @@ public class LearningCard extends FragmentActivity implements
 				@Override
 				public void onClick(View v) {
 
+					/*
 					Toast toast;
 					toast = Toast.makeText(getApplicationContext(), "Path: "
 							+ card.getCardBackPicture(), Toast.LENGTH_LONG);
 					toast.show();
+					*/
 
 					if (card.getCardBackPicture() != "") {
 						Intent show = new Intent();

@@ -370,7 +370,6 @@ public class AdminEditCard extends FragmentActivity implements
 		@Override
 		public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		    	
-					Log.e("AdminEditCard", "test2");
 		       if (resultCode == Activity.RESULT_OK) {
 				    
 		    	   card.setCardFrontPicture(imageUriFront.getPath());
