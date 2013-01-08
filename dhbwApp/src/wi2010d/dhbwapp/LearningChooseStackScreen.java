@@ -13,7 +13,7 @@ import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
-import android.app.Activity;
+import wi2010d.dhbwapp.model.Tag;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,21 +24,20 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class LearningChooseStackScreen extends OnResumeActivity implements
 		OnClickListener {
@@ -81,8 +80,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 					i.putExtra("stackName", rndStack.getStackName());
 					i.putExtra("isRandomStack", true);
 					startActivity(i);
-				}
-				else{
+				} else {
 					ErrorHandler.getInstance().handleError(
 							ErrorHandler.getInstance().GENERAL_ERROR);
 				}
@@ -107,9 +105,15 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(getApplicationContext(),
-						AdminCreateDynamicStack.class);
-				startActivityForResult(i, 1);
+				if (Tag.allTags.size() != 0 && Card.allCards.size() != 0) {
+					Intent i = new Intent(getApplicationContext(),
+							AdminCreateDynamicStack.class);
+					startActivityForResult(i, 1);
+				} else {
+					Toast.makeText(getApplicationContext(),
+							"No Tags for dynamic stacks available!",
+							Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 
