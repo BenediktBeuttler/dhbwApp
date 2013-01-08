@@ -13,7 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class AdminScreen extends Activity implements OnClickListener{
+public class AdminScreen extends OnResumeActivity implements OnClickListener{
 	Button new_card_new_stack;
 	Button edit_card; 
 	Button edit_stack;

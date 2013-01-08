@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class StartScreen extends Activity implements OnClickListener {
+public class StartScreen extends OnResumeActivity implements OnClickListener {
 	Button learning, admin, settings, statistic, help;
 
 	@Override

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class HelpScreen extends Activity implements OnClickListener{
+public class HelpScreen extends OnResumeActivity implements OnClickListener{
 Button introduction, learn_statistics, edit_cards_stacks, settings, import_export;
 	
 	@Override

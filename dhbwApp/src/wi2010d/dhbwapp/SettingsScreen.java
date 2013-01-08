@@ -20,7 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class SettingsScreen extends Activity implements OnClickListener {
+public class SettingsScreen extends OnResumeActivity implements OnClickListener {
 
 	Button resetDB, testData;
 

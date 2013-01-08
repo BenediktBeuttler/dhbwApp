@@ -38,7 +38,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AdminEditCard extends FragmentActivity implements
+public class AdminEditCard extends OnResumeFragmentActivity implements
 		ActionBar.TabListener {
 
 	/**

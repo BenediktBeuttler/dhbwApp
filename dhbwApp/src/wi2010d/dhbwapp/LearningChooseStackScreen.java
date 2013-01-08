@@ -40,7 +40,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
-public class LearningChooseStackScreen extends Activity implements
+public class LearningChooseStackScreen extends OnResumeActivity implements
 		OnClickListener {
 
 	EditText card_front;

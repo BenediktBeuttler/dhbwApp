@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class AdminNewCardChooseStack extends Activity {
+public class AdminNewCardChooseStack extends OnResumeActivity {
 
 	private ArrayList<String> items = new ArrayList<String>();
 	private ListView lv;

@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import wi2010d.dhbwapp.control.Delete;
-import wi2010d.dhbwapp.control.Learn;
 import wi2010d.dhbwapp.control.Statistics;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Stack;

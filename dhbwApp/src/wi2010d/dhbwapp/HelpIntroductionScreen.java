@@ -1,10 +1,8 @@
 package wi2010d.dhbwapp;
 
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
 
-public class HelpIntroductionScreen extends Activity {
+public class HelpIntroductionScreen extends OnResumeActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

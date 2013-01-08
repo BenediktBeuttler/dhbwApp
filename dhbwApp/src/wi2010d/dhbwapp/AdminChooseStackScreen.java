@@ -9,7 +9,6 @@ import wi2010d.dhbwapp.control.Exchange;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,7 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AdminChooseStackScreen extends Activity {
+public class AdminChooseStackScreen extends OnResumeActivity {
 
 	public final static int RESULT_OK = 1;
 	public final static int RESULT_FAIL = 2;

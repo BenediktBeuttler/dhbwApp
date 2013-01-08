@@ -39,7 +39,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AdminImportExport extends FragmentActivity implements
+public class AdminImportExport extends OnResumeFragmentActivity implements
 		ActionBar.TabListener {
 
 	/**

@@ -1,9 +1,8 @@
 package wi2010d.dhbwapp;
 
-import android.app.Activity;
 import android.os.Bundle;
 
-public class HelpEditCardsStackScreen extends Activity {
+public class HelpEditCardsStackScreen extends OnResumeActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -27,7 +27,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AdminEditDynamicStack extends FragmentActivity implements
+public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 		ActionBar.TabListener {
 
 	@Override
