@@ -154,8 +154,10 @@ public class LearningCard extends OnResumeFragmentActivity implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		ImageButton showImage;
-		showImage = (ImageButton) findViewById(R.id.btn_learning_card_front_picture_test);
+		ImageButton showImageFront;
+		ImageButton showImageBack;
+		showImageFront = (ImageButton) findViewById(R.id.btn_learning_card_front_picture);
+		showImageBack = (ImageButton) findViewById(R.id.btn_learning_card_back_picture);
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.btn_learning_card_front_sure:
@@ -175,7 +177,8 @@ public class LearningCard extends OnResumeFragmentActivity implements
 						.getActualProgressAsString());
 				txt_front.setText(card.getCardFront());
 				txt_back.setText(card.getCardBack());
-				updateImageButton(showImage);
+				updateImageButton(true, showImageFront);
+				updateImageButton(false, showImageBack);
 			}
 			return true;
 		case R.id.btn_learning_card_front_dontKnow:
@@ -194,7 +197,8 @@ public class LearningCard extends OnResumeFragmentActivity implements
 						.getActualProgressAsString());
 				txt_front.setText(card.getCardFront());
 				txt_back.setText(card.getCardBack());
-				updateImageButton(showImage);
+				updateImageButton(true, showImageFront);
+				updateImageButton(false, showImageBack);
 			}
 			return true;
 		case R.id.btn_learning_card_front_notSure:
@@ -213,13 +217,16 @@ public class LearningCard extends OnResumeFragmentActivity implements
 						.getActualProgressAsString());
 				txt_front.setText(card.getCardFront());
 				txt_back.setText(card.getCardBack());
-				updateImageButton(showImage);
+				updateImageButton(true, showImageFront);
+				updateImageButton(false, showImageBack);
 			}
 			return true;
 		case R.id.btn_admin_edit_card:
 			Intent intent = new Intent(this, AdminEditCard.class);
 			intent.putExtra("cardID", card.getCardID());
 			startActivityForResult(intent, RESULT_CHANGED);
+			updateImageButton(true, showImageFront);
+			updateImageButton(false, showImageBack);
 			return true;
 		case R.id.btn_admin_delete_card:
 
@@ -454,8 +461,6 @@ public class LearningCard extends OnResumeFragmentActivity implements
 		private Button showPicture;
 		
 		private ImageButton imageFrontPicture;
-		public static final int THUMBNAIL_HEIGHT = 48;
-		public static final int THUMBNAIL_WIDTH = 66;
 		private Bitmap imageBitmap;
 
 		public CardFront() {
@@ -475,39 +480,20 @@ public class LearningCard extends OnResumeFragmentActivity implements
 			txt_counter_front.setText(Learn.getInstance()
 					.getActualProgressAsString());
 			
-			//neuer start
+			
 			final int THUMBNAIL_SIZE = 64;
 
-			imageFrontPicture = (ImageButton) v.findViewById(R.id.btn_learning_card_front_picture_test);
+			imageFrontPicture = (ImageButton) v.findViewById(R.id.btn_learning_card_front_picture);
 			
-			if (!card.getCardFrontPicture().equals("")){
-	            FileInputStream fis = null;
-					try {
-						fis = new FileInputStream(new File(card.getCardFrontPicture()));
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				
-	            Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
-	            imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 
-	            		THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
-	
-	            
-	            ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-	            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-	            byte[] byteArray = baos.toByteArray();
-	            
-
-				imageFrontPicture.setImageBitmap(imageBitmap);
-			}
+			updateImageButton(true, imageFrontPicture);
+			
 			   
 			imageFrontPicture.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					
-					if (card.getCardFrontPicture() != "") {
+					if (!card.getCardFrontPicture().equals("")) {
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
 						show.setDataAndType(Uri.fromFile(new File(card
@@ -518,53 +504,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 				}
 			});
             
-            // neues ende
             
-			/* start
-			if (card.getCardFrontPicture() != ""){
-				imageFrontPicture = (ImageButton) v.findViewById(R.id.btn_learning_card_front_picture_test);
-				
-				imageBitmap = BitmapFactory.decodeByteArray(mImageData, 0, mImageData.length);
-				Float width  = new Float(imageBitmap.getWidth());
-				Float height = new Float(imageBitmap.getHeight());
-				Float ratio = width/height;
-				imageBitmap = Bitmap.createScaledBitmap(imageBitmap, (int)(THUMBNAIL_HEIGHT*ratio), THUMBNAIL_HEIGHT, false);
-	
-				int padding = (THUMBNAIL_WIDTH - imageBitmap.getWidth())/2;
-				imageFrontPicture.setPadding(padding, 0, padding, 0);
-				imageFrontPicture.setImageBitmap(imageBitmap);
-				
-				//imageView.setPadding(padding, 0, padding, 0);
-				//imageView.setImageBitmap(imageBitmap);
-	
-	
-	
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-				imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-				byte[] byteArray = baos.toByteArray();
-			}else{
-				
-			}
-				
-			*/
-			
-			showPicture = (Button) v
-					.findViewById(R.id.btn_learning_card_front_picture);
-			showPicture.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-
-					if (card.getCardFrontPicture() != "") {
-						Intent show = new Intent();
-						show.setAction(Intent.ACTION_VIEW);
-						show.setDataAndType(Uri.fromFile(new File(card
-								.getCardFrontPicture())), "image/*");
-						startActivity(show);
-					}
-
-				}
-			});
 			return v;
 		}
 
@@ -577,7 +517,8 @@ public class LearningCard extends OnResumeFragmentActivity implements
 		 */
 		public final String ARG_SECTION_NUMBER = "section_number";
 
-		Button showPicture;
+		private ImageButton imageBackPicture;
+		private Bitmap imageBitmap;
 
 		public CardBack() {
 		}
@@ -596,31 +537,30 @@ public class LearningCard extends OnResumeFragmentActivity implements
 			txt_counter_back.setText(Learn.getInstance()
 					.getActualProgressAsString());
 
-			showPicture = (Button) v
-					.findViewById(R.id.btn_learning_card_back_picture);
-			showPicture.setOnClickListener(new View.OnClickListener() {
+			final int THUMBNAIL_SIZE = 64;
 
+			imageBackPicture = (ImageButton) v.
+					findViewById(R.id.btn_learning_card_back_picture);
+			
+			updateImageButton(false, imageBackPicture);
+			
+			   
+			imageBackPicture.setOnClickListener(new View.OnClickListener() {
+				
 				@Override
 				public void onClick(View v) {
-
-					/*
-					Toast toast;
-					toast = Toast.makeText(getApplicationContext(), "Path: "
-							+ card.getCardBackPicture(), Toast.LENGTH_LONG);
-					toast.show();
-					*/
-
-					if (card.getCardBackPicture() != "") {
+					
+					if (!card.getCardBackPicture().equals("")) {
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
 						show.setDataAndType(Uri.fromFile(new File(card
 								.getCardBackPicture())), "image/*");
 						startActivity(show);
 					}
-
+					
 				}
 			});
-
+			
 			return v;
 		}
 	}
@@ -634,30 +574,58 @@ public class LearningCard extends OnResumeFragmentActivity implements
 		return false;
 	}
 	
-	public boolean updateImageButton(ImageButton imageFrontPicture){
+	public boolean updateImageButton(boolean front, ImageButton pictureBtn){
 		final int THUMBNAIL_SIZE = 64;
 		
-		if (card.getCardFrontPicture() != ""){
-            FileInputStream fis = null;
-			try {
-				fis = new FileInputStream(new File(card.getCardFrontPicture()));
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
-
-            imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 
-            		THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
-
-            
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] byteArray = baos.toByteArray();
-            
-
-			imageFrontPicture.setImageBitmap(imageBitmap);
-		}
+		if (front){
+			if (!card.getCardFrontPicture().equals("")){
+	            FileInputStream fis = null;
+				try {
+					fis = new FileInputStream(new File(card.getCardFrontPicture()));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
+	
+	            imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 
+	            		THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+	
+	            
+	            ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+	            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+	            byte[] byteArray = baos.toByteArray();
+	            
+	
+				pictureBtn.setImageBitmap(imageBitmap);
+			}else{
+				pictureBtn.setVisibility(ImageButton.GONE);
+			}}
+		else{
+			if (!card.getCardBackPicture().equals("")){
+				FileInputStream fis = null;
+				try {
+					fis = new FileInputStream(new File(card.getCardBackPicture()));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
+	
+	            imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 
+	            		THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+	
+	            
+	            ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+	            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+	            byte[] byteArray = baos.toByteArray();
+	            
+	
+				pictureBtn.setImageBitmap(imageBitmap);
+			}else{
+				pictureBtn.setVisibility(ImageButton.GONE);
+			}}
+			
 		return true;
 	}
 
