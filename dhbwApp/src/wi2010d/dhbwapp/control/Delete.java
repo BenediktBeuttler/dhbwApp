@@ -55,7 +55,7 @@ public class Delete {
 		Runthrough run = stack.getOverallRunthrough();
 		deleteRunthrough(run);
 		run = null;
-
+		
 		// delete the Stack from the Stack List
 		Stack.allStacks.remove(stack);
 
@@ -128,6 +128,7 @@ public class Delete {
 		for (Stack stack : Stack.allStacks) {
 			if (stack.isDynamicGenerated()) {
 				stack.getDynamicStackTags().remove(tag);
+				Create.getInstance().updateDynStack(stack);
 			}
 		}
 

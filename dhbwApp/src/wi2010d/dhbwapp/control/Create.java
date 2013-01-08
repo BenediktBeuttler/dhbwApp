@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 import android.util.Log;
+import android.widget.Toast;
 
 public class Create {
 
@@ -149,6 +150,9 @@ public class Create {
 						}
 					}
 				}
+				if(stack.getDynamicStackTags().size()==0){
+					Delete.getInstance().deleteStack(stack);
+				}
 			}
 		}
 
@@ -177,6 +181,9 @@ public class Create {
 						Edit.getInstance().removeCardFromStack(stack, card);
 					}
 				}
+			}
+			if(stack.getDynamicStackTags().size()==0){
+				Delete.getInstance().deleteStack(stack);
 			}
 		}
 		return true;
