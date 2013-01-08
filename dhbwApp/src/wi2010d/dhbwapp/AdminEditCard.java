@@ -1,6 +1,9 @@
 package wi2010d.dhbwapp;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +19,7 @@ import android.app.FragmentTransaction;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -34,6 +38,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -296,7 +301,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 		private Button editPicture;
-		private Button showPictureButton;
+		private ImageButton showPictureButton;
 		public Uri imageUriFront;
 		public static final int TAKE_PICTURE = 1;
 		
@@ -343,23 +348,20 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			});
 			
 			//Set up Button for showing the actual picture
-			showPictureButton = (Button) v.findViewById(R.id.btn_edit_picture_front_show);
+			showPictureButton = (ImageButton) v.findViewById(R.id.btn_edit_picture_front_show);
+			
+			updateImageButtonAdminEdit(true, showPictureButton);
+			
 			showPictureButton.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					if (card.getCardFrontPicture() != ""){						
+					if (!card.getCardFrontPicture().equals("")){						
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
 						show.setDataAndType(Uri.fromFile(new File(card.getCardFrontPicture())), "image/*");
 						startActivity(show);
-					}
-					else{
-						Toast toast;
-						toast = Toast.makeText(getApplicationContext(),
-							"No existing picture for the front of this card", Toast.LENGTH_LONG);
-						toast.show();
 					}
 				}
 			});
@@ -393,7 +395,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		//Button save;
 		
 		private Button editPicture;
-		private Button showPictureButton;
+		private ImageButton showPictureButton;
 		public Uri imageUri;
 		public static final int TAKE_PICTURE = 1;
 
@@ -437,23 +439,20 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			});
 			
 			//Set up show picture button
-			showPictureButton = (Button) v.findViewById(R.id.btn_edit_picture_back_show);
+			showPictureButton = (ImageButton) v.findViewById(R.id.btn_edit_picture_back_show);
+			
+			updateImageButtonAdminEdit(false, showPictureButton);
+			
 			showPictureButton.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					if (card.getCardBackPicture() != ""){						
+					if (!card.getCardBackPicture().equals("")){						
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
 						show.setDataAndType(Uri.fromFile(new File(card.getCardBackPicture())), "image/*");
 						startActivity(show);
-					}
-					else{
-						Toast toast;
-						toast = Toast.makeText(getApplicationContext(),
-							"No existing picture for the back of this card", Toast.LENGTH_LONG);
-						toast.show();
 					}
 				}
 			});
@@ -494,6 +493,61 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		} else
 			return true;
 	}
-
+	
+	//TODO: Gucken, ob hier auch dieselbe Methode aus der Learner-Klasse aufgerufen werden kann
+	public boolean updateImageButtonAdminEdit(boolean front, ImageButton pictureBtn){
+		final int THUMBNAIL_SIZE = 64;
+		
+		if (front){
+			if (!card.getCardFrontPicture().equals("")){
+	            FileInputStream fis = null;
+				try {
+					fis = new FileInputStream(new File(card.getCardFrontPicture()));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
+	
+	            imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 
+	            		THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+	
+	            
+	            ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+	            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+	            byte[] byteArray = baos.toByteArray();
+	            
+	
+				pictureBtn.setImageBitmap(imageBitmap);
+			}else{
+				pictureBtn.setVisibility(ImageButton.GONE);
+			}}
+		else{
+			if (!card.getCardBackPicture().equals("")){
+				FileInputStream fis = null;
+				try {
+					fis = new FileInputStream(new File(card.getCardBackPicture()));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
+	
+	            imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 
+	            		THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+	
+	            
+	            ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+	            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+	            byte[] byteArray = baos.toByteArray();
+	            
+	
+				pictureBtn.setImageBitmap(imageBitmap);
+			}else{
+				pictureBtn.setVisibility(ImageButton.GONE);
+			}}
+			
+		return true;
+	}
 
 }

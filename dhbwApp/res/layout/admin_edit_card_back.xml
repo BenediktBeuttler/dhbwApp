@@ -9,7 +9,7 @@
         android:id="@+id/txt_edit_card_back"
         style="@style/style_textViewBack"
         android:layout_width="wrap_content"
-        android:layout_height="233dp"
+        android:layout_height="205dp"
         android:layout_gravity="center_vertical|center_horizontal"
         android:ems="10"
         android:inputType="textMultiLine"
@@ -23,10 +23,10 @@
         android:layout_marginLeft="14dp"
         android:text="Take new picture" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_edit_picture_back_show"
-        android:layout_width="wrap_content"
+        android:layout_width="182dp"
         android:layout_height="wrap_content"
-        android:text="Show picture" />
+        android:src="@drawable/accept" />
 
 </LinearLayout>

@@ -21,10 +21,11 @@
         android:layout_height="wrap_content"
         android:text="Take new picture" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_edit_picture_front_show"
-        android:layout_width="wrap_content"
+        android:layout_width="177dp"
         android:layout_height="wrap_content"
-        android:text="Show picture" />
+        android:layout_weight="0.64"
+        android:src="@drawable/accept" />
 
 </LinearLayout>
