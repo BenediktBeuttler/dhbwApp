@@ -181,5 +181,26 @@ public class Edit {
 		tag.setTagName(name);
 		return Database.getInstance().changeTag(tag);
 	}
+	
+	/**
+	 * Method to add a new picture to card
+	 * front: false = back, true = front
+	 * 
+	 * @param front
+	 * @param path
+	 * @param card
+	 * @return
+	 */
+	public boolean addNewPicToCard(boolean front, String path, Card card){
+		if (front){
+			card.setCardFrontPicture(path);
+			Database.getInstance().changeCard(card);
+			return true;
+		}else{
+			card.setCardBackPicture(path);
+			Database.getInstance().changeCard(card);
+			return true;
+		}
+	}
 
 }
