@@ -372,10 +372,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		    	
 		       if (resultCode == Activity.RESULT_OK) {
 				    
-		    	   card.setCardFrontPicture(imageUriFront.getPath());
-				    
-		    	   //TODO: String speichern
-				    //TODO: test ob in db geschrieben
+		    	   //card.setCardFrontPicture(imageUriFront.getPath());
+		    	   Edit.getInstance().addNewPicToCard(true, imageUriFront.getPath(), card); 
 				    
 					Toast toast;
 					toast = Toast.makeText(getApplicationContext(),
@@ -469,10 +467,10 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					Log.e("AdminEditCard", "test2");
 		       if (resultCode == Activity.RESULT_OK) {
 				    
-		    	   card.setCardBackPicture(imageUri.getPath());
+		    	   //card.setCardBackPicture(imageUri.getPath());
+		    	   
+		    	   Edit.getInstance().addNewPicToCard(false, imageUri.getPath(), card);
 				    
-		    	   //TODO: String speichern
-				    //TODO: test ob in db geschrieben
 				    
 					Toast toast;
 					toast = Toast.makeText(getApplicationContext(),
