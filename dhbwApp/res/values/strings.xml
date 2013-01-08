@@ -101,6 +101,6 @@
     <string name="error_handler_name_taken">Name already exists</string>
     <string name="error_handler_no_sd">No SD Card available</string>
     <string name="error_handler_no_input">Please insert a name</string>
-    <string name="error_handler_no_tag">No Tags available</string>
+    <string name="error_handler_no_tag">No Tags selected</string>
 
 </resources>
