@@ -394,7 +394,6 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			
 			showPictureFront = (ImageButton) v.findViewById(R.id.btn_admin_new_card_picture_front_show);
 			
-			updateImageButtonNewCard(true, showPictureFront);
 			
 			showPictureFront.setOnClickListener(new View.OnClickListener() {
 				
@@ -480,7 +479,6 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			
 			showPictureBack = (ImageButton) v.findViewById(R.id.btn_admin_new_card_picture_back_show);
 			
-			updateImageButtonNewCard(false, showPictureBack);
 			
 			showPictureBack.setOnClickListener(new View.OnClickListener() {
 				
