@@ -3,6 +3,8 @@ package wi2010d.dhbwapp;
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import wi2010d.dhbwapp.model.Card;
+import wi2010d.dhbwapp.model.Tag;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -84,9 +86,15 @@ public class AdminScreen extends OnResumeActivity implements OnClickListener{
 			startActivity(new Intent (this, AdminImportExport.class));
 			break;
 		case R.id.btn_admin_new_dyn_stack:
-			Intent i = new Intent (this, AdminCreateDynamicStack.class);
-			startActivity(i);
-			break;
+			if (Tag.allTags.size() != 0 && Card.allCards.size() != 0) {
+				Intent i = new Intent(getApplicationContext(),
+						AdminCreateDynamicStack.class);
+				startActivityForResult(i, 1);
+			} else {
+				Toast.makeText(getApplicationContext(),
+						"No Tags for dynamic stacks available!",
+						Toast.LENGTH_LONG).show();
+			}			break;
 		case R.id.btn_admin_update_dyn_stack:
 			Create.getInstance().updateDynStacks();
 			Toast toast = Toast.makeText(getApplicationContext(),
