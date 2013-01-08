@@ -1,6 +1,9 @@
 package wi2010d.dhbwapp;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Edit;
@@ -9,22 +12,28 @@ import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -332,7 +341,11 @@ public class AdminNewCard extends FragmentActivity implements
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
-
+		private Button takePictureFront;
+		private Button showPictureFront;
+		public Uri imageUriFront;
+		public static final int TAKE_PICTURE = 1;
+		
 		public NewCardFront() {
 		}
 
@@ -344,9 +357,74 @@ public class AdminNewCard extends FragmentActivity implements
 			View v = inflater.inflate(R.layout.admin_new_card_front, null);
 
 			cardFront = (EditText) v.findViewById(R.id.txt_new_card_front);
+			
+			takePictureFront = (Button) v.findViewById(R.id.btn_admin_new_card_picture_front);
+			takePictureFront.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					Intent takePicture = new Intent("android.media.action.IMAGE_CAPTURE");
+					Date date = new Date();
+					SimpleDateFormat sd = new SimpleDateFormat("yyMMddhhmmss");
+					String picName = sd.format(date);
+					
+					if (!new File(Environment.getExternalStorageDirectory().getPath()
+							+ "/knowItOwl/pictures").exists()) {
+						new File(Environment.getExternalStorageDirectory().getPath()
+								+ "/knowItOwl/pictures").mkdir();
+					}
+					
+				    File photo = new File(Environment.getExternalStorageDirectory() 
+				    		+ "/knowItOwl/pictures",  picName + ".jpg");
+				    takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
+				            Uri.fromFile(photo));
+				    imageUriFront = Uri.fromFile(photo);
+
+				    startActivityForResult(takePicture, TAKE_PICTURE);
+					
+				}
+			});
+			
+			showPictureFront = (Button) v.findViewById(R.id.btn_admin_new_card_picture_front_show);
+			showPictureFront.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					if (card.getCardFrontPicture() != ""){						
+						Intent show = new Intent();
+						show.setAction(Intent.ACTION_VIEW);
+						show.setDataAndType(Uri.fromFile(new File(card.getCardFrontPicture())), "image/*");
+						startActivity(show);
+					}
+					else{
+						Toast toast;
+						toast = Toast.makeText(getApplicationContext(),
+							"No existing picture for the front of this card", Toast.LENGTH_LONG);
+						toast.show();
+					}
+				}
+			});
 
 			return v;
 		}
+		
+		public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    	
+		       if (resultCode == Activity.RESULT_OK) {
+				    
+		    	   card.setCardFrontPicture(imageUriFront.getPath());
+				    
+		    	   //TODO: String speichern
+				    //TODO: test ob in db geschrieben
+				    
+					Toast toast;
+					toast = Toast.makeText(getApplicationContext(),
+							"Picture saved under: " +  imageUriFront.getPath(), Toast.LENGTH_LONG);
+					toast.show();
+		        }
+		  }
 	}
 
 	public class NewCardBack extends Fragment {
@@ -355,6 +433,10 @@ public class AdminNewCard extends FragmentActivity implements
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
+		private Button takePictureBack;
+		private Button showPictureBack;
+		public Uri imageUriBack;
+		public static final int TAKE_PICTURE = 1;
 
 		public NewCardBack() {
 		}
@@ -366,9 +448,75 @@ public class AdminNewCard extends FragmentActivity implements
 			View v = inflater.inflate(R.layout.admin_new_card_back, null);
 
 			cardBack = (EditText) v.findViewById(R.id.txt_new_card_back);
+			
+			takePictureBack = (Button) v.findViewById(R.id.btn_admin_new_card_picture_back);
+			takePictureBack.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					Intent takePicture = new Intent("android.media.action.IMAGE_CAPTURE");
+					Date date = new Date();
+					SimpleDateFormat sd = new SimpleDateFormat("yyMMddhhmmss");
+					String picName = sd.format(date);
+					
+					if (!new File(Environment.getExternalStorageDirectory().getPath()
+							+ "/knowItOwl/pictures").exists()) {
+						new File(Environment.getExternalStorageDirectory().getPath()
+								+ "/knowItOwl/pictures").mkdir();
+					}
+					
+				    File photo = new File(Environment.getExternalStorageDirectory() 
+				    		+ "/knowItOwl/pictures",  picName + ".jpg");
+				    takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
+				            Uri.fromFile(photo));
+				    imageUriBack = Uri.fromFile(photo);
+
+				    startActivityForResult(takePicture, TAKE_PICTURE);
+					
+				}
+			});
+			
+			showPictureBack = (Button) v.findViewById(R.id.btn_admin_new_card_picture_back_show);
+			showPictureBack.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					if (card.getCardBackPicture() != ""){						
+						Intent show = new Intent();
+						show.setAction(Intent.ACTION_VIEW);
+						show.setDataAndType(Uri.fromFile(new File(card.getCardBackPicture())), "image/*");
+						startActivity(show);
+					}
+					else{
+						Toast toast;
+						toast = Toast.makeText(getApplicationContext(),
+							"No existing picture for the back of this card", Toast.LENGTH_LONG);
+						toast.show();
+					}
+				}
+			});
+
 
 			return v;
 		}
+		
+		public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    	
+		       if (resultCode == Activity.RESULT_OK) {
+				    
+		    	   card.setCardFrontPicture(imageUriBack.getPath());
+				    
+		    	   //TODO: String speichern
+				    //TODO: test ob in db geschrieben
+				    
+					Toast toast;
+					toast = Toast.makeText(getApplicationContext(),
+							"Picture saved under: " +  imageUriBack.getPath(), Toast.LENGTH_LONG);
+					toast.show();
+		        }
+		  }
 	}
 
 	protected boolean isCardNotEmpty() {
