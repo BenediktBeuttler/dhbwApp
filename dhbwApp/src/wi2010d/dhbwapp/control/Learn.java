@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 import android.util.Log;
+import android.widget.Toast;
 
+import wi2010d.dhbwapp.LearningCard;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Runthrough;
@@ -28,10 +30,12 @@ public class Learn {
 	private Stack stack;
 	private static Learn learn;
 	private int cardsInQueues;
+	private int totalCards;
 
 	/**
 	 * Use this method to start the Learning session. It resets the variables
-	 * and initializes the queues for the composition of the Learning session 
+	 * and initializes the queues for the composition of the Learning session
+	 * 
 	 * @param pStack
 	 * @return the first card, for the Learning session
 	 */
@@ -52,6 +56,7 @@ public class Learn {
 		// set the parameters stack and cards
 		stack = pStack;
 		cards = stack.getCards();
+		totalCards = cards.size();
 
 		// add the cards from the stack to the queues
 		for (Card cd : cards) {
@@ -76,10 +81,9 @@ public class Learn {
 		// create a random generator
 		Random generator = new Random();
 
-		/* 
-		 * if there are more notSure-cards than 1
-		 * take only 50% of the cards from the notSure
-		 * drawer for the learning session, else take all (1)
+		/*
+		 * if there are more notSure-cards than 1 take only 50% of the cards
+		 * from the notSure drawer for the learning session, else take all (1)
 		 */
 		if (notSure.getSize() > 1) {
 			int valueFor = notSure.getSize() / 2;
@@ -90,10 +94,9 @@ public class Learn {
 		}
 
 		/*
-		 * if there are more sure-cards than 2 take only 33% 
-		 * of the cards from the sure drawer for the learning
-		 * session (round up), else if there are 2 cards take
-		 * 1, else take all (1)
+		 * if there are more sure-cards than 2 take only 33% of the cards from
+		 * the sure drawer for the learning session (round up), else if there
+		 * are 2 cards take 1, else take all (1)
 		 */
 		if (sure.getSize() > 2) {
 			int valueFor = sure.getSize() / 3 * 2;
@@ -109,8 +112,8 @@ public class Learn {
 				sure.remove(generator.nextInt(2));
 			}
 		}
-		
-		//sum up all the cards in the queues in one variable
+
+		// sum up all the cards in the queues in one variable
 		cardsInQueues = dontKnow.getSize() + notSure.getSize() + sure.getSize();
 
 		// get the first card to start with
@@ -131,11 +134,11 @@ public class Learn {
 				}
 			}
 		}
-		
-		//create a new runthrough for the actual stack
+
+		// create a new runthrough for the actual stack
 		runthrough = new Runthrough(stack.getStackID(), false, statusBefore);
-		
-		//return the first card
+
+		// return the first card
 		return card;
 	}
 
@@ -150,128 +153,138 @@ public class Learn {
 
 	/**
 	 * Use this method to store the actual Card in the delivered drawer (0-2)
-	 * and get the next card in the learning session.
-	 * In case it was the last card it updates the runthrough
-	 * and returns null.
-	 * In case the drawer number is > 2 the drawer won't be changed for
-	 * the actual card.
-	 * In case the drawer number is 4 the learning session will be aborted 
+	 * and get the next card in the learning session. In case it was the last
+	 * card it updates the runthrough and returns null. In case the drawer
+	 * number is > 2 the drawer won't be changed for the actual card. In case
+	 * the drawer number is 4 the learning session will be aborted
+	 * 
 	 * @param drawer
 	 * @return the next card in the learning session, or null
 	 */
 	public Card learnCard(int drawer) {
 
-		//if drawer 4 is delivered, the learning session will be aborted
+		// if drawer 4 is delivered, the learning session will be aborted
 		if (drawer == 4) {
-			actualCard=cardsInQueues;
+			actualCard = cardsInQueues;
 		}
 
-		//if drawer is 0, 1 or 2, the actual card's drawer will be updated
+		if (drawer == 3) {
+			totalCards--;
+		}
+
+		// if drawer is 0, 1 or 2, the actual card's drawer will be updated
 		if (drawer <= 2) {
 			Edit.getInstance().setDrawer(card, drawer);
 		}
 
 		/*
-		 *  if the actual card is the last card in the stack, the runthrough
-		 *  will be updated and null will be returned
+		 * if the actual card is the last card in the stack, the runthrough will
+		 * be updated and null will be returned
 		 */
-		if (actualCard >= cardsInQueues) {
+		if (totalCards > 0) {
+			if (actualCard >= cardsInQueues) {
 
-			// read status after runthrough
-			cards = stack.getCards();
+				// read status after runthrough
 
-			for (Card cd : cards) {
-				switch (cd.getDrawer()) {
-				case 0:
-					statusAfter[0]++;
-					break;
-				case 1:
-					statusAfter[1]++;
-					break;
-				case 2:
-					statusAfter[2]++;
-					break;
+				cards = stack.getCards();
+
+				for (Card cd : cards) {
+					switch (cd.getDrawer()) {
+					case 0:
+						statusAfter[0]++;
+						break;
+					case 1:
+						statusAfter[1]++;
+						break;
+					case 2:
+						statusAfter[2]++;
+						break;
+					}
 				}
-			}
 
-			// store the statusAfter and the EndDate in the runthrough of the stack
-			runthrough.setStatusAfter(statusAfter[0], statusAfter[1],
-					statusAfter[2]);
-			runthrough.setEndDate(new Date());
-			stack.addLastRunthrough(runthrough);
-			
-			return null;
+				// store the statusAfter and the EndDate in the runthrough of
+				// the stack
+				runthrough.setStatusAfter(statusAfter[0], statusAfter[1],
+						statusAfter[2]);
+				runthrough.setEndDate(new Date());
+				stack.addLastRunthrough(runthrough);
+
+				return null;
+			} else {
+				/*
+				 * get the next card for the learning session, the algorithm is
+				 * dontKnow->notSure->dontKnow->sure->dontKnow->notSure and new
+				 * form the beginning
+				 */
+				int oldValueActualCard = actualCard;
+				while (actualCard == oldValueActualCard) {
+					switch (run) {
+					case 1:
+						if (!notSure.isEmpty()) {
+							card = (Card) notSure.remove();
+							run = 2;
+							actualCard++;
+							break;
+						} else {
+							run = 2;
+						}
+					case 2:
+						if (!dontKnow.isEmpty()) {
+							card = (Card) dontKnow.remove();
+							run = 3;
+							actualCard++;
+							break;
+						} else {
+							run = 3;
+						}
+					case 3:
+						if (!sure.isEmpty()) {
+							card = (Card) sure.remove();
+							run = 4;
+							actualCard++;
+							break;
+						} else {
+							run = 4;
+						}
+					case 4:
+						if (!dontKnow.isEmpty()) {
+							card = (Card) dontKnow.remove();
+							run = 5;
+							actualCard++;
+							break;
+						} else {
+							run = 5;
+						}
+					case 5:
+						if (!notSure.isEmpty()) {
+							card = (Card) notSure.remove();
+							run = 6;
+							actualCard++;
+							break;
+						} else {
+							run = 6;
+						}
+					case 6:
+						if (!dontKnow.isEmpty()) {
+							card = (Card) dontKnow.remove();
+							run = 1;
+							actualCard++;
+							break;
+						} else {
+							run = 1;
+						}
+					}
+				}
+				return card;
+			}
 		} else {
-			/*
-			 * get the next card for the learning session, the algorithm
-			 * is dontKnow->notSure->dontKnow->sure->dontKnow->notSure
-			 * and new form the beginning
-			 */
-			int oldValueActualCard = actualCard;
-			while (actualCard == oldValueActualCard) {
-				switch (run) {
-				case 1:
-					if (!notSure.isEmpty()) {
-						card = (Card) notSure.remove();
-						run = 2;
-						actualCard++;
-						break;
-					} else {
-						run = 2;
-					}
-				case 2:
-					if (!dontKnow.isEmpty()) {
-						card = (Card) dontKnow.remove();
-						run = 3;
-						actualCard++;
-						break;
-					} else {
-						run = 3;
-					}
-				case 3:
-					if (!sure.isEmpty()) {
-						card = (Card) sure.remove();
-						run = 4;
-						actualCard++;
-						break;
-					} else {
-						run = 4;
-					}
-				case 4:
-					if (!dontKnow.isEmpty()) {
-						card = (Card) dontKnow.remove();
-						run = 5;
-						actualCard++;
-						break;
-					} else {
-						run = 5;
-					}
-				case 5:
-					if (!notSure.isEmpty()) {
-						card = (Card) notSure.remove();
-						run = 6;
-						actualCard++;
-						break;
-					} else {
-						run = 6;
-					}
-				case 6:
-					if (!dontKnow.isEmpty()) {
-						card = (Card) dontKnow.remove();
-						run = 1;
-						actualCard++;
-						break;
-					} else {
-						run = 1;
-					}
-				}
-			}
-			return card;
+			return null;
 		}
 	}
 
 	/**
 	 * Singleton method
+	 * 
 	 * @return instance of Learn
 	 */
 	public static Learn getInstance() {
@@ -282,8 +295,8 @@ public class Learn {
 	}
 
 	/**
-	 * This is a help class for the management of the queues that store
-	 * the cards for the learning session. 
+	 * This is a help class for the management of the queues that store the
+	 * cards for the learning session.
 	 */
 	private class CardQueue {
 		private ArrayList<Card> arrayList;
@@ -298,7 +311,9 @@ public class Learn {
 
 		/**
 		 * Use this method to remove the card at the specified position
-		 * @param index as specified position of the card in the queue
+		 * 
+		 * @param index
+		 *            as specified position of the card in the queue
 		 */
 		public void remove(int index) {
 			queueSize--;
@@ -306,9 +321,10 @@ public class Learn {
 		}
 
 		/**
-		 * Use this method to add a specified card to the queue.
-		 * The card is added to the front of the queue, the remaining
-		 * cards are moved backward
+		 * Use this method to add a specified card to the queue. The card is
+		 * added to the front of the queue, the remaining cards are moved
+		 * backward
+		 * 
 		 * @param card
 		 */
 		public void add(Card card) {
@@ -317,9 +333,9 @@ public class Learn {
 		}
 
 		/**
-		 * Use this method to get the first card in the CardQueue
-		 * and remove it at the same time. The remaining cards are
-		 * moved forward
+		 * Use this method to get the first card in the CardQueue and remove it
+		 * at the same time. The remaining cards are moved forward
+		 * 
 		 * @return
 		 */
 		public Card remove() {

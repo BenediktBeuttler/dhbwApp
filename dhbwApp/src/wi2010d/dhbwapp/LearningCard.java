@@ -66,6 +66,9 @@ public class LearningCard extends OnResumeFragmentActivity implements
 	TextView txt_back;
 	Button sure, dontKnow, notSure;
 	boolean isRandomStack;
+	
+	ImageButton showImageFront;
+	ImageButton showImageBack;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -154,8 +157,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		ImageButton showImageFront;
-		ImageButton showImageBack;
+		
 		showImageFront = (ImageButton) findViewById(R.id.btn_learning_card_front_picture);
 		showImageBack = (ImageButton) findViewById(R.id.btn_learning_card_back_picture);
 		// Handle item selection
@@ -241,8 +243,11 @@ public class LearningCard extends OnResumeFragmentActivity implements
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int id) {
+
 									Delete.getInstance().deleteCard(card);
+									
 									card = Learn.getInstance().learnCard(3);
+									
 									if (card == null) {
 										Intent deleteCard = (new Intent(
 												getApplicationContext(),
@@ -261,6 +266,8 @@ public class LearningCard extends OnResumeFragmentActivity implements
 												.getActualProgressAsString());
 										txt_front.setText(card.getCardFront());
 										txt_back.setText(card.getCardBack());
+										updateImageButton(true, showImageFront);
+										updateImageButton(false, showImageBack);
 									}
 								}
 							})
@@ -310,6 +317,8 @@ public class LearningCard extends OnResumeFragmentActivity implements
 					.getActualProgressAsString());
 			txt_counter_back.setText(Learn.getInstance()
 					.getActualProgressAsString());
+			updateImageButton(true, showImageFront);
+			updateImageButton(false, showImageBack);
 			break;
 		default:
 			break;
