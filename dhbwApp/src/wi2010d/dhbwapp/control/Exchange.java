@@ -23,6 +23,7 @@ import wi2010d.dhbwapp.model.Tag;
 public class Exchange {
 
 	private static Exchange exchange;
+	private ArrayList<String> imageList = new ArrayList<String>();
 
 	/**
 	 * Constructor
@@ -127,6 +128,9 @@ public class Exchange {
 	 */
 	public boolean importStack(String pathToXML) throws JDOMException,
 			IOException {
+		// clear the imageList, so it can be filled
+		imageList.clear();
+
 		// create a cardlist
 		List<Card> cardlist = new ArrayList<Card>();
 
@@ -215,6 +219,17 @@ public class Exchange {
 				String frontPic = cardElem.getAttributeValue("frontPic");
 				String backPic = cardElem.getAttributeValue("backPic");
 				List<Tag> tagList = new ArrayList<Tag>();
+				// Add the PictureNames to the imageList --> needed to copy
+				if (!frontPic.equals("")) {
+					// Only add FileNames
+					imageList
+							.add(frontPic.substring(frontPic.lastIndexOf("/") + 1));
+				}
+				if (!backPic.equals("")) {
+					// Only add FileNames
+					imageList
+							.add(backPic.substring(backPic.lastIndexOf("/") + 1));
+				}
 
 				int foundTag = -1;
 				for (org.jdom2.Element tagElem : cardElem.getChildren()) {
@@ -239,6 +254,13 @@ public class Exchange {
 			}
 		}
 		return cardList;
+	}
+
+	/**
+	 * @return The list filled with the imported image
+	 */
+	public ArrayList<String> getImageList() {
+		return imageList;
 	}
 
 }
