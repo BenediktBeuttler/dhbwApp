@@ -47,6 +47,9 @@ import android.widget.Toast;
 public class AdminNewCard extends OnResumeFragmentActivity implements
 		ActionBar.TabListener {
 
+	public String cardFrontPic = "";
+	public String cardBackPic = "";
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
@@ -143,7 +146,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				}
 				card = Create.getInstance().newCard(
 						cardFront.getText().toString(),
-						cardBack.getText().toString(), cardTagList, "", "");
+						cardBack.getText().toString(), cardTagList, cardFrontPic, cardBackPic);
 
 				Intent i = new Intent(getApplicationContext(),
 						AdminNewCardChooseStack.class);
@@ -395,19 +398,22 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			showPictureFront = (ImageButton) v.findViewById(R.id.btn_admin_new_card_picture_front_show);
 			
 			
+			
 			showPictureFront.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					if (!card.getCardFrontPicture().equals("")){						
+					if (!cardFrontPic.equals("")){						
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
-						show.setDataAndType(Uri.fromFile(new File(card.getCardFrontPicture())), "image/*");
+						show.setDataAndType(Uri.fromFile(new File(cardFrontPic)), "image/*");
 						startActivity(show);
 					}
 				}
 			});
+			
+			showPictureFront.setVisibility(ImageButton.GONE);
 
 			return v;
 		}
@@ -415,11 +421,12 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    	
 		       if (resultCode == Activity.RESULT_OK) {
-				    
-		    	   //card.setCardFrontPicture(imageUriFront.getPath());
-		    	   Edit.getInstance().addNewPicToCard(true, imageUriFront.getPath(), card);
+				   
+		    	   cardFrontPic = imageUriFront.getPath();
+		    	   
 				   updateImageButtonNewCard(true, showPictureFront);
-					Toast toast;
+					
+				   Toast toast;
 					toast = Toast.makeText(getApplicationContext(),
 							"Picture saved under: " +  imageUriFront.getPath(), Toast.LENGTH_LONG);
 					toast.show();
@@ -485,14 +492,16 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					if (!card.getCardBackPicture().equals("")){						
+					if (!cardBackPic.equals("")){						
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
-						show.setDataAndType(Uri.fromFile(new File(card.getCardBackPicture())), "image/*");
+						show.setDataAndType(Uri.fromFile(new File(cardBackPic)), "image/*");
 						startActivity(show);
 					}
 				}
 			});
+			
+			showPictureBack.setVisibility(ImageButton.GONE);
 
 
 			return v;
@@ -502,10 +511,8 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	    	
 		       if (resultCode == Activity.RESULT_OK) {
 				    
-		    	   //card.setCardFrontPicture(imageUriBack.getPath());
-		    	  
-		    	   Edit.getInstance().addNewPicToCard(false, imageUriBack.getPath(), card);
-				   
+		    	   cardBackPic = imageUriBack.getPath();
+		    	   
 		    	   updateImageButtonNewCard(false, showPictureBack);  
 		    	  
 				    
@@ -560,13 +567,13 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	
 	//TODO: Gucken, ob hier auch dieselbe Methode aus der Learner-Klasse aufgerufen werden kann
 		public boolean updateImageButtonNewCard(boolean front, ImageButton pictureBtn){
-			final int THUMBNAIL_SIZE = 64;
+			final int THUMBNAIL_SIZE = 128;
 			
 			if (front){
-				if (!card.getCardFrontPicture().equals("")){
+				if (!cardFrontPic.equals("")){
 		            FileInputStream fis = null;
 					try {
-						fis = new FileInputStream(new File(card.getCardFrontPicture()));
+						fis = new FileInputStream(new File(cardFrontPic));
 					} catch (FileNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -581,16 +588,16 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 		            byte[] byteArray = baos.toByteArray();
 		            
-		
+		            pictureBtn.setVisibility(ImageButton.VISIBLE);
 					pictureBtn.setImageBitmap(imageBitmap);
 				}else{
 					pictureBtn.setVisibility(ImageButton.GONE);
 				}}
 			else{
-				if (!card.getCardBackPicture().equals("")){
+				if (!cardBackPic.equals("")){
 					FileInputStream fis = null;
 					try {
-						fis = new FileInputStream(new File(card.getCardBackPicture()));
+						fis = new FileInputStream(new File(cardBackPic));
 					} catch (FileNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -605,7 +612,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 		            byte[] byteArray = baos.toByteArray();
 		            
-		
+		            pictureBtn.setVisibility(ImageButton.VISIBLE);
 					pictureBtn.setImageBitmap(imageBitmap);
 				}else{
 					pictureBtn.setVisibility(ImageButton.GONE);
