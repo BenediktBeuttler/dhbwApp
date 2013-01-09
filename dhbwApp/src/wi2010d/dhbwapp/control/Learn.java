@@ -29,23 +29,31 @@ public class Learn {
 	private static Learn learn;
 	private int cardsInQueues;
 
+	/**
+	 * Use this method to start the Learning session. It resets the variables
+	 * and initializes the queues for the composition of the Learning session 
+	 * @param pStack
+	 * @return the first card, for the Learning session
+	 */
 	public Card startLearning(Stack pStack) {
 
-		// reset
+		// reset the variables
 		actualCard = 1;
 		run = 1;
 		statusAfter[0] = 0;
 		statusAfter[1] = 0;
 		statusAfter[2] = 0;
 
+		// initialize the Queues
 		sure = new CardQueue();
 		dontKnow = new CardQueue();
 		notSure = new CardQueue();
 
+		// set the parameters stack and cards
 		stack = pStack;
 		cards = stack.getCards();
 
-		// init Queues
+		// add the cards from the stack to the queues
 		for (Card cd : cards) {
 			switch (cd.getDrawer()) {
 			case 0:
@@ -60,44 +68,50 @@ public class Learn {
 			}
 		}
 
-		// init statusBefore Array
-		statusBefore[0] = dontKnow.size();
-		statusBefore[1] = notSure.size();
-		statusBefore[2] = sure.size();
+		// initialize statusBefore Array
+		statusBefore[0] = dontKnow.getSize();
+		statusBefore[1] = notSure.getSize();
+		statusBefore[2] = sure.getSize();
 
+		// create a random generator
 		Random generator = new Random();
 
-		if (notSure.size() > 1) {
-			int valueFor = notSure.size() / 2;
+		/* 
+		 * if there are more notSure-cards than 1
+		 * take only 50% of the cards from the notSure
+		 * drawer for the learning session, else take all (1)
+		 */
+		if (notSure.getSize() > 1) {
+			int valueFor = notSure.getSize() / 2;
 			for (int i = 1; i <= valueFor; i++) {
-				int rnd = generator.nextInt(notSure.size());
+				int rnd = generator.nextInt(notSure.getSize());
 				notSure.remove(rnd);
 			}
 		}
 
-		if (sure.size() > 2) {
-			int valueFor = sure.size() / 3 * 2;
-			if (sure.size() % 3 >= 1) {
+		/*
+		 * if there are more sure-cards than 2 take only 33% 
+		 * of the cards from the sure drawer for the learning
+		 * session (round up), else if there are 2 cards take
+		 * 1, else take all (1)
+		 */
+		if (sure.getSize() > 2) {
+			int valueFor = sure.getSize() / 3 * 2;
+			if (sure.getSize() % 3 >= 1) {
 				valueFor++;
 			}
 			for (int i = 1; i <= valueFor; i++) {
-				int rnd = generator.nextInt(sure.size());
-
-				Log.e("TB Schleife",
-						"sure.size: " + sure.size() + ", sure.size / 3: "
-								+ (sure.size() / 3)
-								+ ", generator.nextInt(sure.size() - 1: )"
-								+ (generator.nextInt(sure.size() - 1)));
-
+				int rnd = generator.nextInt(sure.getSize());
 				sure.remove(rnd);
 			}
 		} else {
-			if (sure.size() == 2) {
+			if (sure.getSize() == 2) {
 				sure.remove(generator.nextInt(2));
 			}
 		}
-
-		cardsInQueues = dontKnow.size() + notSure.size() + sure.size();
+		
+		//sum up all the cards in the queues in one variable
+		cardsInQueues = dontKnow.getSize() + notSure.getSize() + sure.getSize();
 
 		// get the first card to start with
 		if (!dontKnow.isEmpty()) {
@@ -117,16 +131,34 @@ public class Learn {
 				}
 			}
 		}
+		
+		//create a new runthrough for the actual stack
 		runthrough = new Runthrough(stack.getStackID(), false, statusBefore);
+		
+		//return the first card
 		return card;
 	}
 
+	/**
+	 * @return a string with the actual progress in the learning session
+	 */
 	public String getActualProgressAsString() {
 		String progress = "";
 		progress = "Karte " + actualCard + " von " + cardsInQueues;
 		return progress;
 	}
 
+	/**
+	 * Use this method to store the actual Card in the delivered drawer (0-2)
+	 * and get the next card in the learning session.
+	 * In case it was the last card it updates the runthrough
+	 * and returns null.
+	 * In case the drawer number is > 2 the drawer won't be changed for
+	 * the actual card.
+	 * In case the drawer number is 4 the learning session will be aborted 
+	 * @param drawer
+	 * @return the next card in the learning session, or null
+	 */
 	public Card learnCard(int drawer) {
 
 		//if drawer 4 is delivered, the learning session will be aborted
@@ -139,10 +171,13 @@ public class Learn {
 			Edit.getInstance().setDrawer(card, drawer);
 		}
 
+		/*
+		 *  if the actual card is the last card in the stack, the runthrough
+		 *  will be updated and null will be returned
+		 */
 		if (actualCard >= cardsInQueues) {
-			// globale Variable runthroughDone auf true setzen
 
-			// read status after runthrough and store it in the runthrough
+			// read status after runthrough
 			cards = stack.getCards();
 
 			for (Card cd : cards) {
@@ -159,12 +194,19 @@ public class Learn {
 				}
 			}
 
+			// store the statusAfter and the EndDate in the runthrough of the stack
 			runthrough.setStatusAfter(statusAfter[0], statusAfter[1],
 					statusAfter[2]);
 			runthrough.setEndDate(new Date());
 			stack.addLastRunthrough(runthrough);
+			
 			return null;
 		} else {
+			/*
+			 * get the next card for the learning session, the algorithm
+			 * is dontKnow->notSure->dontKnow->sure->dontKnow->notSure
+			 * and new form the beginning
+			 */
 			int oldValueActualCard = actualCard;
 			while (actualCard == oldValueActualCard) {
 				switch (run) {
@@ -228,6 +270,10 @@ public class Learn {
 		}
 	}
 
+	/**
+	 * Singleton method
+	 * @return instance of Learn
+	 */
 	public static Learn getInstance() {
 		if (learn == null) {
 			learn = new Learn();
@@ -235,33 +281,62 @@ public class Learn {
 		return learn;
 	}
 
+	/**
+	 * This is a help class for the management of the queues that store
+	 * the cards for the learning session. 
+	 */
 	private class CardQueue {
 		private ArrayList<Card> arrayList;
 		private int queueSize = 0;
 
+		/**
+		 * constructor
+		 */
 		public CardQueue() {
 			arrayList = new ArrayList<Card>();
 		}
 
+		/**
+		 * Use this method to remove the card at the specified position
+		 * @param index as specified position of the card in the queue
+		 */
 		public void remove(int index) {
 			queueSize--;
 			arrayList.remove(index);
 		}
 
+		/**
+		 * Use this method to add a specified card to the queue.
+		 * The card is added to the front of the queue, the remaining
+		 * cards are moved backward
+		 * @param card
+		 */
 		public void add(Card card) {
 			queueSize++;
 			arrayList.add(0, card);
 		}
 
+		/**
+		 * Use this method to get the first card in the CardQueue
+		 * and remove it at the same time. The remaining cards are
+		 * moved forward
+		 * @return
+		 */
 		public Card remove() {
 			queueSize--;
 			return (Card) arrayList.remove(0);
 		}
 
-		public int size() {
+		/**
+		 * @return the size of the cardQueue
+		 */
+		public int getSize() {
 			return queueSize;
 		}
 
+		/**
+		 * @return true if the cardQueue is empty, otherwise returns false
+		 */
 		public boolean isEmpty() {
 			return queueSize == 0;
 		}
