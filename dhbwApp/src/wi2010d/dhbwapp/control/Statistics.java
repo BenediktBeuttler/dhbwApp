@@ -25,7 +25,7 @@ public class Statistics {
 	/**
 	 * Singleton Method
 	 * 
-	 * @return
+	 * @return Class Statistics
 	 */
 	public static Statistics getInstance() {
 		if (statistics == null) {
@@ -40,19 +40,25 @@ public class Statistics {
 	/**
 	 * Method that returns name of the stack with the last runthrough
 	 * 
-	 * @return
+	 * @return name of stack (with the newest runthrough)
 	 */
 	public String getLastRunthroughName() {
+		
+		//Get last Runthrough
 		Runthrough lastRunthrough = getLastRunthrough();
+		
 		if (lastRunthrough != null) {
 			for (Stack stack : Stack.allStacks) {
+				//Compare IDs (Stack ID and Stack ID stored in Runthrough to identify relevant Stack
 				if (stack.getStackID() == lastRunthrough.getStackID()) {
 					return stack.getStackName();
 				}
 			}
-
+			// Return "No Data available" if there is no match
 			return "No Data available";
 		} else {
+			
+			// Return "No Data available" if there is no last Runthrough
 			return "No Data available";
 		}
 	}
@@ -60,16 +66,21 @@ public class Statistics {
 	/**
 	 * Returns date of last Runthrough
 	 * 
-	 * @return
+	 * @return String, containing the date of the last runthrough (formatted)
 	 */
 	public String getLastRunthroughDate() {
 		String date;
+		
+		// Get last Runthrough
 		Runthrough lastRunthrough = getLastRunthrough();
+		
 		if (lastRunthrough != null) {
+			// If there is a last Runthrough, get and return End Date
 			SimpleDateFormat sd = new SimpleDateFormat("dd.MM.yyyy");
 			date = sd.format(lastRunthrough.getEndDate());
 			return date;
 		} else {
+			// If there is no last Runthrough, return "No Data available"
 			return "No Data available";
 		}
 	}
@@ -77,35 +88,46 @@ public class Statistics {
 	/**
 	 * Returns duration of last Runthrough
 	 * 
-	 * @return
+	 * @return String, containing the duration of last runthrough (formatted)
 	 */
 	public String getDurationOfLastRunthrough() {
+		
+		// Get last runthrough
 		Runthrough lastRunthrough = getLastRunthrough();
 
 		if (lastRunthrough != null) {
+			// If there is an existing last Runthrough
+			// Get Seconds of last Runthrough, convert them into String and return this one
 			return this
 					.convertSecondsToString(lastRunthrough.getDurationSecs());
 		} else {
+			
+			// If there is no existing last Runthrough, return "No Data available"
 			return "No Data available";
 		}
 	}
 
 	/**
-	 * returns Array with status of stack before the last runthrough
+	 * Returns Array with status of Stack before the last runthrough
 	 * 
-	 * @return
+	 * @return status of Stack before last Runthrough
 	 */
 	public String[] getStatusBefore() {
+		
 		String[] statusBefore = { "0", "0", "0" };
+		
+		//Get last Runthrough
 		Runthrough lastRunthrough = getLastRunthrough();
 
 		if (lastRunthrough != null) {
+			// If there is any last Runthrough, get statusBefore
 			int[] statusBeforeInt = lastRunthrough.getStatusBefore();
 
 			statusBefore[0] = "" + statusBeforeInt[0];
 			statusBefore[1] = "" + statusBeforeInt[1];
 			statusBefore[2] = "" + statusBeforeInt[2];
 		} else {
+			// If there is no last Runthrough
 			statusBefore[0] = "No Data available";
 			statusBefore[1] = "No Data available";
 			statusBefore[2] = "No Data available";
@@ -115,21 +137,26 @@ public class Statistics {
 	}
 
 	/**
-	 * returns Array with the status of stack after last runthrough
+	 * Returns Array with the Status of stack after last runthrough
 	 * 
-	 * @return
+	 * @return status of stack (with last Runthrough)
 	 */
 	public String[] getStatusAfter() {
+		
 		String[] statusAfter = { "0", "0", "0" };
+		
+		//Get last Runthrough
 		Runthrough lastRunthrough = getLastRunthrough();
 
 		if (lastRunthrough != null) {
+			// If there is any existing last Runthrough, get statusAfter
 			int[] statusAfterInt = lastRunthrough.getStatusAfter();
 
 			statusAfter[0] = "" + statusAfterInt[0];
 			statusAfter[1] = "" + statusAfterInt[1];
 			statusAfter[2] = "" + statusAfterInt[2];
 		} else {
+			// If there is no existing last Runthrough
 			statusAfter[0] = "No Data available";
 			statusAfter[1] = "No Data available";
 			statusAfter[2] = "No Data available";
@@ -141,10 +168,11 @@ public class Statistics {
 	/**
 	 * Identifies and returns the last Runthrough
 	 * 
-	 * @return
+	 * @return last Runthrough
 	 */
 	private Runthrough getLastRunthrough() {
 		
+		// Get all runthroughs
 		List<Runthrough> allRunthroughs = Runthrough.allRunthroughs;
 		Runthrough lastRunthrough = null;
 		
@@ -153,12 +181,15 @@ public class Statistics {
 			if (!runthrough.isOverall()){
 				lastRunthrough = runthrough;
 				break;
+				// Then break, first existing non-overall Runthrough = parameter lastRunthrough
 			}
 		}
 		
-		//Compare date of runthroughs and update result
+		//Compare date of all runthroughs and update result
 		for (Runthrough runthrough : allRunthroughs){
+			//Just for the Runthroughs that are not overall Runthroughs
 			if (!runthrough.isOverall()){
+				// If the next Stack newer, take this one
 				if (runthrough.getEndDate().getTime() > lastRunthrough.getEndDate().getTime()){
 					lastRunthrough = runthrough;
 				}
@@ -171,13 +202,26 @@ public class Statistics {
 
 	// ---------------Returns Data for Overall Statistic Screen------------
 
+	/**
+	 * Method that returns the total Number of Cards (used, if "All Stacks" is selected in 
+	 * Statistic Screen
+	 * 
+	 * @return String containing the total number of cards
+	 */
 	public String getTotalNumberOfCards() {
 		return "" + Card.allCards.size();
 	}
 
+	/**
+	 * Method that returns the total Number of Cards from selected Stack (used from Statistic Screen)
+	 * 
+	 * @param name selected Stack name
+	 * @return String containing the total number of cards (of selected stack)
+	 */
 	public String getTotalNumberOfCards(String name) {
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
+				// Compare selected Stack Name
 				return "" + stack.getCards().size();
 			}
 		}
@@ -188,9 +232,9 @@ public class Statistics {
 	// ----------------Return Duration-------------------
 
 	/**
-	 * adds the duration of all overall Runthroughs to calculate the total time
+	 * Adds the duration of all overall Runthroughs to calculate the total time (all Stacks)
 	 * 
-	 * @return
+	 * @return String, containing the overall duration of all stacks
 	 */
 	public String getOverallDuration() {
 		int duration = 0;
@@ -204,16 +248,17 @@ public class Statistics {
 	}
 
 	/**
-	 * returns overall duration of selected stack
+	 * Returns overall duration of selected stack (Stack Name = param name)
 	 * 
-	 * @param name
-	 * @return
+	 * @param name selected Stack name
+	 * @return String, containing the formatted overall duration of selected Stack
 	 */
 	public String getStackOverallDuration(String name) {
 		int duration = 0;
 
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
+				// Get relevant Stack (by comparing Stack Names), get duration and return it
 				duration = stack.getOverallRunthrough().getDurationSecs();
 				break;
 			}
@@ -225,23 +270,29 @@ public class Statistics {
 
 	/**
 	 * Converts seconds into String (??? hours, ??? minutes, ??? seconds)
+	 * OR if hours = 0 (??? minutes, ??? seconds)
 	 * 
-	 * @param duration
-	 * @return
+	 * @param duration containing int with duration in seconds
+	 * @return String containing the converted duration as shown above
 	 */
 	private String convertSecondsToString(int duration) {
 		int seconds = 0;
 		int minutes = 0;
 		int hours = 0;
 
+		// Get seconds
 		seconds = duration % 60;
+		
+		// Get miutes
 		minutes = duration / 60;
+		
+		// Get hours, if there are more than 60 minutes
 		if (minutes >= 60){
 			hours = minutes / 60;
 			minutes = minutes % 60;
 		}
 		
-
+		// Create String depending on duration (>0h with hours)
 		if (hours <= 0) {
 			return minutes + " min, " + seconds + " sec";
 		} else {
@@ -253,15 +304,16 @@ public class Statistics {
 	// ----------------Return Data for Progress Screen------------
 
 	/**
-	 * returns number of runthroughs for selected stack
+	 * Returns number of Runthroughs for selected stack
 	 * 
-	 * @param name
-	 * @return
+	 * @param name Stack name
+	 * @return int number of Runthroughs
 	 */
 	public int getNumberOfRunthroughs(String name){
 		
 		for (Stack stack : Stack.allStacks){
 			if (stack.getStackName().equals(name)){
+				// Get relevant Stack, get number of Runthroughs
 				return stack.getLastRunthroughs().size();
 			}
 		}
@@ -269,68 +321,60 @@ public class Statistics {
 		return 0;
 	}
 	
-	/**
-	 * Get last runthrough dates of all Stacks - NOT USED right now
-	 * 
-	 * @return
-	 */
-	public ArrayList<String> getLastRunthroughDates(){
-		
-		List<String> lastDates = new ArrayList<String>();
-		SimpleDateFormat formater = new SimpleDateFormat();
-		
-		for (Runthrough runthrough : getLastRunthroughs()){
-			lastDates.add(formater.format(runthrough.getEndDate()));
-		}
-		
-		return (ArrayList<String>) lastDates;
-	}
 	
 	/**
-	 * Get last runthroughs dates of selected Stack (name)
+	 * Get last Runthrough Dates of selected Stack
 	 * 
-	 * @param name
-	 * @return
+	 * @param name selected Stack name
+	 * @return ArrayList with last Runthrough Dates (formatted)
 	 */
 	public ArrayList<String> getLastRunthroughDates(String name){
 		
 		List<String> lastDates = new ArrayList<String>();
-		//SimpleDateFormat formater = new SimpleDateFormat();
+		
+		// SimpleDateFormat formater = new SimpleDateFormat();
 		SimpleDateFormat sd = new SimpleDateFormat("dd.MM.yy',' HH:mm");
 		
+		// Get last Runthroughs of selected Stack
 		for (Runthrough runthrough : getLastRunthroughs(name)){
+			// Add the End Date to the result
 			lastDates.add(sd.format(runthrough.getEndDate()));
-			Log.e("Statistics", "lastrunthroughdate: " + sd.format(runthrough.getEndDate()));
 		}
-		/*
-		if (lastRunthrough != null) {
-			SimpleDateFormat sd = new SimpleDateFormat("dd.MM.yyyy");
-			date = sd.format(lastRunthrough.getEndDate());
-			return date;
-		} else {
-			return "No Data available";
-		}
-		*/
 		
 		return (ArrayList<String>) lastDates;
 	}
 	
-	
+	/**
+	 * Get Progress (statusAfter for all Runthroughs) for selected Stack
+	 * 
+	 * @param name selected Stack name
+	 * @return int Array with the number of cards in each drawer after Runthroughs
+	 */
 	public int[][] getLastProgress(String name){
 		
+		// Instantiate and Initialize Array with Progress
 		int[][] progress;
 		progress = new int[10][3];
+		
+		// Get all last Runthroughs of selected Stack
 		List<Runthrough> lastRunthroughs = getLastRunthroughs(name);
+		
+		// Get number of last Runthroughs
 		int numberOfRunthroughs = lastRunthroughs.size();
+		
 		float result;
 		
+		// for (number of last Runthroughs)
 		for (int i = 0; i < numberOfRunthroughs; i++){
 			
+			// Get status after and calculate total cards of last Runthrough
 			int statusAfter[] = lastRunthroughs.get(i).getStatusAfter();
 			int totalCards = statusAfter[0] + statusAfter[1] + statusAfter[2];
 			
+			// If there were more cards than 0
 			if (totalCards != 0){
 				for (int j = 0; j < 3; j++){
+					// Calculate progress for each drawer (j)
 					result = (((float) statusAfter[j] / totalCards) * 100);
 					progress[i][j] = (int) result;
 				}
@@ -340,59 +384,19 @@ public class Statistics {
 		return progress;
 	}
 	
+	
 	/**
-	 * Method returns list of strings with the last progress (+/- change for selected drawer)
-	 * drawer = 0 = dont Know, drawer = 1 = not Sure, drawer = 2 = sure
+	 * Get last Runthroughs of selected Stack (name)
 	 * 
-	 * @param drawer
-	 * @return
-	 */
-	public ArrayList<String> getLastProgress(int drawer){
-		
-		List<String> progress = new ArrayList<String>();
-		int difference;
-		int[] statusBefore = new int[3];
-		int[] statusAfter = new int[3];
-		
-		for (Runthrough runthrough : getLastRunthroughs()){
-			statusBefore = runthrough.getStatusBefore();
-			statusAfter = runthrough.getStatusAfter();
-			difference = statusAfter[drawer] - statusBefore[drawer];
-			progress.add("" + difference);
-		}
-		
-		return (ArrayList<String>) progress;
-	}
-	
-	
-	
-	
-	/**
-	 * Get last runthroughs of all Stacks - NOT USED right now
-	 * @return
-	 */
-	private List<Runthrough> getLastRunthroughs(){
-		
-		List<Runthrough> lastRunthroughs = new ArrayList<Runthrough>();
-		
-		for (Stack stack : Stack.allStacks){
-			for (Runthrough runthrough : stack.getLastRunthroughs()){
-				lastRunthroughs.add(runthrough);
-			}
-		}
-		
-		return lastRunthroughs;
-	}
-	
-	/**
-	 * Get last runthroughs of selected Stack (name)
-	 * @param name
-	 * @return
+	 * @param name selected Stack name
+	 * @return List with last Runthroughs of selected Stacks (used for calculation of Progress)
 	 */
 	private List<Runthrough> getLastRunthroughs(String name){
 		
+		// for all Stacks
 		for (Stack stack : Stack.allStacks){
 			
+			// Find relevant Stack and get all Runthroughs
 			if (stack.getStackName().equals(name)){
 				return stack.getLastRunthroughs();
 			}
@@ -407,12 +411,14 @@ public class Statistics {
 	 * Returns the Actual Status of all Stacks [0] = dontKnow, [1] = notSure,
 	 * [2] = sure
 	 * 
-	 * @return
+	 * @return String-Array with actualDrawer Status
 	 */
 	public String[] getOverallActualDrawerStatus() {
+		
 		int actualStatus[] = { 0, 0, 0 };
 		int statusCard;
 
+		// Get all Cards and add status to the actualStatus-Array
 		for (Card card : Card.allCards) {
 			statusCard = card.getDrawer();
 
@@ -435,19 +441,21 @@ public class Statistics {
 	 * Returns the actual status of selected stack [0] = dontKnow, [1] =
 	 * notSure, [2] = sure
 	 * 
-	 * @param name
-	 *            = name of selected stack
-	 * @return
+	 * @param name selected Stack name
+	 * @return actual Status of selected Stack (String-Array)
 	 */
 	public String[] getActualDrawerStatus(String name) {
 		
 		int statusCard;
 		int actualStatus[] = { 0, 0, 0 };
 
+		// For all Stacks
 		for (Stack stack : Stack.allStacks) {
 			
+			// Get relevant Stack
 			if (stack.getStackName().equals(name)) {
 				
+				// Get status of each card and update result
 				for (Card card : stack.getCards()){
 					statusCard = card.getDrawer();
 
@@ -472,8 +480,8 @@ public class Statistics {
 	/**
 	 * Creates String that contains the status of the drawer
 	 * 
-	 * @param actualStatus
-	 * @return
+	 * @param actualStatus int[] containing the actual Status
+	 * @return String[] with actual Status
 	 */
 	private String[] createActualDrawerStatusString(int[] actualStatus) {
 		String[] actualDrawerStatus = new String[3];

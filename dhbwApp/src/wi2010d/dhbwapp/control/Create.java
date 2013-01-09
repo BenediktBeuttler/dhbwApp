@@ -25,7 +25,7 @@ public class Create {
 	/**
 	 * Singleton Method
 	 * 
-	 * @return
+	 * @return Class create
 	 */
 	public static Create getInstance() {
 		if (create == null) {
@@ -36,16 +36,19 @@ public class Create {
 	}
 
 	/**
-	 * Create a new Stack
+	 * Creates a new Stack
 	 * 
-	 * @param name
-	 * @param card
-	 * @return
+	 * @param name: Name of new Stack
+	 * @param card: Card supposed to be contained in the new Stack
+	 * @return boolean if it worked
 	 */
 	public boolean newStack(String name, Card card) {
+		
+		// Create new List with Cards and add the card supposed to be in the new Stack
 		List<Card> cards = new ArrayList<Card>();
 		cards.add(card);
 
+		// Check if Name of new Stack is allowed or already taken
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
 				ErrorHandler.getInstance().handleError(
@@ -53,17 +56,29 @@ public class Create {
 				return false;
 			}
 		}
+		
+		// Increase totalStacks of Card and save new data in DB
 		card.increaseTotalStacks();
 		Database.getInstance().changeCard(card);
 		Database.getInstance().addNewStack(new Stack(false, name, cards));
 		return true;
 	}
 	
+	/**
+	 * Create a new Stack with random Cards
+	 * 
+	 * @param name Name of random Stacks
+	 * @param card One Card that is supposed to be in the new random Stack
+	 * @return the created Stack with random Cards
+	 */
 	public Stack newRandomStack(String name, Card card){
+		
+		// Create List with new Cards, add Card and increase total Stacks of Card
 		List<Card> cards = new ArrayList<Card>();
 		cards.add(card);
 		card.increaseTotalStacks();
 
+		// Check if the new Stack Name is allowed or already taken
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
 				ErrorHandler.getInstance().handleError(
@@ -71,6 +86,8 @@ public class Create {
 				return null;
 			}
 		}
+		
+		// Add random Cards to Stack
 		Random generator = new Random();
 		
 		for(int i=0;i<=Card.allCards.size()/5;i++){
@@ -85,15 +102,16 @@ public class Create {
 	/**
 	 * Create a new dynamic Stack
 	 * 
-	 * @param name
-	 * @param tags
-	 * @return
+	 * @param name: Name of new dynamic Stack
+	 * @param tags: Tags of dynamic Stack
+	 * @return boolean, true if it worked
 	 */
 	public boolean newDynStack(String name, List<Tag> tags) {
 		List<Card> cards = new ArrayList<Card>();
 		Stack dynamicStack;
 		boolean containsTag;
 
+		// Check if Stack Name is allowed or already taken
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
 				ErrorHandler.getInstance().handleError(
@@ -120,8 +138,10 @@ public class Create {
 			}
 		}
 
+		// Write new Data into DB
 		dynamicStack = new Stack(true, name, cards);
 		dynamicStack.setDynamicStackTags(tags);
+		
 		return Database.getInstance().addNewStack(dynamicStack);
 
 	}
@@ -129,7 +149,7 @@ public class Create {
 	/**
 	 * Update all dynamic stacks
 	 * 
-	 * @return
+	 * @return boolean - true, if it worked
 	 */
 	public boolean updateDynStacks() {
 		for (Stack stack : Stack.allStacks) {
@@ -162,7 +182,7 @@ public class Create {
 	/**
 	 * Update all dynamic stacks
 	 * 
-	 * @return
+	 * @return boolean - true, if it worked
 	 */
 	public boolean updateDynStack(Stack stack) {
 
@@ -192,42 +212,49 @@ public class Create {
 	/**
 	 * Creates a new card and returns it
 	 * 
-	 * @param front
-	 * @param back
-	 * @param tags
-	 * @param frontPic
-	 * @param backPic
-	 * @return
+	 * @param front: Front Text of Card
+	 * @param back: Back Text of Card
+	 * @param tags: List containing tags of new Card
+	 * @param frontPic: Path of FrontPic
+	 * @param backPic: Path of BacPic
+	 * @return the new Card
 	 */
 	public Card newCard(String front, String back, List<Tag> tags,
 			String frontPic, String backPic) {
-		Log.d("Card front:", front);
+		
+		// Create new Card, using the constructor
 		Card card = new Card(front, back, frontPic, backPic, tags);
 
+		// Increase Number of Cards in the selected Tags
 		if (tags != null) {
 			for (Tag tag : tags) {
 				tag.increaseTotalCards();
 				Database.getInstance().changeTag(tag);
 			}
 		}
+		
+		// Write new Card in DB
 		Database.getInstance().addNewCard(card);
+		
 		return card;
 	}
 
 	/**
 	 * Creates a new tag and returns it
 	 * 
-	 * @param name
-	 * @return
+	 * @param name: Tag Name
+	 * @return the new Tag
 	 */
 	public Tag newTag(String name) {
 
+		// Check if Tag Name is already taken
 		for (Tag tag : Tag.allTags) {
 			if (tag.getTagName().equals(name)) {
 				return null;
 			}
 		}
 
+		// Create the new Tag, write it in DB and return it
 		Tag tag = new Tag(name);
 		Database.getInstance().addNewTag(tag);
 		return tag;
