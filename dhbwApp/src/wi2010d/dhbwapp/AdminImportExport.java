@@ -20,7 +20,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -39,6 +38,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Tabbed view: in the Import Tab a List with all stacks for importing is shown,
+ * and the stack is imported, when clicked. In the Export Tab a List with all
+ * stacks for exporting is shown, if the stack is clicked, it gets exported.
+ */
 public class AdminImportExport extends OnResumeFragmentActivity implements
 		ActionBar.TabListener {
 
@@ -75,8 +79,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 				try {
 					copyFile(new File(path), new File(dest));
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					// TODO: BEne Error Handler!
 				}
 			}
 		}
@@ -123,6 +126,15 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 		}
 	}
 
+	/**
+	 * Copys the given source file to the destination
+	 * 
+	 * @param src
+	 *            source file
+	 * @param dst
+	 *            destination folder
+	 * @throws IOException
+	 */
 	public static void copyFile(File src, File dst) throws IOException {
 		FileChannel inChannel = new FileInputStream(src).getChannel();
 		FileChannel outChannel = new FileOutputStream(dst).getChannel();
@@ -266,6 +278,9 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 
 	}
 
+	/**
+	 * Import Tab Fragment
+	 */
 	public static class Import extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
@@ -394,10 +409,6 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 				}
 
 			} else {
-				/*
-				 * toast = Toast.makeText(getActivity(), "No sdcard available!",
-				 * Toast.LENGTH_SHORT); toast.show();
-				 */
 				ErrorHandlerFragment newFragment = ErrorHandlerFragment
 						.newInstance(R.string.error_handler_no_sd,
 								ErrorHandlerFragment.NO_SD);
@@ -408,6 +419,9 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 		}
 	}
 
+	/**
+	 * Export Tab Fragment
+	 */
 	public static class Export extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
@@ -503,6 +517,8 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 									AdminImportExport.importList
 											.setAdapter(AdminImportExport
 													.updateImportListAdapter());
+
+									// Start Sending Intent
 									Intent intent = new Intent(
 											Intent.ACTION_SEND_MULTIPLE);
 									intent.setType("file/*");
@@ -558,6 +574,8 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 											AdminImportExport.importList
 													.setAdapter(AdminImportExport
 															.updateImportListAdapter());
+
+											// Start Sending Intent
 											Intent intent = new Intent(
 													Intent.ACTION_SEND);
 											intent.setType("file/*");
@@ -599,6 +617,11 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 		}
 	}
 
+	/**
+	 * Updates the import List adapter and returns it
+	 * 
+	 * @return the updated Adapter
+	 */
 	protected static ArrayAdapter<String> updateImportListAdapter() {
 		ArrayList<String> items = new ArrayList<String>();
 		File knowItOwlDir = new File(Environment.getExternalStorageDirectory()
