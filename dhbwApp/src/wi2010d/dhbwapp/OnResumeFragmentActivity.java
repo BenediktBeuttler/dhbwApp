@@ -4,8 +4,16 @@ import wi2010d.dhbwapp.control.Init;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 
+/**
+ * This FragmentActivity should be extended by every FragmentActivity, so the onResume method is
+ * added to every FragmentActivity
+ */
 public class OnResumeFragmentActivity extends FragmentActivity {
 
+	/**
+	 * Checks if the Garbage Collector deleted one or more Variables.
+	 * If this happened, reload the app.
+	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
