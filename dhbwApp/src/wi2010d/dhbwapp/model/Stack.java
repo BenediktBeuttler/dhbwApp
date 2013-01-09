@@ -6,6 +6,10 @@ import java.util.concurrent.TimeUnit;
 
 import wi2010d.dhbwapp.control.Database;
 
+/**
+ * Represents a stack with cards.
+ *
+ */
 public class Stack {
 
 	public static List<Stack> allStacks = new ArrayList<Stack>();
@@ -91,6 +95,10 @@ public class Stack {
 		Stack.allStacks.add(this);
 	}
 
+	/**
+	 * Adds an runthrough to this stack. If there are already 10 stacks, the oldest one is deleted
+	 * @param run the runthrough
+	 */
 	public void addLastRunthrough(Runthrough run) {
 		Runthrough overallRunthrough = this.getOverallRunthrough();
 		int actualStatus[] = run.getStatusAfter();
@@ -117,6 +125,10 @@ public class Stack {
 	}
 	
 	
+	/**
+	 * Adds an runthrough to this stack. If there are already 10 stacks, the oldest one is deleted
+	 * @param run the runthrough
+	 */
 	public void initAddLastRunthrough(Runthrough run) {
 		Runthrough overallRunthrough = this.getOverallRunthrough();
 		int actualStatus[] = run.getStatusAfter();
@@ -139,79 +151,136 @@ public class Stack {
 		lastRunthroughs.add(run);
 	}
 
+	/**
+	 * @return The next stack ID
+	 */
 	public static int getNextStackID() {
 		lastStackID = lastStackID + 1;
 		return lastStackID;
 	}
 
+	/**
+	 * @return true, if the stack is dynamic generated
+	 */
 	public boolean isDynamicGenerated() {
 		return isDynamicGenerated;
 	}
 
-	public void setDynamicGenerated(boolean isDynamicGenerated) {
-		this.isDynamicGenerated = isDynamicGenerated;
-	}
-
+	/**
+	 * @return The stacks' id
+	 */
 	public int getStackID() {
 		return stackID;
 	}
 
+	/**
+	 * @return The stacks' name
+	 */
 	public String getStackName() {
 		return stackName;
 	}
 
+	/**
+	 * Sets the stacks' name
+	 * @param stackName the stacks' name
+	 */
 	public void setStackName(String stackName) {
 		this.stackName = stackName;
 	}
 
+	/**
+	 * Sets the list with tags for the dynamicstack
+	 * @param dynamicStackTags the list with tags
+	 */
 	public void setDynamicStackTags(List<Tag> dynamicStackTags) {
 		this.dynamicStackTags = dynamicStackTags;
 	}
 
+	/**
+	 * @return the number of cards in the sure drawer
+	 */
 	public int getSure() {
 		return sure;
 	}
 
+	/**
+	 * sets the number of cards in the sure drawer
+	 * @param sure the number of cards in the sure drawer
+	 */
 	public void setSure(int sure) {
 		this.sure = sure;
 	}
 
+	/**
+	 * @return the number of cards in the not sure drawer
+	 */
 	public int getNotSure() {
 		return notSure;
 	}
 
+	/**
+	 * Sets the number of cards in the not sure drawer
+	 * @param notSure the number of cards in the not sure drawer
+	 */
 	public void setNotSure(int notSure) {
 		this.notSure = notSure;
 	}
 
+	/**
+	 * @return the number of cards in the dont know drawer
+	 */
 	public int getDontKnow() {
 		return dontKnow;
 	}
 
+	/**
+	 * Sets the number of cards in the dont know drawer
+	 * @param dontKnow the number of cards in the dont know drawer
+	 */
 	public void setDontKnow(int dontKnow) {
 		this.dontKnow = dontKnow;
 	}
 
+	/**
+	 * @return the overall runthrough associated with this stack
+	 */
 	public Runthrough getOverallRunthrough() {
 		return overallRunthrough;
 	}
 
+	/**
+	 * Sets the overall runthrough associated with this stack
+	 * @param overallRunthrough the overall runthrough associated with this stack
+	 */
 	public void setOverallRunthrough(Runthrough overallRunthrough) {
 		this.overallRunthrough = overallRunthrough;
 	}
 
+	/**
+	 * @return The list with cards' associated with this stack
+	 */
 	public List<Card> getCards() {
 		return cards;
 	}
 
+	/**
+	 * @return The list with last runthroughs
+	 */
 	public List<Runthrough> getLastRunthroughs() {
 		return lastRunthroughs;
 	}
 
+	/**
+	 * @return The list with tags for this dynamic stack
+	 */
 	public List<Tag> getDynamicStackTags() {
 		return dynamicStackTags;
 	}
 
+	/**
+	 * Resets the Stack ID Counter
+	 * @return true, if it worked
+	 */
 	public static boolean resetLastStackID() {
 		lastStackID = 0;
 		return true;
