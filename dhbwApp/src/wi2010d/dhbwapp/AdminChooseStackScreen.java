@@ -28,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Shows all the stacks and starts the learning, when a stack is chosen.
+ * Shows all the stacks and provides methods for editing/deleting/archiving them
  */
 public class AdminChooseStackScreen extends OnResumeActivity {
 

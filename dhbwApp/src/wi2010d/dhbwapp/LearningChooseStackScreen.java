@@ -39,6 +39,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Shows all the stacks and starts the learning, when a stack is chosen. If the
+ * device is shacked, a random learning session will be started.
+ */
 public class LearningChooseStackScreen extends OnResumeActivity implements
 		OnClickListener {
 
@@ -59,6 +63,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		}
 
+		// When the device is shaked, start the random learning session
 		@Override
 		public void onSensorChanged(SensorEvent event) {
 			float x = event.values[0];
@@ -100,9 +105,10 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		mAccelCurrent = SensorManager.GRAVITY_EARTH;
 		mAccelLast = SensorManager.GRAVITY_EARTH;
 		setContentView(R.layout.learning_choose_stack_screen);
+
 		createDynStack = (Button) findViewById(R.id.btn_learning_create_dyn_stack);
 		createDynStack.setOnClickListener(new OnClickListener() {
-
+			// Create a new dynamic stack
 			@Override
 			public void onClick(View v) {
 				if (Tag.allTags.size() != 0 && Card.allCards.size() != 0) {
@@ -165,13 +171,12 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 			menu.add(0, v.getId(), 2, "Reset Anwsers");
 			menu.add(0, v.getId(), 3, "Delete");
 			menu.add(0, v.getId(), 4, "Archive");
-		} else
-		{
-		menu.add(0, v.getId(), 0, "Start Learning");
-		menu.add(0, v.getId(), 1, "Change Name");
-		menu.add(0, v.getId(), 2, "Reset Anwsers");
-		menu.add(0, v.getId(), 3, "Delete");
-		menu.add(0, v.getId(), 4, "Archive");
+		} else {
+			menu.add(0, v.getId(), 0, "Start Learning");
+			menu.add(0, v.getId(), 1, "Change Name");
+			menu.add(0, v.getId(), 2, "Reset Anwsers");
+			menu.add(0, v.getId(), 3, "Delete");
+			menu.add(0, v.getId(), 4, "Archive");
 		}
 	}
 
@@ -196,19 +201,27 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 				input.setText(stackName);
 				alert.setView(input);
 
+				// Set the new Stack name
 				alert.setPositiveButton("Update",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 								Toast toast;
-								if (input.getText().toString().equals("")) {
+								if (input.getText().toString().equals("")) {// handle
+																			// 'no
+																			// name'
 									toast = Toast.makeText(
 											getApplicationContext(),
 											"Please insert a stack name!",
 											Toast.LENGTH_SHORT);
 									toast.show();
 								} else if (input.getText().toString()
-										.equals("All Stacks")) {
+										.equals("All Stacks")) { // handle 'All
+																	// Stacks'
+																	// this name
+																	// is used
+																	// for some
+																	// methods
 									toast = Toast
 											.makeText(
 													getApplicationContext(),
@@ -372,6 +385,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 
 				// show it
 				alertDialog.show();
+				// Archive: Export the stack, then delete ir
 			} else if (item.getTitle() == "Archive") {
 				Stack clickedStack = null;
 				for (Stack stack : Stack.allStacks) {
@@ -380,7 +394,8 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 						break;
 					}
 				}
-				if (!Environment.getExternalStorageState().equals(
+				if (!Environment.getExternalStorageState().equals( // handle R/W
+																	// Errors
 						Environment.MEDIA_UNMOUNTED)
 						|| !Environment.getExternalStorageState().equals(
 								Environment.MEDIA_MOUNTED_READ_ONLY)
@@ -390,7 +405,8 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 						Exchange.getInstance().exportStack(
 								clickedStack,
 								Environment.getExternalStorageDirectory()
-										.getPath() + "/knowItOwl/", stackName);
+										.getPath() + "/knowItOwl/-archived-",
+								stackName);
 
 						Delete.getInstance().deleteStack(clickedStack);
 
@@ -420,6 +436,11 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		return true;
 	}
 
+	/**
+	 * Updated the ListView
+	 * 
+	 * @return true, if it worked
+	 */
 	public boolean updateStackList() {
 		ArrayList<String> items = new ArrayList<String>();
 		for (Stack stack : Stack.allStacks) {
