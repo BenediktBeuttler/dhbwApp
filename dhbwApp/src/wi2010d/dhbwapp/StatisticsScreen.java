@@ -234,7 +234,13 @@ public class StatisticsScreen extends FragmentActivity implements
 			return textView;
 		}
 	}
-
+	
+	/**
+	 * Overview Class shows, updates, etc. the Overview Screen in the Statistic Part
+	 * 
+	 * @author Schuetzler
+	 *
+	 */
 	public static class Overview extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
@@ -261,15 +267,23 @@ public class StatisticsScreen extends FragmentActivity implements
 			// number argument value.
 			View v = inflater
 					.inflate(R.layout.statistics_screen_overview, null);
-
+			
+			// Initialize the spinner that should contain the names of all existing stacks later
 			spinner = (Spinner) v
 					.findViewById(R.id.lbl_statistics_overview_stackSpinner);
 
+			//Instantiate List that contains the names of existing stacks later
 			List<String> items = new ArrayList<String>();
+			
 			// collect stack names in list
 			for (Stack stack : Stack.allStacks) {
+				
+				// add Stack to list
 				items.add(stack.getStackName());
 			}
+			
+			//If the size of the list 0, there is no Stack available, if the size
+			//is 1 or more, the List will be sorted and a new entry "All Stacks" is added
 			if (items.size() == 0) {
 				stacksAvailable = false;
 				items.add("No stacks available");
@@ -279,8 +293,8 @@ public class StatisticsScreen extends FragmentActivity implements
 				items.add(0, "All Stacks");
 			}
 
+			//Instantiate and initialize Adapter
 			ArrayAdapter<String> adapter;
-
 			adapter = new ArrayAdapter<String>(v.getContext(),
 					android.R.layout.simple_spinner_item, items);
 
@@ -289,11 +303,14 @@ public class StatisticsScreen extends FragmentActivity implements
 			// Apply the adapter to the spinner
 			spinner.setAdapter(adapter);
 
+			// Set onItemSelectedListener
 			spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view,
 						int position, long id) {
+					
+					// Get selected Item and update Content of Overall Screen
 					if (stacksAvailable) {
 						String name = (String) parent
 								.getItemAtPosition(position);
@@ -307,6 +324,7 @@ public class StatisticsScreen extends FragmentActivity implements
 				}
 			});
 
+			// Set content of Overall Screen (for on create)
 			if (stacksAvailable) {
 				setContent("All Stacks", v);
 			}
@@ -314,8 +332,16 @@ public class StatisticsScreen extends FragmentActivity implements
 			return v;
 		}
 
+		/**
+		 * Method that updates the Content (--> TextViews) of Overall Screen
+		 * Parameter name is the name of selected Stack
+		 * 
+		 * @param name
+		 * @param v
+		 */
 		private void setContent(String name, View v) {
 
+			//Get the relevant TextViews
 			totalDuration = (TextView) v
 					.findViewById(R.id.lbl_statistics_overview_totalDuration);
 			totalNumberOfCards = (TextView) v
@@ -326,26 +352,38 @@ public class StatisticsScreen extends FragmentActivity implements
 					.findViewById(R.id.lbl_statistics_overview_notSure);
 			sure = (TextView) v.findViewById(R.id.lbl_statistics_overview_sure);
 
+			// If "All Stacks" is selected
 			if (name.equals("All Stacks")) {
+				
+				//Get and set total duration and total Number of Cards for all Stacks
 				totalDuration.setText(Statistics.getInstance()
 						.getOverallDuration());
 				totalNumberOfCards.setText(Statistics.getInstance()
 						.getTotalNumberOfCards());
-
+				
+				//Get the overall status of drawers
 				String[] actualStatus = Statistics.getInstance()
 						.getOverallActualDrawerStatus();
+				
+				//Put Overall Status of drawers in the TextViews
 				dontKnow.setText("" + actualStatus[0]);
 				notSure.setText("" + actualStatus[1]);
 				sure.setText("" + actualStatus[2]);
 
+			// If there is a specific Stack selected
 			} else {
+				
+				// Get and set total duration and total Number of Cards for selected Stack
 				totalDuration.setText(Statistics.getInstance()
 						.getStackOverallDuration(name));
 				totalNumberOfCards.setText(Statistics.getInstance()
 						.getTotalNumberOfCards(name));
 
+				// Get the overall status of drawers
 				String[] actualStatus = Statistics.getInstance()
 						.getActualDrawerStatus(name);
+				
+				// Put Overall Status of drawers in the TextViews
 				dontKnow.setText("" + actualStatus[0]);
 				notSure.setText("" + actualStatus[1]);
 				sure.setText("" + actualStatus[2]);
@@ -355,6 +393,12 @@ public class StatisticsScreen extends FragmentActivity implements
 
 	}
 
+	/**
+	 * Progress Class, updating and setting the Progress Part of the Statistic Screen
+	 * 
+	 * @author Schuetzler
+	 *
+	 */
 	public static class Progress extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
@@ -362,6 +406,7 @@ public class StatisticsScreen extends FragmentActivity implements
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
+		//Instantiating paramter
 		Spinner spinner;
 		boolean stacksAvailable = true;
 
@@ -376,24 +421,29 @@ public class StatisticsScreen extends FragmentActivity implements
 			View v = inflater
 					.inflate(R.layout.statistics_screen_progress, null);
 
+			// Initializing Spinner that should contain all Stack Names later
 			spinner = (Spinner) v
 					.findViewById(R.id.lbl_statistics_progress_stackSpinner);
 
+			// Instantiating list that contains all Stack Names later
 			List<String> items = new ArrayList<String>();
 
 			// collect stack names in list
 			for (Stack stack : Stack.allStacks) {
+				// Add actual Stack Name to List
 				items.add(stack.getStackName());
 			}
+			// If the List is empty
 			if (items.size() == 0) {
 				stacksAvailable = false;
 				items.add("No stacks available");
 			} else {
+				// Sort List items
 				Collections.sort(items);
 			}
 
+			// Instantiating and Initializing adapter
 			ArrayAdapter<String> adapter;
-
 			adapter = new ArrayAdapter<String>(v.getContext(),
 					android.R.layout.simple_spinner_item, items);
 
@@ -402,12 +452,15 @@ public class StatisticsScreen extends FragmentActivity implements
 			// Apply the adapter to the spinner
 			spinner.setAdapter(adapter);
 
+			// Set OnItemSelectedListener of Spinner
 			spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view,
 						int position, long id) {
 
+					// If there are available Stacks, get the selected Stack and set Content of 
+					// Page, based on the Stack Name
 					if (stacksAvailable) {
 						String name = (String) parent
 								.getItemAtPosition(position);
@@ -424,11 +477,19 @@ public class StatisticsScreen extends FragmentActivity implements
 			return v;
 		}
 
+		/**
+		 * Method that sets the Content of Progress Screen, based on the selected Stack
+		 * 
+		 * @param name
+		 * @param v
+		 */
 		private void setContent(String name, View v) {
 
+			// Instantiate Array that shall contain different TextViews (=Cells) of the table
 			TextView[][] Cells;
 			Cells = new TextView[10][4];
 
+			// Fill Array ([COLUMN][ROW])
 			Cells[0][0] = (TextView) v
 					.findViewById(R.id.lbl_statistics_progress_cell01);
 			Cells[0][1] = (TextView) v
@@ -527,20 +588,21 @@ public class StatisticsScreen extends FragmentActivity implements
 				}
 			}
 
+			// Get List with the last Runthrough dates
 			List<String> lastDates = Statistics.getInstance()
 					.getLastRunthroughDates(name);
+			
+			// Create Array with the last Progress
 			int[][] progress = Statistics.getInstance().getLastProgress(name);
 
-			Log.e("Statistics", Statistics.getInstance()
-					.getNumberOfRunthroughs(name) + " # runthroughs");
-
+			// For number of available Runthroughs
 			for (int i = 0; i < Statistics.getInstance()
 					.getNumberOfRunthroughs(name); i++) {
 
-				Log.e("Statistics", "SetContent for reached");
-
+				// Set the Date-TextViews
 				Cells[i][0].setText(lastDates.get(i));
 
+				// Set progress and color of Text of Dont't Know
 				Cells[i][1].setText(progress[i][0] + "%");
 				if (progress[i][0] > 40) {
 					Cells[i][1].setTextColor(Color.RED);
@@ -548,6 +610,7 @@ public class StatisticsScreen extends FragmentActivity implements
 					Cells[i][1].setTextColor(Color.GREEN);
 				}
 
+				// Set progress and color of Text of Not Sure
 				Cells[i][2].setText(progress[i][1] + "%");
 				if (progress[i][1] > 40) {
 					Cells[i][2].setTextColor(Color.RED);
@@ -555,6 +618,7 @@ public class StatisticsScreen extends FragmentActivity implements
 					Cells[i][2].setTextColor(Color.GREEN);
 				}
 
+				// Set progress and color of Text of Sure
 				Cells[i][3].setText(progress[i][2] + "%");
 				if (progress[i][2] > 90) {
 					Cells[i][3].setTextColor(Color.GREEN);
@@ -565,6 +629,12 @@ public class StatisticsScreen extends FragmentActivity implements
 		}
 	}
 
+	/**
+	 * LastReview Class, setting and updating the Last Review part of the Statistic Screen
+	 * 
+	 * @author Schuetzler
+	 *
+	 */
 	public static class LastReview extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
@@ -595,15 +665,21 @@ public class StatisticsScreen extends FragmentActivity implements
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
+			
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
 			View v = inflater.inflate(R.layout.statistics_screen_lastreview,
 					null);
 
+			// If there are any existing Stacks
 			if (Stack.allStacks.isEmpty()) {
+				//if not, do nothing
 				;
 			} else {
-
+				
+				// if there are any existing Stacks
+				
+				// Update TextViews
 				stackName = (TextView) v
 						.findViewById(R.id.lbl_statistics_lastReview_stackName);
 				stackName.setText(Statistics.getInstance()
