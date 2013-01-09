@@ -11,7 +11,9 @@ import java.util.List;
 
 import org.jdom2.JDOMException;
 
+import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Exchange;
+import wi2010d.dhbwapp.control.Statistics;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
@@ -70,8 +72,8 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		copyOK=false;
+
+		copyOK = false;
 
 		if (getIntent().getExtras() != null) {
 			Bundle extras = getIntent().getExtras();
@@ -83,17 +85,15 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 						.getPath() + "/knowItOwl/" + str1;
 				try {
 					copyFile(new File(path), new File(dest));
-					copyOK=true;
+					copyOK = true;
 				} catch (IOException e) {
 					// TODO: BEne Error Handler!
 				}
-				if(copyOK){
+				if (copyOK) {
 					try {
-						Exchange.getInstance().importStack(Environment
-										.getExternalStorageDirectory()
-										.getPath()
-										+ "/knowItOwl/"
-										+ str1);
+						Exchange.getInstance().importStack(
+								Environment.getExternalStorageDirectory()
+										.getPath() + "/knowItOwl/" + str1);
 					} catch (JDOMException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -102,18 +102,31 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 						e.printStackTrace();
 					}
 					Toast toast = Toast
-							.makeText(
-									getApplicationContext(), str1
-											+ " got imported successfully!",
+							.makeText(getApplicationContext(), str1
+									+ " got imported successfully!",
 									Toast.LENGTH_SHORT);
 					toast.show();
 				}
+				end = path.lastIndexOf("/");
+				String str2 = path.substring(0, end+1);
+				Toast toast = Toast
+						.makeText(getApplicationContext(), str2,
+								Toast.LENGTH_SHORT);
+				toast.show();
+				for(String image : Exchange.getInstance().getImageList()){
+					try {
+						copyFile(new File(str2+image), new File(Environment.getExternalStorageDirectory().getPath()+"/knowItOwl/pictures/"+image));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
 				finish();
 				startActivity(new Intent(this, StartScreen.class));
 			}
+
 		}
-		
-		
 
 		setContentView(R.layout.admin_import_export_screen);
 
@@ -549,6 +562,10 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 											.setAdapter(AdminImportExport
 													.updateImportListAdapter());
 
+									for(String uri: Exchange.getInstance().getImageListPath()){
+										Uri u=Uri.fromFile(new File(uri));
+										uris.add(u);
+									}
 									// Start Sending Intent
 									Intent intent = new Intent(
 											Intent.ACTION_SEND_MULTIPLE);
@@ -567,6 +584,8 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 
 						} else {
 							final Runnable r = new Runnable() {
+								ArrayList<Uri> uris2 = new ArrayList<Uri>();
+								
 								public void run() {
 									for (Stack stack : Stack.allStacks) {
 										if (stack.getStackName().equals(
@@ -606,19 +625,24 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 													.setAdapter(AdminImportExport
 															.updateImportListAdapter());
 
-											// Start Sending Intent
-											Intent intent = new Intent(
-													Intent.ACTION_SEND);
-											intent.setType("file/*");
-											intent.putExtra(
-													Intent.EXTRA_STREAM,
-													Uri.fromFile(new File(
-															Environment
+											for(String uri: Exchange.getInstance().getImageListPath()){
+												Uri u=Uri.fromFile(new File(uri));
+												uris2.add(u);
+											}
+											
+											uris2.add(Uri.fromFile(new File(Environment
 																	.getExternalStorageDirectory()
 																	.getPath()
 																	+ "/knowItOwl/"
 																	+ stackName
 																	+ ".xml")));
+											
+											// Start Sending Intent
+											Intent intent = new Intent(
+													Intent.ACTION_SEND_MULTIPLE);
+											intent.setType("file/*");
+											intent.putParcelableArrayListExtra(
+													Intent.EXTRA_STREAM, uris2);		
 											intent.putExtra(
 													Intent.EXTRA_SUBJECT,
 													"Export of my 'know it owl'-Stack");
