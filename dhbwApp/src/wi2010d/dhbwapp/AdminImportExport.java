@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.jdom2.JDOMException;
+
 import wi2010d.dhbwapp.control.Exchange;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
@@ -63,10 +65,13 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 	static ListView importList;
 	static ArrayAdapter<String> importListAdapter;
 	static View importView;
+	private boolean copyOK;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		copyOK=false;
 
 		if (getIntent().getExtras() != null) {
 			Bundle extras = getIntent().getExtras();
@@ -78,11 +83,37 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 						.getPath() + "/knowItOwl/" + str1;
 				try {
 					copyFile(new File(path), new File(dest));
+					copyOK=true;
 				} catch (IOException e) {
 					// TODO: BEne Error Handler!
 				}
+				if(copyOK){
+					try {
+						Exchange.getInstance().importStack(Environment
+										.getExternalStorageDirectory()
+										.getPath()
+										+ "/knowItOwl/"
+										+ str1);
+					} catch (JDOMException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					Toast toast = Toast
+							.makeText(
+									getApplicationContext(), str1
+											+ " got imported successfully!",
+									Toast.LENGTH_SHORT);
+					toast.show();
+				}
+				finish();
+				startActivity(new Intent(this, StartScreen.class));
 			}
 		}
+		
+		
 
 		setContentView(R.layout.admin_import_export_screen);
 
