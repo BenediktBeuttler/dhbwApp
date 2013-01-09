@@ -336,8 +336,8 @@ public class StatisticsScreen extends FragmentActivity implements
 		 * Method that updates the Content (--> TextViews) of Overall Screen
 		 * Parameter name is the name of selected Stack
 		 * 
-		 * @param name
-		 * @param v
+		 * @param name selected Stack name or "All Stacks" for all Stacks
+		 * @param v view
 		 */
 		private void setContent(String name, View v) {
 
@@ -480,7 +480,7 @@ public class StatisticsScreen extends FragmentActivity implements
 		/**
 		 * Method that sets the Content of Progress Screen, based on the selected Stack
 		 * 
-		 * @param name
+		 * @param name selected stack name or "All Stacks" if selected
 		 * @param v
 		 */
 		private void setContent(String name, View v) {
