@@ -2,6 +2,8 @@ package wi2010d.dhbwapp;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Edit;
@@ -253,7 +255,7 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 				// set dialog message
 				alertDialogBuilder
 						.setMessage(
-								"Are you sure you want to delete this stack?")
+								"Are you sure you want to delete this card?")
 						.setIcon(R.drawable.question)
 						.setCancelable(false)
 						.setPositiveButton("Yes",
@@ -361,6 +363,7 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 		if (items.size() == 0) {
 			items.add("No stacks available");
 		}
+		Collections.sort(items);
 		lvAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,
 				items);
 		lv.setAdapter(lvAdapter);

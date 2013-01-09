@@ -1,6 +1,7 @@
 package wi2010d.dhbwapp;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import wi2010d.dhbwapp.model.Stack;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ public class AdminNewCardChooseStack extends OnResumeActivity {
 				items.add(stack.getStackName());
 			}
 		}
+		Collections.sort(items);
 
 		// get the ListView and create the adapter
 		lv = (ListView) findViewById(R.id.admin_edit_card_stack_list);

@@ -2,6 +2,7 @@ package wi2010d.dhbwapp;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Random;
 
@@ -453,6 +454,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		if (items.size() == 0) {
 			items.add("No stacks available");
 		}
+		Collections.sort(items);
 		lvAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,
 				items);
 		lv.setAdapter(lvAdapter);
