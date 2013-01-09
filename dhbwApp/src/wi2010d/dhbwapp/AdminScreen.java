@@ -1,11 +1,9 @@
 package wi2010d.dhbwapp;
 
 import wi2010d.dhbwapp.control.Create;
-import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Tag;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,32 +13,39 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class AdminScreen extends OnResumeActivity implements OnClickListener{
+/**
+ * The Administration Screen. This Screen offers buttons to Create a New Card
+ * and/or Stack, Edit a Card, Edit a Stack, Import / Export, create a new
+ * dynamic Stack and update all dynamic stacks.
+ */
+public class AdminScreen extends OnResumeActivity implements OnClickListener {
+	// Create the Buttons
 	Button new_card_new_stack;
-	Button edit_card; 
+	Button edit_card;
 	Button edit_stack;
 	Button import_export;
 	Button new_dyn_stack;
 	Button update_dyn_stacks;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_screen);
-		
-		new_card_new_stack = (Button)findViewById(R.id.btn_admin_new_card_new_stack);
-		edit_stack = (Button)findViewById(R.id.btn_admin_edit_stack);
-		import_export = (Button)findViewById(R.id.btn_admin_import_export);
-		new_dyn_stack = (Button)findViewById(R.id.btn_admin_new_dyn_stack);
-		update_dyn_stacks = (Button)findViewById(R.id.btn_admin_update_dyn_stack);
-		
-		
+
+		// Initialize the buttons
+		new_card_new_stack = (Button) findViewById(R.id.btn_admin_new_card_new_stack);
+		edit_stack = (Button) findViewById(R.id.btn_admin_edit_stack);
+		import_export = (Button) findViewById(R.id.btn_admin_import_export);
+		new_dyn_stack = (Button) findViewById(R.id.btn_admin_new_dyn_stack);
+		update_dyn_stacks = (Button) findViewById(R.id.btn_admin_update_dyn_stack);
+
+		// Set the onClickListeners
 		new_card_new_stack.setOnClickListener(this);
 		edit_stack.setOnClickListener(this);
 		import_export.setOnClickListener(this);
 		new_dyn_stack.setOnClickListener(this);
 		update_dyn_stacks.setOnClickListener(this);
-		
+
 	}
 
 	@Override
@@ -49,7 +54,7 @@ public class AdminScreen extends OnResumeActivity implements OnClickListener{
 		getMenuInflater().inflate(R.menu.admin_screen, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
@@ -72,21 +77,32 @@ public class AdminScreen extends OnResumeActivity implements OnClickListener{
 			return false;
 		}
 	}
-	
+
+	@Override
 	public void onClick(View v) {
-		
+
 		switch (v.getId()) {
 		case R.id.btn_admin_new_card_new_stack:
-			startActivity(new Intent (this, AdminNewCard.class));
+			startActivity(new Intent(this, AdminNewCard.class)); // Start
+																	// Activity
 			break;
 		case R.id.btn_admin_edit_stack:
-			startActivity(new Intent (this, AdminChooseStackScreen.class));
+			startActivity(new Intent(this, AdminChooseStackScreen.class)); // Start
+																			// Activity
 			break;
 		case R.id.btn_admin_import_export:
-			startActivity(new Intent (this, AdminImportExport.class));
+			startActivity(new Intent(this, AdminImportExport.class)); // Start
+																		// Activity
 			break;
 		case R.id.btn_admin_new_dyn_stack:
-			if (Tag.allTags.size() != 0 && Card.allCards.size() != 0) {
+			if (Tag.allTags.size() != 0 && Card.allCards.size() != 0) { // Start
+																		// Activity
+																		// when
+																		// there
+																		// is a
+																		// tag
+																		// and
+																		// card
 				Intent i = new Intent(getApplicationContext(),
 						AdminCreateDynamicStack.class);
 				startActivityForResult(i, 1);
@@ -94,9 +110,10 @@ public class AdminScreen extends OnResumeActivity implements OnClickListener{
 				Toast.makeText(getApplicationContext(),
 						"No Tags for dynamic stacks available!",
 						Toast.LENGTH_LONG).show();
-			}			break;
+			}
+			break;
 		case R.id.btn_admin_update_dyn_stack:
-			Create.getInstance().updateDynStacks();
+			Create.getInstance().updateDynStacks(); // Update the dynamic stacks
 			Toast toast = Toast.makeText(getApplicationContext(),
 					"All dynamic Stacks have been updated successfully",
 					Toast.LENGTH_SHORT);
@@ -106,5 +123,5 @@ public class AdminScreen extends OnResumeActivity implements OnClickListener{
 			break;
 		}
 
-}
+	}
 }
