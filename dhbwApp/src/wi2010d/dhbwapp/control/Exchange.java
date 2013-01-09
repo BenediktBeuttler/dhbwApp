@@ -161,7 +161,6 @@ public class Exchange {
 			// check if the stack is already existing
 			for (Stack stack : Stack.allStacks) {
 				if (stack.getStackName().equals(stackName)) {
-					// TODO: Bene, braucht man hier en Alert?
 					ErrorHandler.getInstance().handleError(
 							ErrorHandler.getInstance().STACK_EXISTING);
 					return false;
@@ -205,7 +204,6 @@ public class Exchange {
 			Database.getInstance().addNewStack(stack);
 
 		} else {
-			// TODO: Bene, Alert mit Import Error
 			ErrorHandler handler = ErrorHandler.getInstance();
 			handler.handleError(handler.IMPORT_ERROR);
 			return false;
