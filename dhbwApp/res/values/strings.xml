@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">know it Owl</string>
+    <string name="app_name">Know it Owl</string>
     <string name="btn_start_learning">Start Learning</string>
     <string name="btn_start_admin">Administration</string>
     <string name="btn_start_statistic">Statistics</string>
     <string name="btn_start_settings">Settings</string>
-    <string name="btn_start_help">Help</string>
+    <string name="btn_start_help">Help/About</string>
     <string name="btn_admin_new_card_new_stack">New Stack</string>
     <string name="btn_admin_new_card_existing_stack">Existing Stack</string>
     <string name="btn_admin_delete_stack">Delete Stack</string>
@@ -30,7 +30,7 @@
     <string name="btn_admin_importexport">Import/Export</string>
     <string name="btn_admin_newdynstack">New dyn. Stack</string>
     <string name="btn_admin_create_dynamic_stack">Create dyn. Stack</string>
-    <string name="btn_admin_update_dynstack">Update dyn. Stack</string>
+    <string name="btn_admin_update_dynstack">Update dyn Stack</string>
     <string name="btn_admin_exist">Exist</string>
     <string name="btn_admin_new">New</string>
     <string name="list_admin_stacklist">Please choose your Stack:</string>

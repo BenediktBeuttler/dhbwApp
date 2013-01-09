@@ -5,15 +5,18 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:orientation="vertical" 
-    android:layout_marginTop="25dp">
+    android:layout_marginTop="20dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/lbl_app_name_start_screen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="21dp"
         android:drawableLeft="@drawable/ic_launcher"
+        android:drawablePadding="6dp"
         android:text="@string/app_name"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="40sp" />
@@ -22,7 +25,6 @@
         android:id="@+id/btn_start_learning"
         style="@style/style_iconButton2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:drawableTop="@drawable/learning"
         android:text="@string/btn_start_learning" />
@@ -37,8 +39,6 @@
         <Button
             android:id="@+id/btn_start_admin"
             style="@style/style_iconButton2"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
             android:drawableTop="@drawable/admin"
             android:text="@string/btn_start_admin"
             android:layout_column="0"
@@ -47,8 +47,6 @@
         <Button
             android:id="@+id/btn_start_statistic"
             style="@style/style_iconButton2"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
             android:drawableTop="@drawable/statistics"
             android:text="@string/btn_start_statistic"
             android:layout_column="2"
@@ -57,8 +55,6 @@
         <Button
             android:id="@+id/btn_start_settings"
             style="@style/style_iconButton2"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
             android:drawableTop="@drawable/settings"
             android:text="@string/btn_start_settings"
             android:layout_column="0"
@@ -67,8 +63,6 @@
         <Button
             android:id="@+id/btn_start_help"
             style="@style/style_iconButton2"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
             android:drawableTop="@drawable/help"
             android:text="@string/btn_start_help"
             android:layout_column="2"

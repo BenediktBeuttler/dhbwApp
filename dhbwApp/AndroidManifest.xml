@@ -167,6 +167,11 @@
             android:label="@string/title_activity_help_screen"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="wi2010d.dhbwapp.HelpAboutScreen"
+            android:label="@string/title_activity_help_screen"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>
