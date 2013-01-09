@@ -31,6 +31,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 	private static final String CARD_TAG_CREATE = "CREATE TABLE cardtag (cardID INTEGER,tagID INTEGER,_id INTEGER PRIMARY KEY AUTOINCREMENT);";
 	private static final String STACK_TAG_CREATE = "CREATE TABLE stacktag (stackID INTEGER,tagID INTEGER,_id INTEGER PRIMARY KEY AUTOINCREMENT);";
 
+	// Drop Table SQL Queries
 	private static final String DROP_STACK = "DROP TABLE IF EXISTS 'stack';";
 	private static final String DROP_CARD = "DROP TABLE IF EXISTS 'card';";
 	private static final String DROP_RUNTHROUGH = "DROP TABLE IF EXISTS 'runthrough';";
@@ -105,7 +106,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 	/**
 	 * Resets all the objects, so there are no duplicates when loading again
 	 * 
-	 * @return
+	 * @return true, if it worked
 	 */
 	public boolean resetVariables() {
 

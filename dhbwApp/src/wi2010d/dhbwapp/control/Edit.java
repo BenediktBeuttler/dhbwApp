@@ -6,6 +6,9 @@ import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 
+/**
+ * Provides methods to Edit the objects, writes them to to DB after changing.
+ */
 public class Edit {
 
 	private static Edit edit;
@@ -154,7 +157,7 @@ public class Edit {
 		stack.setNotSure(0);
 		stack.setSure(0);
 		Database.getInstance().changeStack(stack);
-		
+
 		for (Card card : stack.getCards()) {
 			card.setDrawer(0);
 			Database.getInstance().changeCard(card);
@@ -163,8 +166,8 @@ public class Edit {
 
 		return true;
 	}
-	
-	public boolean setDrawer(Card card, int drawer){
+
+	public boolean setDrawer(Card card, int drawer) {
 		card.setDrawer(drawer);
 		Database.getInstance().changeCard(card);
 		return true;
@@ -181,22 +184,21 @@ public class Edit {
 		tag.setTagName(name);
 		return Database.getInstance().changeTag(tag);
 	}
-	
+
 	/**
-	 * Method to add a new picture to card
-	 * front: false = back, true = front
+	 * Method to add a new picture to card front: false = back, true = front
 	 * 
 	 * @param front
 	 * @param path
 	 * @param card
 	 * @return
 	 */
-	public boolean addNewPicToCard(boolean front, String path, Card card){
-		if (front){
+	public boolean addNewPicToCard(boolean front, String path, Card card) {
+		if (front) {
 			card.setCardFrontPicture(path);
 			Database.getInstance().changeCard(card);
 			return true;
-		}else{
+		} else {
 			card.setCardBackPicture(path);
 			Database.getInstance().changeCard(card);
 			return true;

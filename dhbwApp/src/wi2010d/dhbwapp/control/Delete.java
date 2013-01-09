@@ -5,6 +5,9 @@ import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 
+/**
+ * Provides methods to delete the objects.
+ */
 public class Delete {
 
 	private Database db = Database.getInstance();

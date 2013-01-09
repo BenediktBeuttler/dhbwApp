@@ -11,6 +11,10 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+/**
+ * Represents the SQLite Database and provides methods for Reading, Creating,
+ * Editing and Deleting them in/to/from the Database.
+ */
 public class Database {
 
 	private SQLiteDatabase database;
@@ -26,7 +30,6 @@ public class Database {
 	private final String QUERY_CARD_TAG = "Select cardID, tagID from cardtag;";
 	private final String QUERY_STACK_TAG = "Select stackID, tagID from stacktag;";
 
-
 	// -------------END VAR DECLARATION ------------------
 	// --------- CONSTRUCTOR // OPEN/CLOSE METHODS --------
 
@@ -34,14 +37,27 @@ public class Database {
 		this.dbManager = DatabaseManager.getInstance();
 	}
 
+	/**
+	 * Opens the DB for writing operations
+	 * 
+	 * @throws SQLException
+	 */
 	public void openWrite() throws SQLException {
 		this.database = dbManager.getWritableDatabase();
 	}
 
+	/**
+	 * opens the DB for reading operations
+	 * 
+	 * @throws SQLException
+	 */
 	public void openRead() throws SQLException {
 		this.database = dbManager.getReadableDatabase();
 	}
 
+	/**
+	 * Closes the DB
+	 */
 	public void close() {
 		this.dbManager.close();
 	}
@@ -499,7 +515,7 @@ public class Database {
 		database.delete("card", "_id = ?",
 				new String[] { "" + card.getCardID() });
 		ContentValues cardContent = putCardValues(card);
-		
+
 		database.insert("card", null, cardContent);
 		this.close();
 
@@ -635,6 +651,11 @@ public class Database {
 
 	// --------------"SINGLETON" METHOD -----------------
 
+	/**
+	 * 'Singleton' method, only one object will be created
+	 * 
+	 * @return returns the object, if there is none, it creates a new one.
+	 */
 	public static Database getInstance() {
 		if (db == null) {
 			db = new Database();
