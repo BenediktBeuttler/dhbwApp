@@ -50,33 +50,29 @@ public class LearningCard extends OnResumeFragmentActivity implements
 	 * intensive, it may be best to switch to a
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
-	private SectionsPagerAdapter mSectionsPagerAdapter;
+	SectionsPagerAdapter mSectionsPagerAdapter;
 
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	private ViewPager mViewPager;
-	private Card card;
-	private Stack stack;
-	private String stackName;
+	ViewPager mViewPager;
+	Card card;
+	Stack stack;
+	String stackName;
 
-	private TextView txt_counter_front;
-	private TextView txt_counter_back;
-	private TextView txt_front;
-	private TextView txt_back;
-	private Button sure, dontKnow, notSure;
-	private boolean isRandomStack;
+	TextView txt_counter_front;
+	TextView txt_counter_back;
+	TextView txt_front;
+	TextView txt_back;
+	Button sure, dontKnow, notSure;
+	boolean isRandomStack;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.learning_card);
 
-		/*
-		 *  read the intent of the activity and store the
-		 *  data in variables
-		 */
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras == null) {
@@ -89,14 +85,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 			stackName = (String) savedInstanceState
 					.getSerializable("stackName");
 		}
-		
-		// set the title of the activity - learning session
 		setTitle("Learning - " + stackName);
-		
-		/*
-		 * search for the stack of the actual learning session with the help 
-		 * of the stackName and store it in a variable
-		 */
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(stackName)) {
 				this.stack = stack;
@@ -104,16 +93,14 @@ public class LearningCard extends OnResumeFragmentActivity implements
 			}
 		}
 		
-		// show a Toast if the learning session started with a random stack
 		if(isRandomStack){
 			Toast toast = Toast.makeText(this, "You are now learning with random cards from all stacks", Toast.LENGTH_LONG);
 			toast.show();
 		}
 
-		// get the first card for the learning session
 		card = Learn.getInstance().startLearning(stack);
 
-		// set up the action bar
+		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -173,11 +160,6 @@ public class LearningCard extends OnResumeFragmentActivity implements
 		showImageBack = (ImageButton) findViewById(R.id.btn_learning_card_back_picture);
 		// Handle item selection
 		switch (item.getItemId()) {
-		/*
-		 * if the actual card is rated with sure, notSure, dontKnow
-		 * get the next card and check if it was the last card of the learning session.
-		 * If yes start the statistics screen, else update the content of the learning screen
-		 */
 		case R.id.btn_learning_card_front_sure:
 			card = Learn.getInstance().learnCard(2);
 			if (card == null) {
@@ -239,20 +221,13 @@ public class LearningCard extends OnResumeFragmentActivity implements
 				updateImageButton(false, showImageBack);
 			}
 			return true;
-		// if 'edit card' is selected start the activity AdminEditCard
 		case R.id.btn_admin_edit_card:
 			Intent intent = new Intent(this, AdminEditCard.class);
 			intent.putExtra("cardID", card.getCardID());
 			startActivityForResult(intent, RESULT_CHANGED);
-			updateImageButton(true, showImageFront);
-			updateImageButton(false, showImageBack);
 			return true;
-		/*
-		 * if 'delete card' is selected show an alert dialog and
-		 * ask for affirmation of the deletion
-		 */
 		case R.id.btn_admin_delete_card:
-			// initialize a new alert dialog
+
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 					this);
 			// set title
@@ -346,25 +321,14 @@ public class LearningCard extends OnResumeFragmentActivity implements
 			FragmentTransaction fragmentTransaction) {
 	}
 
-	/**
-	 * @return the actual card
-	 */
 	public Card getCard() {
 		return card;
 	}
 
-	/**
-	 * Set the actual card
-	 * @param card
-	 */
 	public void setCard(Card card) {
 		this.card = card;
 	}
 
-	/*
-	 * Use this method to abort the learning session,
-	 * it creates an alert dialog before the session is aborted
-	 */
 	public void abortLearning() {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		// set title
@@ -497,7 +461,6 @@ public class LearningCard extends OnResumeFragmentActivity implements
 		private ImageButton imageFrontPicture;
 		private Bitmap imageBitmap;
 
-		// empty constructor
 		public CardFront() {
 		}
 
@@ -515,18 +478,25 @@ public class LearningCard extends OnResumeFragmentActivity implements
 			txt_counter_front.setText(Learn.getInstance()
 					.getActualProgressAsString());
 			
+			// Set Size of thumbnail
 			final int THUMBNAIL_SIZE = 64;
 
+			// Initialize imageButton that shall contain the thumbnail
 			imageFrontPicture = (ImageButton) v.findViewById(R.id.btn_learning_card_front_picture);
 			
+			// Update Button (picture)
 			updateImageButton(true, imageFrontPicture);
-			   
+			
+			 // Set OnClickListener of imageButton
 			imageFrontPicture.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					
+					// If there is any FrontPicture
 					if (!card.getCardFrontPicture().equals("")) {
+						
+						//Intent to open Gallery and show the FrontPicture
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
 						show.setDataAndType(Uri.fromFile(new File(card
@@ -570,19 +540,23 @@ public class LearningCard extends OnResumeFragmentActivity implements
 			txt_counter_back.setText(Learn.getInstance()
 					.getActualProgressAsString());
 
+			// Set size of thumbnail
 			final int THUMBNAIL_SIZE = 64;
 
+			// Initialize imageButton that shall display the thumbnail
 			imageBackPicture = (ImageButton) v.
 					findViewById(R.id.btn_learning_card_back_picture);
 			
+			// Update the imageButton content (picture)
 			updateImageButton(false, imageBackPicture);
 			
-			   
+			// Set OnClickListener of imageButton
 			imageBackPicture.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					
+					// if there is any picture available, open it with the Gallery
 					if (!card.getCardBackPicture().equals("")) {
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
@@ -598,9 +572,6 @@ public class LearningCard extends OnResumeFragmentActivity implements
 		}
 	}
 
-	/*
-	 * if the Back Button is pressed the learning session will be aborted
-	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -610,12 +581,23 @@ public class LearningCard extends OnResumeFragmentActivity implements
 		return false;
 	}
 	
+	/**
+	 * Method to update selected ImageButton (hide, unhide and change picture=
+	 * 
+	 * @param front: TRUE: update Front of Card, FALSE: update Back of Card
+	 * @param pictureBtn selected ImageButton
+	 * @return boolean - true if it had worked
+	 */
 	public boolean updateImageButton(boolean front, ImageButton pictureBtn){
 		final int THUMBNAIL_SIZE = 64;
 		
+		// if the front imagebutton has to be updated
 		if (front){
+			// if there is any CardFrontPicture
 			if (!card.getCardFrontPicture().equals("")){
-	            FileInputStream fis = null;
+	            
+				//Create Bitmap
+				FileInputStream fis = null;
 				try {
 					fis = new FileInputStream(new File(card.getCardFrontPicture()));
 				} catch (FileNotFoundException e) {
@@ -632,13 +614,19 @@ public class LearningCard extends OnResumeFragmentActivity implements
 	            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 	            byte[] byteArray = baos.toByteArray();
 	            
-	
+	            // Set imageButton visible and set picture
+	            pictureBtn.setVisibility(ImageButton.VISIBLE);
 				pictureBtn.setImageBitmap(imageBitmap);
 			}else{
+				// If there is no frontPicture, set ImageButton GONE
 				pictureBtn.setVisibility(ImageButton.GONE);
 			}}
+		// if front = false the ImageButton on CardBack is supposed to be updated
 		else{
+			// if there is any CardBackPicture
 			if (!card.getCardBackPicture().equals("")){
+				
+				// Create Bitmap
 				FileInputStream fis = null;
 				try {
 					fis = new FileInputStream(new File(card.getCardBackPicture()));
@@ -656,9 +644,11 @@ public class LearningCard extends OnResumeFragmentActivity implements
 	            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 	            byte[] byteArray = baos.toByteArray();
 	            
-	
+	            // Set imageButton visible and update Picture
+	            pictureBtn.setVisibility(ImageButton.VISIBLE);
 				pictureBtn.setImageBitmap(imageBitmap);
 			}else{
+				// If there is no CardBackPicture, set imageButton GONE
 				pictureBtn.setVisibility(ImageButton.GONE);
 			}}
 			
