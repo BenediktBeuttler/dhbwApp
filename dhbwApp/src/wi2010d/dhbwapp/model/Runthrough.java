@@ -7,6 +7,10 @@ import java.util.concurrent.TimeUnit;
 
 import wi2010d.dhbwapp.control.Database;
 
+/**
+ * Represents one runthrough for a learning session. Is only associated with a
+ * stack.
+ */
 public class Runthrough {
 
 	public static List<Runthrough> allRunthroughs = new ArrayList<Runthrough>();
@@ -80,10 +84,15 @@ public class Runthrough {
 		this.endDate = new Date();
 
 		Runthrough.allRunthroughs.add(this);
-		
+
 		Database.getInstance().addNewRunthrough(this);
 	}
 
+	/**
+	 * Gets the next free unique ID
+	 * 
+	 * @return the next free unique ID
+	 */
 	public static int getNextRunthroughID() {
 		lastRunthroughID = lastRunthroughID + 1;
 		return lastRunthroughID;
@@ -108,18 +117,45 @@ public class Runthrough {
 
 	}
 
+	/**
+	 * Sets the duration of the runthrough
+	 * 
+	 * @param newDuration
+	 *            the duration of the runthrough in seconds
+	 */
 	public void setDurationSecs(int newDuration) {
 		this.duration = newDuration;
 	}
-	
+
+	/**
+	 * Sets the duration of the runthrough while initialization
+	 * 
+	 * @param newDuration
+	 *            the duration of the runthrough in seconds
+	 */
 	public void initSetDurationSecs(int newDuration) {
 		this.duration = newDuration;
 	}
 
+	/**
+	 * Returns the duration of this runthrough in seconds
+	 * 
+	 * @return the duration of this runthrough in seconds
+	 */
 	public int getDurationSecs() {
 		return duration;
 	}
 
+	/**
+	 * Sets the status before the runthrough
+	 * 
+	 * @param beforeDontKnow
+	 *            Cards in the drawer dont know before the run
+	 * @param beforeNotSure
+	 *            Cards in the drawer not sure before the run
+	 * @param beforeSure
+	 *            Cards in the drawer sure before the run
+	 */
 	public void setStatusBefore(int beforeDontKnow, int beforeNotSure,
 			int beforeSure) {
 		this.statusBefore[0] = beforeDontKnow;
@@ -127,13 +163,33 @@ public class Runthrough {
 		this.statusBefore[2] = beforeSure;
 	}
 
+	/**
+	 * Sets the status after the runthrough
+	 * 
+	 * @param beforeDontKnow
+	 *            Cards in the drawer dont know after the run
+	 * @param beforeNotSure
+	 *            Cards in the drawer not sure after the run
+	 * @param beforeSure
+	 *            Cards in the drawer sure after the run
+	 */
 	public void setStatusAfter(int afterDontKnow, int afterNotSure,
 			int afterSure) {
 		this.statusAfter[0] = afterDontKnow;
 		this.statusAfter[1] = afterNotSure;
 		this.statusAfter[2] = afterSure;
 	}
-	
+
+	/**
+	 * Sets the status after the runthrough while initialization
+	 * 
+	 * @param beforeDontKnow
+	 *            Cards in the drawer dont know after the run
+	 * @param beforeNotSure
+	 *            Cards in the drawer not sure after the run
+	 * @param beforeSure
+	 *            Cards in the drawer sure after the run
+	 */
 	public void initSetStatusAfter(int afterDontKnow, int afterNotSure,
 			int afterSure) {
 		this.statusAfter[0] = afterDontKnow;
@@ -155,35 +211,61 @@ public class Runthrough {
 		return statusAfter;
 	}
 
+	/**
+	 * @return EndDate of the run
+	 */
 	public Date getEndDate() {
 		return endDate;
 	}
 
+	/**
+	 * @param endDate
+	 *            the EnDate
+	 */
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
+	/**
+	 * @return The runthroughs' id
+	 */
 	public int getRunthroughID() {
 		return runthroughID;
 	}
 
+	/**
+	 * @return the associated stacks' ID
+	 */
 	public int getStackID() {
 		return stackID;
 	}
 
+	/**
+	 * @return true, if the runthrough is an overall runthrough
+	 */
 	public boolean isOverall() {
 		return isOverall;
 	}
 
+	/**
+	 * @return the start date
+	 */
 	public Date getStartDate() {
 		return startDate;
 	}
 
+	/**
+	 * Resets the ID counter
+	 * @return
+	 */
 	public static boolean resetLastRunthroughID() {
 		lastRunthroughID = 0;
 		return true;
 	}
 
+	/**
+	 * @return the next runthroughs' id
+	 */
 	public static int getLastRunthroughID() {
 		return lastRunthroughID;
 	}
