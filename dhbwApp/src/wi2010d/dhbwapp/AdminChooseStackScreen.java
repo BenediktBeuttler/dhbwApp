@@ -27,6 +27,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Shows all the stacks and starts the learning, when a stack is chosen.
+ */
 public class AdminChooseStackScreen extends OnResumeActivity {
 
 	public final static int RESULT_OK = 1;
@@ -112,19 +115,28 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 				input.setText(stackName);
 				alert.setView(input);
 
+				// Set the new Stack name
 				alert.setPositiveButton("Update",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 								Toast toast;
-								if (input.getText().toString().equals("")) {
+								if (input.getText().toString().equals("")) { // handle
+																				// 'no
+																				// name'
 									toast = Toast.makeText(
 											getApplicationContext(),
 											"Please insert a stack name!",
 											Toast.LENGTH_SHORT);
 									toast.show();
 								} else if (input.getText().toString()
-										.equals("All Stacks")) {
+										.equals("All Stacks")) { // handle name
+																	// 'All
+																	// Stacks',
+																	// this is
+																	// used for
+																	// some
+																	// methods
 									toast = Toast
 											.makeText(
 													getApplicationContext(),
@@ -279,6 +291,8 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 
 				// show it
 				alertDialog.show();
+
+				// Archive: Export the Stack, then delete it.
 			} else if (item.getTitle() == "Archive") {
 				Stack clickedStack = null;
 				for (Stack stack : Stack.allStacks) {
@@ -287,7 +301,9 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 						break;
 					}
 				}
-				if (!Environment.getExternalStorageState().equals(
+				if (!Environment.getExternalStorageState().equals( // handle
+																	// read/write
+																	// problems
 						Environment.MEDIA_UNMOUNTED)
 						|| !Environment.getExternalStorageState().equals(
 								Environment.MEDIA_MOUNTED_READ_ONLY)
@@ -297,7 +313,7 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 						Exchange.getInstance().exportStack(
 								clickedStack,
 								Environment.getExternalStorageDirectory()
-										.getPath() + "/knowItOwl/", stackName);
+										.getPath() + "/knowItOwl/-archived-", stackName);
 
 						Delete.getInstance().deleteStack(clickedStack);
 
@@ -310,7 +326,7 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 					} catch (Exception e) {
 						ErrorHandlerFragment newFragment = ErrorHandlerFragment
 								.newInstance(R.string.error_handler_general,
-										ErrorHandlerFragment.GENERAL_ERROR);
+										ErrorHandlerFragment.EXPORT_ERROR);
 						newFragment.show(this.getFragmentManager(), "dialog");
 					}
 				} else {
@@ -327,6 +343,10 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 		return true;
 	}
 
+	/**
+	 * Updates the ListView
+	 * @return true, if it worked
+	 */
 	public boolean updateStackList() {
 		ArrayList<String> items = new ArrayList<String>();
 		for (Stack stack : Stack.allStacks) {
