@@ -3,8 +3,9 @@ package wi2010d.dhbwapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import wi2010d.dhbwapp.control.Database;
-
+/**
+ * A card object
+ */
 public class Card {
 
 	public static List<Card> allCards = new ArrayList<Card>();
@@ -73,82 +74,157 @@ public class Card {
 		Card.allCards.add(this);
 	}
 
+	/**
+	 * Returns the drawer, the card is currently in.
+	 * @return the drawer
+	 */
 	public int getDrawer() {
 		return drawer;
 	}
 
+	/**
+	 * Sets the drawer for the card
+	 * @param drawer the new drawer for the card
+	 */
 	public void setDrawer(int drawer) {
 		this.drawer = drawer;
 	}
 
+	/**
+	 * returns the cards' front text
+	 * @return the cards' front text
+	 */
 	public String getCardFront() {
 		return cardFront;
 	}
 
+	/**
+	 * Sets the the cards' front text
+	 * @param cardFront the cards' front text
+	 */
 	public void setCardFront(String cardFront) {
 		this.cardFront = cardFront;
 	}
 
+	/**
+	 * Returns the cards' back text
+	 * @return the cards' back text
+	 */
 	public String getCardBack() {
 		return cardBack;
 	}
 
+	/**
+	 * Sets the cards' back text
+	 * @param cardBack the cards' back text
+	 */
 	public void setCardBack(String cardBack) {
 		this.cardBack = cardBack;
 	}
 
+	/**
+	 * Returns the path to the cards' front picture, if there's no front picture, an empty string is returned
+	 * @return the path to the cards' front picture or an empty string
+	 */
 	public String getCardFrontPicture() {
 		return cardFrontPicture;
 	}
 
+	/**
+	 * Sets the path to the cards front picture
+	 * @param cardFrontPicture the cards' front picture
+	 */
 	public void setCardFrontPicture(String cardFrontPicture) {
 		this.cardFrontPicture = cardFrontPicture;
 	}
 
+	/**
+	 * Returns the path to the cards' back picture, if there's no back picture, an empty string is returned
+	 * @return the path to the cards' back picture or an empty string
+	 */
 	public String getCardBackPicture() {
 		return cardBackPicture;
 	}
 
+	/**
+	 Sets the path to the cards back picture
+	 * @param cardBackPicture the cards' back picture
+	 */
 	public void setCardBackPicture(String cardBackPicture) {
 		this.cardBackPicture = cardBackPicture;
 	}
 
+	/**
+	 * Returns the unique card id
+	 * @return the card id
+	 */
 	public int getCardID() {
 		return cardID;
 	}
 
+	/**
+	 * Returns the number of stacks the card is currently in
+	 * @return the number of stacks the card is currently in
+	 */
 	public int getTotalStacks() {
 		return totalStacks;
 	}
 
+	/**
+	 * Returns a list with the associated tags
+	 * @return list with the associated tags
+	 */
 	public List<Tag> getTags() {
 		return tags;
 	}
 
+	/**
+	 * increases the number of stacks the card is in
+	 * @return   the number of stacks the card is in
+	 */
 	public int increaseTotalStacks() {
 		this.totalStacks = this.totalStacks + 1;
 		return totalStacks;
 	}
 	
+	/**
+	 * increases the number of stacks the card is in
+	 * @return   the number of stacks the card is in
+	 */
 	public int increaseTotalStacksInit() {
 		this.totalStacks = this.totalStacks + 1;
 		return totalStacks;
 	}
 
+	/**
+	 * decreases the number of stacks the card is in
+	 * @return   the number of stacks the card is in
+	 */
 	public int decreaseTotalStacks() {
 		this.totalStacks = this.totalStacks - 1;
 		return totalStacks;
 	}
 
+	/**
+	 * Gets the next free card ID
+	 * @return the next free card ID
+	 */
 	public static int getNextCardID() {
 		lastCardID = lastCardID + 1;
 		return lastCardID;
 	}
 
+	/**
+	 * Sets the tags for this card
+	 * @param tags an array list with the tags for this card
+	 */
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
 
+	/**
+	 * Checks if the card object equals the given one
+	 */
 	@Override
 	public boolean equals(Object o) {
 		Card card = (Card) o;
@@ -158,6 +234,10 @@ public class Card {
 		return false;
 	}
 
+	/**
+	 * Resets the Last card id
+	 * @return true, if it worked
+	 */
 	public static boolean resetLastCardID() {
 		lastCardID = 0;
 		return true;
