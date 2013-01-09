@@ -24,6 +24,7 @@ public class Exchange {
 
 	private static Exchange exchange;
 	private ArrayList<String> imageList = new ArrayList<String>();
+	private ArrayList<String> imageListPath = new ArrayList<String>();
 
 	/**
 	 * Constructor
@@ -62,6 +63,8 @@ public class Exchange {
 	 */
 	public boolean exportStack(Stack stack, String outputPath, String exportName)
 			throws Exception {
+		imageListPath.clear();
+
 		// create a new JDOM Document
 		Document exportDoc = DocumentBuilderFactory.newInstance()
 				.newDocumentBuilder().newDocument();
@@ -92,6 +95,14 @@ public class Exchange {
 			cardElem.setAttribute("back", card.getCardBack());
 			cardElem.setAttribute("frontPic", card.getCardFrontPicture());
 			cardElem.setAttribute("backPic", card.getCardBackPicture());
+
+			// Add the picture paths to the list, needed for Email Export
+			if (!card.getCardFrontPicture().equals("")) {
+				imageListPath.add(card.getCardFrontPicture());
+			}
+			if (!card.getCardBackPicture().equals("")) {
+				imageListPath.add(card.getCardBackPicture());
+			}
 
 			// write the cards' tags
 			for (Tag tag : card.getTags()) {
@@ -261,6 +272,13 @@ public class Exchange {
 	 */
 	public ArrayList<String> getImageList() {
 		return imageList;
+	}
+
+	/**
+	 * @return the imageListPath
+	 */
+	public ArrayList<String> getImageListPath() {
+		return imageListPath;
 	}
 
 }
