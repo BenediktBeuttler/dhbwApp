@@ -1,6 +1,6 @@
 package wi2010d.dhbwapp;
 
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,38 +8,40 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-
+/**
+ * Start Activity with main navigation
+ */
 public class StartScreen extends OnResumeActivity implements OnClickListener {
-	Button learning, admin, settings, statistic, help;
-	TextView appName;
+	private Button learning, admin, settings, statistic, help;
+	private TextView appName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.start_screen);
-
+		
+		//init the views
 		appName = (TextView) findViewById(R.id.lbl_app_name_start_screen);
 		learning = (Button) findViewById(R.id.btn_start_learning);
 		admin = (Button) findViewById(R.id.btn_start_admin);
 		settings = (Button) findViewById(R.id.btn_start_settings);
 		statistic = (Button) findViewById(R.id.btn_start_statistic);
 		help = (Button) findViewById(R.id.btn_start_help);
-		
+		//set OnClickListener
 		learning.setOnClickListener(this);
 		admin.setOnClickListener(this);
 		settings.setOnClickListener(this);
 		statistic.setOnClickListener(this);
 		help.setOnClickListener(this);
-
+		//hide the ActionBar
 		final ActionBar actionBar = getActionBar();
 		actionBar.setDisplayShowTitleEnabled(false);
 		actionBar.setDisplayShowHomeEnabled(false);
-		
 	}
 
 	@Override
 	public void onClick(View v) {
-
+		//check which button is pressed and start specific activity
 		switch (v.getId()) {
 		case R.id.btn_start_learning:
 			startActivity(new Intent(this, LearningChooseStackScreen.class));
@@ -56,11 +58,11 @@ public class StartScreen extends OnResumeActivity implements OnClickListener {
 		case R.id.btn_start_help:
 			startActivity(new Intent(this, HelpScreen.class));
 			break;
-
-
 		default:
-			ErrorHandler error = new ErrorHandler(getApplicationContext());
-			error.handleError(1);
+			//if anything goes wrong, display general error dialog
+			ErrorHandlerFragment newFragment = ErrorHandlerFragment
+			.newInstance(R.string.error_handler_general, ErrorHandlerFragment.GENERAL_ERROR);
+			newFragment.show(getFragmentManager(), "dialog");	
 			break;
 		}
 
