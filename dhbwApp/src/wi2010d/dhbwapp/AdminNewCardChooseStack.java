@@ -27,12 +27,16 @@ public class AdminNewCardChooseStack extends OnResumeActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_new_card_choose_stack);
 
-		//get the name of every Stack for the listView
+		// get the name of every Stack for the listView
 		for (Stack stack : Stack.allStacks) {
-			items.add(stack.getStackName());
+			if (stack.isDynamicGenerated()) {
+				items.add("<Dyn> " + stack.getStackName());
+			} else {
+				items.add(stack.getStackName());
+			}
 		}
 
-		//get the ListView and create the adapter
+		// get the ListView and create the adapter
 		lv = (ListView) findViewById(R.id.admin_edit_card_stack_list);
 		lvAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, items);
@@ -44,7 +48,8 @@ public class AdminNewCardChooseStack extends OnResumeActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
-				//Get the clicked StackName, set the result and finish the activity
+				// Get the clicked StackName, set the result and finish the
+				// activity
 				String stackName = ((TextView) v).getText().toString();
 				setResult(AdminNewCard.STACK_CHOSEN, getIntent());
 				getIntent().putExtra("stackName", stackName);
@@ -55,7 +60,7 @@ public class AdminNewCardChooseStack extends OnResumeActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		//Create the options menu
+		// Create the options menu
 		getMenuInflater().inflate(R.menu.admin_choose_stack_screen, menu);
 		return true;
 	}
