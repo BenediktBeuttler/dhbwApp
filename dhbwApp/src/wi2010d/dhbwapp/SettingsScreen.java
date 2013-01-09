@@ -2,15 +2,12 @@ package wi2010d.dhbwapp;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Database;
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,9 +17,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+/**
+ * Settings Activity, displays various options to handle the DB
+ */
 public class SettingsScreen extends OnResumeActivity implements OnClickListener {
 
-	Button resetDB, testData;
+	private Button resetDB, testData;
+	private ErrorHandlerFragment newFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,35 +57,45 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 			finish();
 			return true;
 		default:
-			ErrorHandler error = new ErrorHandler(getApplicationContext());
-			error.handleError(1);
+			// if anything goes wrong (case not found), display general error
+			// dialog
+			newFragment = ErrorHandlerFragment.newInstance(
+					R.string.error_handler_general,
+					ErrorHandlerFragment.GENERAL_ERROR);
+			newFragment.show(getFragmentManager(), "dialog");
 			return false;
 		}
 	}
 
 	@Override
 	public void onClick(View v) {
+		// Handle item selection
 		switch (v.getId()) {
 		case R.id.btn_reset_database:
+			// display a dialog to ask for permission to delete the database.
+			// if "Yes" is clicked, DB will be deleted
 			ErrorHandlerFragment newFragment = ErrorHandlerFragment
-			.newInstance(R.string.error_handler_delete_db, ErrorHandlerFragment.RESET_DB);
-			newFragment.show(getFragmentManager(), "dialog");	
+					.newInstance(R.string.error_handler_delete_db,
+							ErrorHandlerFragment.RESET_DB);
+			newFragment.show(getFragmentManager(), "dialog");
 			break;
-			
+
 		case R.id.btn_write_test_data:
-			
+			//creates TestData: 100 new Cards in various stacks with various tags
 			List<Tag> tags0 = new ArrayList<Tag>();
 			List<Tag> tags1 = new ArrayList<Tag>();
 			List<Tag> tags2 = new ArrayList<Tag>();
 			List<Tag> tags3 = new ArrayList<Tag>();
 			List<Tag> tags4 = null;
-			
+
 			List<Card> allCards = new ArrayList<Card>();
 			
 			Tag mundl = Create.getInstance().newTag("Mündlich");
-			Tag presentation = Create.getInstance().newTag("2. PA Präsentation");
+			Tag presentation = Create.getInstance()
+					.newTag("2. PA Präsentation");
 			Tag nachpruefung = Create.getInstance().newTag("Nachprüfung Recht");
-			Tag projektmgmt = Create.getInstance().newTag("Projektmgmt. Zertifizierung");
+			Tag projektmgmt = Create.getInstance().newTag(
+					"Projektmgmt. Zertifizierung");
 
 			tags0.add(mundl);
 			tags0.add(presentation);
@@ -95,51 +106,58 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 			tags3.add(mundl);
 			tags3.add(presentation);
 
-			for (int i = 0; i < 100; i++){
-				
-				if (i < 25){
-					allCards.add(Create.getInstance().newCard("Card " + i + " front", 
-							"Card " + i + " back", tags0, "", ""));
+			for (int i = 0; i < 100; i++) {
+
+				if (i < 25) {
+					allCards.add(Create.getInstance().newCard(
+							"Card " + i + " front", "Card " + i + " back",
+							tags0, "", ""));
 				}
-				
-				if ((24 < i) && (i < 45)){
-					allCards.add(Create.getInstance().newCard("Card " + i + " front", 
-							"Card " + i + " back", tags1, "", ""));
+
+				if ((24 < i) && (i < 45)) {
+					allCards.add(Create.getInstance().newCard(
+							"Card " + i + " front", "Card " + i + " back",
+							tags1, "", ""));
 				}
-				
-				if ((44 < i) && (i < 60)){
-					allCards.add(Create.getInstance().newCard("Card " + i + " front", 
-							"Card " + i + " back", tags2, "", ""));
+
+				if ((44 < i) && (i < 60)) {
+					allCards.add(Create.getInstance().newCard(
+							"Card " + i + " front", "Card " + i + " back",
+							tags2, "", ""));
 				}
-				
-				if ((59 < i) && (i < 80)){
-					allCards.add(Create.getInstance().newCard("Card " + i + " front", 
-							"Card " + i + " back", tags3, "", ""));
+
+				if ((59 < i) && (i < 80)) {
+					allCards.add(Create.getInstance().newCard(
+							"Card " + i + " front", "Card " + i + " back",
+							tags3, "", ""));
 				}
-				
-				if (i > 79){
-					allCards.add(Create.getInstance().newCard("Card " + i + " front", 
-							"Card " + i + " back", tags4, "", ""));
+
+				if (i > 79) {
+					allCards.add(Create.getInstance().newCard(
+							"Card " + i + " front", "Card " + i + " back",
+							tags4, "", ""));
 				}
 			}
-			
+
 			int cardNumber = 100;
 			int randomNumber;
 			List<Card> cards = new ArrayList<Card>();
-			
-			for (int i = 0; i < 25; i++){
-				
+
+			for (int i = 0; i < 25; i++) {
+
 				cards.clear();
-				
-				for (int j = 0; j < 4; j++){
-					
-					randomNumber = (int)Math.floor((Math.random() * cardNumber));
+
+				for (int j = 0; j < 4; j++) {
+
+					randomNumber = (int) Math
+							.floor((Math.random() * cardNumber));
 					cardNumber = cardNumber - 1;
 					cards.add(allCards.get(randomNumber));
 					allCards.remove(randomNumber);
 				}
-				
-				Database.getInstance().addNewStack(new Stack(false, "Stack " + i, cards));
+
+				Database.getInstance().addNewStack(
+						new Stack(false, "Stack " + i, cards));
 			}
 
 			Toast toast;
@@ -149,8 +167,12 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 			break;
 
 		default:
-			ErrorHandler error = new ErrorHandler(getApplicationContext());
-			error.handleError(1);
+			// if anything goes wrong (case not found), display general error
+			// dialog
+			newFragment = ErrorHandlerFragment.newInstance(
+					R.string.error_handler_general,
+					ErrorHandlerFragment.GENERAL_ERROR);
+			newFragment.show(getFragmentManager(), "dialog");
 			break;
 		}
 	}
