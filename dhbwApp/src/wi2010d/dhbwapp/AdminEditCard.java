@@ -496,7 +496,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 	
 	//TODO: Gucken, ob hier auch dieselbe Methode aus der Learner-Klasse aufgerufen werden kann
 	public boolean updateImageButtonAdminEdit(boolean front, ImageButton pictureBtn){
-		final int THUMBNAIL_SIZE = 64;
+		final int THUMBNAIL_SIZE = 128;
 		
 		if (front){
 			if (!card.getCardFrontPicture().equals("")){
@@ -517,7 +517,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 	            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 	            byte[] byteArray = baos.toByteArray();
 	            
-	
+	            pictureBtn.setVisibility(ImageButton.VISIBLE);
 				pictureBtn.setImageBitmap(imageBitmap);
 			}else{
 				pictureBtn.setVisibility(ImageButton.GONE);
@@ -541,7 +541,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 	            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 	            byte[] byteArray = baos.toByteArray();
 	            
-	
+	            pictureBtn.setVisibility(ImageButton.VISIBLE);
 				pictureBtn.setImageBitmap(imageBitmap);
 			}else{
 				pictureBtn.setVisibility(ImageButton.GONE);

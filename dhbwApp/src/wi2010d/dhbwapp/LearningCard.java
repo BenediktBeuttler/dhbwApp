@@ -487,9 +487,6 @@ public class LearningCard extends OnResumeFragmentActivity implements
 			txt_counter_front.setText(Learn.getInstance()
 					.getActualProgressAsString());
 			
-			// Set Size of thumbnail
-			final int THUMBNAIL_SIZE = 64;
-
 			// Initialize imageButton that shall contain the thumbnail
 			imageFrontPicture = (ImageButton) v.findViewById(R.id.btn_learning_card_front_picture);
 			
@@ -549,9 +546,6 @@ public class LearningCard extends OnResumeFragmentActivity implements
 			txt_counter_back.setText(Learn.getInstance()
 					.getActualProgressAsString());
 
-			// Set size of thumbnail
-			final int THUMBNAIL_SIZE = 64;
-
 			// Initialize imageButton that shall display the thumbnail
 			imageBackPicture = (ImageButton) v.
 					findViewById(R.id.btn_learning_card_back_picture);
@@ -598,7 +592,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 	 * @return boolean - true if it had worked
 	 */
 	public boolean updateImageButton(boolean front, ImageButton pictureBtn){
-		final int THUMBNAIL_SIZE = 64;
+		final int THUMBNAIL_SIZE = 128;
 		
 		// if the front imagebutton has to be updated
 		if (front){

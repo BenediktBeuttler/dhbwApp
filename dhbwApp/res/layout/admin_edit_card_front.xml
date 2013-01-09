@@ -23,9 +23,8 @@
 
     <ImageButton
         android:id="@+id/btn_edit_picture_front_show"
-        android:layout_width="177dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.64"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         android:src="@drawable/accept" />
 
 </LinearLayout>
