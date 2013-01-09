@@ -109,10 +109,6 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 				}
 				end = path.lastIndexOf("/");
 				String str2 = path.substring(0, end+1);
-				Toast toast = Toast
-						.makeText(getApplicationContext(), str2,
-								Toast.LENGTH_SHORT);
-				toast.show();
 				for(String image : Exchange.getInstance().getImageList()){
 					try {
 						copyFile(new File(str2+image), new File(Environment.getExternalStorageDirectory().getPath()+"/knowItOwl/pictures/"+image));
