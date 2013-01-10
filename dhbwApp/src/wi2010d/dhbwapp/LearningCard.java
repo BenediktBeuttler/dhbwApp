@@ -66,6 +66,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 	private TextView txt_back;
 	private Button sure, dontKnow, notSure;
 	private boolean isRandomStack;
+	private boolean optionItemPressed;
 
 	private ImageButton showImageFront;
 	private ImageButton showImageBack;
@@ -75,6 +76,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.learning_card);
+		optionItemPressed = false;
 
 		/*
 		 * read the intent of the activity and store the data in variables
@@ -172,157 +174,175 @@ public class LearningCard extends OnResumeFragmentActivity implements
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		showImageFront = (ImageButton) findViewById(R.id.btn_learning_card_front_picture);
-		showImageBack = (ImageButton) findViewById(R.id.btn_learning_card_back_picture);
-		// Handle item selection
-		switch (item.getItemId()) {
-		/*
-		 * if the actual card is rated with sure, notSure, dontKnow get the next
-		 * card and check if it was the last card of the learning session. If
-		 * yes start the statistics screen, else update the content of the
-		 * learning screen
-		 */
-		case R.id.btn_learning_card_front_sure:
-			card = Learn.getInstance().learnCard(2);
-			if (card == null) {
-				Intent intent = (new Intent(this, StatisticsScreen.class));
-				intent.putExtra("Tab", 3);
-				intent.putExtra("isRandomStack", isRandomStack);
-				startActivity(intent);
-				finish();
-			} else {
-				mViewPager.setCurrentItem(0);
-				Log.e("TB", Learn.getInstance().getActualProgressAsString());
-				txt_counter_front.setText(Learn.getInstance()
-						.getActualProgressAsString());
-				txt_counter_back.setText(Learn.getInstance()
-						.getActualProgressAsString());
-				txt_front.setText(card.getCardFront());
-				txt_back.setText(card.getCardBack());
-				updateImageButton(true, showImageFront);
-				updateImageButton(false, showImageBack);
-			}
-			return true;
-		case R.id.btn_learning_card_front_dontKnow:
-			card = Learn.getInstance().learnCard(0);
-			if (card == null) {
-				Intent intent = (new Intent(this, StatisticsScreen.class));
-				intent.putExtra("Tab", 3);
-				intent.putExtra("isRandomStack", isRandomStack);
-				startActivity(intent);
-				finish();
-			} else {
-				mViewPager.setCurrentItem(0);
-				txt_counter_front.setText(Learn.getInstance()
-						.getActualProgressAsString());
-				txt_counter_back.setText(Learn.getInstance()
-						.getActualProgressAsString());
-				txt_front.setText(card.getCardFront());
-				txt_back.setText(card.getCardBack());
-				updateImageButton(true, showImageFront);
-				updateImageButton(false, showImageBack);
-			}
-			return true;
-		case R.id.btn_learning_card_front_notSure:
-			card = Learn.getInstance().learnCard(1);
-			if (card == null) {
-				Intent intent = (new Intent(this, StatisticsScreen.class));
-				intent.putExtra("Tab", 3);
-				intent.putExtra("isRandomStack", isRandomStack);
-				startActivity(intent);
-				finish();
-			} else {
-				mViewPager.setCurrentItem(0);
-				txt_counter_front.setText(Learn.getInstance()
-						.getActualProgressAsString());
-				txt_counter_back.setText(Learn.getInstance()
-						.getActualProgressAsString());
-				txt_front.setText(card.getCardFront());
-				txt_back.setText(card.getCardBack());
-				updateImageButton(true, showImageFront);
-				updateImageButton(false, showImageBack);
-			}
-			return true;
-			// if 'edit card' is selected start the activity AdminEditCard
-		case R.id.btn_admin_edit_card:
-			Intent intent = new Intent(this, AdminEditCard.class);
-			intent.putExtra("cardID", card.getCardID());
-			startActivityForResult(intent, RESULT_CHANGED);
-			return true;
+		if (!optionItemPressed) {
+			optionItemPressed=true;
+			showImageFront = (ImageButton) findViewById(R.id.btn_learning_card_front_picture);
+			showImageBack = (ImageButton) findViewById(R.id.btn_learning_card_back_picture);
+			// Handle item selection
+			switch (item.getItemId()) {
 			/*
-			 * if 'delete card' is selected show an alert dialog and ask for
-			 * affirmation of the deletion
+			 * if the actual card is rated with sure, notSure, dontKnow get the
+			 * next card and check if it was the last card of the learning
+			 * session. If yes start the statistics screen, else update the
+			 * content of the learning screen
 			 */
-		case R.id.btn_admin_delete_card:
-			// initialize a new alert dialog
-			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-					this);
-			// set title
-			alertDialogBuilder.setTitle("Delete Card");
-			// set dialog message
-			alertDialogBuilder
-					.setMessage("Are you sure you want to delete this card?")
-					.setIcon(R.drawable.question)
-					.setCancelable(false)
-					.setPositiveButton("Yes",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
+			case R.id.btn_learning_card_front_sure:
+				card = Learn.getInstance().learnCard(2);
+				if (card == null) {
+					Intent intent = (new Intent(this, StatisticsScreen.class));
+					intent.putExtra("Tab", 3);
+					intent.putExtra("isRandomStack", isRandomStack);
+					startActivity(intent);
+					finish();
+				} else {
+					mViewPager.setCurrentItem(0);
+					Log.e("TB", Learn.getInstance().getActualProgressAsString());
+					txt_counter_front.setText(Learn.getInstance()
+							.getActualProgressAsString());
+					txt_counter_back.setText(Learn.getInstance()
+							.getActualProgressAsString());
+					txt_front.setText(card.getCardFront());
+					txt_back.setText(card.getCardBack());
+					updateImageButton(true, showImageFront);
+					updateImageButton(false, showImageBack);
+					optionItemPressed = false;
+				}
+				return true;
+			case R.id.btn_learning_card_front_dontKnow:
+				card = Learn.getInstance().learnCard(0);
+				if (card == null) {
+					Intent intent = (new Intent(this, StatisticsScreen.class));
+					intent.putExtra("Tab", 3);
+					intent.putExtra("isRandomStack", isRandomStack);
+					startActivity(intent);
+					finish();
+				} else {
+					mViewPager.setCurrentItem(0);
+					txt_counter_front.setText(Learn.getInstance()
+							.getActualProgressAsString());
+					txt_counter_back.setText(Learn.getInstance()
+							.getActualProgressAsString());
+					txt_front.setText(card.getCardFront());
+					txt_back.setText(card.getCardBack());
+					updateImageButton(true, showImageFront);
+					updateImageButton(false, showImageBack);
+					optionItemPressed = false;
+				}
+				return true;
+			case R.id.btn_learning_card_front_notSure:
+				card = Learn.getInstance().learnCard(1);
+				if (card == null) {
+					Intent intent = (new Intent(this, StatisticsScreen.class));
+					intent.putExtra("Tab", 3);
+					intent.putExtra("isRandomStack", isRandomStack);
+					startActivity(intent);
+					finish();
+				} else {
+					mViewPager.setCurrentItem(0);
+					txt_counter_front.setText(Learn.getInstance()
+							.getActualProgressAsString());
+					txt_counter_back.setText(Learn.getInstance()
+							.getActualProgressAsString());
+					txt_front.setText(card.getCardFront());
+					txt_back.setText(card.getCardBack());
+					updateImageButton(true, showImageFront);
+					updateImageButton(false, showImageBack);
+					optionItemPressed = false;
+				}
+				return true;
+				// if 'edit card' is selected start the activity AdminEditCard
+			case R.id.btn_admin_edit_card:
+				Intent intent = new Intent(this, AdminEditCard.class);
+				intent.putExtra("cardID", card.getCardID());
+				startActivityForResult(intent, RESULT_CHANGED);
+				return true;
+				/*
+				 * if 'delete card' is selected show an alert dialog and ask for
+				 * affirmation of the deletion
+				 */
+			case R.id.btn_admin_delete_card:
+				// initialize a new alert dialog
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						this);
+				// set title
+				alertDialogBuilder.setTitle("Delete Card");
+				// set dialog message
+				alertDialogBuilder
+						.setMessage(
+								"Are you sure you want to delete this card?")
+						.setIcon(R.drawable.question)
+						.setCancelable(false)
+						.setPositiveButton("Yes",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
 
-									if (Learn.getInstance().isLastCard()) {
-										Delete.getInstance().deleteStack(stack);
-									} else {
-										Delete.getInstance().deleteCard(card);
+										if (Learn.getInstance().isLastCard()) {
+											Delete.getInstance().deleteStack(
+													stack);
+										} else {
+											Delete.getInstance().deleteCard(
+													card);
+										}
+
+										card = Learn.getInstance().learnCard(3);
+										if (card == null) {
+											Intent deleteCard = (new Intent(
+													getApplicationContext(),
+													StatisticsScreen.class));
+											deleteCard.putExtra("Tab", 3);
+											deleteCard.putExtra(
+													"isRandomStack",
+													isRandomStack);
+											startActivity(deleteCard);
+											finish();
+										} else {
+											mViewPager.setCurrentItem(0);
+											txt_counter_front
+													.setText(Learn
+															.getInstance()
+															.getActualProgressAsString());
+											txt_counter_back
+													.setText(Learn
+															.getInstance()
+															.getActualProgressAsString());
+											txt_front.setText(card
+													.getCardFront());
+											txt_back.setText(card.getCardBack());
+											updateImageButton(true,
+													showImageFront);
+											updateImageButton(false,
+													showImageBack);
+											optionItemPressed = false;
+										}
 									}
-									
-									card = Learn.getInstance().learnCard(3);
-									if (card == null) {
-										Intent deleteCard = (new Intent(
-												getApplicationContext(),
-												StatisticsScreen.class));
-										deleteCard.putExtra("Tab", 3);
-										deleteCard.putExtra("isRandomStack",
-												isRandomStack);
-										startActivity(deleteCard);
-										finish();
-									} else {
-										mViewPager.setCurrentItem(0);
-										txt_counter_front.setText(Learn
-												.getInstance()
-												.getActualProgressAsString());
-										txt_counter_back.setText(Learn
-												.getInstance()
-												.getActualProgressAsString());
-										txt_front.setText(card.getCardFront());
-										txt_back.setText(card.getCardBack());
-										updateImageButton(true, showImageFront);
-										updateImageButton(false, showImageBack);
+								})
+						.setNegativeButton("No",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										// if this button is clicked, just close
+										// the dialog box and do nothing
+										dialog.cancel();
 									}
-								}
-							})
-					.setNegativeButton("No",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									// if this button is clicked, just close
-									// the dialog box and do nothing
-									dialog.cancel();
-								}
-							});
-			// create alert dialog
-			AlertDialog alertDialog = alertDialogBuilder.create();
+								});
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
 
-			// show it
-			alertDialog.show();
+				// show it
+				alertDialog.show();
 
-			return true;
+				return true;
 
-		default:
-			ErrorHandler error = new ErrorHandler(getApplicationContext());
-			error.handleError(1);
+			default:
+				ErrorHandler error = new ErrorHandler(getApplicationContext());
+				error.handleError(1);
+				return false;
+			}
+		}
+		else{
 			return false;
 		}
-
 	}
 
 	@Override
@@ -348,6 +368,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 					.getActualProgressAsString());
 			updateImageButton(true, showImageFront);
 			updateImageButton(false, showImageBack);
+			optionItemPressed = false;
 			break;
 		default:
 			break;
@@ -737,6 +758,12 @@ public class LearningCard extends OnResumeFragmentActivity implements
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		optionItemPressed = false;
 	}
 
 }

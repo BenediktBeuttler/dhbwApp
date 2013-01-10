@@ -261,11 +261,11 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						this);
 				// set title
-				alertDialogBuilder.setTitle("Delete Card");
+				alertDialogBuilder.setTitle("Delete Stack");
 				// set dialog message
 				alertDialogBuilder
 						.setMessage(
-								"Are you sure you want to delete this card?")
+								"Are you sure you want to delete this stack?")
 						.setIcon(R.drawable.question)
 						.setCancelable(false)
 						.setPositiveButton("Yes",

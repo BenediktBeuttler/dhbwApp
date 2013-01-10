@@ -93,7 +93,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 			}
 		}
 	};
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -149,6 +149,12 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 
 			}
 		});
+	}
+
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		updateStackList();
 	}
 
 	// When the registered view receives a long-click event, the system calls
@@ -356,7 +362,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						this);
 				// set title
-				alertDialogBuilder.setTitle("Delete Card");
+				alertDialogBuilder.setTitle("Delete Stack");
 				// set dialog message
 				alertDialogBuilder
 						.setMessage(
@@ -528,6 +534,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		mSensorManager.registerListener(mSensorListener,
 				mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
 				SensorManager.SENSOR_DELAY_NORMAL);
+		updateStackList();
 	}
 
 	@Override
