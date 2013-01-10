@@ -66,7 +66,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 	private TextView txt_back;
 	private Button sure, dontKnow, notSure;
 	private boolean isRandomStack;
-	
+
 	private ImageButton showImageFront;
 	private ImageButton showImageBack;
 
@@ -75,11 +75,10 @@ public class LearningCard extends OnResumeFragmentActivity implements
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.learning_card);
-		
+
 		/*
-		* read the intent of the activity and store the
-		* data in variables
-		*/
+		 * read the intent of the activity and store the data in variables
+		 */
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras == null) {
@@ -92,24 +91,26 @@ public class LearningCard extends OnResumeFragmentActivity implements
 			stackName = (String) savedInstanceState
 					.getSerializable("stackName");
 		}
-		
+
 		// set the title of the activity - learning session
 		setTitle("Learning - " + stackName);
-		
+
 		/*
-		* search for the stack of the actual learning session with the help
-		* of the stackName and store it in a variable
-		*/
+		 * search for the stack of the actual learning session with the help of
+		 * the stackName and store it in a variable
+		 */
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(stackName)) {
 				this.stack = stack;
 				break;
 			}
 		}
-		
+
 		// show a Toast if the learning session started with a random stack
-		if(isRandomStack){
-			Toast toast = Toast.makeText(this, "You are now learning with random cards from all stacks", Toast.LENGTH_LONG);
+		if (isRandomStack) {
+			Toast toast = Toast.makeText(this,
+					"You are now learning with random cards from all stacks",
+					Toast.LENGTH_LONG);
 			toast.show();
 		}
 
@@ -170,16 +171,17 @@ public class LearningCard extends OnResumeFragmentActivity implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
+
 		showImageFront = (ImageButton) findViewById(R.id.btn_learning_card_front_picture);
 		showImageBack = (ImageButton) findViewById(R.id.btn_learning_card_back_picture);
 		// Handle item selection
 		switch (item.getItemId()) {
 		/*
-		* if the actual card is rated with sure, notSure, dontKnow
-		* get the next card and check if it was the last card of the learning session.
-		* If yes start the statistics screen, else update the content of the learning screen
-		*/
+		 * if the actual card is rated with sure, notSure, dontKnow get the next
+		 * card and check if it was the last card of the learning session. If
+		 * yes start the statistics screen, else update the content of the
+		 * learning screen
+		 */
 		case R.id.btn_learning_card_front_sure:
 			card = Learn.getInstance().learnCard(2);
 			if (card == null) {
@@ -241,16 +243,16 @@ public class LearningCard extends OnResumeFragmentActivity implements
 				updateImageButton(false, showImageBack);
 			}
 			return true;
-		// if 'edit card' is selected start the activity AdminEditCard
+			// if 'edit card' is selected start the activity AdminEditCard
 		case R.id.btn_admin_edit_card:
 			Intent intent = new Intent(this, AdminEditCard.class);
 			intent.putExtra("cardID", card.getCardID());
 			startActivityForResult(intent, RESULT_CHANGED);
 			return true;
-		/*
-		* if 'delete card' is selected show an alert dialog and
-		* ask for affirmation of the deletion
-		*/
+			/*
+			 * if 'delete card' is selected show an alert dialog and ask for
+			 * affirmation of the deletion
+			 */
 		case R.id.btn_admin_delete_card:
 			// initialize a new alert dialog
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -267,16 +269,20 @@ public class LearningCard extends OnResumeFragmentActivity implements
 								public void onClick(DialogInterface dialog,
 										int id) {
 
-									Delete.getInstance().deleteCard(card);
+									if (Learn.getInstance().isLastCard()) {
+										Delete.getInstance().deleteStack(stack);
+									} else {
+										Delete.getInstance().deleteCard(card);
+									}
 									
 									card = Learn.getInstance().learnCard(3);
-									
 									if (card == null) {
 										Intent deleteCard = (new Intent(
 												getApplicationContext(),
 												StatisticsScreen.class));
 										deleteCard.putExtra("Tab", 3);
-										deleteCard.putExtra("isRandomStack", isRandomStack);
+										deleteCard.putExtra("isRandomStack",
+												isRandomStack);
 										startActivity(deleteCard);
 										finish();
 									} else {
@@ -354,24 +360,25 @@ public class LearningCard extends OnResumeFragmentActivity implements
 	}
 
 	/**
-	* @return the actual card
-	*/
+	 * @return the actual card
+	 */
 	public Card getCard() {
 		return card;
 	}
 
 	/**
-	* Set the actual card
-	* @param card
-	*/
+	 * Set the actual card
+	 * 
+	 * @param card
+	 */
 	public void setCard(Card card) {
 		this.card = card;
 	}
 
 	/*
-	* Use this method to abort the learning session,
-	* it creates an alert dialog before the session is aborted
-	*/
+	 * Use this method to abort the learning session, it creates an alert dialog
+	 * before the session is aborted
+	 */
 	public void abortLearning() {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		// set title
@@ -500,7 +507,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 		 */
 		public final String ARG_SECTION_NUMBER = "section_number";
 		private Button showPicture;
-		
+
 		private ImageButton imageFrontPicture;
 		private Bitmap imageBitmap;
 
@@ -521,34 +528,34 @@ public class LearningCard extends OnResumeFragmentActivity implements
 					.findViewById(R.id.txt_learning_counter);
 			txt_counter_front.setText(Learn.getInstance()
 					.getActualProgressAsString());
-			
+
 			// Initialize imageButton that shall contain the thumbnail
-			imageFrontPicture = (ImageButton) v.findViewById(R.id.btn_learning_card_front_picture);
-			
+			imageFrontPicture = (ImageButton) v
+					.findViewById(R.id.btn_learning_card_front_picture);
+
 			// Update Button (picture)
 			updateImageButton(true, imageFrontPicture);
-			
-			 // Set OnClickListener of imageButton
+
+			// Set OnClickListener of imageButton
 			imageFrontPicture.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					
+
 					// If there is any FrontPicture
 					if (!card.getCardFrontPicture().equals("")) {
-						
-						//Intent to open Gallery and show the FrontPicture
+
+						// Intent to open Gallery and show the FrontPicture
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
 						show.setDataAndType(Uri.fromFile(new File(card
 								.getCardFrontPicture())), "image/*");
 						startActivity(show);
 					}
-					
+
 				}
 			});
-            
-            
+
 			return v;
 		}
 
@@ -583,19 +590,20 @@ public class LearningCard extends OnResumeFragmentActivity implements
 					.getActualProgressAsString());
 
 			// Initialize imageButton that shall display the thumbnail
-			imageBackPicture = (ImageButton) v.
-					findViewById(R.id.btn_learning_card_back_picture);
-			
+			imageBackPicture = (ImageButton) v
+					.findViewById(R.id.btn_learning_card_back_picture);
+
 			// Update the imageButton content (picture)
 			updateImageButton(false, imageBackPicture);
-			
+
 			// Set OnClickListener of imageButton
 			imageBackPicture.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					
-					// if there is any picture available, open it with the Gallery
+
+					// if there is any picture available, open it with the
+					// Gallery
 					if (!card.getCardBackPicture().equals("")) {
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
@@ -603,17 +611,17 @@ public class LearningCard extends OnResumeFragmentActivity implements
 								.getCardBackPicture())), "image/*");
 						startActivity(show);
 					}
-					
+
 				}
 			});
-			
+
 			return v;
 		}
 	}
 
 	/*
-	* if the Back Button is pressed the learning session will be aborted
-	*/
+	 * if the Back Button is pressed the learning session will be aborted
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -622,102 +630,111 @@ public class LearningCard extends OnResumeFragmentActivity implements
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Method to update selected ImageButton (hide, unhide and change picture=
 	 * 
-	 * @param front: TRUE: update Front of Card, FALSE: update Back of Card
-	 * @param pictureBtn selected ImageButton
+	 * @param front
+	 *            : TRUE: update Front of Card, FALSE: update Back of Card
+	 * @param pictureBtn
+	 *            selected ImageButton
 	 * @return boolean - true if it had worked
 	 */
-	public boolean updateImageButton(boolean front, ImageButton pictureBtn){
+	public boolean updateImageButton(boolean front, ImageButton pictureBtn) {
 		final int THUMBNAIL_SIZE = 128;
-		
+
 		// if the front imagebutton has to be updated
-		if (front){
+		if (front) {
 			// if there is any CardFrontPicture
-			if (!card.getCardFrontPicture().equals("") && checkPictureAvailability(true)){
-	            
-				//Create Bitmap
-				FileInputStream fis = null;
-				try {
-					fis = new FileInputStream(new File(card.getCardFrontPicture()));
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	            Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
-	
-	            imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 
-	            		THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
-	
-	            
-	            ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-	            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-	            byte[] byteArray = baos.toByteArray();
-	            
-	            // Set imageButton visible and set picture
-	            pictureBtn.setVisibility(ImageButton.VISIBLE);
-				pictureBtn.setImageBitmap(imageBitmap);
-			}else{
-				// If there is no frontPicture, set ImageButton GONE
-				pictureBtn.setVisibility(ImageButton.GONE);
-			}}
-		// if front = false the ImageButton on CardBack is supposed to be updated
-		else{
-			// if there is any CardBackPicture
-			if (!card.getCardBackPicture().equals("") && checkPictureAvailability(false)){
-				
+			if (!card.getCardFrontPicture().equals("")
+					&& checkPictureAvailability(true)) {
+
 				// Create Bitmap
 				FileInputStream fis = null;
 				try {
-					fis = new FileInputStream(new File(card.getCardBackPicture()));
+					fis = new FileInputStream(new File(
+							card.getCardFrontPicture()));
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	            Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
-	
-	            imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 
-	            		THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
-	
-	            
-	            ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-	            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-	            byte[] byteArray = baos.toByteArray();
-	            
-	            // Set imageButton visible and update Picture
-	            pictureBtn.setVisibility(ImageButton.VISIBLE);
+				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
+
+				imageBitmap = Bitmap.createScaledBitmap(imageBitmap,
+						THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+				byte[] byteArray = baos.toByteArray();
+
+				// Set imageButton visible and set picture
+				pictureBtn.setVisibility(ImageButton.VISIBLE);
 				pictureBtn.setImageBitmap(imageBitmap);
-			}else{
+			} else {
+				// If there is no frontPicture, set ImageButton GONE
+				pictureBtn.setVisibility(ImageButton.GONE);
+			}
+		}
+		// if front = false the ImageButton on CardBack is supposed to be
+		// updated
+		else {
+			// if there is any CardBackPicture
+			if (!card.getCardBackPicture().equals("")
+					&& checkPictureAvailability(false)) {
+
+				// Create Bitmap
+				FileInputStream fis = null;
+				try {
+					fis = new FileInputStream(new File(
+							card.getCardBackPicture()));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
+
+				imageBitmap = Bitmap.createScaledBitmap(imageBitmap,
+						THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+				byte[] byteArray = baos.toByteArray();
+
+				// Set imageButton visible and update Picture
+				pictureBtn.setVisibility(ImageButton.VISIBLE);
+				pictureBtn.setImageBitmap(imageBitmap);
+			} else {
 				// If there is no CardBackPicture, set imageButton GONE
 				pictureBtn.setVisibility(ImageButton.GONE);
-			}}
-			
+			}
+		}
+
 		return true;
 	}
-	
+
 	/**
 	 * Check if picture exists
 	 * 
-	 * @param front: boolean if to check front picture (true) or back picture (false)
+	 * @param front
+	 *            : boolean if to check front picture (true) or back picture
+	 *            (false)
 	 * @return
 	 */
-	private boolean checkPictureAvailability(boolean front){
-		
+	private boolean checkPictureAvailability(boolean front) {
+
 		File picture;
-		
+
 		// Create file with the path where the picture is supposed to be stored
-		if (front){
+		if (front) {
 			picture = new File(card.getCardFrontPicture());
-		}else{
+		} else {
 			picture = new File(card.getCardBackPicture());
 		}
-		
+
 		// Check if picture exists and return result
-		if (picture.exists()){
+		if (picture.exists()) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}

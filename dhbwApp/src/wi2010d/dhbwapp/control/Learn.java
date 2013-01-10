@@ -150,6 +150,13 @@ public class Learn {
 		progress = "Karte " + actualCard + " von " + cardsInQueues;
 		return progress;
 	}
+	
+	/**
+	 * @return true if the actual card is the last card in the learning session, else return false
+	 */
+	public boolean isLastCard(){
+		return totalCards==1;
+	}
 
 	/**
 	 * Use this method to store the actual Card in the delivered drawer (0-2)
