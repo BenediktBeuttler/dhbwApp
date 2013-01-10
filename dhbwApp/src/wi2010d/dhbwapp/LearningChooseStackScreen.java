@@ -482,7 +482,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		if (resultCode == RESULT_OK) {
 			updateStackList();
 		}
-		if (resultCode == RESULT_CANCELED) {
+		if (resultCode == AdminChooseStackScreen.RESULT_OK) {
 			updateStackList();
 		}
 	}
