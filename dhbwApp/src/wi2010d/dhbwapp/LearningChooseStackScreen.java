@@ -362,7 +362,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						this);
 				// set title
-				alertDialogBuilder.setTitle("Delete Card");
+				alertDialogBuilder.setTitle("Delete Stack");
 				// set dialog message
 				alertDialogBuilder
 						.setMessage(
