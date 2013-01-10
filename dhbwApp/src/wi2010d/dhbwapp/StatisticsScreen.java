@@ -595,36 +595,40 @@ public class StatisticsScreen extends FragmentActivity implements
 			// Create Array with the last Progress
 			int[][] progress = Statistics.getInstance().getLastProgress(name);
 
+			// Get Number of Runthroughs and subract 1 --> to use it in list
+			int runthroughCount = (Statistics.getInstance().getNumberOfRunthroughs(name)) - 1;
+			
 			// For number of available Runthroughs
-			for (int i = 0; i < Statistics.getInstance()
-					.getNumberOfRunthroughs(name); i++) {
+			for (int i = 0; i < Statistics.getInstance().getNumberOfRunthroughs(name); i++) {
 
 				// Set the Date-TextViews
-				Cells[i][0].setText(lastDates.get(i));
+				Cells[i][0].setText(lastDates.get(runthroughCount));
 
 				// Set progress and color of Text of Dont't Know
-				Cells[i][1].setText(progress[i][0] + "%");
-				if (progress[i][0] > 40) {
+				Cells[i][1].setText(progress[runthroughCount][0] + "%");
+				if (progress[runthroughCount][0] > 40) {
 					Cells[i][1].setTextColor(Color.RED);
 				} else {
 					Cells[i][1].setTextColor(Color.GREEN);
 				}
 
 				// Set progress and color of Text of Not Sure
-				Cells[i][2].setText(progress[i][1] + "%");
-				if (progress[i][1] > 40) {
+				Cells[i][2].setText(progress[runthroughCount][1] + "%");
+				if (progress[runthroughCount][1] > 40) {
 					Cells[i][2].setTextColor(Color.RED);
 				} else {
 					Cells[i][2].setTextColor(Color.GREEN);
 				}
 
 				// Set progress and color of Text of Sure
-				Cells[i][3].setText(progress[i][2] + "%");
-				if (progress[i][2] > 90) {
+				Cells[i][3].setText(progress[runthroughCount][2] + "%");
+				if (progress[runthroughCount][2] > 90) {
 					Cells[i][3].setTextColor(Color.GREEN);
 				} else {
 					Cells[i][3].setTextColor(Color.RED);
 				}
+				
+				runthroughCount--;
 			}
 		}
 	}
