@@ -5,14 +5,14 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 
 /**
- * This FragmentActivity should be extended by every FragmentActivity, so the onResume method is
- * added to every FragmentActivity
+ * This FragmentActivity should be extended by every FragmentActivity, so the
+ * onResume method is added to every FragmentActivity
  */
 public class OnResumeFragmentActivity extends FragmentActivity {
 
 	/**
-	 * Checks if the Garbage Collector deleted one or more Variables.
-	 * If this happened, reload the app.
+	 * Checks if the Garbage Collector deleted one or more Variables. If this
+	 * happened, reload the app.
 	 */
 	@Override
 	protected void onResume() {
@@ -30,4 +30,23 @@ public class OnResumeFragmentActivity extends FragmentActivity {
 		}
 	}
 
+	/**
+	 * Checks if the Garbage Collector deleted one or more Variables. If this
+	 * happened, reload the app.
+	 */
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		if (Init.isSthGarabageCollected()) {
+			Intent newStart = new Intent(getApplicationContext(),
+					Progress.class);
+
+			if (this.getParent() != null) {
+				this.getParent().finish();
+			}
+
+			startActivity(newStart);
+			this.finish();
+		}
+	}
 }
