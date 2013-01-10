@@ -18,14 +18,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * Tabbed Activity, the first Tab offers the possibility to change the name of
+ * the dynamic stack, the second tab offers the possibility to change the tags.
+ */
 public class AdminCreateDynamicStack extends OnResumeFragmentActivity {
 
-	Button createDynStack;
-	Fragment tagList;
-	ArrayList<Tag> dynStackTagList = new ArrayList<Tag>();
 	String name = "";
-	boolean buttonInvisible = true;
+	ArrayList<Tag> dynStackTagList = new ArrayList<Tag>();
+	Fragment tagList;
 	Context createDynamicStackContext;
+	Button createDynStack;
+	boolean buttonInvisible = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,7 @@ public class AdminCreateDynamicStack extends OnResumeFragmentActivity {
 		createDynamicStackContext = this;
 
 		if (savedInstanceState == null) {
-			
+
 			// set all tags unchecked, then create the list
 			for (Tag tag : Tag.allTags) {
 				tag.setChecked(false);
@@ -89,7 +93,10 @@ public class AdminCreateDynamicStack extends OnResumeFragmentActivity {
 				if (tag.isChecked()) {
 					dynStackTagList.add(tag);
 					if (input.getText().toString().equals("")) {
-						if (i <= 3) {
+						if (i == 0) {
+							name = tag.getTagName();
+						}
+						if (i > 0 && i <= 3) {
 							name = name + " - " + tag.getTagName();
 						}
 						i++;
@@ -108,6 +115,8 @@ public class AdminCreateDynamicStack extends OnResumeFragmentActivity {
 							if (dynStackTagList.size() > 0) {
 								setResult(RESULT_CANCELED);
 
+								// Start the Dynamic Stack Creation in a new
+								// Runnable, so the GUI won't freeze
 								Runnable r = new Runnable() {
 
 									@Override
@@ -141,12 +150,10 @@ public class AdminCreateDynamicStack extends OnResumeFragmentActivity {
 						}
 					});
 			alert.show();
-			
-			
+
 			return true;
 		default:
 			return false;
 		}
 	}
-
 }
