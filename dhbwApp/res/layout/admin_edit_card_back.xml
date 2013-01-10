@@ -9,7 +9,7 @@
         android:id="@+id/txt_edit_card_back"
         style="@style/style_textViewBack"
         android:layout_width="wrap_content"
-        android:layout_height="205dp"
+        android:layout_height="157dp"
         android:layout_gravity="center_vertical|center_horizontal"
         android:ems="10"
         android:inputType="textMultiLine"
@@ -22,6 +22,12 @@
         android:layout_marginBottom="18dp"
         android:layout_marginLeft="14dp"
         android:text="Take new picture" />
+
+    <Button
+        android:id="@+id/btn_admin_edit_card_back_picture_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Picture" />
 
     <ImageButton
         android:id="@+id/btn_edit_picture_back_show"

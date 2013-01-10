@@ -328,24 +328,10 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			
 			// Set up Button for deleting the picture
 			deletePictureFront = (Button) v.findViewById(
-					R.id.btn_admin_new_card_picture_front_delete);
-
-			deletePictureFront.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					
-					// Set front pic = "" and update Image Button
-					cardFrontPic = "";
-					updateImageButtonNewCard(true, showPictureFront);
-					
-				}
-			});
-			
-			// Set up Button for deleting the picture
-			deletePictureFront = (Button) v.findViewById(
 						R.id.btn_admin_new_card_picture_front_delete);
 
+			deletePictureFront.setVisibility(Button.GONE);
+			
 			deletePictureFront.setOnClickListener(new View.OnClickListener() {
 							
 					@Override
@@ -360,6 +346,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 						}
 						
 						cardFrontPic = "";
+						deletePictureFront.setVisibility(Button.GONE);
 						updateImageButtonNewCard(false, showPictureFront);
 								
 					}
@@ -444,6 +431,8 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			// Set up Button for deleting the picture
 			deletePictureBack = (Button) v.findViewById(
 						R.id.btn_admin_new_card_picture_back_delete);
+			
+			deletePictureBack.setVisibility(Button.GONE);
 
 			deletePictureBack.setOnClickListener(new View.OnClickListener() {
 							
@@ -462,6 +451,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 						}
 						
 						cardBackPic = "";
+						deletePictureBack.setVisibility(Button.GONE);
 						updateImageButtonNewCard(false, showPictureBack);
 								
 					}
@@ -524,6 +514,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				cardFrontPic = imageUriFront.getPath();
 
 				updateImageButtonNewCard(true, showPictureFront);
+				deletePictureFront.setVisibility(Button.VISIBLE);
 				
 				Toast.makeText(getApplicationContext(),
 						"Picture saved under: " + imageUriFront.getPath(),
@@ -537,6 +528,8 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				cardBackPic = imageUriBack.getPath();
 
 				updateImageButtonNewCard(false, showPictureBack);
+				deletePictureFront.setVisibility(Button.VISIBLE);
+				
 				Toast.makeText(getApplicationContext(),
 						"Picture saved under: " + imageUriBack.getPath(),
 						Toast.LENGTH_LONG).show();

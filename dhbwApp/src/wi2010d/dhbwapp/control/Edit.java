@@ -206,5 +206,26 @@ public class Edit {
 			return true;
 		}
 	}
+	
+	/**
+	 * Deletes Picture from selected Card in Card and DB
+	 * 
+	 * @param front: boolean, whether the front (true) or back (false) picture is to be deleted
+	 * @param card: selected card
+	 * @return boolean - true if the operation has worked
+	 */
+	public boolean deletePicFromCard(boolean front, Card card){
+		
+		// Evaluate whether to delete front (true) or back (false) Picture of the card
+		if (front){
+			card.setCardFrontPicture("");
+			Database.getInstance().changeCard(card);
+			return true;
+		}else{
+			card.setCardBackPicture("");
+			Database.getInstance().changeCard(card);
+			return true;
+		}
+	}
 
 }

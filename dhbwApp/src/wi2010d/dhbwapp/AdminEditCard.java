@@ -252,6 +252,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 		private Button editPicture;
+		private Button deletePicture;
 		private ImageButton showPictureButton;
 		public Uri imageUriFront;
 		public static final int TAKE_PICTURE = 1;
@@ -318,6 +319,47 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					}
 				}
 			});
+			
+			// Set up Butten to delete the Picture
+			deletePicture = (Button) v.findViewById(R.id.btn_admin_edit_card_front_picture_delete);
+			
+			// Set delete Button only visible, if picture is available
+			if (!card.getCardFrontPicture().equals("") 
+					&& checkPictureAvailability(true)){
+				// If there is a picture available, do nothing, as the button is already visible
+				;
+			}else{
+				// set Button invisible
+				deletePicture.setVisibility(Button.GONE);
+			}
+				
+			
+			deletePicture.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					// Create File with the picture that has to be deleted
+					File picture = new File(card.getCardFrontPicture());
+					
+					// Delete Picture and show toast
+					if (picture.delete()){
+						Toast toast = Toast.makeText(getApplicationContext(),
+								"Picture has been deleted successfully", Toast.LENGTH_LONG);
+						toast.show();
+					}
+					
+					// Save changes in card and in DB
+					Edit.getInstance().deletePicFromCard(true, card);
+					
+					// Set delete Button gone as there is no pic to delete anymore
+					deletePicture.setVisibility(Button.GONE);
+					
+					// Update ImageButton
+					updateImageButtonAdminEdit(true, showPictureButton);
+					
+				}
+			});
 
 			return v;
 		}
@@ -335,6 +377,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				Toast.makeText(getApplicationContext(),
 						"Picture saved under: " + imageUriFront.getPath(),
 						Toast.LENGTH_LONG).show();
+				
+				deletePicture.setVisibility(Button.VISIBLE);
 			}
 		}
 
@@ -353,6 +397,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		// Button save;
 
 		private Button editPicture;
+		private Button deletePicture;
 		private ImageButton showPictureButton;
 		public Uri imageUri;
 		public static final int TAKE_PICTURE = 1;
@@ -417,6 +462,46 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					}
 				}
 			});
+			
+			// Set up Button to delete the Picture
+			deletePicture = (Button) v.findViewById(R.id.btn_admin_edit_card_back_picture_delete);
+			
+			// Set delete Button only visible, if picture is available
+			if (!card.getCardBackPicture().equals("") 
+					&& checkPictureAvailability(false)){
+				// If there is a picture available, do nothing, as the button is already visible
+				;
+			}else{
+				// set Button invisible
+				deletePicture.setVisibility(Button.GONE);
+			}
+			
+			deletePicture.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					// Create File with the picture that has to be deleted
+					File picture = new File(card.getCardBackPicture());
+					
+					// Delete Picture and show toast
+					if (picture.delete()){
+						Toast toast = Toast.makeText(getApplicationContext(),
+								"Picture has been deleted successfully", Toast.LENGTH_LONG);
+						toast.show();
+					}
+					
+					// Save changes in card and in DB
+					Edit.getInstance().deletePicFromCard(false, card);
+					
+					// Set delete Button gone as there is no pic to delete anymore
+					deletePicture.setVisibility(Button.GONE);
+					
+					// Update ImageButton
+					updateImageButtonAdminEdit(true, showPictureButton);
+					
+				}
+			});
 
 			return v;
 		}
@@ -435,6 +520,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				Toast.makeText(getApplicationContext(),
 						"Picture saved under: " + imageUri.getPath(),
 						Toast.LENGTH_LONG).show();
+				
+				deletePicture.setVisibility(Button.VISIBLE);
 			}
 		}
 	}
