@@ -51,7 +51,7 @@
             android:layout_column="1"
             android:layout_row="1"
             android:drawableTop="@drawable/settings"
-            android:text="@string/btn_admin_update_dynstack" />
+            android:text="@string/btn_start_settings" />
         
         <Button
             android:id="@+id/btn_help_importexport"
