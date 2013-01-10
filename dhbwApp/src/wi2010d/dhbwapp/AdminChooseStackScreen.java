@@ -98,8 +98,14 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info;
 		info = (AdapterContextMenuInfo) item.getMenuInfo();
-		final String stackName = ((TextView) info.targetView).getText()
+		final String stackName;
+		String stackNameForIf = ((TextView) info.targetView).getText()
 				.toString();
+		if (stackNameForIf.startsWith("<Dyn>")) {
+			stackName = stackNameForIf.substring(6);
+		} else {
+			stackName = ((TextView) info.targetView).getText().toString();
+		}
 
 		if (!stackName.equals("No stacks available")) {
 			if (item.getTitle() == "Change Name") {
@@ -355,7 +361,11 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 		ArrayList<String> items = new ArrayList<String>();
 		for (Stack stack : Stack.allStacks) {
 			if (stack.isDynamicGenerated()) {
-				items.add("<Dyn> " + stack.getStackName());
+				if (stack.getStackName().startsWith("<Dyn>")) {
+					items.add(stack.getStackName());
+				} else {
+					items.add("<Dyn> " + stack.getStackName());
+				}
 			} else {
 				items.add(stack.getStackName());
 			}

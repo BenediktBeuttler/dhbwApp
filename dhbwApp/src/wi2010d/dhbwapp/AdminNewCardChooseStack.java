@@ -31,7 +31,11 @@ public class AdminNewCardChooseStack extends OnResumeActivity {
 		// get the name of every Stack for the listView
 		for (Stack stack : Stack.allStacks) {
 			if (stack.isDynamicGenerated()) {
-				items.add("<Dyn> " + stack.getStackName());
+				if (stack.getStackName().startsWith("<Dyn>")) {
+					items.add(stack.getStackName());
+				} else {
+					items.add("<Dyn> " + stack.getStackName());
+				}
 			} else {
 				items.add(stack.getStackName());
 			}
@@ -53,6 +57,9 @@ public class AdminNewCardChooseStack extends OnResumeActivity {
 				// Get the clicked StackName, set the result and finish the
 				// activity
 				String stackName = ((TextView) v).getText().toString();
+				if (stackName.startsWith("<Dyn>")) {
+					stackName = stackName.substring(6);
+				}
 				setResult(AdminNewCard.STACK_CHOSEN, getIntent());
 				getIntent().putExtra("stackName", stackName);
 				finish();
