@@ -16,6 +16,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -72,6 +73,9 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
 		String sName = ((TextView) info.targetView).getText().toString();
+		if (sName.startsWith("<Dyn>")) {
+			sName = sName.substring(6);
+		}
 		boolean isDynamic = false;
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(sName)) {
