@@ -276,26 +276,32 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
+					
+					// Intent to take Picture
 					Intent takePicture = new Intent(
 							"android.media.action.IMAGE_CAPTURE");
+					
+					// Create unique picture name with help of the actual date
 					Date date = new Date();
 					SimpleDateFormat sd = new SimpleDateFormat("yyMMddhhmmss");
 					String picName = sd.format(date);
 
+					// Check if file /knowItOwl/pictures exists, if not --> create it
 					if (!new File(Environment.getExternalStorageDirectory()
 							.getPath() + "/knowItOwl/pictures").exists()) {
 						new File(Environment.getExternalStorageDirectory()
 								.getPath() + "/knowItOwl/pictures").mkdir();
 					}
 
+					// Create file for the new picture
 					File photo = new File(Environment
 							.getExternalStorageDirectory()
 							+ "/knowItOwl/pictures", picName + ".jpg");
 					takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
 							Uri.fromFile(photo));
 					imageUriFront = Uri.fromFile(photo);
-					Log.e("AdminEditCard", "test: " + imageUriFront.getPath());
+					
+					// Start activity
 					startActivityForResult(takePicture, TAKE_PICTURE);
 				}
 			});
@@ -304,13 +310,17 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			showPictureButton = (ImageButton) v
 					.findViewById(R.id.btn_edit_picture_front_show);
 
+			// Update Image Button (Thumbnail)
 			updateImageButtonAdminEdit(true, showPictureButton);
 
+			// Set onClickListener on image Button (to show picture in Gallery)
 			showPictureButton.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					if (!card.getCardFrontPicture().equals("")) {
+					// if there is any picture available
+					if (!card.getCardFrontPicture().equals("") 
+							&& checkPictureAvailability(true)) {
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
 						show.setDataAndType(Uri.fromFile(new File(card
@@ -333,7 +343,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				deletePicture.setVisibility(Button.GONE);
 			}
 				
-			
+			// Set on click listener
 			deletePicture.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
@@ -372,12 +382,14 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				Edit.getInstance().addNewPicToCard(true,
 						imageUriFront.getPath(), card);
 
+				// Updates the ImageButton to show the new picture as a thumbnail
 				updateImageButtonAdminEdit(true, showPictureButton);
 
 				Toast.makeText(getApplicationContext(),
 						"Picture saved under: " + imageUriFront.getPath(),
 						Toast.LENGTH_LONG).show();
 				
+				// Set delete Button visible as there is a new pic which can be deleted now
 				deletePicture.setVisibility(Button.VISIBLE);
 			}
 		}
@@ -420,25 +432,32 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 				@Override
 				public void onClick(View v) {
+					
+					// New intent to take a picture
 					Intent takePicture = new Intent(
 							"android.media.action.IMAGE_CAPTURE");
+					
+					// Create a unique PicName with help of the actual date
 					Date date = new Date();
 					SimpleDateFormat sd = new SimpleDateFormat("yyMMddhhmmss");
 					String picName = sd.format(date);
 
+					// Check if there is file /knowItOwl/pictures, if not --> create it
 					if (!new File(Environment.getExternalStorageDirectory()
 							.getPath() + "/knowItOwl/pictures").exists()) {
 						new File(Environment.getExternalStorageDirectory()
 								.getPath() + "/knowItOwl/pictures").mkdir();
 					}
 
+					// Create file for the new picture
 					File photo = new File(Environment
 							.getExternalStorageDirectory()
 							+ "/knowItOwl/pictures", picName + ".jpg");
 					takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
 							Uri.fromFile(photo));
 					imageUri = Uri.fromFile(photo);
-					Log.e("AdminEditCard", "test: " + imageUri.getPath());
+					
+					// start activity
 					startActivityForResult(takePicture, TAKE_PICTURE);
 				}
 			});
@@ -447,13 +466,15 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			showPictureButton = (ImageButton) v
 					.findViewById(R.id.btn_edit_picture_back_show);
 
+			// Update the ImageButton
 			updateImageButtonAdminEdit(false, showPictureButton);
 
 			showPictureButton.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					if (!card.getCardBackPicture().equals("")) {
+					if (!card.getCardBackPicture().equals("") 
+							&& checkPictureAvailability(false)) {
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
 						show.setDataAndType(Uri.fromFile(new File(card
