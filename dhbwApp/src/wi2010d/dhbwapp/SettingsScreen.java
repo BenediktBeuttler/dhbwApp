@@ -5,6 +5,7 @@ import java.util.List;
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Database;
 import wi2010d.dhbwapp.control.Delete;
+import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Runthrough;
@@ -24,7 +25,7 @@ import android.widget.Toast;
  */
 public class SettingsScreen extends OnResumeActivity implements OnClickListener {
 
-	private Button resetDB, testData, resetStatistics;
+	private Button resetDB, testData, resetStatistics, resetDrawers;
 	private ErrorHandlerFragment newFragment;
 
 	@Override
@@ -40,6 +41,9 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 		
 		resetStatistics = (Button) findViewById(R.id.btn_settings_reset_statistics);
 		resetStatistics.setOnClickListener(this);
+		
+		resetDrawers = (Button) findViewById(R.id.btn_settings_reset_drawer);
+		resetDrawers.setOnClickListener(this);
 	}
 
 	@Override
@@ -183,11 +187,24 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 				stack.getLastRunthroughs().clear();
 			}
 			
-			Toast toast = Toast.makeText(getApplicationContext(), 
+			Toast toastStatistics = Toast.makeText(getApplicationContext(), 
 					"Statistics has been resetted successfully", Toast.LENGTH_LONG);
-			toast.show();
+			toastStatistics.show();
 			
 			break;
+		case R.id.btn_settings_reset_drawer:
+			
+			// Reset drawers for each stack
+			// Get all stacks
+			for (Stack stack : Stack.allStacks){
+				Edit.getInstance().resetDrawer(stack);
+			}
+			
+			Toast toastDrawers = Toast.makeText(getApplicationContext(),
+					"Drawers have been resetted successfully", Toast.LENGTH_LONG);
+			toastDrawers.show();
+			break;
+			
 		default:
 			// if anything goes wrong (case not found), display general error
 			// dialog
