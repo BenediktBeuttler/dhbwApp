@@ -294,18 +294,18 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 				i.putExtra("buttonInvisible", true);
 				startActivityForResult(i, 1);
 
-			} else if (item.getTitle() == "Reset Drawer") {
+			} else if (item.getTitle() == "Reset Anwsers") {
 				// all cards of this stack get reseted and set back to the
-				// drawer:
+				// answer:
 				// don't know
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						this);
 				// set title
-				alertDialogBuilder.setTitle("Delete Card");
+				alertDialogBuilder.setTitle("Reset Anwsers");
 				// set dialog message
 				alertDialogBuilder
 						.setMessage(
-								"Are you sure you want to reset all cards in this stack to 'don't know'?")
+								"Are you sure you want to reset all answers in this stack to 'don't know'?")
 						.setIcon(R.drawable.question)
 						.setCancelable(false)
 						.setPositiveButton("Yes",
