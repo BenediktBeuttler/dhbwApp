@@ -107,4 +107,7 @@
 	<string name="text_help_settings">text for help_settings</string>
 	<string name="text_help_import_export">text for help_import_export</string>
 	<string name="text_edit_cards">text for help_edit_cards</string>
+	<string name="btn_settings_testdata">Write Test Data</string>
+	<string name="btn_settings_reset_drawers">Reset Answers</string>
+	<string name="btn_settings_reset_statistics">Reset Statistic</string>
 </resources>
