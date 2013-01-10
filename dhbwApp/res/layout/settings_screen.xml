@@ -17,14 +17,14 @@
         android:gravity="center_horizontal"
         android:text="@string/title_activity_settings"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+
     <GridLayout
         android:id="@+id/GridLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:columnCount="2"
         android:rowCount="2" >
-        
+
         <Button
             android:id="@+id/btn_reset_database"
             style="@style/style_iconButton2"
@@ -34,16 +34,20 @@
             android:onClick="OnClick"
             android:text="@string/label_settings_resetdatabase" />
 
-    	<Button
-    	    android:id="@+id/btn_write_test_data"
-    	    style="@style/style_iconButton2"
-    	    android:layout_column="1"
-    	    android:layout_row="1"
-    	    android:drawableTop="@drawable/writing"
-    	    android:text="Write Test Data" />
-
+        <Button
+            android:id="@+id/btn_write_test_data"
+            style="@style/style_iconButton2"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:drawableTop="@drawable/writing"
+            android:text="Write Test Data" />
     </GridLayout>
 
-    
+    <Button
+        android:id="@+id/btn_settings_reset_statistics"
+        android:layout_width="146dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.18"
+        android:text="Reset Statistic" />
 
 </LinearLayout>
