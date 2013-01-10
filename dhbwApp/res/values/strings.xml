@@ -111,4 +111,5 @@
 	<string name="btn_settings_testdata">Write Test Data</string>
 	<string name="btn_settings_reset_drawers">Reset Answers</string>
 	<string name="btn_settings_reset_statistics">Reset Statistic</string>
+	<string name="btn_help_about">About</string>
 </resources>
