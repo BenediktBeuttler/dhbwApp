@@ -19,14 +19,36 @@
         android:id="@+id/lbl_help_about_vers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Version 1.0"
+        android:text="@string/lbl_help_about_version"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ImageView
         android:id="@+id/img_help_about_knowitall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
         android:paddingTop="15dp"
-        android:src="@drawable/knowitall_big" />
+        android:src="@drawable/knowitall_big" 
+        android:contentDescription="@string/app_name"/>
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="3dp" />
+
+    <TextView
+        android:id="@+id/lbl_help_about_feedback"
+        android:layout_width="244dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/lbl_help_about_feedback" />
+
+    <ImageButton
+        android:id="@+id/btn_help_about_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@android:drawable/ic_dialog_email" />
 
 </LinearLayout>
