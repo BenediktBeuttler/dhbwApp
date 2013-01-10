@@ -9,7 +9,7 @@
         android:id="@+id/txt_new_card_back"
         style="@style/style_textViewBack"
         android:layout_width="wrap_content"
-        android:layout_height="208dp"
+        android:layout_height="144dp"
         android:layout_gravity="center_vertical|center_horizontal"
         android:background="@drawable/back"
         android:ems="10"
@@ -21,10 +21,16 @@
         android:layout_height="wrap_content"
         android:text="Take new picture" />
 
+    <Button
+        android:id="@+id/btn_admin_new_card_picture_back_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Picture" />
+
     <ImageButton
         android:id="@+id/btn_admin_new_card_picture_back_show"
-        android:layout_width="160dp"
-        android:layout_height="match_parent"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         android:src="@drawable/accept" />
 
 </LinearLayout>

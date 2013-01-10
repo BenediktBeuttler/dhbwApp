@@ -9,7 +9,7 @@
         android:id="@+id/txt_new_card_front"
         style="@style/style_textViewFront"
         android:layout_width="wrap_content"
-        android:layout_height="214dp"
+        android:layout_height="166dp"
         android:layout_gravity="center_vertical|center_horizontal"
         android:background="@drawable/front"
         android:ems="10"
@@ -24,10 +24,16 @@
         android:layout_height="wrap_content"
         android:text="Take new picture" />
 
+    <Button
+        android:id="@+id/btn_admin_new_card_picture_front_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Picture" />
+
     <ImageButton
         android:id="@+id/btn_admin_new_card_picture_front_show"
-        android:layout_width="143dp"
-        android:layout_height="match_parent"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         android:src="@drawable/accept" />
 
 </LinearLayout>

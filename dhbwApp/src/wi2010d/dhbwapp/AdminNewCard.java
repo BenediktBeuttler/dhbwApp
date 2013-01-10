@@ -76,11 +76,13 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	
 	public static final int TAKE_PICTURE_FRONT = 1;
 	private Button takePictureFront;
+	private Button deletePictureFront;
 	private ImageButton showPictureFront;
 	public Uri imageUriFront;
 	
 	public static final int TAKE_PICTURE_BACK = 2;
 	private Button takePictureBack;
+	private Button deletePictureBack;
 	private ImageButton showPictureBack;
 	public Uri imageUriBack;
 
@@ -323,7 +325,46 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 					}
 				}
 			});
+			
+			// Set up Button for deleting the picture
+			deletePictureFront = (Button) v.findViewById(
+					R.id.btn_admin_new_card_picture_front_delete);
 
+			deletePictureFront.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					// Set front pic = "" and update Image Button
+					cardFrontPic = "";
+					updateImageButtonNewCard(true, showPictureFront);
+					
+				}
+			});
+			
+			// Set up Button for deleting the picture
+			deletePictureFront = (Button) v.findViewById(
+						R.id.btn_admin_new_card_picture_front_delete);
+
+			deletePictureFront.setOnClickListener(new View.OnClickListener() {
+							
+					@Override
+					public void onClick(View v) {
+								
+						// Set front pic = "" and update Image Button and delete file from SD-Card
+						File fileToDelete = new File(cardFrontPic);
+						if (fileToDelete.delete()){
+							Toast toast = Toast.makeText(getApplicationContext(), 
+									"Picture has been deleted successfully", Toast.LENGTH_LONG);
+							toast.show();
+						}
+						
+						cardFrontPic = "";
+						updateImageButtonNewCard(false, showPictureFront);
+								
+					}
+				});
+			
 			showPictureFront.setVisibility(ImageButton.GONE);
 
 			return v;
@@ -399,6 +440,33 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 					}
 				}
 			});
+			
+			// Set up Button for deleting the picture
+			deletePictureBack = (Button) v.findViewById(
+						R.id.btn_admin_new_card_picture_back_delete);
+
+			deletePictureBack.setOnClickListener(new View.OnClickListener() {
+							
+					@Override
+					public void onClick(View v) {
+						
+						Log.e("AdminNewCard", "CardBackBick: "  + cardBackPic);
+						
+						// Set back pic = "" and update Image Button and delete file from SD-Card
+						File fileToDelete = new File(cardBackPic);
+						
+						if (fileToDelete.delete()){
+							Toast toast = Toast.makeText(getApplicationContext(), 
+									"Picture has been deleted successfully", Toast.LENGTH_LONG);
+							toast.show();
+						}
+						
+						cardBackPic = "";
+						updateImageButtonNewCard(false, showPictureBack);
+								
+					}
+				});
+						
 
 			showPictureBack.setVisibility(ImageButton.GONE);
 
@@ -443,7 +511,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 					Edit.getInstance().addCardToStack(stack, card);
 
 					toast = Toast.makeText(this, "Card added to stack "
-							+ stackName, Toast.LENGTH_SHORT);
+							+ stackName, Toast.LENGTH_LONG);
 					toast.show();
 					finish();
 					break;
