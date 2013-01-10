@@ -10,6 +10,7 @@ import java.util.Date;
 
 import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
@@ -584,7 +585,11 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					fis = new FileInputStream(new File(
 							card.getCardFrontPicture()));
 				} catch (FileNotFoundException e) {
-					// TODO Bene: General Error
+					// display a file not found error if the file is not found
+					ErrorHandlerFragment newFragment = ErrorHandlerFragment
+							.newInstance(R.string.error_handler_file_not_found,
+									ErrorHandlerFragment.FILE_NOT_FOUND);
+					newFragment.show(this.getFragmentManager(), "dialog");
 					e.printStackTrace();
 				}
 				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
@@ -615,7 +620,11 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					fis = new FileInputStream(new File(
 							card.getCardBackPicture()));
 				} catch (FileNotFoundException e) {
-					// TODO Add General Error
+					// display a file not found error if the file is not found
+					ErrorHandlerFragment newFragment = ErrorHandlerFragment
+							.newInstance(R.string.error_handler_file_not_found,
+									ErrorHandlerFragment.FILE_NOT_FOUND);
+					newFragment.show(this.getFragmentManager(), "dialog");
 					e.printStackTrace();
 				}
 				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
