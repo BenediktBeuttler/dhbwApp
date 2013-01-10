@@ -9,9 +9,6 @@
     <TextView
         android:id="@+id/textView2"
         style="@style/style_textView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="left"
         android:text="When you want to track your learning progress you can see the statistics in two ways:
 
 At the end of each learning-round you are automatically shown your recent learning results in the tab ‘last review’ also available out of the &apos;Statistics&apos; menu. 
@@ -20,8 +17,7 @@ There you see the duration of the learning process and you have the comparison o
 Second way is to click on the main menu point &apos;Statistics&apos;, where first of all you get an overview of the number of all cards of every stack you did not know, you were not sure about and you were sure about.
 In the next step you can choose a certain stack and then you only get the number of cards (for dn, ns and s) for the specific stack.
 In the next tab ‘progress’ it is shown the last (at a maximum of 10) learning results of the different learning trials for the choosen stack.
-The last tab ‘last review’ is already described before. :)"
-        android:textSize="12dp" />
+The last tab ‘last review’ is already described before. :)"/>
 
     <Space
         android:layout_width="37dp"
