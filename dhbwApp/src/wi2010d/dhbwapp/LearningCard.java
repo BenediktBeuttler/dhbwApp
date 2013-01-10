@@ -67,8 +67,8 @@ public class LearningCard extends OnResumeFragmentActivity implements
 	private Button sure, dontKnow, notSure;
 	private boolean isRandomStack;
 	
-	ImageButton showImageFront;
-	ImageButton showImageBack;
+	private ImageButton showImageFront;
+	private ImageButton showImageBack;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
