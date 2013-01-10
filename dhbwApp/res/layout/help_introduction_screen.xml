@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/GridLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/help_introduction"
-        style="@style/style_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/help_introduction"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    android:columnCount="1"
+    android:orientation="horizontal" >
 
     <TextView
         android:id="@+id/textView2"
         style="@style/style_textView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="TextView" />
+        android:text="Know it Owl&apos; helps you to organize your learning cards for school, university or for fun. You are always informed of your learning progress. In earlier times you either swapped stickers or football star cards. Today you exchange know-how in terms of pictures, text, videos or easily in terms of links. Share your learning cards/ knowledge with your friends and profit from theirs. That is the way how you can know it All/Owl." />
 
-</LinearLayout>
+    <Space
+        android:layout_width="100dp"
+        android:layout_height="89dp"
+        android:layout_row="0" />
+
+</GridLayout>
