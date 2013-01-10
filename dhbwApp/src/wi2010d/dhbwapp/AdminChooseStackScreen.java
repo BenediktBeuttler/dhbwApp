@@ -82,12 +82,12 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 		}
 		if (isDynamic) {
 			menu.add(0, v.getId(), 0, "Change Name and Tags");
-			menu.add(0, v.getId(), 1, "Reset Drawer");
+			menu.add(0, v.getId(), 1, "Reset Answers");
 			menu.add(0, v.getId(), 2, "Delete");
 			menu.add(0, v.getId(), 3, "Archive");
 		} else {
 			menu.add(0, v.getId(), 0, "Change Name");
-			menu.add(0, v.getId(), 1, "Reset Drawer");
+			menu.add(0, v.getId(), 1, "Reset Answers");
 			menu.add(0, v.getId(), 2, "Delete");
 			menu.add(0, v.getId(), 3, "Archive");
 		}
@@ -189,18 +189,18 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 				i.putExtra("buttonInvisible", true);
 				startActivityForResult(i, 1);
 
-			} else if (item.getTitle() == "Reset Drawer") {
+			} else if (item.getTitle() == "Reset Answers") {
 				// all cards of this stack get reseted and set back to the
-				// drawer:
+				// answer:
 				// don't know
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						this);
 				// set title
-				alertDialogBuilder.setTitle("Delete Card");
+				alertDialogBuilder.setTitle("Reset Answers");
 				// set dialog message
 				alertDialogBuilder
 						.setMessage(
-								"Are you sure you want to reset all cards in this stack to 'don't know'?")
+								"Are you sure you want to reset all answers in this stack to 'don't know'?")
 						.setIcon(R.drawable.question)
 						.setCancelable(false)
 						.setPositiveButton("Yes",
@@ -216,7 +216,7 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 											}
 										}
 
-										// reset all cards to don't know
+										// reset all answers to don't know
 										Edit.getInstance().resetDrawer(
 												clickedStack);
 										Toast toast = Toast
