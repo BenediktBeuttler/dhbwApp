@@ -13,6 +13,7 @@ import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -280,6 +281,8 @@ public class LearningCard extends OnResumeFragmentActivity implements
 										if (Learn.getInstance().isLastCard()) {
 											Delete.getInstance().deleteStack(
 													stack);
+											finish();
+											return;
 										} else {
 											Delete.getInstance().deleteCard(
 													card);
@@ -323,6 +326,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 											int id) {
 										// if this button is clicked, just close
 										// the dialog box and do nothing
+										optionItemPressed = false;
 										dialog.cancel();
 									}
 								});
@@ -371,6 +375,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 			optionItemPressed = false;
 			break;
 		default:
+			optionItemPressed = false;
 			break;
 		}
 	}
