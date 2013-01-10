@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Database;
+import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
+import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.content.Intent;
@@ -22,7 +24,7 @@ import android.widget.Toast;
  */
 public class SettingsScreen extends OnResumeActivity implements OnClickListener {
 
-	private Button resetDB, testData;
+	private Button resetDB, testData, resetStatistics;
 	private ErrorHandlerFragment newFragment;
 
 	@Override
@@ -35,6 +37,9 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 
 		testData = (Button) findViewById(R.id.btn_write_test_data);
 		testData.setOnClickListener(this);
+		
+		resetStatistics = (Button) findViewById(R.id.btn_settings_reset_statistics);
+		resetStatistics.setOnClickListener(this);
 	}
 
 	@Override
@@ -165,7 +170,24 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 					"Test data written!", Toast.LENGTH_SHORT);
 			toast.show();
 			break;
-
+		case R.id.btn_settings_reset_statistics:
+			
+			// Get every Stack to delete every Runthrough
+			for (Stack stack : Stack.allStacks){
+				for (Runthrough run : stack.getLastRunthroughs()){
+					
+					// Delete Runthrough in DB
+					Delete.getInstance().deleteRunthrough(run);
+				}
+				
+				stack.getLastRunthroughs().clear();
+			}
+			
+			Toast toast = Toast.makeText(getApplicationContext(), 
+					"Statistics has been resetted successfully", Toast.LENGTH_LONG);
+			toast.show();
+			
+			break;
 		default:
 			// if anything goes wrong (case not found), display general error
 			// dialog
