@@ -102,5 +102,9 @@
     <string name="error_handler_no_sd">No SD Card available</string>
     <string name="error_handler_no_input">Please insert a name</string>
     <string name="error_handler_no_tag">No Tags selected</string>
-
+    <string name="text_help_introduction">Know it Owl helps you to organize your learning cards for school, university or for fun. You are always informed of your learning progress. You can exchange know-how in terms of pictures, text, videos or easily in terms of links. Share your learning cards/ knowledge with your friends and profit from theirs. That is the way how you can know it All/Owl.</string>
+    <string name="text_help_learn_statistics">When you want to track your learning progress you can see the statistics in two ways: \n \n At the end of each learning-round you are automatically shown your recent learning results in the tab LAST REVIEW also available out of the STATISTICS menu.There you see the duration of the learning process and you have the comparison of your recent to your last learning results concerning how many cards you did not know(dn), how many cards you were not sure(ns) about and how many cards you were sure(s) about. \n \n Second way is to click on the main menu point STATISTICS, where first of all you get an overview of the number of all cards of every stack you did not know, you were not sure about and you were sure about. In the next step you can choose a certain stack and then you only get the number of cards (for dn, ns and s) for the specific stack. In the next tab PROGRESS it is shown the last (at a maximum of 10) learning results of the different learning trials for the chosen stack. The last tab LAST REVIEW is already described before. :)</string>
+	<string name="text_help_settings">text for help_settings</string>
+	<string name="text_help_import_export">text for help_import_export</string>
+	<string name="text_edit_cards">text for help_edit_cards</string>
 </resources>

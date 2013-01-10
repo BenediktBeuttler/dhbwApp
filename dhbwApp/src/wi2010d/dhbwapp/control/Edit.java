@@ -64,7 +64,7 @@ public class Edit {
 	}
 
 	/**
-	 * Add some one tag to the whole selected stack
+	 * Add one tag to the whole selected stack
 	 * 
 	 * @param tag
 	 * @param stack
@@ -72,10 +72,12 @@ public class Edit {
 	 */
 	public boolean addTagToStack(Tag tag, Stack stack) {
 		for (Card card : stack.getCards()) {
-			card.getTags().add(tag);
-			tag.increaseTotalCards();
-			Database.getInstance().addCardTagCorrelation(card.getCardID(),
-					tag.getTagID());
+			if (!card.getTags().contains(tag)){
+				card.getTags().add(tag);
+				tag.increaseTotalCards();
+				Database.getInstance().addCardTagCorrelation(card.getCardID(),
+						tag.getTagID());
+			}
 		}
 		return true;
 	}

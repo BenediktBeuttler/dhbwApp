@@ -11,12 +11,32 @@ import android.content.Intent;
 public class OnResumeActivity extends Activity {
 
 	/**
-	 * Checks if the Garbage Collector deleted one or more Variables.
-	 * If this happened, reload the app.
+	 * Checks if the Garbage Collector deleted one or more Variables. If this
+	 * happened, reload the app.
 	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
+		if (Init.isSthGarabageCollected()) {
+			Intent newStart = new Intent(getApplicationContext(),
+					Progress.class);
+
+			if (this.getParent() != null) {
+				this.getParent().finish();
+			}
+
+			startActivity(newStart);
+			this.finish();
+		}
+	}
+
+	/**
+	 * Checks if the Garbage Collector deleted one or more Variables. If this
+	 * happened, reload the app.
+	 */
+	@Override
+	protected void onRestart() {
+		super.onRestart();
 		if (Init.isSthGarabageCollected()) {
 			Intent newStart = new Intent(getApplicationContext(),
 					Progress.class);
