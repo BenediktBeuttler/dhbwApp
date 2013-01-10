@@ -188,8 +188,9 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 			menu.add(0, v.getId(), 0, "Start Learning");
 			menu.add(0, v.getId(), 1, "Change Name");
 			menu.add(0, v.getId(), 2, "Reset Anwsers");
-			menu.add(0, v.getId(), 3, "Delete");
-			menu.add(0, v.getId(), 4, "Archive");
+			menu.add(0, v.getId(), 3, "Add Tags to all Cards");
+			menu.add(0, v.getId(), 4, "Delete");
+			menu.add(0, v.getId(), 5, "Archive");
 		}
 	}
 
@@ -355,7 +356,44 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 				// show it
 				alertDialog.show();
 
-			} else if (item.getTitle() == "Delete") {
+			}else if (item.getTitle() == "Add Tags to all Cards") {
+				AlertDialog.Builder alert = new AlertDialog.Builder(this);
+				alert.setTitle("Add Tag to Cards");
+				alert.setMessage("Please insert the name of the Tag you want to add to all Cards in this Stack");
+
+				// Set an EditText view to get user input
+				final EditText input = new EditText(this);
+				alert.setView(input);
+
+				// Set the new Stack name
+				alert.setPositiveButton("Add Tag",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								String newTagName = input.getText().toString();
+								Tag newTag = new Tag(newTagName);
+								Stack clickedStack = null;								
+								for (Stack stack : Stack.allStacks) {
+									if (stack.getStackName().equals(
+											stackName)) {										
+										clickedStack = stack;
+										Edit.getInstance().addTagToStack(newTag, clickedStack);
+										break;
+									}
+								}
+							}
+						});
+
+				alert.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.cancel();
+							}
+						});
+				alert.show();
+				
+				} else if (item.getTitle() == "Delete") {
 				// Delete the selected stack, after asking the user
 
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
