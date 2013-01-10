@@ -169,6 +169,8 @@ public class Learn {
 		}
 
 		if (drawer == 3) {
+			actualCard--;
+			cardsInQueues--;
 			totalCards--;
 		}
 
