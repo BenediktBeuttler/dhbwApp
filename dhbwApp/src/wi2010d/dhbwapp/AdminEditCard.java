@@ -499,7 +499,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		final int THUMBNAIL_SIZE = 128;
 		
 		if (front){
-			if (!card.getCardFrontPicture().equals("")){
+			if (!card.getCardFrontPicture().equals("") && checkPictureAvailability(true)){
 	            FileInputStream fis = null;
 				try {
 					fis = new FileInputStream(new File(card.getCardFrontPicture()));
@@ -523,7 +523,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				pictureBtn.setVisibility(ImageButton.GONE);
 			}}
 		else{
-			if (!card.getCardBackPicture().equals("")){
+			if (!card.getCardBackPicture().equals("") && checkPictureAvailability(false)){
 				FileInputStream fis = null;
 				try {
 					fis = new FileInputStream(new File(card.getCardBackPicture()));
@@ -548,6 +548,31 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			}}
 			
 		return true;
+	}
+	
+	/**
+	 * Check if picture exists
+	 * 
+	 * @param front: boolean if to check front picture (true) or back picture (false)
+	 * @return
+	 */
+	private boolean checkPictureAvailability(boolean front){
+		
+		File picture;
+		
+		// Create file with the path where the picture is supposed to be stored
+		if (front = true){
+			picture = new File(card.getCardFrontPicture());
+		}else{
+			picture = new File(card.getCardBackPicture());
+		}
+		
+		// Check if picture exists and return result
+		if (picture.exists()){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 }

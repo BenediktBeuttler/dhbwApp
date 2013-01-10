@@ -597,7 +597,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 		// if the front imagebutton has to be updated
 		if (front){
 			// if there is any CardFrontPicture
-			if (!card.getCardFrontPicture().equals("")){
+			if (!card.getCardFrontPicture().equals("") && checkPictureAvailability(true)){
 	            
 				//Create Bitmap
 				FileInputStream fis = null;
@@ -627,7 +627,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 		// if front = false the ImageButton on CardBack is supposed to be updated
 		else{
 			// if there is any CardBackPicture
-			if (!card.getCardBackPicture().equals("")){
+			if (!card.getCardBackPicture().equals("") && checkPictureAvailability(false)){
 				
 				// Create Bitmap
 				FileInputStream fis = null;
@@ -656,6 +656,31 @@ public class LearningCard extends OnResumeFragmentActivity implements
 			}}
 			
 		return true;
+	}
+	
+	/**
+	 * Check if picture exists
+	 * 
+	 * @param front: boolean if to check front picture (true) or back picture (false)
+	 * @return
+	 */
+	private boolean checkPictureAvailability(boolean front){
+		
+		File picture;
+		
+		// Create file with the path where the picture is supposed to be stored
+		if (front = true){
+			picture = new File(card.getCardFrontPicture());
+		}else{
+			picture = new File(card.getCardBackPicture());
+		}
+		
+		// Check if picture exists and return result
+		if (picture.exists()){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 }
