@@ -19,8 +19,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 /**
- * Tabbed Activity, the first Tab offers the possibility to change the name of
- * the dynamic stack, the second tab offers the possibility to change the tags.
+ * In this activity the AdminTagListFragment is used. A new dynamic Stack can be
+ * created with the chosen Tags. For the name of the stack a generated name is
+ * offered.
  */
 public class AdminCreateDynamicStack extends OnResumeFragmentActivity {
 

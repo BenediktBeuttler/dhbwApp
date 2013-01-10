@@ -26,76 +26,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Tabbed Activity, the first Tab offers the possibility to change the name of
+ * the dynamic stack, the second tab offers the possibility to change the tags.
+ */
 public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 		ActionBar.TabListener {
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.menu_start_screen:
-			startActivity(new Intent(this, StartScreen.class));
-			finish();
-			return true;
-		case R.id.menu_help:
-			startActivity(new Intent(this, HelpScreen.class));
-			finish();
-			return true;
-		case R.id.menu_settings:
-			startActivity(new Intent(this, SettingsScreen.class));
-			finish();
-			return true;
-		case R.id.btn_admin_edit_stack_save:
-			Stack foundStack;
-			for (Stack stack : Stack.allStacks) {
-				if (stack.getStackName().equals(stackName)) {
-					foundStack = stack;
-					if (txt_stack_name.getText().toString().equals("")) {
-						//ErrorHandler started, if name is empty
-						ErrorHandlerFragment newFragment = ErrorHandlerFragment
-								.newInstance(R.string.error_handler_no_input,
-										ErrorHandlerFragment.NO_INPUT);
-						newFragment.show(getFragmentManager(), "dialog");
-						//
-						break;
-					}
-					Edit.getInstance().changeStackName(
-							txt_stack_name.getText().toString(), foundStack);
-					for (Tag tag : Tag.allTags) {
-						if (tag.isChecked()) {
-							stackTagList.add(tag);
-						}
-					}
-					if (stackTagList.size() <= 0) {
-						//ErrorHandler started, if no tags are selected
-						ErrorHandlerFragment newFragment = ErrorHandlerFragment
-								.newInstance(R.string.error_handler_no_tag,
-										ErrorHandlerFragment.NO_TAG);
-						newFragment.show(getFragmentManager(), "dialog");
-						break;
-					} else {
-						foundStack.setDynamicStackTags(stackTagList);
-						Create.getInstance().updateDynStack(foundStack);
-						Toast toast = Toast.makeText(getApplicationContext(),
-								"Dynamic Stack "
-										+ txt_stack_name.getText().toString()
-										+ " updated succesfully",
-								Toast.LENGTH_SHORT);
-						toast.show();
-						setResult(AdminChooseStackScreen.RESULT_OK);
-						finish();
-					}
-
-					break;
-				}
-			}
-			return true;
-		default:
-			ErrorHandler error = new ErrorHandler(getApplicationContext());
-			error.handleError(1);
-			return false;
-		}
-	}
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -288,6 +224,9 @@ public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 		}
 	}
 
+	/**
+	 * This Fragment is used to change the name of the dynamic stack.
+	 */
 	public class EditDynStack extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
@@ -306,10 +245,77 @@ public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 			View v = inflater.inflate(R.layout.admin_edit_stack_screen, null);
 
 			txt_stack_name = (EditText) v
-					.findViewById(R.id.txt_admin_edit_stack); 
+					.findViewById(R.id.txt_admin_edit_stack);
 			txt_stack_name.setText(stackName);
 
 			return v;
+		}
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.menu_start_screen:
+			startActivity(new Intent(this, StartScreen.class));
+			finish();
+			return true;
+		case R.id.menu_help:
+			startActivity(new Intent(this, HelpScreen.class));
+			finish();
+			return true;
+		case R.id.menu_settings:
+			startActivity(new Intent(this, SettingsScreen.class));
+			finish();
+			return true;
+		case R.id.btn_admin_edit_stack_save:
+			Stack foundStack;
+			for (Stack stack : Stack.allStacks) {
+				if (stack.getStackName().equals(stackName)) {
+					foundStack = stack;
+					if (txt_stack_name.getText().toString().equals("")) {
+						// ErrorHandler started, if name is empty
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_no_input,
+										ErrorHandlerFragment.NO_INPUT);
+						newFragment.show(getFragmentManager(), "dialog");
+						break;
+					}
+					Edit.getInstance().changeStackName(
+							txt_stack_name.getText().toString(), foundStack);
+					for (Tag tag : Tag.allTags) {
+						if (tag.isChecked()) {
+							stackTagList.add(tag);
+						}
+					}
+					if (stackTagList.size() <= 0) {
+						// ErrorHandler started, if no tags are selected
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_no_tag,
+										ErrorHandlerFragment.NO_TAG);
+						newFragment.show(getFragmentManager(), "dialog");
+						break;
+					} else {
+						foundStack.setDynamicStackTags(stackTagList);
+						Create.getInstance().updateDynStack(foundStack);
+						Toast toast = Toast.makeText(getApplicationContext(),
+								"Dynamic Stack "
+										+ txt_stack_name.getText().toString()
+										+ " updated succesfully",
+								Toast.LENGTH_SHORT);
+						toast.show();
+						setResult(AdminChooseStackScreen.RESULT_OK);
+						finish();
+					}
+
+					break;
+				}
+			}
+			return true;
+		default:
+			ErrorHandler error = new ErrorHandler(getApplicationContext());
+			error.handleError(1);
+			return false;
 		}
 	}
 
