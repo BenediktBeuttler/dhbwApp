@@ -9,11 +9,8 @@
     <TextView
         android:id="@+id/textView2"
         style="@style/style_textView"
-        android:text="Know it Owl&apos; helps you to organize your learning cards for school, university or for fun. You are always informed of your learning progress. In earlier times you either swapped stickers or football star cards. Today you exchange know-how in terms of pictures, text, videos or easily in terms of links. Share your learning cards/ knowledge with your friends and profit from theirs. That is the way how you can know it All/Owl." />
+        android:text="@string/text_help_introduction"/>
 
-    <Space
-        android:layout_width="100dp"
-        android:layout_height="89dp"
-        android:layout_row="0" />
+ 
 
 </GridLayout>

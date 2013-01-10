@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/GridLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/help_import_export"
-        style="@style/style_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/help_import_export"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    android:columnCount="1"
+    android:orientation="horizontal" >
 
     <TextView
         android:id="@+id/textView2"
-		style="@style/style_textView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="TextView" />
+        style="@style/style_textView"
+        android:text="@string/text_help_import_export" />
 
-</LinearLayout>
+</GridLayout>
