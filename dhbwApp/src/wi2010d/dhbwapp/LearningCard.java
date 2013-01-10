@@ -669,7 +669,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 		File picture;
 		
 		// Create file with the path where the picture is supposed to be stored
-		if (front = true){
+		if (front){
 			picture = new File(card.getCardFrontPicture());
 		}else{
 			picture = new File(card.getCardBackPicture());
