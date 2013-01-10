@@ -47,8 +47,8 @@ import android.widget.Toast;
 public class AdminNewCard extends OnResumeFragmentActivity implements
 		ActionBar.TabListener {
 
-	public String cardFrontPic = "";
-	public String cardBackPic = "";
+	public static String cardFrontPic;
+	public static String cardBackPic;
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
