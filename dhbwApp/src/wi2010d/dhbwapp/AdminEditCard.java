@@ -464,17 +464,15 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		@Override
 		public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		    	
-					Log.e("AdminEditCard", "test2");
 		       if (resultCode == Activity.RESULT_OK) {
 		    	   
 		    	   Edit.getInstance().addNewPicToCard(false, imageUri.getPath(), card);
 				   
 				   updateImageButtonAdminEdit(false, showPictureButton);
 				    
-					Toast toast;
-					toast = Toast.makeText(getApplicationContext(),
+				   Toast toast = Toast.makeText(getApplicationContext(),
 							"Picture saved under: " +  imageUri.getPath(), Toast.LENGTH_LONG);
-					toast.show();
+				   toast.show();
 		        }
 		  }
 	}
@@ -497,6 +495,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 	//TODO: Gucken, ob hier auch dieselbe Methode aus der Learner-Klasse aufgerufen werden kann
 	public boolean updateImageButtonAdminEdit(boolean front, ImageButton pictureBtn){
 		final int THUMBNAIL_SIZE = 128;
+		
+		Log.e("AdminEditCard", "update Image Button erreicht: " + card.getCardBackPicture());
 		
 		if (front){
 			if (!card.getCardFrontPicture().equals("") && checkPictureAvailability(true)){
@@ -523,7 +523,10 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				pictureBtn.setVisibility(ImageButton.GONE);
 			}}
 		else{
+			Log.e("AdminEditCard", "CardBack:" + card.getCardBackPicture());
+			Log.e("AdminEditCard", "Ergebnis Availability Check: " + checkPictureAvailability(false));
 			if (!card.getCardBackPicture().equals("") && checkPictureAvailability(false)){
+				Log.e("AdminEditCard", "UpdateBackButton erreicht: " + card.getCardBackPicture());
 				FileInputStream fis = null;
 				try {
 					fis = new FileInputStream(new File(card.getCardBackPicture()));
@@ -561,7 +564,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		File picture;
 		
 		// Create file with the path where the picture is supposed to be stored
-		if (front = true){
+		if (front){
 			picture = new File(card.getCardFrontPicture());
 		}else{
 			picture = new File(card.getCardBackPicture());
