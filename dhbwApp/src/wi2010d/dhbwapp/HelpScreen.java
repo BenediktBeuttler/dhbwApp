@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+/**
+ * Offers links to the different HelpScreens
+ */
 public class HelpScreen extends OnResumeActivity implements OnClickListener {
 	Button introduction, learn_statistics, edit_cards_stacks, settings,
 			import_export, about;
@@ -18,6 +21,7 @@ public class HelpScreen extends OnResumeActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.help_screen);
 
+		// Init Buttons
 		introduction = (Button) findViewById(R.id.btn_help_introduction);
 		learn_statistics = (Button) findViewById(R.id.btn_help_learnstatistics);
 		edit_cards_stacks = (Button) findViewById(R.id.btn_help_editcardsstacks);
@@ -25,13 +29,13 @@ public class HelpScreen extends OnResumeActivity implements OnClickListener {
 		import_export = (Button) findViewById(R.id.btn_help_importexport);
 		about = (Button) findViewById(R.id.btn_help_about);
 
+		// Set onClickListeners
 		introduction.setOnClickListener(this);
 		learn_statistics.setOnClickListener(this);
 		edit_cards_stacks.setOnClickListener(this);
 		settings.setOnClickListener(this);
 		import_export.setOnClickListener(this);
 		about.setOnClickListener(this);
-
 	}
 
 	@Override
@@ -66,6 +70,7 @@ public class HelpScreen extends OnResumeActivity implements OnClickListener {
 
 	public void onClick(View v) {
 
+		// Start Activities when clicking the button
 		switch (v.getId()) {
 		case R.id.btn_help_introduction:
 			startActivity(new Intent(this, HelpIntroductionScreen.class));

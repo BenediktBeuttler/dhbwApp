@@ -136,6 +136,9 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
 				String stackName = ((TextView) v).getText().toString();
+				if (stackName.startsWith("<Dyn>")) {
+					stackName = stackName.substring(6);
+				}
 
 				if (!stackName.equals("No stacks available")) {
 					Intent i = new Intent(getApplicationContext(),
@@ -158,6 +161,9 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
 		String sName = ((TextView) info.targetView).getText().toString();
+		if (sName.startsWith("<Dyn>")) {
+			sName = sName.substring(6);
+		}
 		boolean isDynamic = false;
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(sName)) {
@@ -185,8 +191,14 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info;
 		info = (AdapterContextMenuInfo) item.getMenuInfo();
-		final String stackName = ((TextView) info.targetView).getText()
+		final String stackName;
+		String stackNameForIf = ((TextView) info.targetView).getText()
 				.toString();
+		if (stackNameForIf.startsWith("<Dyn>")) {
+			stackName = stackNameForIf.substring(6);
+		} else {
+			stackName = ((TextView) info.targetView).getText().toString();
+		}
 
 		if (!stackName.equals("No stacks available")) {
 			if (item.getTitle() == "Change Name") {
@@ -282,18 +294,18 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 				i.putExtra("buttonInvisible", true);
 				startActivityForResult(i, 1);
 
-			} else if (item.getTitle() == "Reset Drawer") {
+			} else if (item.getTitle() == "Reset Anwsers") {
 				// all cards of this stack get reseted and set back to the
-				// drawer:
+				// answer:
 				// don't know
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						this);
 				// set title
-				alertDialogBuilder.setTitle("Delete Card");
+				alertDialogBuilder.setTitle("Reset Anwsers");
 				// set dialog message
 				alertDialogBuilder
 						.setMessage(
-								"Are you sure you want to reset all cards in this stack to 'don't know'?")
+								"Are you sure you want to reset all answers in this stack to 'don't know'?")
 						.setIcon(R.drawable.question)
 						.setCancelable(false)
 						.setPositiveButton("Yes",
@@ -446,7 +458,11 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		ArrayList<String> items = new ArrayList<String>();
 		for (Stack stack : Stack.allStacks) {
 			if (stack.isDynamicGenerated()) {
-				items.add("<Dyn> " + stack.getStackName());
+				if (stack.getStackName().startsWith("<Dyn>")) {
+					items.add(stack.getStackName());
+				} else {
+					items.add("<Dyn> " + stack.getStackName());
+				}
 			} else {
 				items.add(stack.getStackName());
 			}
@@ -466,8 +482,8 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		if (resultCode == RESULT_OK) {
 			updateStackList();
 		}
-		if (resultCode == RESULT_CANCELED) {
-			// nothing happens if result is canceled
+		if (resultCode == AdminChooseStackScreen.RESULT_OK) {
+			updateStackList();
 		}
 	}
 
