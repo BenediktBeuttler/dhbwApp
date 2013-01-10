@@ -1,0 +1,1105 @@
+<class-diagram version="1.0.11" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminChooseStackScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminChooseStackScreen.java" binary="false">    
+    <position height="-1" width="-1" x="185" y="26"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminCreateDynamicStack" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminCreateDynamicStack.java" binary="false">    
+    <position height="-1" width="-1" x="497" y="34"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditCard.EditCardBack" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditCard.java" binary="false">    
+    <position height="197" width="291" x="72" y="247"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditCard.EditCardFront" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditCard.java" binary="false">    
+    <position height="-1" width="-1" x="570" y="418"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditCard.SectionsPagerAdapter" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditCard.java" binary="false">    
+    <position height="-1" width="-1" x="870" y="445"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditCard" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditCard.java" binary="false">    
+    <position height="-1" width="-1" x="807" y="80"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditCard.DummySectionFragment" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditCard.java" binary="false">    
+    <position height="-1" width="-1" x="1148" y="306"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditDynamicStack.SectionsPagerAdapter" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditDynamicStack.java" binary="false">    
+    <position height="-1" width="-1" x="151" y="899"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="9" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditDynamicStack" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditDynamicStack.java" binary="false">    
+    <position height="-1" width="-1" x="384" y="662"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="10" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditDynamicStack.DummySectionFragment" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditDynamicStack.java" binary="false">    
+    <position height="-1" width="-1" x="450" y="891"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="11" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditDynamicStack.EditDynStack" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditDynamicStack.java" binary="false">    
+    <position height="-1" width="-1" x="781" y="891"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="12" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminImportExport.DummySectionFragment" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminImportExport.java" binary="false">    
+    <position height="-1" width="-1" x="1369" y="63"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="13" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminImportExport" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminImportExport.java" binary="false">    
+    <position height="-1" width="-1" x="1757" y="82"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="14" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminImportExport.Import" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminImportExport.java" binary="false">    
+    <position height="-1" width="-1" x="1561" y="425"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="15" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminImportExport.Export" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminImportExport.java" binary="false">    
+    <position height="-1" width="-1" x="1888" y="408"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="16" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminImportExport.SectionsPagerAdapter" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminImportExport.java" binary="false">    
+    <position height="-1" width="-1" x="2203" y="358"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="17" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminNewCard.NewCardFront" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminNewCard.java" binary="false">    
+    <position height="-1" width="-1" x="1072" y="1161"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="18" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminNewCard.NewCardBack" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminNewCard.java" binary="false">    
+    <position height="-1" width="-1" x="1426" y="1175"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="19" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminNewCard" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminNewCard.java" binary="false">    
+    <position height="-1" width="-1" x="1217" y="735"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="20" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminNewCard.SectionsPagerAdapter" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminNewCard.java" binary="false">    
+    <position height="-1" width="-1" x="1739" y="1179"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="21" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminNewCard.DummySectionFragment" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminNewCard.java" binary="false">    
+    <position height="-1" width="-1" x="1623" y="886"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="22" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminNewCardChooseStack" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminNewCardChooseStack.java" binary="false">    
+    <position height="-1" width="-1" x="1870" y="633"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="23" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminScreen.java" binary="false">    
+    <position height="-1" width="-1" x="2162" y="652"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="24" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminTagListFragment.TagViewHolder" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminTagListFragment.java" binary="false">    
+    <position height="-1" width="-1" x="1996" y="1185"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="25" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminTagListFragment" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminTagListFragment.java" binary="false">    
+    <position height="-1" width="-1" x="2171" y="940"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="26" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminTagListFragment.TagArrayAdapter" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminTagListFragment.java" binary="false">    
+    <position height="-1" width="-1" x="2239" y="1160"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="27" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.HelpAboutScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/HelpAboutScreen.java" binary="false">    
+    <position height="-1" width="-1" x="160" y="1096"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="28" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.HelpEditCardsStackScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/HelpEditCardsStackScreen.java" binary="false">    
+    <position height="-1" width="-1" x="710" y="1277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="29" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.HelpImportExportScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/HelpImportExportScreen.java" binary="false">    
+    <position height="95" width="164" x="616" y="982"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="30" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.HelpIntroductionScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/HelpIntroductionScreen.java" binary="false">    
+    <position height="-1" width="-1" x="700" y="1140"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="31" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.HelpLearnStatisticsScreen" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/HelpLearnStatisticsScreen.java" binary="false">    
+    <position height="-1" width="-1" x="403" y="1306"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="32" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.HelpScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/HelpScreen.java" binary="false">    
+    <position height="-1" width="-1" x="429" y="1110"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="33" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.HelpSettingsScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/HelpSettingsScreen.java" binary="false">    
+    <position height="-1" width="-1" x="133" y="1276"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="34" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.LearningCard.SectionsPagerAdapter" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/LearningCard.java" binary="false">    
+    <position height="-1" width="-1" x="106" y="2084"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="35" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.LearningCard.CardFront" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/LearningCard.java" binary="false">    
+    <position height="-1" width="-1" x="405" y="2101"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="36" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.LearningCard" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/LearningCard.java" binary="false">    
+    <position height="-1" width="-1" x="392" y="1686"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="37" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.LearningCard.DummySectionFragment" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/LearningCard.java" binary="false">    
+    <position height="-1" width="-1" x="736" y="2076"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="38" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.LearningCard.CardBack" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/LearningCard.java" binary="false">    
+    <position height="-1" width="-1" x="792" y="1848"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="39" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.LearningChooseStackScreen" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/LearningChooseStackScreen.java" binary="false">    
+    <position height="-1" width="-1" x="1042" y="1501"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="40" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.Progress" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/Progress.java" binary="false">    
+    <position height="-1" width="-1" x="1348" y="1328"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="41" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.SettingsScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/SettingsScreen.java" binary="false">    
+    <position height="-1" width="-1" x="1600" y="1368"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="42" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StartScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/StartScreen.java" binary="false">    
+    <position height="-1" width="-1" x="1846" y="1410"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="43" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StatisticsScreen.LastReview" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/StatisticsScreen.java" binary="false">    
+    <position height="-1" width="-1" x="1405" y="1643"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="44" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StatisticsScreen.SectionsPagerAdapter" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/StatisticsScreen.java" binary="false">    
+    <position height="-1" width="-1" x="1449" y="1954"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="45" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StatisticsScreen.Progress" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/StatisticsScreen.java" binary="false">    
+    <position height="-1" width="-1" x="1792" y="1904"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="46" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StatisticsScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/StatisticsScreen.java" binary="false">    
+    <position height="-1" width="-1" x="1754" y="1667"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="47" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StatisticsScreen.DummySectionFragment" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/StatisticsScreen.java" binary="false">    
+    <position height="-1" width="-1" x="2113" y="1812"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="48" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StatisticsScreen.Overview" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/StatisticsScreen.java" binary="false">    
+    <position height="-1" width="-1" x="2115" y="1506"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="49" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Create" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Create.java" binary="false">    
+    <position height="-1" width="-1" x="159" y="2453"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="50" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Database" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Database.java" binary="false">    
+    <position height="-1" width="-1" x="509" y="2747"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="51" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.DatabaseManager" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/DatabaseManager.java" binary="false">    
+    <position height="-1" width="-1" x="815" y="2580"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="52" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Delete" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Delete.java" binary="false">    
+    <position height="-1" width="-1" x="814" y="2983"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="53" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Edit" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Edit.java" binary="false">    
+    <position height="-1" width="-1" x="1165" y="2491"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="54" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Exchange" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Exchange.java" binary="false">    
+    <position height="-1" width="-1" x="1192" y="2811"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="55" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Init" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Init.java" binary="false">    
+    <position height="-1" width="-1" x="808" y="3310"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="56" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Learn" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Learn.java" binary="false">    
+    <position height="-1" width="-1" x="1167" y="3126"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="57" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Learn.CardQueue" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Learn.java" binary="false">    
+    <position height="-1" width="-1" x="1146" y="3441"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="58" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Settings" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Settings.java" binary="false">    
+    <position height="-1" width="-1" x="114" y="2706"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="59" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Statistics" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Statistics.java" binary="false">    
+    <position height="-1" width="-1" x="153" y="3047"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="60" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/errorhandler/ErrorHandlerFragment.java" binary="false">    
+    <position height="-1" width="-1" x="1987" y="2582"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="61" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.model.Card" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/model/Card.java" binary="false">    
+    <position height="588" width="225" x="1608" y="2832"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="62" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.model.Runthrough" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/model/Runthrough.java" binary="false">    
+    <position height="-1" width="-1" x="2076" y="3106"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="63" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.model.Stack" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/model/Stack.java" binary="false">    
+    <position height="-1" width="-1" x="1684" y="3774"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="64" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.model.Tag" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/model/Tag.java" binary="false">    
+    <position height="-1" width="-1" x="2090" y="3754"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="65" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.OnResumeActivity" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/OnResumeActivity.java" binary="false">    
+    <position height="-1" width="-1" x="1696" y="755"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="66" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.OnResumeFragmentActivity" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/OnResumeFragmentActivity.java" binary="false">    
+    <position height="-1" width="-1" x="1531" y="623"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <association id="67">    
+    <end type="SOURCE" refId="63" navigable="false">      
+      <attribute id="68" name="dynamicStack"/>      
+      <multiplicity id="69" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="63" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="70">    
+    <end type="SOURCE" refId="63" navigable="false">      
+      <attribute id="71" name="lastRunthroughs"/>      
+      <multiplicity id="72" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="62" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="73">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="43"/>  
+  </nesting>  
+  <association id="74">    
+    <end type="SOURCE" refId="63" navigable="false">      
+      <attribute id="75" name="allStacks"/>      
+      <multiplicity id="76" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="63" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="77">    
+    <end type="SOURCE" refId="50" navigable="false">      
+      <attribute id="78" name="dbManager"/>      
+      <multiplicity id="79" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="51" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="80">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
+  </nesting>  
+  <association id="81">    
+    <end type="SOURCE" refId="46" navigable="false">      
+      <attribute id="82" name="mSectionsPagerAdapter"/>      
+      <multiplicity id="83" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="44" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="84">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="16"/>  
+  </nesting>  
+  <association id="85">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="86" name="cardTagList"/>      
+      <multiplicity id="87" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="64" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="88">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="35"/>  
+  </nesting>  
+  <nesting id="89">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="4"/>  
+  </nesting>  
+  <generalization id="90">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="65"/>  
+  </generalization>  
+  <association id="91">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="92" name="mSectionsPagerAdapter"/>      
+      <multiplicity id="93" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="94">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="18"/>  
+  </nesting>  
+  <nesting id="95">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="26"/>  
+  </nesting>  
+  <association id="96">    
+    <end type="SOURCE" refId="53" navigable="false">      
+      <attribute id="97" name="edit"/>      
+      <multiplicity id="98" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="53" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="99">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="65"/>  
+  </generalization>  
+  <association id="100">    
+    <end type="SOURCE" refId="56" navigable="false">      
+      <attribute id="101" name="card"/>      
+      <multiplicity id="102" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="103">    
+    <end type="SOURCE" refId="64" navigable="false">      
+      <attribute id="104" name="allTags"/>      
+      <multiplicity id="105" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="64" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="106">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="107" name="stackTagList"/>      
+      <multiplicity id="108" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="64" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="109">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="65"/>  
+  </generalization>  
+  <association id="110">    
+    <end type="SOURCE" refId="51" navigable="false">      
+      <attribute id="111" name="databaseManager"/>      
+      <multiplicity id="112" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="51" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="113">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="47"/>  
+  </nesting>  
+  <association id="114">    
+    <end type="SOURCE" refId="61" navigable="false">      
+      <attribute id="115" name="allCards"/>      
+      <multiplicity id="116" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="117">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="65"/>  
+  </generalization>  
+  <generalization id="118">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="65"/>  
+  </generalization>  
+  <nesting id="119">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="17"/>  
+  </nesting>  
+  <generalization id="120">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="66"/>  
+  </generalization>  
+  <nesting id="121">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="45"/>  
+  </nesting>  
+  <generalization id="122">    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="65"/>  
+  </generalization>  
+  <association id="123">    
+    <end type="SOURCE" refId="55" navigable="false">      
+      <attribute id="124" name="database"/>      
+      <multiplicity id="125" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="50" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="126">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="21"/>  
+  </nesting>  
+  <association id="127">    
+    <end type="SOURCE" refId="62" navigable="false">      
+      <attribute id="128" name="allRunthroughs"/>      
+      <multiplicity id="129" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="62" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="130">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="131" name="mSectionsPagerAdapter"/>      
+      <multiplicity id="132" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="133">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="134" name="card"/>      
+      <multiplicity id="135" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="136">    
+    <end type="SOURCE" refId="58" navigable="false">      
+      <attribute id="137" name="settings"/>      
+      <multiplicity id="138" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="58" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="139">    
+    <end type="SOURCE" refId="63" navigable="false">      
+      <attribute id="140" name="overallRunthrough"/>      
+      <multiplicity id="141" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="62" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="142">    
+    <end type="SOURCE" refId="56" navigable="false">      
+      <attribute id="143" name="stack"/>      
+      <multiplicity id="144" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="63" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="145">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="146" name="stack"/>      
+      <multiplicity id="147" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="63" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="148">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </nesting>  
+  <association id="149">    
+    <end type="SOURCE" refId="57" navigable="false">      
+      <attribute id="150" name="arrayList"/>      
+      <multiplicity id="151" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="152">    
+    <end type="SOURCE" refId="56" navigable="false">      
+      <attribute id="153" name="runthrough"/>      
+      <multiplicity id="154" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="62" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="155">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="37"/>  
+  </nesting>  
+  <generalization id="156">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="66"/>  
+  </generalization>  
+  <association id="157">    
+    <end type="SOURCE" refId="56" navigable="false">      
+      <attribute id="158" name="notSure"/>      
+      <multiplicity id="159" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="57" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="160">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="15"/>  
+  </nesting>  
+  <nesting id="161">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="24"/>  
+  </nesting>  
+  <association id="162">    
+    <end type="SOURCE" refId="55" navigable="false">      
+      <attribute id="163" name="init"/>      
+      <multiplicity id="164" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="55" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="165">    
+    <end type="SOURCE" refId="49" navigable="false">      
+      <attribute id="166" name="create"/>      
+      <multiplicity id="167" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="49" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="168">    
+    <end type="SOURCE" refId="61" navigable="false">      
+      <attribute id="169" name="tags"/>      
+      <multiplicity id="170" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="64" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="171">    
+    <end type="SOURCE" refId="56"/>    
+    <end type="TARGET" refId="57"/>  
+  </nesting>  
+  <generalization id="172">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="65"/>  
+  </generalization>  
+  <association id="173">    
+    <end type="SOURCE" refId="56" navigable="false">      
+      <attribute id="174" name="sure"/>      
+      <multiplicity id="175" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="57" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="176">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="10"/>  
+  </nesting>  
+  <association id="177">    
+    <end type="SOURCE" refId="41" navigable="false">      
+      <attribute id="178" name="newFragment"/>      
+      <multiplicity id="179" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="180">    
+    <end type="SOURCE" refId="56" navigable="false">      
+      <attribute id="181" name="learn"/>      
+      <multiplicity id="182" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="56" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="183">    
+    <end type="SOURCE" refId="63" navigable="false">      
+      <attribute id="184" name="cards"/>      
+      <multiplicity id="185" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="186">    
+    <end type="SOURCE" refId="52" navigable="false">      
+      <attribute id="187" name="delete"/>      
+      <multiplicity id="188" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="52" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="189">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
+  </nesting>  
+  <association id="190">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="191" name="card"/>      
+      <multiplicity id="192" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="193">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="66"/>  
+  </generalization>  
+  <association id="194">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="195" name="mSectionsPagerAdapter"/>      
+      <multiplicity id="196" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="197">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="198" name="mSectionsPagerAdapter"/>      
+      <multiplicity id="199" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="200">    
+    <end type="SOURCE" refId="50" navigable="false">      
+      <attribute id="201" name="db"/>      
+      <multiplicity id="202" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="50" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="203">    
+    <end type="SOURCE" refId="63" navigable="false">      
+      <attribute id="204" name="dynamicStackTags"/>      
+      <multiplicity id="205" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="64" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="206">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="207" name="card"/>      
+      <multiplicity id="208" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="209">    
+    <end type="SOURCE" refId="54" navigable="false">      
+      <attribute id="210" name="exchange"/>      
+      <multiplicity id="211" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="54" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="212">    
+    <end type="SOURCE" refId="52" navigable="false">      
+      <attribute id="213" name="db"/>      
+      <multiplicity id="214" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="50" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="215">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="44"/>  
+  </nesting>  
+  <association id="216">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="217" name="stack"/>      
+      <multiplicity id="218" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="63" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="219">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="65"/>  
+  </generalization>  
+  <generalization id="220">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="66"/>  
+  </generalization>  
+  <association id="221">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="222" name="cardTagList"/>      
+      <multiplicity id="223" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="64" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="224">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="12"/>  
+  </nesting>  
+  <generalization id="225">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="65"/>  
+  </generalization>  
+  <association id="226">    
+    <end type="SOURCE" refId="59" navigable="false">      
+      <attribute id="227" name="statistics"/>      
+      <multiplicity id="228" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="59" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="229">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="38"/>  
+  </nesting>  
+  <nesting id="230">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="7"/>  
+  </nesting>  
+  <association id="231">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="232" name="mSectionsPagerAdapter"/>      
+      <multiplicity id="233" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="234">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="65"/>  
+  </generalization>  
+  <association id="235">    
+    <end type="SOURCE" refId="56" navigable="false">      
+      <attribute id="236" name="cards"/>      
+      <multiplicity id="237" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="238">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="66"/>  
+  </generalization>  
+  <association id="239">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="240" name="dynStackTagList"/>      
+      <multiplicity id="241" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="64" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="242">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="11"/>  
+  </nesting>  
+  <nesting id="243">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="34"/>  
+  </nesting>  
+  <nesting id="244">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="20"/>  
+  </nesting>  
+  <generalization id="245">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="65"/>  
+  </generalization>  
+  <nesting id="246">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="14"/>  
+  </nesting>  
+  <generalization id="247">    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="65"/>  
+  </generalization>  
+  <association id="248">    
+    <end type="SOURCE" refId="56" navigable="false">      
+      <attribute id="249" name="dontKnow"/>      
+      <multiplicity id="250" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="57" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="251">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="48"/>  
+  </nesting>  
+  <generalization id="252">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="66"/>  
+  </generalization>  
+  <generalization id="253">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="65"/>  
+  </generalization>  
+  <association id="254">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="255" name="newTagList"/>      
+      <multiplicity id="256" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="64" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
