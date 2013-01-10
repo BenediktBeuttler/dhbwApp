@@ -18,7 +18,9 @@ import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -87,7 +89,11 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 					copyFile(new File(path), new File(dest));
 					copyOK = true;
 				} catch (IOException e) {
-					// TODO: BEne Error Handler!
+					// display a general error if the file is not found
+					ErrorHandlerFragment newFragment = ErrorHandlerFragment
+							.newInstance(R.string.error_handler_general,
+									ErrorHandlerFragment.GENERAL_ERROR);
+					newFragment.show(this.getFragmentManager(), "dialog");
 				}
 				if (copyOK) {
 					try {
@@ -95,10 +101,18 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 								Environment.getExternalStorageDirectory()
 										.getPath() + "/knowItOwl/" + str1);
 					} catch (JDOMException e) {
-						// TODO Auto-generated catch block
+						// display a general error if the file is not found
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(this.getFragmentManager(), "dialog");
 						e.printStackTrace();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
+						// display a general error if the file is not found
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(this.getFragmentManager(), "dialog");
 						e.printStackTrace();
 					}
 					Toast toast = Toast
@@ -108,10 +122,12 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 					toast.show();
 				}
 				end = path.lastIndexOf("/");
-				String str2 = path.substring(0, end+1);
-				for(String image : Exchange.getInstance().getImageList()){
+				String str2 = path.substring(0, end + 1);
+				for (String image : Exchange.getInstance().getImageList()) {
 					try {
-						copyFile(new File(str2+image), new File(Environment.getExternalStorageDirectory().getPath()+"/knowItOwl/pictures/"+image));
+						copyFile(new File(str2 + image), new File(Environment
+								.getExternalStorageDirectory().getPath()
+								+ "/knowItOwl/pictures/" + image));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -405,8 +421,9 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 								@Override
 								public void onItemClick(AdapterView<?> parent,
 										View v, int position, long id) {
-									String stackName = ((TextView) v).getText()
-											.toString();
+									final String stackName = ((TextView) v)
+											.getText().toString();
+
 									if (stackName.equals("No stacks available")) {
 										toast = Toast
 												.makeText(
@@ -416,32 +433,61 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 										toast.show();
 
 									} else {
-										try {
-											if (Exchange
-													.getInstance()
-													.importStack(
-															Environment
-																	.getExternalStorageDirectory()
-																	.getPath()
-																	+ "/knowItOwl/"
-																	+ stackName)) {
-												toast = Toast
-														.makeText(
-																getActivity(),
-																"Stack "
-																		+ stackName
-																		+ " got imported successfully!",
-																Toast.LENGTH_SHORT);
-												toast.show();
+										//start a dialog to ask for import
+										AlertDialog.Builder alert = new AlertDialog.Builder(
+												getActivity());
 
-											}
-										} catch (Exception e) {
-											ErrorHandler
-													.getInstance()
-													.handleError(
-															ErrorHandler
-																	.getInstance().IMPORT_ERROR);
-										}
+										alert.setTitle("Import");
+										alert.setMessage("Are you sure you want to import this stack?");
+										alert.setIcon(R.drawable.question);
+
+										alert.setPositiveButton(
+												"Yes",
+												new DialogInterface.OnClickListener() {
+													public void onClick(
+															DialogInterface dialog,
+															int whichButton) {
+														try {
+															//actually import the selected stack into the knowitowl folder
+															if (Exchange
+																	.getInstance()
+																	.importStack(
+																			Environment
+																					.getExternalStorageDirectory()
+																					.getPath()
+																					+ "/knowItOwl/"
+																					+ stackName)) {
+																toast = Toast
+																		.makeText(
+																				getActivity(),
+																				"Stack "
+																						+ stackName
+																						+ " got imported successfully!",
+																				Toast.LENGTH_SHORT);
+																toast.show();
+
+															}
+														} catch (Exception e) {
+															//display a general error if import failed
+															ErrorHandlerFragment newFragment = ErrorHandlerFragment
+																	.newInstance(R.string.error_handler_general,
+																			ErrorHandlerFragment.EXPORT_ERROR);
+															newFragment.show(getActivity().getFragmentManager(), "dialog");
+														}
+													}
+												});
+
+										alert.setNegativeButton(
+												"No",
+												new DialogInterface.OnClickListener() {
+													public void onClick(
+															DialogInterface dialog,
+															int whichButton) {
+														dialog.cancel();
+													}
+												});
+										alert.show();
+
 									}
 								}
 							});
@@ -558,8 +604,9 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 											.setAdapter(AdminImportExport
 													.updateImportListAdapter());
 
-									for(String uri: Exchange.getInstance().getImageListPath()){
-										Uri u=Uri.fromFile(new File(uri));
+									for (String uri : Exchange.getInstance()
+											.getImageListPath()) {
+										Uri u = Uri.fromFile(new File(uri));
 										uris.add(u);
 									}
 									// Start Sending Intent
@@ -581,7 +628,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 						} else {
 							final Runnable r = new Runnable() {
 								ArrayList<Uri> uris2 = new ArrayList<Uri>();
-								
+
 								public void run() {
 									for (Stack stack : Stack.allStacks) {
 										if (stack.getStackName().equals(
@@ -621,24 +668,29 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 													.setAdapter(AdminImportExport
 															.updateImportListAdapter());
 
-											for(String uri: Exchange.getInstance().getImageListPath()){
-												Uri u=Uri.fromFile(new File(uri));
+											for (String uri : Exchange
+													.getInstance()
+													.getImageListPath()) {
+												Uri u = Uri.fromFile(new File(
+														uri));
 												uris2.add(u);
 											}
-											
-											uris2.add(Uri.fromFile(new File(Environment
+
+											uris2.add(Uri
+													.fromFile(new File(
+															Environment
 																	.getExternalStorageDirectory()
 																	.getPath()
 																	+ "/knowItOwl/"
 																	+ stackName
 																	+ ".xml")));
-											
+
 											// Start Sending Intent
 											Intent intent = new Intent(
 													Intent.ACTION_SEND_MULTIPLE);
 											intent.setType("file/*");
 											intent.putParcelableArrayListExtra(
-													Intent.EXTRA_STREAM, uris2);		
+													Intent.EXTRA_STREAM, uris2);
 											intent.putExtra(
 													Intent.EXTRA_SUBJECT,
 													"Export of my 'know it owl'-Stack");

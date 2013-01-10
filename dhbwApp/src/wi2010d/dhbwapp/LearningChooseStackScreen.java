@@ -208,8 +208,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 
 		if (!stackName.equals("No stacks available")) {
 			if (item.getTitle() == "Change Name") {
-				// TODO
-
+				
 				// create dialog to insert name of new stack
 				AlertDialog.Builder alert = new AlertDialog.Builder(this);
 				alert.setTitle("Edit Stack");
