@@ -1,9 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/LinearLayout1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/LinearLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginLeft="-5dp"
+    android:layout_marginTop="5dp"
     android:orientation="vertical"
+    android:padding="15dp"
     tools:context=".Admin_create_dyn_stack" >
 
     <GridLayout
@@ -12,7 +16,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="5dp"
         android:layout_weight="0.52"
-        android:columnCount="4"
+        android:columnCount="5"
         android:orientation="horizontal" >
 
         <TextView
@@ -20,7 +24,7 @@
             android:layout_width="210dp"
             android:layout_height="wrap_content"
             android:layout_column="0"
-            android:layout_columnSpan="3"
+            android:layout_columnSpan="4"
             android:layout_gravity="right"
             android:layout_marginTop="29dp"
             android:layout_row="1"
@@ -42,6 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="2"
+            android:layout_columnSpan="2"
             android:layout_gravity="left"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="29dp"
@@ -53,9 +58,8 @@
             style="@style/style_iconButton"
             android:layout_width="148dp"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_columnSpan="4"
-            android:layout_gravity="center_horizontal"
+            android:layout_column="3"
+            android:layout_gravity="left"
             android:layout_row="4"
             android:layout_rowSpan="2"
             android:drawableLeft="@drawable/save"
@@ -87,27 +91,39 @@
 
         <Space
             android:layout_width="1dp"
-            android:layout_height="85dp"
+            android:layout_height="39dp"
             android:layout_column="0"
             android:layout_row="5" />
 
         <Space
-            android:layout_width="24dp"
+            android:layout_width="14dp"
             android:layout_height="1dp"
             android:layout_column="2"
             android:layout_row="0" />
 
         <Space
             android:layout_width="1dp"
-            android:layout_height="145dp"
+            android:layout_height="126dp"
             android:layout_column="0"
             android:layout_row="3" />
 
         <Space
+            android:layout_width="214dp"
+            android:layout_height="1dp"
+            android:layout_column="3"
+            android:layout_row="0" />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="19dp"
+            android:layout_column="0"
+            android:layout_row="4" />
+
+        <Space
             android:layout_width="0dp"
             android:layout_height="18dp"
-            android:layout_column="3"
-            android:layout_row="4" />
+            android:layout_column="4"
+            android:layout_row="5" />
 
         <Space
             android:layout_width="-14dp"
