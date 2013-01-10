@@ -27,11 +27,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,118 +42,17 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * The Activity for creating a new card. Tabbed Activity with 3 Screens: First
+ * Screen offers the possibility to add the cards' front text and take a picture
+ * for the front. The Second screen offers the same cases for the cards' back
+ * side. The third screen let's you add the cards' tags.
+ */
 public class AdminNewCard extends OnResumeFragmentActivity implements
 		ActionBar.TabListener {
 
-	public static String cardFrontPic;
-	public static String cardBackPic;
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.menu_start_screen:
-			startActivity(new Intent(this, StartScreen.class));
-			finish();
-			return true;
-		case R.id.menu_help:
-			startActivity(new Intent(this, HelpScreen.class));
-			finish();
-			return true;
-		case R.id.menu_settings:
-			startActivity(new Intent(this, SettingsScreen.class));
-			finish();
-			return true;
-		case R.id.btn_admin_new_card_new_stack:
-			
-			if (isCardNotEmpty()) {
-				// find the checked Tags from the list
-				cardTagList.clear();
-				for (Tag tag : Tag.allTags) {
-					if (tag.isChecked()) {
-						cardTagList.add(tag);
-					}
-				}
-
-				card = Create.getInstance().newCard(
-						cardFront.getText().toString(),
-						cardBack.getText().toString(), cardTagList, "", "");
-
-				//create dialog to insert name of new stack
-				AlertDialog.Builder alert = new AlertDialog.Builder(this);
-				alert.setTitle("New Stack");
-				alert.setMessage("Name of the new stack");
-
-				// Set an EditText view to get user input
-				final EditText input = new EditText(this);
-				alert.setView(input);
-
-				alert.setPositiveButton("Create",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								//do sth
-								Toast toast;
-								if (input.getText().toString().equals("")) {
-									toast = Toast.makeText(getApplicationContext(),
-											"Please insert a stack name!", Toast.LENGTH_SHORT);
-									toast.show();
-								} else if (input.getText().toString()
-										.equals("All Stacks")) {
-									toast = Toast
-											.makeText(
-													getApplicationContext(),
-													"Stack name cannot be 'All Stacks', please select another one!",
-													Toast.LENGTH_LONG);
-									toast.show();
-
-								} else {
-									String stackName = input.getText().toString();
-									Create.getInstance().newStack(stackName, card);
-									
-									toast = Toast.makeText(getApplicationContext(), "Stack " + stackName
-											+ " created and Card added", Toast.LENGTH_LONG);
-									toast.show();
-									finish();
-									//finish();
-								}
-							}
-						});
-
-				alert.setNegativeButton("Cancel",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								dialog.cancel();
-							}
-						});
-				alert.show();
-			}
-			return true;
-		case R.id.btn_admin_new_card_existing_stack:
-			if (Stack.allStacks.size() == 0) {
-				ErrorHandler.getInstance().handleError(
-						ErrorHandler.getInstance().NO_STACK_AVAILABLE);
-			} else if (isCardNotEmpty()) {
-				// find the checked Tags from the list
-				cardTagList.clear();
-				for (Tag tag : Tag.allTags) {
-					if (tag.isChecked()) {
-						cardTagList.add(tag);
-					}
-				}
-				card = Create.getInstance().newCard(
-						cardFront.getText().toString(),
-						cardBack.getText().toString(), cardTagList, cardFrontPic, cardBackPic);
-
-				Intent i = new Intent(getApplicationContext(),
-						AdminNewCardChooseStack.class);
-				startActivityForResult(i, STACK_CHOSEN);
-			}
-		default:
-			return false;
-		}
-	}
+	public static String cardFrontPic = "";
+	public static String cardBackPic = "";
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -344,6 +241,9 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		}
 	}
 
+	/**
+	 * Fragment for the cards' front, offering text view + buttons to take and view picture.
+	 */
 	public class NewCardFront extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
@@ -354,7 +254,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		private ImageButton showPictureFront;
 		public Uri imageUriFront;
 		public static final int TAKE_PICTURE = 1;
-		
+
 		public NewCardFront() {
 		}
 
@@ -366,74 +266,79 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			View v = inflater.inflate(R.layout.admin_new_card_front, null);
 
 			cardFront = (EditText) v.findViewById(R.id.txt_new_card_front);
-			
-			takePictureFront = (Button) v.findViewById(R.id.btn_admin_new_card_picture_front);
+
+			takePictureFront = (Button) v
+					.findViewById(R.id.btn_admin_new_card_picture_front);
 			takePictureFront.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					
-					Intent takePicture = new Intent("android.media.action.IMAGE_CAPTURE");
+
+					Intent takePicture = new Intent(
+							"android.media.action.IMAGE_CAPTURE");
 					Date date = new Date();
 					SimpleDateFormat sd = new SimpleDateFormat("yyMMddhhmmss");
 					String picName = sd.format(date);
-					
-					if (!new File(Environment.getExternalStorageDirectory().getPath()
-							+ "/knowItOwl/pictures").exists()) {
-						new File(Environment.getExternalStorageDirectory().getPath()
-								+ "/knowItOwl/pictures").mkdir();
-					}
-					
-				    File photo = new File(Environment.getExternalStorageDirectory() 
-				    		+ "/knowItOwl/pictures",  picName + ".jpg");
-				    takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
-				            Uri.fromFile(photo));
-				    imageUriFront = Uri.fromFile(photo);
 
-				    startActivityForResult(takePicture, TAKE_PICTURE);
-					
+					if (!new File(Environment.getExternalStorageDirectory()
+							.getPath() + "/knowItOwl/pictures").exists()) {
+						new File(Environment.getExternalStorageDirectory()
+								.getPath() + "/knowItOwl/pictures").mkdir();
+					}
+
+					File photo = new File(Environment
+							.getExternalStorageDirectory()
+							+ "/knowItOwl/pictures", picName + ".jpg");
+					takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
+							Uri.fromFile(photo));
+					imageUriFront = Uri.fromFile(photo);
+
+					startActivityForResult(takePicture, TAKE_PICTURE);
+
 				}
 			});
-			
-			showPictureFront = (ImageButton) v.findViewById(R.id.btn_admin_new_card_picture_front_show);
-			
-			
-			
+
+			showPictureFront = (ImageButton) v
+					.findViewById(R.id.btn_admin_new_card_picture_front_show);
+
 			showPictureFront.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					if (!cardFrontPic.equals("")){						
+					if (!cardFrontPic.equals("")) {
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
-						show.setDataAndType(Uri.fromFile(new File(cardFrontPic)), "image/*");
+						show.setDataAndType(
+								Uri.fromFile(new File(cardFrontPic)), "image/*");
 						startActivity(show);
 					}
 				}
 			});
-			
+
 			showPictureFront.setVisibility(ImageButton.GONE);
 
 			return v;
 		}
-		
-		public void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    	
-		       if (resultCode == Activity.RESULT_OK) {
-				   
-		    	   cardFrontPic = imageUriFront.getPath();
-		    	   
-				   updateImageButtonNewCard(true, showPictureFront);
-					
-				   Toast toast;
-					toast = Toast.makeText(getApplicationContext(),
-							"Picture saved under: " +  imageUriFront.getPath(), Toast.LENGTH_LONG);
-					toast.show();
-		        }
-		  }
+
+		public void onActivityResult(int requestCode, int resultCode,
+				Intent data) {
+			// called when a picture is taken
+			if (resultCode == Activity.RESULT_OK) {
+
+				cardFrontPic = imageUriFront.getPath();
+
+				updateImageButtonNewCard(true, showPictureFront);
+				Toast.makeText(getApplicationContext(),
+						"Picture saved under: " + imageUriFront.getPath(),
+						Toast.LENGTH_LONG).show();
+			}
+		}
 	}
 
+	/**
+	 * Fragment for the cards' back, offering text view + buttons to take and
+	 * view picture.
+	 */
 	public class NewCardBack extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
@@ -455,75 +360,79 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			View v = inflater.inflate(R.layout.admin_new_card_back, null);
 
 			cardBack = (EditText) v.findViewById(R.id.txt_new_card_back);
-			
-			takePictureBack = (Button) v.findViewById(R.id.btn_admin_new_card_picture_back);
+
+			takePictureBack = (Button) v
+					.findViewById(R.id.btn_admin_new_card_picture_back);
 			takePictureBack.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					
-					Intent takePicture = new Intent("android.media.action.IMAGE_CAPTURE");
+
+					Intent takePicture = new Intent(
+							"android.media.action.IMAGE_CAPTURE");
 					Date date = new Date();
 					SimpleDateFormat sd = new SimpleDateFormat("yyMMddhhmmss");
 					String picName = sd.format(date);
-					
-					if (!new File(Environment.getExternalStorageDirectory().getPath()
-							+ "/knowItOwl/pictures").exists()) {
-						new File(Environment.getExternalStorageDirectory().getPath()
-								+ "/knowItOwl/pictures").mkdir();
-					}
-					
-				    File photo = new File(Environment.getExternalStorageDirectory() 
-				    		+ "/knowItOwl/pictures",  picName + ".jpg");
-				    takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
-				            Uri.fromFile(photo));
-				    imageUriBack = Uri.fromFile(photo);
 
-				    startActivityForResult(takePicture, TAKE_PICTURE);
-					
+					if (!new File(Environment.getExternalStorageDirectory()
+							.getPath() + "/knowItOwl/pictures").exists()) {
+						new File(Environment.getExternalStorageDirectory()
+								.getPath() + "/knowItOwl/pictures").mkdir();
+					}
+
+					File photo = new File(Environment
+							.getExternalStorageDirectory()
+							+ "/knowItOwl/pictures", picName + ".jpg");
+					takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
+							Uri.fromFile(photo));
+					imageUriBack = Uri.fromFile(photo);
+
+					startActivityForResult(takePicture, TAKE_PICTURE);
+
 				}
 			});
-			
-			showPictureBack = (ImageButton) v.findViewById(R.id.btn_admin_new_card_picture_back_show);
-			
-			
+
+			showPictureBack = (ImageButton) v
+					.findViewById(R.id.btn_admin_new_card_picture_back_show);
+
 			showPictureBack.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					if (!cardBackPic.equals("")){						
+					if (!cardBackPic.equals("")) {
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
-						show.setDataAndType(Uri.fromFile(new File(cardBackPic)), "image/*");
+						show.setDataAndType(
+								Uri.fromFile(new File(cardBackPic)), "image/*");
 						startActivity(show);
 					}
 				}
 			});
-			
-			showPictureBack.setVisibility(ImageButton.GONE);
 
+			showPictureBack.setVisibility(ImageButton.GONE);
 
 			return v;
 		}
-		
-		public void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    	
-		       if (resultCode == Activity.RESULT_OK) {
-				    
-		    	   cardBackPic = imageUriBack.getPath();
-		    	   
-		    	   updateImageButtonNewCard(false, showPictureBack);  
-		    	  
-				    
-					Toast toast;
-					toast = Toast.makeText(getApplicationContext(),
-							"Picture saved under: " +  imageUriBack.getPath(), Toast.LENGTH_LONG);
-					toast.show();
-		        }
-		  }
+
+		public void onActivityResult(int requestCode, int resultCode,
+				Intent data) {
+			// called, when a picture is taken
+			if (resultCode == Activity.RESULT_OK) {
+				cardBackPic = imageUriBack.getPath();
+
+				updateImageButtonNewCard(false, showPictureBack);
+				Toast.makeText(getApplicationContext(),
+						"Picture saved under: " + imageUriBack.getPath(),
+						Toast.LENGTH_LONG).show();
+			}
+		}
 	}
 
+	/**
+	 * Checks if the cards' front or back text is empty or not
+	 * 
+	 * @return true, if front+back is filled with text
+	 */
 	protected boolean isCardNotEmpty() {
 		if (cardFront.getText() == null
 				|| cardFront.getText().toString().equals("")) {
@@ -543,7 +452,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		String stackName;
 		Toast toast;
-
+		// Called when a picture is taken
 		switch (resultCode) {
 		case STACK_CHOSEN:
 			stackName = data.getExtras().getString("stackName");
@@ -551,7 +460,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				if (stack.getStackName().equals(stackName)) {
 
 					Edit.getInstance().addCardToStack(stack, card);
-					
+
 					toast = Toast.makeText(this, "Card added to stack "
 							+ stackName, Toast.LENGTH_SHORT);
 					toast.show();
@@ -564,60 +473,177 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			break;
 		}
 	}
-	
-	//TODO: Gucken, ob hier auch dieselbe Methode aus der Learner-Klasse aufgerufen werden kann
-		public boolean updateImageButtonNewCard(boolean front, ImageButton pictureBtn){
-			final int THUMBNAIL_SIZE = 128;
-			
-			if (front){
-				if (!cardFrontPic.equals("")){
-		            FileInputStream fis = null;
-					try {
-						fis = new FileInputStream(new File(cardFrontPic));
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-		            Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
-		
-		            imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 
-		            		THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
-		
-		            
-		            ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-		            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-		            byte[] byteArray = baos.toByteArray();
-		            
-		            pictureBtn.setVisibility(ImageButton.VISIBLE);
-					pictureBtn.setImageBitmap(imageBitmap);
-				}else{
-					pictureBtn.setVisibility(ImageButton.GONE);
-				}}
-			else{
-				if (!cardBackPic.equals("")){
-					FileInputStream fis = null;
-					try {
-						fis = new FileInputStream(new File(cardBackPic));
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-		            Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
-		
-		            imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 
-		            		THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
-		
-		            
-		            ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-		            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-		            byte[] byteArray = baos.toByteArray();
-		            
-		            pictureBtn.setVisibility(ImageButton.VISIBLE);
-					pictureBtn.setImageBitmap(imageBitmap);
-				}else{
-					pictureBtn.setVisibility(ImageButton.GONE);
-				}}
-				
-			return true;
+
+	// TODO: Gucken, ob hier auch dieselbe Methode aus der Learner-Klasse
+	// aufgerufen werden kann
+	public boolean updateImageButtonNewCard(boolean front,
+			ImageButton pictureBtn) {
+		final int THUMBNAIL_SIZE = 128;
+
+		if (front) {
+			if (!cardFrontPic.equals("")) {
+				FileInputStream fis = null;
+				try {
+					fis = new FileInputStream(new File(cardFrontPic));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
+
+				imageBitmap = Bitmap.createScaledBitmap(imageBitmap,
+						THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+				byte[] byteArray = baos.toByteArray();
+
+				pictureBtn.setVisibility(ImageButton.VISIBLE);
+				pictureBtn.setImageBitmap(imageBitmap);
+			} else {
+				pictureBtn.setVisibility(ImageButton.GONE);
+			}
+		} else {
+			if (!cardBackPic.equals("")) {
+				FileInputStream fis = null;
+				try {
+					fis = new FileInputStream(new File(cardBackPic));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
+
+				imageBitmap = Bitmap.createScaledBitmap(imageBitmap,
+						THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+				byte[] byteArray = baos.toByteArray();
+
+				pictureBtn.setVisibility(ImageButton.VISIBLE);
+				pictureBtn.setImageBitmap(imageBitmap);
+			} else {
+				pictureBtn.setVisibility(ImageButton.GONE);
+			}
 		}
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.menu_start_screen:
+			startActivity(new Intent(this, StartScreen.class));
+			finish();
+			return true;
+		case R.id.menu_help:
+			startActivity(new Intent(this, HelpScreen.class));
+			finish();
+			return true;
+		case R.id.menu_settings:
+			startActivity(new Intent(this, SettingsScreen.class));
+			finish();
+			return true;
+		case R.id.btn_admin_new_card_new_stack:
+
+			if (isCardNotEmpty()) {
+				// find the checked Tags from the list
+				cardTagList.clear();
+				for (Tag tag : Tag.allTags) {
+					if (tag.isChecked()) {
+						cardTagList.add(tag);
+					}
+				}
+
+				card = Create.getInstance().newCard(
+						cardFront.getText().toString(),
+						cardBack.getText().toString(), cardTagList,
+						cardFrontPic, cardBackPic);
+				// create dialog to insert name of new stack
+				AlertDialog.Builder alert = new AlertDialog.Builder(this);
+				alert.setTitle("New Stack");
+				alert.setMessage("Name of the new stack");
+
+				// Set an EditText view to get user input
+				final EditText input = new EditText(this);
+				alert.setView(input);
+
+				alert.setPositiveButton("Create",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								Toast toast;
+
+								if (input.getText().toString().equals("")) {
+									toast = Toast.makeText(
+											getApplicationContext(),
+											"Please insert a stack name!",
+											Toast.LENGTH_SHORT);
+									toast.show();
+								} else if (input.getText().toString()
+										.equals("All Stacks")) {
+									toast = Toast
+											.makeText(
+													getApplicationContext(),
+													"Stack name cannot be 'All Stacks', please select another one!",
+													Toast.LENGTH_LONG);
+									toast.show();
+
+								} else {
+									String stackName = input.getText()
+											.toString();
+									Create.getInstance().newStack(stackName,
+											card);
+
+									toast = Toast
+											.makeText(
+													getApplicationContext(),
+													"Stack "
+															+ stackName
+															+ " created and Card added",
+													Toast.LENGTH_LONG);
+									toast.show();
+									finish();
+								}
+							}
+						});
+
+				alert.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.cancel();
+							}
+						});
+				alert.show();
+			}
+			return true;
+		case R.id.btn_admin_new_card_existing_stack:
+			if (Stack.allStacks.size() == 0) {
+				ErrorHandler.getInstance().handleError(
+						ErrorHandler.getInstance().NO_STACK_AVAILABLE);
+			} else if (isCardNotEmpty()) {
+				// find the checked Tags from the list
+				cardTagList.clear();
+				for (Tag tag : Tag.allTags) {
+					if (tag.isChecked()) {
+						cardTagList.add(tag);
+					}
+				}
+				card = Create.getInstance().newCard(
+						cardFront.getText().toString(),
+						cardBack.getText().toString(), cardTagList,
+						cardFrontPic, cardBackPic);
+
+				Intent i = new Intent(getApplicationContext(),
+						AdminNewCardChooseStack.class);
+				startActivityForResult(i, STACK_CHOSEN);
+			}
+		default:
+			return false;
+		}
+	}
 }

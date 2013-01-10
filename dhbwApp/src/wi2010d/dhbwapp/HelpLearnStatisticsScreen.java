@@ -2,6 +2,9 @@ package wi2010d.dhbwapp;
 
 import android.os.Bundle;
 
+/**
+ * Simple Activity, just showing the help text about the usage of learning and statistics.
+ */
 public class HelpLearnStatisticsScreen extends OnResumeActivity {
 
 	@Override
