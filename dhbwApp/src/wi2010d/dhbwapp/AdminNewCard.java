@@ -30,6 +30,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -51,8 +52,8 @@ import android.widget.Toast;
 public class AdminNewCard extends OnResumeFragmentActivity implements
 		ActionBar.TabListener {
 
-	public static String cardFrontPic = "";
-	public static String cardBackPic = "";
+	public String cardFrontPic = "";
+	public String cardBackPic = "";
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -70,7 +71,18 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	ViewPager mViewPager;
 	EditText cardFront;
 	EditText cardBack;
+	
 	public static final int STACK_CHOSEN = 10;
+	
+	public static final int TAKE_PICTURE_FRONT = 1;
+	private Button takePictureFront;
+	private ImageButton showPictureFront;
+	public Uri imageUriFront;
+	
+	public static final int TAKE_PICTURE_BACK = 2;
+	private Button takePictureBack;
+	private ImageButton showPictureBack;
+	public Uri imageUriBack;
 
 	public Card getCard() {
 		return card;
@@ -250,10 +262,6 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
-		private Button takePictureFront;
-		private ImageButton showPictureFront;
-		public Uri imageUriFront;
-		public static final int TAKE_PICTURE = 1;
 
 		public NewCardFront() {
 		}
@@ -293,7 +301,8 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 							Uri.fromFile(photo));
 					imageUriFront = Uri.fromFile(photo);
 
-					startActivityForResult(takePicture, TAKE_PICTURE);
+					Log.e("AdminNewCard", "" + TAKE_PICTURE_FRONT);
+					startActivityForResult(takePicture, TAKE_PICTURE_FRONT);
 
 				}
 			});
@@ -319,20 +328,6 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 			return v;
 		}
-
-		public void onActivityResult(int requestCode, int resultCode,
-				Intent data) {
-			// called when a picture is taken
-			if (resultCode == Activity.RESULT_OK) {
-
-				cardFrontPic = imageUriFront.getPath();
-
-				updateImageButtonNewCard(true, showPictureFront);
-				Toast.makeText(getApplicationContext(),
-						"Picture saved under: " + imageUriFront.getPath(),
-						Toast.LENGTH_LONG).show();
-			}
-		}
 	}
 
 	/**
@@ -345,10 +340,6 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
-		private Button takePictureBack;
-		private ImageButton showPictureBack;
-		public Uri imageUriBack;
-		public static final int TAKE_PICTURE = 1;
 
 		public NewCardBack() {
 		}
@@ -387,7 +378,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 							Uri.fromFile(photo));
 					imageUriBack = Uri.fromFile(photo);
 
-					startActivityForResult(takePicture, TAKE_PICTURE);
+					startActivityForResult(takePicture, TAKE_PICTURE_BACK);
 
 				}
 			});
@@ -412,19 +403,6 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			showPictureBack.setVisibility(ImageButton.GONE);
 
 			return v;
-		}
-
-		public void onActivityResult(int requestCode, int resultCode,
-				Intent data) {
-			// called, when a picture is taken
-			if (resultCode == Activity.RESULT_OK) {
-				cardBackPic = imageUriBack.getPath();
-
-				updateImageButtonNewCard(false, showPictureBack);
-				Toast.makeText(getApplicationContext(),
-						"Picture saved under: " + imageUriBack.getPath(),
-						Toast.LENGTH_LONG).show();
-			}
 		}
 	}
 
@@ -452,8 +430,11 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		String stackName;
 		Toast toast;
-		// Called when a picture is taken
-		switch (resultCode) {
+		
+		Log.e("AdminNewCard", "In onActivity Result, resultCode: " + resultCode + "Result OK: " + RESULT_OK);
+		Log.e("AdminNewCard", "In onActivity Result, requestCode: " + requestCode);
+		
+		switch (requestCode) {
 		case STACK_CHOSEN:
 			stackName = data.getExtras().getString("stackName");
 			for (Stack stack : Stack.allStacks) {
@@ -467,6 +448,31 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 					finish();
 					break;
 				}
+			}
+			break;
+		case 65537:
+			if (resultCode == RESULT_OK) {
+
+				cardFrontPic = imageUriFront.getPath();
+
+				updateImageButtonNewCard(true, showPictureFront);
+				
+				Toast.makeText(getApplicationContext(),
+						"Picture saved under: " + imageUriFront.getPath(),
+						Toast.LENGTH_LONG).show();
+				break;
+			}
+			break;
+		case 131074:
+			if (resultCode == RESULT_OK) {
+				
+				cardBackPic = imageUriBack.getPath();
+
+				updateImageButtonNewCard(false, showPictureBack);
+				Toast.makeText(getApplicationContext(),
+						"Picture saved under: " + imageUriBack.getPath(),
+						Toast.LENGTH_LONG).show();
+				break;
 			}
 			break;
 		default:
