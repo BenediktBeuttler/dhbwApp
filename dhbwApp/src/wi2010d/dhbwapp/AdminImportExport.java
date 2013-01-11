@@ -11,9 +11,7 @@ import java.util.List;
 
 import org.jdom2.JDOMException;
 
-import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Exchange;
-import wi2010d.dhbwapp.control.Statistics;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
@@ -30,13 +28,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -75,7 +76,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// reload the data, if sth got garbage collected
 		this.reloadOnGarbageCollected();
-		
+
 		super.onCreate(savedInstanceState);
 
 		copyOK = false;
@@ -132,9 +133,10 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 								.getExternalStorageDirectory().getPath()
 								+ "/knowItOwl/pictures/" + image));
 					} catch (IOException e) {
-						//Show an import Error, when a File couldn't get copied
+						// Show an import Error, when a File couldn't get copied
 						ErrorHandlerFragment newFragment = ErrorHandlerFragment
-								.newInstance(R.string.error_handler_import_error,
+								.newInstance(
+										R.string.error_handler_import_error,
 										ErrorHandlerFragment.IMPORT_ERROR);
 						newFragment.show(this.getFragmentManager(), "dialog");
 					}
@@ -377,6 +379,10 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 			importList = (ListView) v
 					.findViewById(R.id.list_admin_import_stacks);
 			AdminImportExport.importList = importList;
+			// tell android that we want this view to create a menu when it is
+			// long
+			// pressed. Method onCreateContextMenu is further relevant
+			registerForContextMenu(importList);
 
 			if (!Environment.getExternalStorageState().equals(
 					Environment.MEDIA_UNMOUNTED)
@@ -439,7 +445,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 										toast.show();
 
 									} else {
-										//start a dialog to ask for import
+										// start a dialog to ask for import
 										AlertDialog.Builder alert = new AlertDialog.Builder(
 												getActivity());
 
@@ -454,7 +460,10 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 															DialogInterface dialog,
 															int whichButton) {
 														try {
-															//actually import the selected stack into the knowitowl folder
+															// actually import
+															// the selected
+															// stack into the
+															// knowitowl folder
 															if (Exchange
 																	.getInstance()
 																	.importStack(
@@ -474,11 +483,17 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 
 															}
 														} catch (Exception e) {
-															//display a general error if import failed
+															// display a general
+															// error if import
+															// failed
 															ErrorHandlerFragment newFragment = ErrorHandlerFragment
-																	.newInstance(R.string.error_handler_general,
+																	.newInstance(
+																			R.string.error_handler_general,
 																			ErrorHandlerFragment.EXPORT_ERROR);
-															newFragment.show(getActivity().getFragmentManager(), "dialog");
+															newFragment
+																	.show(getActivity()
+																			.getFragmentManager(),
+																			"dialog");
 														}
 													}
 												});
@@ -508,6 +523,73 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 			}
 
 			return v;
+		}
+
+		// When the registered view receives a long-click event, the system
+		// calls
+		// the onCreateContextMenu() method. This is where the menu items are
+		// defined.
+		@Override
+		public void onCreateContextMenu(ContextMenu menu, View v,
+				ContextMenuInfo menuInfo) {
+			super.onCreateContextMenu(menu, v, menuInfo);
+
+			menu.add(0, v.getId(), 0, "Import");
+			menu.add(0, v.getId(), 1, "Delete");
+		}
+
+		@Override
+		public boolean onContextItemSelected(MenuItem item) {
+			AdapterContextMenuInfo info;
+			info = (AdapterContextMenuInfo) item.getMenuInfo();
+			final String importName = ((TextView) info.targetView).getText()
+					.toString();
+			if (item.getTitle() == "Import") {
+				try {
+					// actually import the selected stack into the knowitowl folder
+					if (Exchange.getInstance().importStack(
+							Environment.getExternalStorageDirectory().getPath()
+									+ "/knowItOwl/" + importName)) {
+						toast = Toast.makeText(getActivity(), "Stack "
+								+ importName + " got imported successfully!",
+								Toast.LENGTH_SHORT);
+						toast.show();
+
+					}
+				} catch (Exception e) {
+					// display a general error if import
+					// failed
+					ErrorHandlerFragment newFragment = ErrorHandlerFragment
+							.newInstance(R.string.error_handler_general,
+									ErrorHandlerFragment.EXPORT_ERROR);
+					newFragment.show(getActivity().getFragmentManager(),
+							"dialog");
+				}
+			}
+			if (item.getTitle() == "Delete") {
+				// create dialog to insert name of new stack
+				AlertDialog.Builder alert = new AlertDialog.Builder(
+						getActivity());
+				alert.setTitle("Delete XML File");
+				alert.setMessage("Do you really want to delete the XML File?");
+				alert.setPositiveButton("Delete",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								// TODO: Thomas, delete code here
+							}
+						});
+				alert.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.cancel();
+							}
+						});
+				alert.show();
+
+			}
+			return true;
 		}
 	}
 
