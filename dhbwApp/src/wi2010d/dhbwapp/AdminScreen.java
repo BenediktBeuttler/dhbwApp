@@ -31,7 +31,7 @@ public class AdminScreen extends OnResumeActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		// reload the data, if sth got garbage collected
 		this.reloadOnGarbageCollected();
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_screen);
 
@@ -98,14 +98,15 @@ public class AdminScreen extends OnResumeActivity implements OnClickListener {
 																		// Activity
 			break;
 		case R.id.btn_admin_new_dyn_stack:
-			if (Tag.allTags.size() != 0 && Card.allCards.size() != 0) { // Start
-																		// Activity
-																		// when
-																		// there
-																		// is a
-																		// tag
-																		// and
-																		// card
+			// only start activity, if there are Tags available
+			boolean tagsAvailable = false;
+			for (Tag tag : Tag.allTags) {
+				if (tag.getTotalCards() > 0) {
+					tagsAvailable = true;
+					break;
+				}
+			}
+			if (tagsAvailable) {
 				Intent i = new Intent(getApplicationContext(),
 						AdminCreateDynamicStack.class);
 				startActivityForResult(i, 1);
