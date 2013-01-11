@@ -27,7 +27,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -74,6 +73,9 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// reload the data, if sth got garbage collected
+		this.reloadOnGarbageCollected();
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_edit_card);
 
@@ -277,17 +279,18 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 				@Override
 				public void onClick(View v) {
-					
+
 					// Intent to take Picture
 					Intent takePicture = new Intent(
 							"android.media.action.IMAGE_CAPTURE");
-					
+
 					// Create unique picture name with help of the actual date
 					Date date = new Date();
 					SimpleDateFormat sd = new SimpleDateFormat("yyMMddhhmmss");
 					String picName = sd.format(date);
 
-					// Check if file /knowItOwl/pictures exists, if not --> create it
+					// Check if file /knowItOwl/pictures exists, if not -->
+					// create it
 					if (!new File(Environment.getExternalStorageDirectory()
 							.getPath() + "/knowItOwl/pictures").exists()) {
 						new File(Environment.getExternalStorageDirectory()
@@ -301,7 +304,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
 							Uri.fromFile(photo));
 					imageUriFront = Uri.fromFile(photo);
-					
+
 					// Start activity
 					startActivityForResult(takePicture, TAKE_PICTURE);
 				}
@@ -320,7 +323,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				@Override
 				public void onClick(View v) {
 					// if there is any picture available
-					if (!card.getCardFrontPicture().equals("") 
+					if (!card.getCardFrontPicture().equals("")
 							&& checkPictureAvailability(true)) {
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
@@ -330,45 +333,49 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					}
 				}
 			});
-			
+
 			// Set up Butten to delete the Picture
-			deletePicture = (Button) v.findViewById(R.id.btn_admin_edit_card_front_picture_delete);
-			
+			deletePicture = (Button) v
+					.findViewById(R.id.btn_admin_edit_card_front_picture_delete);
+
 			// Set delete Button only visible, if picture is available
-			if (!card.getCardFrontPicture().equals("") 
-					&& checkPictureAvailability(true)){
-				// If there is a picture available, do nothing, as the button is already visible
+			if (!card.getCardFrontPicture().equals("")
+					&& checkPictureAvailability(true)) {
+				// If there is a picture available, do nothing, as the button is
+				// already visible
 				;
-			}else{
+			} else {
 				// set Button invisible
 				deletePicture.setVisibility(Button.GONE);
 			}
-				
+
 			// Set on click listener
 			deletePicture.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					
+
 					// Create File with the picture that has to be deleted
 					File picture = new File(card.getCardFrontPicture());
-					
+
 					// Delete Picture and show toast
-					if (picture.delete()){
+					if (picture.delete()) {
 						Toast toast = Toast.makeText(getApplicationContext(),
-								"Picture has been deleted successfully", Toast.LENGTH_LONG);
+								"Picture has been deleted successfully",
+								Toast.LENGTH_LONG);
 						toast.show();
 					}
-					
+
 					// Save changes in card and in DB
 					Edit.getInstance().deletePicFromCard(true, card);
-					
-					// Set delete Button gone as there is no pic to delete anymore
+
+					// Set delete Button gone as there is no pic to delete
+					// anymore
 					deletePicture.setVisibility(Button.GONE);
-					
+
 					// Update ImageButton
 					updateImageButtonAdminEdit(true, showPictureButton);
-					
+
 				}
 			});
 
@@ -383,14 +390,16 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				Edit.getInstance().addNewPicToCard(true,
 						imageUriFront.getPath(), card);
 
-				// Updates the ImageButton to show the new picture as a thumbnail
+				// Updates the ImageButton to show the new picture as a
+				// thumbnail
 				updateImageButtonAdminEdit(true, showPictureButton);
 
 				Toast.makeText(getApplicationContext(),
 						"Picture saved under: " + imageUriFront.getPath(),
 						Toast.LENGTH_LONG).show();
-				
-				// Set delete Button visible as there is a new pic which can be deleted now
+
+				// Set delete Button visible as there is a new pic which can be
+				// deleted now
 				deletePicture.setVisibility(Button.VISIBLE);
 			}
 		}
@@ -433,17 +442,18 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 				@Override
 				public void onClick(View v) {
-					
+
 					// New intent to take a picture
 					Intent takePicture = new Intent(
 							"android.media.action.IMAGE_CAPTURE");
-					
+
 					// Create a unique PicName with help of the actual date
 					Date date = new Date();
 					SimpleDateFormat sd = new SimpleDateFormat("yyMMddhhmmss");
 					String picName = sd.format(date);
 
-					// Check if there is file /knowItOwl/pictures, if not --> create it
+					// Check if there is file /knowItOwl/pictures, if not -->
+					// create it
 					if (!new File(Environment.getExternalStorageDirectory()
 							.getPath() + "/knowItOwl/pictures").exists()) {
 						new File(Environment.getExternalStorageDirectory()
@@ -457,7 +467,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
 							Uri.fromFile(photo));
 					imageUri = Uri.fromFile(photo);
-					
+
 					// start activity
 					startActivityForResult(takePicture, TAKE_PICTURE);
 				}
@@ -474,7 +484,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 				@Override
 				public void onClick(View v) {
-					if (!card.getCardBackPicture().equals("") 
+					if (!card.getCardBackPicture().equals("")
 							&& checkPictureAvailability(false)) {
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
@@ -484,44 +494,48 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					}
 				}
 			});
-			
+
 			// Set up Button to delete the Picture
-			deletePicture = (Button) v.findViewById(R.id.btn_admin_edit_card_back_picture_delete);
-			
+			deletePicture = (Button) v
+					.findViewById(R.id.btn_admin_edit_card_back_picture_delete);
+
 			// Set delete Button only visible, if picture is available
-			if (!card.getCardBackPicture().equals("") 
-					&& checkPictureAvailability(false)){
-				// If there is a picture available, do nothing, as the button is already visible
+			if (!card.getCardBackPicture().equals("")
+					&& checkPictureAvailability(false)) {
+				// If there is a picture available, do nothing, as the button is
+				// already visible
 				;
-			}else{
+			} else {
 				// set Button invisible
 				deletePicture.setVisibility(Button.GONE);
 			}
-			
+
 			deletePicture.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					
+
 					// Create File with the picture that has to be deleted
 					File picture = new File(card.getCardBackPicture());
-					
+
 					// Delete Picture and show toast
-					if (picture.delete()){
+					if (picture.delete()) {
 						Toast toast = Toast.makeText(getApplicationContext(),
-								"Picture has been deleted successfully", Toast.LENGTH_LONG);
+								"Picture has been deleted successfully",
+								Toast.LENGTH_LONG);
 						toast.show();
 					}
-					
+
 					// Save changes in card and in DB
 					Edit.getInstance().deletePicFromCard(false, card);
-					
-					// Set delete Button gone as there is no pic to delete anymore
+
+					// Set delete Button gone as there is no pic to delete
+					// anymore
 					deletePicture.setVisibility(Button.GONE);
-					
+
 					// Update ImageButton
 					updateImageButtonAdminEdit(true, showPictureButton);
-					
+
 				}
 			});
 
@@ -543,8 +557,9 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				Toast.makeText(getApplicationContext(),
 						"Picture saved under: " + imageUri.getPath(),
 						Toast.LENGTH_LONG).show();
-				
-				// Set delete Button visible as there is any picture to delete now
+
+				// Set delete Button visible as there is any picture to delete
+				// now
 				deletePicture.setVisibility(Button.VISIBLE);
 			}
 		}
@@ -576,13 +591,12 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			ImageButton pictureBtn) {
 		final int THUMBNAIL_SIZE = 128;
 
-
 		// Check if Button on front (true) or back (false) is to be updated
 		if (front) {
 			// Check if there is any picture available
 			if (!card.getCardFrontPicture().equals("")
 					&& checkPictureAvailability(true)) {
-				
+
 				// Set up file input stream
 				FileInputStream fis = null;
 				try {
@@ -596,7 +610,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					newFragment.show(this.getFragmentManager(), "dialog");
 					e.printStackTrace();
 				}
-				
+
 				// Create Bitmap --> Thumbnail
 				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
 
@@ -610,20 +624,20 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				// Set visibility true and set thumbnail
 				pictureBtn.setVisibility(ImageButton.VISIBLE);
 				pictureBtn.setImageBitmap(imageBitmap);
-				
-			// if there is no front picture available
+
+				// if there is no front picture available
 			} else {
 				// Set visibility false
 				pictureBtn.setVisibility(ImageButton.GONE);
 			}
-		
-		// If back picture is to be updated
+
+			// If back picture is to be updated
 		} else {
-			
+
 			// If card back picture is available
 			if (!card.getCardBackPicture().equals("")
 					&& checkPictureAvailability(false)) {
-				
+
 				// set up file input stream
 				FileInputStream fis = null;
 				try {
@@ -637,7 +651,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					newFragment.show(this.getFragmentManager(), "dialog");
 					e.printStackTrace();
 				}
-				
+
 				// Create bitmap --> thumbnail
 				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
 
@@ -651,10 +665,10 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				// set image Button visible and set new thumbnail
 				pictureBtn.setVisibility(ImageButton.VISIBLE);
 				pictureBtn.setImageBitmap(imageBitmap);
-			
+
 				// if there is no picture available
 			} else {
-				
+
 				// set image button gone
 				pictureBtn.setVisibility(ImageButton.GONE);
 			}

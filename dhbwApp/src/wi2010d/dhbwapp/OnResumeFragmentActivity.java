@@ -10,33 +10,23 @@ import android.support.v4.app.FragmentActivity;
  */
 public class OnResumeFragmentActivity extends FragmentActivity {
 
-	/**
-	 * Checks if the Garbage Collector deleted one or more Variables. If this
-	 * happened, reload the app.
-	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (Init.isSthGarabageCollected()) {
-			Intent newStart = new Intent(getApplicationContext(),
-					Progress.class);
+		this.reloadOnGarbageCollected();
+	}
 
-			if (this.getParent() != null) {
-				this.getParent().finish();
-			}
-
-			startActivity(newStart);
-			this.finish();
-		}
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		this.reloadOnGarbageCollected();
 	}
 
 	/**
 	 * Checks if the Garbage Collector deleted one or more Variables. If this
 	 * happened, reload the app.
 	 */
-	@Override
-	protected void onRestart() {
-		super.onRestart();
+	protected void reloadOnGarbageCollected() {
 		if (Init.isSthGarabageCollected()) {
 			Intent newStart = new Intent(getApplicationContext(),
 					Progress.class);

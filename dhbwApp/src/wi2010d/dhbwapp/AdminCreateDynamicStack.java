@@ -34,6 +34,9 @@ public class AdminCreateDynamicStack extends OnResumeFragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// reload the data, if sth got garbage collected
+		this.reloadOnGarbageCollected();
+
 		setContentView(R.layout.admin_create_dynamic_stack);
 		super.onCreate(savedInstanceState);
 		createDynamicStackContext = this;
