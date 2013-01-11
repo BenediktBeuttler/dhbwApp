@@ -3,6 +3,7 @@ package wi2010d.dhbwapp;
 
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +21,7 @@ public class HelpAboutScreen extends OnResumeActivity implements OnClickListener
 	private ImageView knowitall;
 	private ImageButton email;
 	private RatingBar rating;
-	private float ratingNumer;
+	private float ratingNumber;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,8 @@ public class HelpAboutScreen extends OnResumeActivity implements OnClickListener
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_help_about_email:
-			ratingNumer = Float.valueOf(rating.getRating());
-			if(ratingNumer == 0){
+			ratingNumber = Float.valueOf(rating.getRating());
+			if(ratingNumber == 0){
 				Toast toast = Toast.makeText(
 						getApplicationContext(),
 						"Please give a rating first.",
@@ -54,6 +55,17 @@ public class HelpAboutScreen extends OnResumeActivity implements OnClickListener
 			}else{
 				//TODO: Thomas do it! Die Variable mit dem Rating is ratingNumer, aber als float
 				// kannst meine Mailadresse angeben: benedikt.beuttler@gmail.com
+				// Start Sending Intent
+				Intent emailIntent = new Intent(
+						Intent.ACTION_SENDTO);
+				emailIntent.setType("text/plain");
+				emailIntent.putExtra(Intent.EXTRA_SUBJECT,
+						"Feedback - Know it Owl");
+				emailIntent.putExtra(Intent.EXTRA_TEXT,
+						"Hi, "+'\n'+"I rate your app with "+ratingNumber+" stars.");
+				emailIntent.setData(Uri.parse("mailto:benedikt.beuttler@gmail.com"));
+				startActivity(Intent.createChooser(emailIntent,
+						"Send Feedback"));
 			}
 			break;
 		default:
