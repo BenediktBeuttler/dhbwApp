@@ -347,7 +347,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 						
 						cardFrontPic = "";
 						deletePictureFront.setVisibility(Button.GONE);
-						updateImageButtonNewCard(false, showPictureFront);
+						updateImageButtonNewCard(true, showPictureFront);
 								
 					}
 				});
@@ -528,7 +528,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				cardBackPic = imageUriBack.getPath();
 
 				updateImageButtonNewCard(false, showPictureBack);
-				deletePictureFront.setVisibility(Button.VISIBLE);
+				deletePictureBack.setVisibility(Button.VISIBLE);
 				
 				Toast.makeText(getApplicationContext(),
 						"Picture saved under: " + imageUriBack.getPath(),
