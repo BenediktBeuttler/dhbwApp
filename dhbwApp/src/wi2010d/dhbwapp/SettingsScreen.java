@@ -214,9 +214,8 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 				}
 				
 				Toast toastDrawers = Toast.makeText(getApplicationContext(),
-						"Drawers have been resetted successfully", Toast.LENGTH_LONG);
+						"Answers have been resetted successfully", Toast.LENGTH_LONG);
 				toastDrawers.show();
-				break;
 			// if there are no stacks available
 			}else{
 				Toast toastDrawers = Toast.makeText(getApplicationContext(),
@@ -224,7 +223,7 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 				toastDrawers.show();
 			}
 			
-
+			break;
 			
 		default:
 			// if anything goes wrong (case not found), display general error
