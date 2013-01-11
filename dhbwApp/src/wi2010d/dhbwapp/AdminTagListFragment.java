@@ -104,8 +104,15 @@ public class AdminTagListFragment extends Fragment {
 									// Update the TagList
 									getTagsWithCards();
 									newTagList.add(newTag);
-									tagListAdapter = new TagArrayAdapter(
-											getActivity(), newTagList);
+
+									if (!buttonInvisible) {
+										tagListAdapter = new TagArrayAdapter(
+												getActivity(), Tag.allTags);
+									} else {
+										tagListAdapter = new TagArrayAdapter(
+												getActivity(), newTagList);
+									}
+
 									mainListView.setAdapter(tagListAdapter);
 
 									Toast toast;
@@ -153,7 +160,12 @@ public class AdminTagListFragment extends Fragment {
 		// Create and populate TagList.
 		// Set our custom array adapter as the ListView's adapter.
 
-		tagListAdapter = new TagArrayAdapter(getActivity(), getTagsWithCards());
+		if (!buttonInvisible) {
+			tagListAdapter = new TagArrayAdapter(getActivity(), Tag.allTags);
+		} else {
+			tagListAdapter = new TagArrayAdapter(getActivity(),
+					getTagsWithCards());
+		}
 		mainListView.setAdapter(tagListAdapter);
 		return v;
 	}
@@ -195,8 +207,13 @@ public class AdminTagListFragment extends Fragment {
 										break;
 									}
 								}
-								tagListAdapter = new TagArrayAdapter(
-										getActivity(), getTagsWithCards());
+								if (!buttonInvisible) {
+									tagListAdapter = new TagArrayAdapter(
+											getActivity(), Tag.allTags);
+								} else {
+									tagListAdapter = new TagArrayAdapter(
+											getActivity(), getTagsWithCards());
+								}
 								mainListView.setAdapter(tagListAdapter);
 								Toast toast;
 								toast = Toast.makeText(getActivity(), tagName
@@ -234,8 +251,13 @@ public class AdminTagListFragment extends Fragment {
 										break;
 									}
 								}
+								if(!buttonInvisible){
+									tagListAdapter = new TagArrayAdapter(
+											getActivity(), Tag.allTags);
+								}else{
 								tagListAdapter = new TagArrayAdapter(
 										getActivity(), getTagsWithCards());
+								}
 								mainListView.setAdapter(tagListAdapter);
 								Toast toast;
 								toast = Toast.makeText(getActivity(), tagName
@@ -316,8 +338,8 @@ public class AdminTagListFragment extends Fragment {
 
 	}
 
-	/** 
-	 * Custom adapter for displaying an array of Tag objects. 
+	/**
+	 * Custom adapter for displaying an array of Tag objects.
 	 */
 	private class TagArrayAdapter extends ArrayAdapter<Tag> {
 

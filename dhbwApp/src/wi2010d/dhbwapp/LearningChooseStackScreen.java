@@ -19,6 +19,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.AvoidXfermode;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -115,7 +116,15 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 			// Create a new dynamic stack
 			@Override
 			public void onClick(View v) {
-				if (Tag.allTags.size() != 0 && Card.allCards.size() != 0) {
+				boolean tagsAvailable = false;
+				for (Tag tag : Tag.allTags) {
+					if (tag.getTotalCards() > 0) {
+						tagsAvailable = true;
+						break;
+					}
+				}
+
+				if (tagsAvailable) {
 					Intent i = new Intent(getApplicationContext(),
 							AdminCreateDynamicStack.class);
 					startActivityForResult(i, 1);
@@ -296,7 +305,6 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 			} else if (item.getTitle() == "Change Name and Tags") {
 				// pass the stack name to the edit activity and whether it is an
 				// dynamic generated stack or not, edit it
-
 				Intent i = new Intent(getApplicationContext(),
 						AdminEditDynamicStack.class);
 				i.putExtra("stackName", stackName);
