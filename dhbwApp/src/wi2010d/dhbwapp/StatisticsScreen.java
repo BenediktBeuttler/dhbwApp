@@ -30,6 +30,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+/**
+ * Activity for Statistics. Screen contains three tabs:
+ * Overview Tab: Shows overall learning time and Status of selected Stacks or all Stacks
+ * Progress: Shows progress (% in drawer) of the last runthroughs of selected Stack
+ * Last Runthrough: Shows details to last runthrough (stack, date, duration, status before & after)
+ * 
+ * @author Schuetzler
+ *
+ */
 public class StatisticsScreen extends OnResumeFragmentActivity implements
 		ActionBar.TabListener {
 
