@@ -58,7 +58,7 @@ public class Delete {
 		Runthrough run = stack.getOverallRunthrough();
 		deleteRunthrough(run);
 		run = null;
-		
+
 		// delete the Stack from the Stack List
 		Stack.allStacks.remove(stack);
 
@@ -103,6 +103,20 @@ public class Delete {
 			// remove the card from every stack it is in
 			for (Stack stack : Stack.allStacks) {
 				stack.getCards().remove(card);
+
+				// decrease the number of cards in the drawer in the stack
+				switch (card.getDrawer()) {
+				case 0:
+					stack.setDontKnow(stack.getDontKnow() - 1);
+					break;
+				case 1:
+					stack.setNotSure(stack.getSure() - 1);
+					break;
+				case 2:
+					stack.setSure(stack.getSure() - 1);
+					break;
+				default: // TODO: BENE Gen Error
+				}
 
 				// if there's no card in the stack, delete it
 				if (stack.getCards().size() == 0) {

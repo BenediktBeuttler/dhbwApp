@@ -76,6 +76,9 @@ public class Card {
 
 	/**
 	 * Returns the drawer, the card is currently in.
+	 * Drawer 0 = dont know
+	 * Drawer 1 = not sure
+	 * Drawer 2 = sure
 	 * @return the drawer
 	 */
 	public int getDrawer() {
