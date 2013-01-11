@@ -147,7 +147,7 @@ public class Learn {
 	 */
 	public String getActualProgressAsString() {
 		String progress = "";
-		progress = "Karte " + actualCard + " von " + cardsInQueues;
+		progress = "card " + actualCard + " of " + cardsInQueues;
 		return progress;
 	}
 	
