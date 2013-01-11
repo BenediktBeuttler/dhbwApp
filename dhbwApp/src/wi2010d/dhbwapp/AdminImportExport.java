@@ -618,7 +618,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 									// Start Sending Intent
 									Intent intent = new Intent(
 											Intent.ACTION_SEND_MULTIPLE);
-									intent.setType("file/*");
+									intent.setType("text/html");
 									intent.putParcelableArrayListExtra(
 											Intent.EXTRA_STREAM, uris);
 									intent.putExtra(Intent.EXTRA_SUBJECT,
@@ -694,7 +694,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 											// Start Sending Intent
 											Intent intent = new Intent(
 													Intent.ACTION_SEND_MULTIPLE);
-											intent.setType("file/*");
+											intent.setType("text/html");
 											intent.putParcelableArrayListExtra(
 													Intent.EXTRA_STREAM, uris2);
 											intent.putExtra(
