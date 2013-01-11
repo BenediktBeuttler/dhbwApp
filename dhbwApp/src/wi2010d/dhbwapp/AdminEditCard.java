@@ -537,12 +537,14 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				Edit.getInstance().addNewPicToCard(false, imageUri.getPath(),
 						card);
 
+				// Update the Thumbnail on the back of the card
 				updateImageButtonAdminEdit(false, showPictureButton);
 
 				Toast.makeText(getApplicationContext(),
 						"Picture saved under: " + imageUri.getPath(),
 						Toast.LENGTH_LONG).show();
 				
+				// Set delete Button visible as there is any picture to delete now
 				deletePicture.setVisibility(Button.VISIBLE);
 			}
 		}
@@ -574,12 +576,14 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			ImageButton pictureBtn) {
 		final int THUMBNAIL_SIZE = 128;
 
-		Log.e("AdminEditCard",
-				"update Image Button erreicht: " + card.getCardBackPicture());
 
+		// Check if Button on front (true) or back (false) is to be updated
 		if (front) {
+			// Check if there is any picture available
 			if (!card.getCardFrontPicture().equals("")
 					&& checkPictureAvailability(true)) {
+				
+				// Set up file input stream
 				FileInputStream fis = null;
 				try {
 					fis = new FileInputStream(new File(
@@ -592,6 +596,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					newFragment.show(this.getFragmentManager(), "dialog");
 					e.printStackTrace();
 				}
+				
+				// Create Bitmap --> Thumbnail
 				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
 
 				imageBitmap = Bitmap.createScaledBitmap(imageBitmap,
@@ -601,20 +607,24 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 				byte[] byteArray = baos.toByteArray();
 
+				// Set visibility true and set thumbnail
 				pictureBtn.setVisibility(ImageButton.VISIBLE);
 				pictureBtn.setImageBitmap(imageBitmap);
+				
+			// if there is no front picture available
 			} else {
+				// Set visibility false
 				pictureBtn.setVisibility(ImageButton.GONE);
 			}
+		
+		// If back picture is to be updated
 		} else {
-			Log.e("AdminEditCard", "CardBack:" + card.getCardBackPicture());
-			Log.e("AdminEditCard", "Ergebnis Availability Check: "
-					+ checkPictureAvailability(false));
+			
+			// If card back picture is available
 			if (!card.getCardBackPicture().equals("")
 					&& checkPictureAvailability(false)) {
-				Log.e("AdminEditCard",
-						"UpdateBackButton erreicht: "
-								+ card.getCardBackPicture());
+				
+				// set up file input stream
 				FileInputStream fis = null;
 				try {
 					fis = new FileInputStream(new File(
@@ -627,6 +637,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					newFragment.show(this.getFragmentManager(), "dialog");
 					e.printStackTrace();
 				}
+				
+				// Create bitmap --> thumbnail
 				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
 
 				imageBitmap = Bitmap.createScaledBitmap(imageBitmap,
@@ -636,9 +648,14 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 				byte[] byteArray = baos.toByteArray();
 
+				// set image Button visible and set new thumbnail
 				pictureBtn.setVisibility(ImageButton.VISIBLE);
 				pictureBtn.setImageBitmap(imageBitmap);
+			
+				// if there is no picture available
 			} else {
+				
+				// set image button gone
 				pictureBtn.setVisibility(ImageButton.GONE);
 			}
 		}
@@ -652,7 +669,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 	 * @param front
 	 *            : boolean if to check front picture (true) or back picture
 	 *            (false)
-	 * @return
+	 * @return true, if picture exists
 	 */
 	private boolean checkPictureAvailability(boolean front) {
 
