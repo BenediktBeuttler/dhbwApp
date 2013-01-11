@@ -585,7 +585,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 									Toast.makeText(getActivity(), "File "
 											+ importName
 											+ " got deleted successfully.",
-											Toast.LENGTH_LONG);
+											Toast.LENGTH_LONG).show();
 									AdminImportExport.importList
 									.setAdapter(AdminImportExport
 											.updateImportListAdapter());
