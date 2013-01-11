@@ -14,11 +14,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -32,7 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class StatisticsScreen extends FragmentActivity implements
+public class StatisticsScreen extends OnResumeFragmentActivity implements
 		ActionBar.TabListener {
 
 	/**
@@ -54,6 +52,9 @@ public class StatisticsScreen extends FragmentActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// reload the data, if sth got garbage collected
+		this.reloadOnGarbageCollected();
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.statistics_screen);
 

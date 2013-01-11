@@ -2,12 +2,12 @@ package wi2010d.dhbwapp;
 
 
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -25,6 +25,9 @@ public class HelpAboutScreen extends OnResumeActivity implements OnClickListener
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// reload the data, if sth got garbage collected
+		this.reloadOnGarbageCollected();
+		
 		setContentView(R.layout.help_about_screen);
 
 		appName = (TextView) findViewById(R.id.lbl_help_about_app_name);

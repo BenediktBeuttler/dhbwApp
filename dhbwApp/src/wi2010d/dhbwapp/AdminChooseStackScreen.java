@@ -2,7 +2,6 @@ package wi2010d.dhbwapp;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 import wi2010d.dhbwapp.control.Delete;
@@ -10,7 +9,6 @@ import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.control.Exchange;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
-import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.AlertDialog;
@@ -18,7 +16,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -45,6 +42,9 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//reload the data, if sth got garbage collected
+		this.reloadOnGarbageCollected();
 		setContentView(R.layout.admin_choose_stack_screen);
 		lv = (ListView) findViewById(R.id.admin_stack_list);
 

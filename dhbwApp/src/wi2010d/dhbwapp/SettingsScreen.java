@@ -30,6 +30,9 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// reload the data, if sth got garbage collected
+		this.reloadOnGarbageCollected();
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings_screen);
 

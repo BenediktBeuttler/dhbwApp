@@ -74,6 +74,8 @@ public class LearningCard extends OnResumeFragmentActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// reload the data, if sth got garbage collected
+		this.reloadOnGarbageCollected();
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.learning_card);
