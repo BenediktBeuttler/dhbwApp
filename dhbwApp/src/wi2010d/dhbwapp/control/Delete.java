@@ -1,5 +1,7 @@
 package wi2010d.dhbwapp.control;
 
+import wi2010d.dhbwapp.R;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
@@ -115,7 +117,8 @@ public class Delete {
 				case 2:
 					stack.setSure(stack.getSure() - 1);
 					break;
-				default: // TODO: BENE Gen Error
+				default: 
+					//do nothing, case not possible
 				}
 
 				// if there's no card in the stack, delete it

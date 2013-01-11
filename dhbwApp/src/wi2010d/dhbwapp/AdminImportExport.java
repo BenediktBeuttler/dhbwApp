@@ -132,8 +132,11 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 								.getExternalStorageDirectory().getPath()
 								+ "/knowItOwl/pictures/" + image));
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//Show an import Error, when a File couldn't get copied
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_import_error,
+										ErrorHandlerFragment.IMPORT_ERROR);
+						newFragment.show(this.getFragmentManager(), "dialog");
 					}
 				}
 
