@@ -1,7 +1,5 @@
 package wi2010d.dhbwapp.control;
 
-import wi2010d.dhbwapp.R;
-import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
@@ -117,8 +115,8 @@ public class Delete {
 				case 2:
 					stack.setSure(stack.getSure() - 1);
 					break;
-				default: 
-					//do nothing, case not possible
+				default:
+					// do nothing, case not possible
 				}
 
 				// if there's no card in the stack, delete it
@@ -147,21 +145,39 @@ public class Delete {
 		// delete the given Tag from the dynamic stacks
 		for (Stack stack : Stack.allStacks) {
 			if (stack.isDynamicGenerated()) {
-				stack.getDynamicStackTags().remove(tag);
+				for (int i = 0; i < stack.getDynamicStackTags().size(); i++) {
+					if (stack.getDynamicStackTags().get(i).getTagID() == tag
+							.getTagID()) {
+						stack.getDynamicStackTags().remove(i);
+					}
+				}
 				Create.getInstance().updateDynStack(stack);
 			}
 		}
 
 		// delete the given Tag from the cards
-		for (Card card : Card.allCards) {
-			card.getTags().remove(tag);
+		if (tag.getTotalCards() > 0) {
+			for (int i = 0; i < Card.allCards.size(); i++) {
+				for (int j = 0; j < Card.allCards.get(i).getTags().size(); j++) {
+					if (Card.allCards.get(i).getTags().get(j).getTagID() == tag
+							.getTagID()) {
+						Card.allCards.get(i).getTags().remove(j);
+						break;
+					}
+				}
+			}
 		}
 
 		// delete the Tag from the Tag list
+		for (int i = 0; i < Tag.allTags.size(); i++) {
+			if (Tag.allTags.get(i).getTagID() == tag.getTagID()) {
+				Tag.allTags.remove(i);
+			}
+		}
 		Tag.allTags.remove(tag);
-
+		
 		// delete the tag
-		db.deleteTag(tag);
+		db.deleteTag(tag); 
 		tag = null;
 		return true;
 	}

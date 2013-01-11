@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 /**
  * Reads all the data from the DB and initializes the objects. While doing that,
@@ -99,6 +100,7 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		this.assignTagsToCards();
 		this.assignTagstoStacks();
 
+		this.deleteUnusedTags();
 		runComplete = true;
 		return true;
 	}
@@ -355,6 +357,15 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		Database.getInstance().close();
 		return true;
 
+	}
+
+	public boolean deleteUnusedTags() {
+		for (Tag tag : Tag.allTags) {
+			if (tag.getTotalCards() == 0) {
+				Delete.getInstance().deleteTag(tag);
+			}
+		}
+		return true;
 	}
 
 	/**
