@@ -179,34 +179,52 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 			break;
 		case R.id.btn_settings_reset_statistics:
 			
-			// Get every Stack to delete every Runthrough
-			for (Stack stack : Stack.allStacks){
-				for (Runthrough run : stack.getLastRunthroughs()){
+			// Check if there is any Stack available
+			if (Stack.allStacks.size() != 0){
+				// Get every Stack to delete every Runthrough
+				for (Stack stack : Stack.allStacks){
+					for (Runthrough run : stack.getLastRunthroughs()){
+						
+						// Delete Runthrough in DB
+						Delete.getInstance().deleteRunthrough(run);
+					}
 					
-					// Delete Runthrough in DB
-					Delete.getInstance().deleteRunthrough(run);
+					stack.getLastRunthroughs().clear();
 				}
 				
-				stack.getLastRunthroughs().clear();
+				Toast toastStatistics = Toast.makeText(getApplicationContext(), 
+						"Statistics has been resetted successfully", Toast.LENGTH_LONG);
+				toastStatistics.show();
+			// if there are no stacks available
+			}else{
+				Toast toastStatistics = Toast.makeText(getApplicationContext(), 
+						"There are no Stacks available", Toast.LENGTH_LONG);
+				toastStatistics.show();
 			}
-			
-			Toast toastStatistics = Toast.makeText(getApplicationContext(), 
-					"Statistics has been resetted successfully", Toast.LENGTH_LONG);
-			toastStatistics.show();
 			
 			break;
 		case R.id.btn_settings_reset_drawer:
 			
-			// Reset drawers for each stack
-			// Get all stacks
-			for (Stack stack : Stack.allStacks){
-				Edit.getInstance().resetDrawer(stack);
+			// Check if there is any Stack available
+			if (Stack.allStacks.size() != 0){
+				// Reset drawers for each stack
+				// Get all stacks
+				for (Stack stack : Stack.allStacks){
+					Edit.getInstance().resetDrawer(stack);
+				}
+				
+				Toast toastDrawers = Toast.makeText(getApplicationContext(),
+						"Drawers have been resetted successfully", Toast.LENGTH_LONG);
+				toastDrawers.show();
+				break;
+			// if there are no stacks available
+			}else{
+				Toast toastDrawers = Toast.makeText(getApplicationContext(),
+						"There are no Stacks available", Toast.LENGTH_LONG);
+				toastDrawers.show();
 			}
 			
-			Toast toastDrawers = Toast.makeText(getApplicationContext(),
-					"Drawers have been resetted successfully", Toast.LENGTH_LONG);
-			toastDrawers.show();
-			break;
+
 			
 		default:
 			// if anything goes wrong (case not found), display general error
