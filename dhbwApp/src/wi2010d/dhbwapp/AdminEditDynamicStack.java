@@ -282,7 +282,6 @@ public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 								.newInstance(R.string.error_handler_no_input,
 										ErrorHandlerFragment.NO_INPUT);
 						newFragment.show(getFragmentManager(), "dialog");
-						break;
 					}
 					Edit.getInstance().changeStackName(
 							txt_stack_name.getText().toString(), foundStack);
@@ -297,7 +296,6 @@ public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 								.newInstance(R.string.error_handler_no_tag,
 										ErrorHandlerFragment.NO_TAG);
 						newFragment.show(getFragmentManager(), "dialog");
-						break;
 					} else {
 						foundStack.setDynamicStackTags(stackTagList);
 						Create.getInstance().updateDynStack(foundStack);
@@ -311,7 +309,6 @@ public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 						finish();
 					}
 
-					break;
 				}
 			}
 			return true;
