@@ -544,9 +544,11 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 			info = (AdapterContextMenuInfo) item.getMenuInfo();
 			final String importName = ((TextView) info.targetView).getText()
 					.toString();
+
 			if (item.getTitle() == "Import") {
 				try {
-					// actually import the selected stack into the knowitowl folder
+					// actually import the selected stack into the knowitowl
+					// folder
 					if (Exchange.getInstance().importStack(
 							Environment.getExternalStorageDirectory().getPath()
 									+ "/knowItOwl/" + importName)) {
@@ -576,7 +578,27 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
-								// TODO: Thomas, delete code here
+								if (new File(Environment
+										.getExternalStorageDirectory()
+										.getPath()
+										+ "/knowItOwl/" + importName).delete()) {
+									Toast.makeText(getActivity(), "File "
+											+ importName
+											+ " got deleted successfully.",
+											Toast.LENGTH_LONG);
+									AdminImportExport.importList
+									.setAdapter(AdminImportExport
+											.updateImportListAdapter());
+								} else {
+									// problem during delete
+									ErrorHandlerFragment newFragment = ErrorHandlerFragment
+											.newInstance(
+													R.string.error_handler_general,
+													ErrorHandlerFragment.EXPORT_ERROR);
+									newFragment.show(getActivity()
+											.getFragmentManager(), "dialog");
+								}
+
 							}
 						});
 				alert.setNegativeButton("Cancel",
