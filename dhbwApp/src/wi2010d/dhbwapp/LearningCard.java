@@ -13,7 +13,6 @@ import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -65,7 +64,6 @@ public class LearningCard extends OnResumeFragmentActivity implements
 	private TextView txt_counter_back;
 	private TextView txt_front;
 	private TextView txt_back;
-	private Button sure, dontKnow, notSure;
 	private boolean isRandomStack;
 	private boolean optionItemPressed;
 
@@ -178,7 +176,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (!optionItemPressed) {
-			optionItemPressed=true;
+			optionItemPressed = true;
 			showImageFront = (ImageButton) findViewById(R.id.btn_learning_card_front_picture);
 			showImageBack = (ImageButton) findViewById(R.id.btn_learning_card_back_picture);
 			// Handle item selection
@@ -283,6 +281,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 										if (Learn.getInstance().isLastCard()) {
 											Delete.getInstance().deleteStack(
 													stack);
+											setResult(LearningChooseStackScreen.RESULT_ALL_CARDS_DELETED);
 											finish();
 											return;
 										} else {
@@ -345,8 +344,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 				error.handleError(1);
 				return false;
 			}
-		}
-		else{
+		} else {
 			return false;
 		}
 	}

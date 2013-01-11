@@ -57,6 +57,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 	private float mAccel; // acceleration apart from gravity
 	private float mAccelCurrent; // current acceleration including gravity
 	private float mAccelLast; // last acceleration including gravity
+	public static final int RESULT_ALL_CARDS_DELETED = 10;
 
 	private final SensorEventListener mSensorListener = new SensorEventListener() {
 
@@ -85,7 +86,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 				if (rndStack != null) {
 					i.putExtra("stackName", rndStack.getStackName());
 					i.putExtra("isRandomStack", true);
-					startActivity(i);
+					startActivityForResult(i, 1);
 				} else {
 					ErrorHandler.getInstance().handleError(
 							ErrorHandler.getInstance().GENERAL_ERROR);
@@ -93,7 +94,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 			}
 		}
 	};
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// reload the data, if sth got garbage collected
@@ -146,7 +147,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 					Intent i = new Intent(getApplicationContext(),
 							LearningCard.class);
 					i.putExtra("stackName", stackName);
-					startActivity(i);
+					startActivityForResult(i, 1);
 				}
 
 			}
@@ -211,7 +212,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 
 		if (!stackName.equals("No stacks available")) {
 			if (item.getTitle() == "Change Name") {
-				
+
 				// create dialog to insert name of new stack
 				AlertDialog.Builder alert = new AlertDialog.Builder(this);
 				alert.setTitle("Edit Stack");
@@ -289,7 +290,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 					Intent i = new Intent(getApplicationContext(),
 							LearningCard.class);
 					i.putExtra("stackName", stackName);
-					startActivity(i);
+					startActivityForResult(i, 1);
 				}
 
 			} else if (item.getTitle() == "Change Name and Tags") {
@@ -358,7 +359,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 				// show it
 				alertDialog.show();
 
-			}else if (item.getTitle() == "Add Tags to all Cards") {
+			} else if (item.getTitle() == "Add Tags to all Cards") {
 				AlertDialog.Builder alert = new AlertDialog.Builder(this);
 				alert.setTitle("Add Tag to Cards");
 				alert.setMessage("Please insert the name of the Tag you want to add to all Cards in this Stack");
@@ -374,12 +375,12 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 									int whichButton) {
 								String newTagName = input.getText().toString();
 								Tag newTag = new Tag(newTagName);
-								Stack clickedStack = null;								
+								Stack clickedStack = null;
 								for (Stack stack : Stack.allStacks) {
-									if (stack.getStackName().equals(
-											stackName)) {										
+									if (stack.getStackName().equals(stackName)) {
 										clickedStack = stack;
-										Edit.getInstance().addTagToStack(newTag, clickedStack);
+										Edit.getInstance().addTagToStack(
+												newTag, clickedStack);
 										break;
 									}
 								}
@@ -394,8 +395,8 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 							}
 						});
 				alert.show();
-				
-				} else if (item.getTitle() == "Delete") {
+
+			} else if (item.getTitle() == "Delete") {
 				// Delete the selected stack, after asking the user
 
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -530,6 +531,13 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		if (resultCode == AdminChooseStackScreen.RESULT_OK) {
 			updateStackList();
 		}
+		if (resultCode == RESULT_ALL_CARDS_DELETED) {
+			updateStackList();
+			Toast.makeText(
+					getApplicationContext(),
+					"All cards have been deleted, so the stack has been deleted too",
+					Toast.LENGTH_LONG).show();
+		}
 	}
 
 	@Override
@@ -564,7 +572,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 
 	@Override
 	public void onClick(View v) {
-		startActivity(new Intent(this, LearningCard.class));
+		startActivityForResult(new Intent(this, LearningCard.class), 1);
 	}
 
 	@Override
