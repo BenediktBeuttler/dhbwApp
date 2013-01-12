@@ -13,9 +13,18 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
-import org.jdom2.Document;
+import org.w3c.dom.Document;
+
 import org.jdom2.JDOMException;
+import org.xml.sax.SAXException;
 
 import wi2010d.dhbwapp.control.Exchange;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
@@ -108,22 +117,36 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 						try {
 							InputStream attachment = getContentResolver()
 									.openInputStream((Uri) extras.get("Data"));
-							File savedFile = new File(Environment
-									.getExternalStorageDirectory().getPath()
-									+ "/knowItOwl/" + attachmentName);
-							FileOutputStream f = new FileOutputStream(savedFile);
-							byte[] buffer = new byte[1024];
-							int len1 = 0;
-							while ((len1 = attachment.read(buffer)) > 0) {
-								f.write(buffer);
-							}
-							f.close();
+							DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+							Document doc = builder.parse(attachment);
+							TransformerFactory
+							.newInstance()
+							.newTransformer()
+							.transform(new DOMSource(doc),
+									new StreamResult(Environment
+											.getExternalStorageDirectory().getPath()
+											+ "/knowItOwl/" + attachmentName));
 							attachment.close();
 							copyOK = true;
 						} catch (FileNotFoundException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (ParserConfigurationException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (SAXException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (TransformerConfigurationException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (TransformerException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (TransformerFactoryConfigurationError e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
@@ -153,9 +176,6 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 						newFragment.show(this.getFragmentManager(), "dialog");
 					}
 				}
-
-				Log.e("TB att. name", Environment.getExternalStorageDirectory()
-						.getPath() + "/knowItOwl/" + attachmentName);
 
 				if (copyOK) {
 					try {
