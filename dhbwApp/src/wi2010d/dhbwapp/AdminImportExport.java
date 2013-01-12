@@ -2,13 +2,19 @@ package wi2010d.dhbwapp;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.jdom2.Document;
 import org.jdom2.JDOMException;
 
 import wi2010d.dhbwapp.control.Exchange;
@@ -18,11 +24,14 @@ import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -85,25 +94,76 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 			Bundle extras = getIntent().getExtras();
 			if (extras.getString("Path") != null) {
 				String path = extras.getString("Path");
-				int end = path.lastIndexOf("/");
-				String str1 = path.substring(end + 1, path.length());
-				String dest = Environment.getExternalStorageDirectory()
-						.getPath() + "/knowItOwl/" + str1;
-				try {
-					copyFile(new File(path), new File(dest));
-					copyOK = true;
-				} catch (IOException e) {
-					// display a general error if the file is not found
-					ErrorHandlerFragment newFragment = ErrorHandlerFragment
-							.newInstance(R.string.error_handler_general,
-									ErrorHandlerFragment.GENERAL_ERROR);
-					newFragment.show(this.getFragmentManager(), "dialog");
+				Log.e("TB Path", path);
+				String attachmentName = "";
+
+				if (!extras.get("Data").equals("")) {
+
+					if (getContentName(getContentResolver(),
+							(Uri) extras.get("Data")) != null) {
+						attachmentName = getContentName(getContentResolver(),
+								(Uri) extras.get("Data"));
+
+						// try to get the attachment
+						try {
+							InputStream attachment = getContentResolver()
+									.openInputStream((Uri) extras.get("Data"));
+							File savedFile = new File(Environment
+									.getExternalStorageDirectory().getPath()
+									+ "/knowItOwl/" + attachmentName);
+							FileOutputStream f = new FileOutputStream(savedFile);
+							byte[] buffer = new byte[1024];
+							int len1 = 0;
+							while ((len1 = attachment.read(buffer)) > 0) {
+								f.write(buffer);
+							}
+							f.close();
+							attachment.close();
+							copyOK = true;
+						} catch (FileNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					else{
+						// display a general error if the file is not found
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(this.getFragmentManager(), "dialog");
+					}
 				}
+
+				else {
+					int end = path.lastIndexOf("/");
+					attachmentName = path.substring(end + 1, path.length());
+					String dest = Environment.getExternalStorageDirectory()
+							.getPath() + "/knowItOwl/" + attachmentName;
+					try {
+						copyFile(new File(path), new File(dest));
+						copyOK = true;
+					} catch (IOException e) {
+						// display a general error if the file is not found
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(this.getFragmentManager(), "dialog");
+					}
+				}
+
+				Log.e("TB att. name", Environment.getExternalStorageDirectory()
+						.getPath() + "/knowItOwl/" + attachmentName);
+
 				if (copyOK) {
 					try {
 						Exchange.getInstance().importStack(
 								Environment.getExternalStorageDirectory()
-										.getPath() + "/knowItOwl/" + str1);
+										.getPath()
+										+ "/knowItOwl/"
+										+ attachmentName);
 					} catch (JDOMException e) {
 						// display a general error if the file is not found
 						ErrorHandlerFragment newFragment = ErrorHandlerFragment
@@ -119,26 +179,31 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 						newFragment.show(this.getFragmentManager(), "dialog");
 						e.printStackTrace();
 					}
-					Toast toast = Toast
-							.makeText(getApplicationContext(), str1
-									+ " got imported successfully!",
-									Toast.LENGTH_SHORT);
+					Toast toast = Toast.makeText(getApplicationContext(),
+							attachmentName + " got imported successfully!",
+							Toast.LENGTH_SHORT);
 					toast.show();
 				}
-				end = path.lastIndexOf("/");
-				String str2 = path.substring(0, end + 1);
-				for (String image : Exchange.getInstance().getImageList()) {
-					try {
-						copyFile(new File(str2 + image), new File(Environment
-								.getExternalStorageDirectory().getPath()
-								+ "/knowItOwl/pictures/" + image));
-					} catch (IOException e) {
-						// Show an import Error, when a File couldn't get copied
-						ErrorHandlerFragment newFragment = ErrorHandlerFragment
-								.newInstance(
-										R.string.error_handler_import_error,
-										ErrorHandlerFragment.IMPORT_ERROR);
-						newFragment.show(this.getFragmentManager(), "dialog");
+				if (!extras.get("Data").equals("")) {
+					int end = path.lastIndexOf("/");
+					String str2 = path.substring(0, end + 1);
+					for (String image : Exchange.getInstance().getImageList()) {
+						try {
+							copyFile(new File(str2 + image), new File(
+									Environment.getExternalStorageDirectory()
+											.getPath()
+											+ "/knowItOwl/pictures/"
+											+ image));
+						} catch (IOException e) {
+							// Show an import Error, when a File couldn't get
+							// copied
+							ErrorHandlerFragment newFragment = ErrorHandlerFragment
+									.newInstance(
+											R.string.error_handler_import_error,
+											ErrorHandlerFragment.IMPORT_ERROR);
+							newFragment.show(this.getFragmentManager(),
+									"dialog");
+						}
 					}
 				}
 
@@ -582,13 +647,15 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 										.getExternalStorageDirectory()
 										.getPath()
 										+ "/knowItOwl/" + importName).delete()) {
-									Toast.makeText(getActivity(), "File "
-											+ importName
-											+ " got deleted successfully.",
+									Toast.makeText(
+											getActivity(),
+											"File "
+													+ importName
+													+ " got deleted successfully.",
 											Toast.LENGTH_LONG).show();
 									AdminImportExport.importList
-									.setAdapter(AdminImportExport
-											.updateImportListAdapter());
+											.setAdapter(AdminImportExport
+													.updateImportListAdapter());
 								} else {
 									// problem during delete
 									ErrorHandlerFragment newFragment = ErrorHandlerFragment
@@ -722,7 +789,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 									// Start Sending Intent
 									Intent intent = new Intent(
 											Intent.ACTION_SEND_MULTIPLE);
-									intent.setType("text/html");
+									intent.setType("text/xml");
 									intent.putParcelableArrayListExtra(
 											Intent.EXTRA_STREAM, uris);
 									intent.putExtra(Intent.EXTRA_SUBJECT,
@@ -798,7 +865,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 											// Start Sending Intent
 											Intent intent = new Intent(
 													Intent.ACTION_SEND_MULTIPLE);
-											intent.setType("text/html");
+											intent.setType("text/xml");
 											intent.putParcelableArrayListExtra(
 													Intent.EXTRA_STREAM, uris2);
 											intent.putExtra(
@@ -852,5 +919,21 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 				AdminImportExport.importView.getContext(),
 				android.R.layout.simple_list_item_1, items);
 		return importListAdapter;
+	}
+	
+	//Use this method to get the filename of the attachment in the email
+	public static String getContentName(ContentResolver resolver, Uri uri) {
+		Cursor cursor = resolver.query(uri, new String[]{MediaStore.MediaColumns.DISPLAY_NAME}, null, null, null);
+		cursor.moveToFirst();
+		int nameIndex = cursor
+				.getColumnIndex(MediaStore.MediaColumns.DISPLAY_NAME);
+		if (nameIndex >= 0) {
+			String contentName = cursor.getString(nameIndex);
+			cursor.close();
+			return contentName;
+		} else {
+			cursor.close();
+			return null;
+		}
 	}
 }

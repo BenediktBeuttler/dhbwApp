@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -63,6 +64,12 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 					startScreenActivity.getApplicationContext(),
 					AdminImportExport.class);
 			intent.putExtra("Path", path);
+			if(startScreenActivity.getIntent().getScheme().equals("content")){
+				intent.putExtra("Data", startScreenActivity.getIntent().getData());
+			}
+			else{
+				intent.putExtra("Data", "");
+			}
 			startScreenActivity.startActivity(intent);
 			startScreenActivity.finish();
 		} else {

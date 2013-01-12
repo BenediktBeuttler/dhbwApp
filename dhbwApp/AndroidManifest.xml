@@ -9,6 +9,8 @@
         android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.android.email.permission.ACCESS_PROVIDER"/>
+    <uses-permission android:name="com.android.email.permission.READ_ATTACHMENT"/>
 
     <application
         android:allowBackup="true"
@@ -32,14 +34,28 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:mimeType="*/*" />
-                <data android:scheme="file" />
+                <data android:mimeType="text/*" />
                 <data android:host="*" />
+                <data android:scheme="file" />
+                <data android:port="*" />
                 <data android:pathPattern="*.xml" />
                 <data android:pathPattern=".*\\.xml" />
                 <data android:pathPattern=".*\\..*\\.xml" />
                 <data android:pathPattern=".*\\..*\\..*\\.xml" />
                 <data android:pathPattern=".*\\..*\\..*\\..*\\.xml" />
+                <data android:pathPattern=".*..*..*..*..*..*.xml" />
+                <data android:pathPattern=".*..*..*..*..*.xml" />
+                <data android:pathPattern=".*..*..*..*.xml" />
+                <data android:pathPattern=".*..*..*.xml" />
+                <data android:pathPattern=".*..*.xml" />
+                <data android:pathPattern=".*.xml" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/xml" />
             </intent-filter>
         </activity>
         <activity
