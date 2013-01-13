@@ -150,12 +150,13 @@ public class Learn {
 		progress = "card " + actualCard + " of " + cardsInQueues;
 		return progress;
 	}
-	
+
 	/**
-	 * @return true if the actual card is the last card in the learning session, else return false
+	 * @return true if the actual card is the last card in the learning session,
+	 *         else return false
 	 */
-	public boolean isLastCard(){
-		return totalCards==1;
+	public boolean isLastCard() {
+		return totalCards == 1;
 	}
 
 	/**
@@ -325,8 +326,12 @@ public class Learn {
 		 *            as specified position of the card in the queue
 		 */
 		public void remove(int index) {
-			queueSize--;
-			arrayList.remove(index);
+			if (index < 0 || index > queueSize) {
+				ErrorHandler.getInstance().handleError(ErrorHandler.getInstance().GENERAL_ERROR);
+			} else {
+				queueSize--;
+				arrayList.remove(index);
+			}
 		}
 
 		/**
