@@ -57,17 +57,37 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		super.onPostExecute(result);
 		new ErrorHandler(startScreenActivity.getApplicationContext());
 
+		/*
+		 * if the user clicked on a xml-file outside of our app, store 
+		 * the intent data in a new intent for the import activity
+		 */
 		if (startScreenActivity.getIntent().getData() != null
 				&& startScreenActivity.getIntent().getData().getPath() != null) {
-			String path = startScreenActivity.getIntent().getData().getPath();
 			Intent intent = new Intent(
 					startScreenActivity.getApplicationContext(),
 					AdminImportExport.class);
-			intent.putExtra("Path", path);
-			if(startScreenActivity.getIntent().getScheme().equals("content")){
+			
+			/* 
+			 * write a path-extra with a file path, if the user clicked on a xml-file in
+			 * Dropbox, Drive, a FileManager or something similar
+			 */
+			if(startScreenActivity.getIntent().getScheme().equals("file")){
+				intent.putExtra("Path", startScreenActivity.getIntent().getData().getPath());
+			}
+			
+			/* 
+			 * write a data-extra with content data, if the user clicked on a xml-file in
+			 * an email-attachment or something comparable
+			 */
+			else if (startScreenActivity.getIntent().getScheme().equals("content")){
 				intent.putExtra("Data", startScreenActivity.getIntent().getData());
 			}
-			else{
+			
+			/* 
+			 * if the intent scheme is not file and not content, we do not handle it today
+			 */
+			else {
+				intent.putExtra("Path", "");
 				intent.putExtra("Data", "");
 			}
 			startScreenActivity.startActivity(intent);

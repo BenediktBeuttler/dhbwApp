@@ -88,7 +88,6 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 	static ListView importList;
 	static ArrayAdapter<String> importListAdapter;
 	static View importView;
-	private boolean copyOK;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,140 +96,209 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 
 		super.onCreate(savedInstanceState);
 
-		copyOK = false;
+		// init variables
+		boolean copyOK = false;
+		String attachmentName = "";
+		String path = "";
 
+		/*
+		 * get the Intent. If it is not null, the user has clicked on an
+		 * xml-file outside our app. In this case we have to handle the import
+		 */
 		if (getIntent().getExtras() != null) {
 			Bundle extras = getIntent().getExtras();
-			if (extras.getString("Path") != null) {
-				String path = extras.getString("Path");
-				Log.e("TB Path", path);
-				String attachmentName = "";
 
-				if (!extras.get("Data").equals("")) {
+			/*
+			 * the path-extra is set with a real path, if the user clicked on a
+			 * xml-file in Dropbox, Drive, FileManager or something similar
+			 * (that starts a file-intent). The path-extra is "", if the user
+			 * clicked on a xml-file in an email attachment
+			 */
+			if (extras.getString("Path") != null
+					&& !extras.getString("Path").equals("")) {
 
-					if (getContentName(getContentResolver(),
-							(Uri) extras.get("Data")) != null) {
-						attachmentName = getContentName(getContentResolver(),
-								(Uri) extras.get("Data"));
+				// read the path extra and store it in our variable
+				path = extras.getString("Path");
 
-						// try to get the attachment
-						try {
-							InputStream attachment = getContentResolver()
-									.openInputStream((Uri) extras.get("Data"));
-							DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-							Document doc = builder.parse(attachment);
-							TransformerFactory
-							.newInstance()
-							.newTransformer()
-							.transform(new DOMSource(doc),
-									new StreamResult(Environment
-											.getExternalStorageDirectory().getPath()
-											+ "/knowItOwl/" + attachmentName));
-							attachment.close();
-							copyOK = true;
-						} catch (FileNotFoundException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (ParserConfigurationException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (SAXException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (TransformerConfigurationException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (TransformerException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (TransformerFactoryConfigurationError e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-					else{
-						// display a general error if the file is not found
-						ErrorHandlerFragment newFragment = ErrorHandlerFragment
-								.newInstance(R.string.error_handler_general,
-										ErrorHandlerFragment.GENERAL_ERROR);
-						newFragment.show(this.getFragmentManager(), "dialog");
-					}
+				// First we need the filename of the xml-file
+				int end = path.lastIndexOf("/");
+				attachmentName = path.substring(end + 1, path.length());
+
+				// init the destination, the file in Dropbox/Drive/etc. has to
+				// be copied to
+				String dest = Environment.getExternalStorageDirectory()
+						.getPath() + "/knowItOwl/" + attachmentName;
+
+				// try to copy the file in our knowItOwl folder
+				try {
+					copyFile(new File(path), new File(dest));
+					copyOK = true;
+				} catch (IOException e) {
+					// display a general error if the file could not be copied
+					ErrorHandlerFragment newFragment = ErrorHandlerFragment
+							.newInstance(R.string.error_handler_general,
+									ErrorHandlerFragment.GENERAL_ERROR);
+					newFragment.show(this.getFragmentManager(), "dialog");
 				}
 
-				else {
-					int end = path.lastIndexOf("/");
-					attachmentName = path.substring(end + 1, path.length());
-					String dest = Environment.getExternalStorageDirectory()
-							.getPath() + "/knowItOwl/" + attachmentName;
+				/*
+				 * the current state is that there is only one possibility to import
+				 * a stack, that also has pictures in its cards. This is possible,
+				 * if the xml-file of the stack is in the same directory as the
+				 * pictures for its cards. In this case, the user has to click on
+				 * the xml-file in a FileManager and choose open with KnowItOwl. If
+				 */
+				int end1 = path.lastIndexOf("/");
+				String str2 = path.substring(0, end1 + 1);
+				
+				for (String image : Exchange.getInstance().getImageList()) {
 					try {
-						copyFile(new File(path), new File(dest));
-						copyOK = true;
+						copyFile(new File(str2 + image), new File(Environment
+								.getExternalStorageDirectory().getPath()
+								+ "/knowItOwl/pictures/" + image));
 					} catch (IOException e) {
-						// display a general error if the file is not found
+						// Show an import Error, when a File couldn't get
+						// copied
+						// TODO: Bene: dieser Error kommt nur, wenn die Bilder nicht gefunden wurden
 						ErrorHandlerFragment newFragment = ErrorHandlerFragment
-								.newInstance(R.string.error_handler_general,
-										ErrorHandlerFragment.GENERAL_ERROR);
+								.newInstance(
+										R.string.error_handler_import_error,
+										ErrorHandlerFragment.IMPORT_ERROR);
 						newFragment.show(this.getFragmentManager(), "dialog");
 					}
 				}
-
-				if (copyOK) {
-					try {
-						Exchange.getInstance().importStack(
-								Environment.getExternalStorageDirectory()
-										.getPath()
-										+ "/knowItOwl/"
-										+ attachmentName);
-					} catch (JDOMException e) {
-						// display a general error if the file is not found
-						ErrorHandlerFragment newFragment = ErrorHandlerFragment
-								.newInstance(R.string.error_handler_general,
-										ErrorHandlerFragment.GENERAL_ERROR);
-						newFragment.show(this.getFragmentManager(), "dialog");
-						e.printStackTrace();
-					} catch (IOException e) {
-						// display a general error if the file is not found
-						ErrorHandlerFragment newFragment = ErrorHandlerFragment
-								.newInstance(R.string.error_handler_general,
-										ErrorHandlerFragment.GENERAL_ERROR);
-						newFragment.show(this.getFragmentManager(), "dialog");
-						e.printStackTrace();
-					}
-					Toast toast = Toast.makeText(getApplicationContext(),
-							attachmentName + " got imported successfully!",
-							Toast.LENGTH_SHORT);
-					toast.show();
-				}
-				if (!extras.get("Data").equals("")) {
-					int end = path.lastIndexOf("/");
-					String str2 = path.substring(0, end + 1);
-					for (String image : Exchange.getInstance().getImageList()) {
-						try {
-							copyFile(new File(str2 + image), new File(
-									Environment.getExternalStorageDirectory()
-											.getPath()
-											+ "/knowItOwl/pictures/"
-											+ image));
-						} catch (IOException e) {
-							// Show an import Error, when a File couldn't get
-							// copied
-							ErrorHandlerFragment newFragment = ErrorHandlerFragment
-									.newInstance(
-											R.string.error_handler_import_error,
-											ErrorHandlerFragment.IMPORT_ERROR);
-							newFragment.show(this.getFragmentManager(),
-									"dialog");
-						}
-					}
-				}
-
-				finish();
-				startActivity(new Intent(this, StartScreen.class));
 			}
 
+			// else if the data-extra is set, the user clicked on an email
+			// attachment
+			else if (extras.get("Data") != null
+					&& !extras.get("Data").equals("")) {
+
+				// first we need the filename of the email attachment
+				if (getContentName(getContentResolver(),
+						(Uri) extras.get("Data")) != null) {
+
+					// store the filename in our own variable
+					attachmentName = getContentName(getContentResolver(),
+							(Uri) extras.get("Data"));
+
+					// try to save the attachment in our knowItOwl folder on the
+					// sdcard
+					try {
+						InputStream attachment = getContentResolver()
+								.openInputStream((Uri) extras.get("Data"));
+						DocumentBuilder builder = DocumentBuilderFactory
+								.newInstance().newDocumentBuilder();
+						Document doc = builder.parse(attachment);
+						TransformerFactory
+								.newInstance()
+								.newTransformer()
+								.transform(
+										new DOMSource(doc),
+										new StreamResult(Environment
+												.getExternalStorageDirectory()
+												.getPath()
+												+ "/knowItOwl/"
+												+ attachmentName));
+						attachment.close();
+						copyOK = true;
+					} catch (FileNotFoundException e1) {
+						// display a general error if the file is not found
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(this.getFragmentManager(), "dialog");
+						e1.printStackTrace();
+					} catch (IOException e) {
+						// display a general error if the file is not found
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(this.getFragmentManager(), "dialog");
+						e.printStackTrace();
+					} catch (ParserConfigurationException e) {
+						// display a general error if the file is not found
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(this.getFragmentManager(), "dialog");
+						e.printStackTrace();
+					} catch (SAXException e) {
+						// display a general error if the file is not found
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(this.getFragmentManager(), "dialog");
+						e.printStackTrace();
+					} catch (TransformerConfigurationException e) {
+						// display a general error if the file is not found
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(this.getFragmentManager(), "dialog");
+						e.printStackTrace();
+					} catch (TransformerException e) {
+						// display a general error if the file is not found
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(this.getFragmentManager(), "dialog");
+						e.printStackTrace();
+					} catch (TransformerFactoryConfigurationError e) {
+						// display a general error if the file is not found
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(this.getFragmentManager(), "dialog");
+						e.printStackTrace();
+					}
+				} else {
+					// display a general error if the file (filename) is not
+					// found
+					ErrorHandlerFragment newFragment = ErrorHandlerFragment
+							.newInstance(R.string.error_handler_general,
+									ErrorHandlerFragment.GENERAL_ERROR);
+					newFragment.show(this.getFragmentManager(), "dialog");
+				}
+			}
+
+			/*
+			 * if everything worked fine the copyOK-variable is true (either the
+			 * email attachment or the Dropbox/Drive/etc. file is now saved in
+			 * our knowItOwl folder. We can now import the stack to our app.
+			 */
+			if (copyOK) {
+
+				// try to import the stack to our app
+				try {
+					Exchange.getInstance().importStack(
+							Environment.getExternalStorageDirectory().getPath()
+									+ "/knowItOwl/" + attachmentName);
+				} catch (JDOMException e) {
+					// display a general error if the file is not found
+					ErrorHandlerFragment newFragment = ErrorHandlerFragment
+							.newInstance(R.string.error_handler_general,
+									ErrorHandlerFragment.GENERAL_ERROR);
+					newFragment.show(this.getFragmentManager(), "dialog");
+					e.printStackTrace();
+				} catch (IOException e) {
+					// display a general error if the file is not found
+					ErrorHandlerFragment newFragment = ErrorHandlerFragment
+							.newInstance(R.string.error_handler_general,
+									ErrorHandlerFragment.GENERAL_ERROR);
+					newFragment.show(this.getFragmentManager(), "dialog");
+					e.printStackTrace();
+				}
+
+				// if the stack got imported successfully, make a toast
+				Toast toast = Toast.makeText(getApplicationContext(),
+						attachmentName + " got imported successfully!",
+						Toast.LENGTH_SHORT);
+				toast.show();
+			}
+
+			finish();
+			startActivity(new Intent(this, StartScreen.class));
 		}
 
 		setContentView(R.layout.admin_import_export_screen);
@@ -940,20 +1008,27 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 				android.R.layout.simple_list_item_1, items);
 		return importListAdapter;
 	}
-	
-	//Use this method to get the filename of the attachment in the email
+
+	// Use this method to get the filename of the attachment in the email
 	public static String getContentName(ContentResolver resolver, Uri uri) {
-		Cursor cursor = resolver.query(uri, new String[]{MediaStore.MediaColumns.DISPLAY_NAME}, null, null, null);
-		cursor.moveToFirst();
-		int nameIndex = cursor
-				.getColumnIndex(MediaStore.MediaColumns.DISPLAY_NAME);
-		if (nameIndex >= 0) {
-			String contentName = cursor.getString(nameIndex);
-			cursor.close();
-			return contentName;
+		Cursor cursor = resolver.query(uri,
+				new String[] { MediaStore.MediaColumns.DISPLAY_NAME }, null,
+				null, null);
+		if (cursor != null) {
+			cursor.moveToFirst();
+			int nameIndex = cursor
+					.getColumnIndex(MediaStore.MediaColumns.DISPLAY_NAME);
+			if (nameIndex >= 0) {
+				String contentName = cursor.getString(nameIndex);
+				cursor.close();
+				return contentName;
+			} else {
+				cursor.close();
+				return null;
+			}
 		} else {
-			cursor.close();
 			return null;
 		}
+
 	}
 }
