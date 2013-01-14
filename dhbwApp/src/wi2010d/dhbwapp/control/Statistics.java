@@ -328,10 +328,31 @@ public class Statistics {
 	 * @param name selected Stack name
 	 * @return ArrayList with last Runthrough Dates (formatted)
 	 */
+	public long[] getLastRunthroughDatesAsDate(String name){
+				
+		long[] lastDates = new long[10];
+		int i=0;
+		
+		// Get last Runthroughs of selected Stack
+		for (Runthrough runthrough : getLastRunthroughs(name)){
+			// Add the End Date to the result
+			lastDates[i]=runthrough.getEndDate().getTime();
+			i++;
+		}
+		
+		return lastDates;
+	}
+	
+	/**
+	 * Get last Runthrough Dates of selected Stack
+	 * 
+	 * @param name selected Stack name
+	 * @return ArrayList with last Runthrough Dates (formatted)
+	 */
 	public ArrayList<String> getLastRunthroughDates(String name){
 		
 		List<String> lastDates = new ArrayList<String>();
-		
+	
 		// SimpleDateFormat formater = new SimpleDateFormat();
 		SimpleDateFormat sd = new SimpleDateFormat("dd.MM.yy',' HH:mm");
 		
@@ -343,7 +364,6 @@ public class Statistics {
 		
 		return (ArrayList<String>) lastDates;
 	}
-	
 	/**
 	 * Get Progress (statusAfter for all Runthroughs) for selected Stack
 	 * 

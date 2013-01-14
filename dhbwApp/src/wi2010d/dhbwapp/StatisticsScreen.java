@@ -1,7 +1,9 @@
 package wi2010d.dhbwapp;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import wi2010d.dhbwapp.control.Delete;
@@ -530,6 +532,8 @@ public class StatisticsScreen extends OnResumeFragmentActivity implements
 					int[][] allData = Statistics.getInstance().getLastProgress(
 							selectedStack);
 					
+					long[] lastDates = Statistics.getInstance().getLastRunthroughDatesAsDate(selectedStack);
+					
 					for (int i = 0; i < numberRunthroughs; i++) {
 						// fill the variable dontKnow with the Y-values
 						dontKnowY[i] = allData[i][0];
@@ -543,6 +547,7 @@ public class StatisticsScreen extends OnResumeFragmentActivity implements
 					intent.putExtra("notSureY", notSureY);
 					intent.putExtra("sureY", sureY);
 					intent.putExtra("dontKnowY", dontKnowY);
+					intent.putExtra("lastDates", lastDates);
 
 					// start the Activity with the added extras
 					startActivity(intent);
@@ -665,7 +670,7 @@ public class StatisticsScreen extends OnResumeFragmentActivity implements
 					Cells[k][l].setTextColor(Color.WHITE);
 				}
 			}
-
+			
 			// Get List with the last Runthrough dates
 			List<String> lastDates = Statistics.getInstance()
 					.getLastRunthroughDates(name);
