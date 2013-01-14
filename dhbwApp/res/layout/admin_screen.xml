@@ -55,7 +55,7 @@
             style="@style/style_iconButton2"
             android:layout_column="1"
             android:layout_row="1"
-            android:drawableTop="@drawable/refresh"
+            android:drawableTop="@drawable/refreshnew"
             android:text="@string/btn_admin_update_dynstack" />
         
     </GridLayout>
