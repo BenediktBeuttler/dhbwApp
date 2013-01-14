@@ -19,7 +19,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.AvoidXfermode;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -137,9 +136,6 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		});
 
 		lv = (ListView) findViewById(R.id.learn_stack_list);
-		// tell android that we want this view to create a menu when it is long
-		// pressed. Method onCreateContextMenu is further relevant
-		registerForContextMenu(lv);
 		updateStackList();
 		lv.setClickable(true);
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -510,19 +506,29 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 	 */
 	public boolean updateStackList() {
 		ArrayList<String> items = new ArrayList<String>();
+		boolean stacksAvailable = false;
 		for (Stack stack : Stack.allStacks) {
 			if (stack.isDynamicGenerated()) {
 				if (stack.getStackName().startsWith("<Dyn>")) {
 					items.add(stack.getStackName());
+					stacksAvailable = true;
 				} else {
 					items.add("<Dyn> " + stack.getStackName());
+					stacksAvailable = true;
 				}
 			} else {
 				items.add(stack.getStackName());
+				stacksAvailable = true;
 			}
 		}
 		if (items.size() == 0) {
 			items.add("No stacks available");
+		}
+		if (stacksAvailable) {
+			// tell android that we want this view to create a menu when it is
+			// long
+			// pressed. Method onCreateContextMenu is further relevant
+			registerForContextMenu(lv);
 		}
 		Collections.sort(items);
 		lvAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,
