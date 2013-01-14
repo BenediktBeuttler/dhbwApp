@@ -1,36 +1,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout1"
+    style="@style/style_Layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
     <EditText
         android:id="@+id/txt_edit_card_front"
         style="@style/style_textViewFront"
         android:layout_width="wrap_content"
-        android:layout_height="160dp"
+        android:layout_height="230dp"
         android:layout_gravity="center_vertical|center_horizontal"
         android:ems="10"
         android:inputType="textMultiLine" >
     </EditText>
 
-    <Button
-        android:id="@+id/btn_edit_picture_front"
-        android:layout_width="wrap_content"
+    <GridLayout
+        android:id="@+id/GridLayout"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Take new picture" />
+        android:columnCount="4"
+        android:rowCount="2" >
 
-    <Button
-        android:id="@+id/btn_admin_edit_card_front_picture_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete Picture" />
+        <Button
+            android:id="@+id/btn_edit_picture_front"
+            style="@style/style_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="left"
+            android:layout_row="0"
+            android:drawableLeft="@drawable/camera" />
 
-    <ImageButton
-        android:id="@+id/btn_edit_picture_front_show"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:src="@drawable/accept" />
+        <ImageButton
+            android:id="@+id/btn_edit_picture_front_show"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_column="3"
+            android:layout_gravity="right"
+            android:layout_marginRight="12dp"
+            android:layout_row="0"
+            android:layout_rowSpan="2"
+            android:src="@drawable/accept" />
+
+        <Button
+            android:id="@+id/btn_admin_edit_card_front_picture_delete"
+            style="@style/style_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="left"
+            android:layout_row="1"
+            android:drawableLeft="@drawable/deletepicture" />
+
+
+    </GridLayout>
 
 </LinearLayout>
