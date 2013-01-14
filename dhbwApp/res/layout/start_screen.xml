@@ -5,9 +5,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="5dp"
     android:gravity="center_horizontal"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/background" >
 
     <TextView
         android:id="@+id/lbl_app_name_start_screen"
@@ -63,7 +64,7 @@
         <Button
             android:id="@+id/btn_start_help"
             style="@style/style_iconButton2"
-            android:drawableTop="@drawable/help"
+            android:drawableTop="@drawable/lightbulbnew"
             android:text="@string/btn_start_help"
             android:layout_column="2"
             android:layout_row="2" />

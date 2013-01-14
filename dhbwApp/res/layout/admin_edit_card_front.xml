@@ -19,12 +19,14 @@
         android:id="@+id/btn_edit_picture_front"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/camera"
         android:text="Take new picture" />
 
     <Button
         android:id="@+id/btn_admin_edit_card_front_picture_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/deletepicture"
         android:text="Delete Picture" />
 
     <ImageButton
