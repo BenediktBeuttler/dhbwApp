@@ -21,13 +21,15 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="18dp"
         android:layout_marginLeft="14dp"
-        android:text="Take new picture" />
+        android:drawableLeft="@drawable/camera"
+         />
 
     <Button
         android:id="@+id/btn_admin_edit_card_back_picture_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete Picture" />
+        android:drawableLeft="@drawable/deletepicture"
+         />
 
     <ImageButton
         android:id="@+id/btn_edit_picture_back_show"
