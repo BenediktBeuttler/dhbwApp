@@ -47,7 +47,7 @@
             style="@style/style_iconButton2"
             android:layout_column="0"
             android:layout_row="1"
-            android:drawableTop="@drawable/dynamicstack_big"
+            android:drawableTop="@drawable/dynamicstack_dark"
             android:text="@string/btn_admin_newdynstack" />
         
         <Button
