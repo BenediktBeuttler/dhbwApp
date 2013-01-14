@@ -542,6 +542,14 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			// If picture is taken (front)
 			if (resultCode == RESULT_OK) {
 
+				if (!cardFrontPic.equals("") &&
+						checkPictureAvailability(true)){
+					
+					// Delete former file from SD-Card
+					File fileToDelete = new File(cardFrontPic);
+					fileToDelete.delete();
+				}
+				
 				// Save path in cardFrontPic
 				cardFrontPic = imageUriFront.getPath();
 
@@ -558,6 +566,14 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		case 131074:
 			// If picture is taken (back)
 			if (resultCode == RESULT_OK) {
+				
+				if (!cardBackPic.equals("") &&
+						checkPictureAvailability(false)){
+					
+					// Delete former file from SD-Card
+					File fileToDelete = new File(cardBackPic);
+					fileToDelete.delete();
+				}
 				
 				// Save path in cardBackPic
 				cardBackPic = imageUriBack.getPath();
