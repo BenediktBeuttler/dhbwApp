@@ -1,13 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout"
+    style="@style/style_Layout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginLeft="-5dp"
-    android:layout_marginTop="5dp"
-    android:orientation="vertical"
-    android:padding="5dp"
     tools:context=".LearningScreen" >
 
     <Button
@@ -18,7 +14,7 @@
         android:drawableLeft="@drawable/dynamicstack"
         android:onClick="onClick"
         android:text="@string/btn_learn_dynstack"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <ListView
         android:id="@+id/learn_stack_list"
