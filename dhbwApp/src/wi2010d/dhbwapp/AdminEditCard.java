@@ -387,6 +387,15 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				Intent data) {
 			// Gets called when a picture is taken
 			if (resultCode == Activity.RESULT_OK) {
+				
+				if (!card.getCardFrontPicture().equals("") &&
+						checkPictureAvailability(true)){
+					
+					// Delete former file from SD-Card
+					File fileToDelete = new File(card.getCardFrontPicture());
+					fileToDelete.delete();
+				}
+				
 				Edit.getInstance().addNewPicToCard(true,
 						imageUriFront.getPath(), card);
 
@@ -534,7 +543,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					deletePicture.setVisibility(Button.GONE);
 
 					// Update ImageButton
-					updateImageButtonAdminEdit(true, showPictureButton);
+					updateImageButtonAdminEdit(false, showPictureButton);
 
 				}
 			});
@@ -548,6 +557,15 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 			// Gets called, when a picture is taken
 			if (resultCode == Activity.RESULT_OK) {
+				
+				if (!card.getCardBackPicture().equals("") &&
+						checkPictureAvailability(false)){
+					
+					// Delete former file from SD-Card
+					File fileToDelete = new File(card.getCardBackPicture());
+					fileToDelete.delete();
+				}
+				
 				Edit.getInstance().addNewPicToCard(false, imageUri.getPath(),
 						card);
 
