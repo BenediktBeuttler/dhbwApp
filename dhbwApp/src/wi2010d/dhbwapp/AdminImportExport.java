@@ -44,7 +44,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -1035,7 +1034,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 		}
 		importListAdapter = new ArrayAdapter<String>(
 				AdminImportExport.importView.getContext(),
-				android.R.layout.simple_list_item_1, items);
+				R.layout.layout_listitem, items);
 		return importListAdapter;
 	}
 
