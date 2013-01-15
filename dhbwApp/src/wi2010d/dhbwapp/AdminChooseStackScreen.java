@@ -7,7 +7,6 @@ import java.util.Collections;
 import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.control.Exchange;
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
@@ -16,7 +15,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -458,8 +456,10 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 			finish();
 			return true;
 		default:
-			ErrorHandler error = new ErrorHandler(getApplicationContext());
-			error.handleError(1);
+			ErrorHandlerFragment newFragment = ErrorHandlerFragment
+					.newInstance(R.string.error_handler_general,
+							ErrorHandlerFragment.GENERAL_ERROR);
+			newFragment.show(this.getFragmentManager(), "dialog");
 			return false;
 		}
 	}

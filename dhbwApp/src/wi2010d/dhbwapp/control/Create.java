@@ -1,15 +1,13 @@
 package wi2010d.dhbwapp.control;
 
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
-import wi2010d.dhbwapp.model.Card;
-import wi2010d.dhbwapp.model.Stack;
-import wi2010d.dhbwapp.model.Tag;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import android.util.Log;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
+import wi2010d.dhbwapp.model.Card;
+import wi2010d.dhbwapp.model.Stack;
+import wi2010d.dhbwapp.model.Tag;
 import android.widget.Toast;
 
 public class Create {
@@ -38,42 +36,48 @@ public class Create {
 	/**
 	 * Creates a new Stack
 	 * 
-	 * @param name: Name of new Stack
-	 * @param card: Card supposed to be contained in the new Stack
+	 * @param name
+	 *            : Name of new Stack
+	 * @param card
+	 *            : Card supposed to be contained in the new Stack
 	 * @return boolean if it worked
 	 */
 	public boolean newStack(String name, Card card) {
-		
-		// Create new List with Cards and add the card supposed to be in the new Stack
+
+		// Create new List with Cards and add the card supposed to be in the new
+		// Stack
 		List<Card> cards = new ArrayList<Card>();
 		cards.add(card);
 
 		// Check if Name of new Stack is allowed or already taken
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
-				ErrorHandler.getInstance().handleError(
-						ErrorHandler.getInstance().NAME_ALREADY_TAKEN);
+				Toast.makeText(ErrorHandlerFragment.applicationContext,
+						"Stack name already taken", Toast.LENGTH_LONG).show();
 				return false;
 			}
 		}
-		
+
 		// Increase totalStacks of Card and save new data in DB
 		card.increaseTotalStacks();
 		Database.getInstance().changeCard(card);
 		Database.getInstance().addNewStack(new Stack(false, name, cards));
 		return true;
 	}
-	
+
 	/**
 	 * Create a new Stack with random Cards
 	 * 
-	 * @param name Name of random Stacks
-	 * @param card One Card that is supposed to be in the new random Stack
+	 * @param name
+	 *            Name of random Stacks
+	 * @param card
+	 *            One Card that is supposed to be in the new random Stack
 	 * @return the created Stack with random Cards
 	 */
-	public Stack newRandomStack(String name, Card card){
-		
-		// Create List with new Cards, add Card and increase total Stacks of Card
+	public Stack newRandomStack(String name, Card card) {
+
+		// Create List with new Cards, add Card and increase total Stacks of
+		// Card
 		List<Card> cards = new ArrayList<Card>();
 		cards.add(card);
 		card.increaseTotalStacks();
@@ -81,29 +85,32 @@ public class Create {
 		// Check if the new Stack Name is allowed or already taken
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
-				ErrorHandler.getInstance().handleError(
-						ErrorHandler.getInstance().NAME_ALREADY_TAKEN);
+				Toast.makeText(ErrorHandlerFragment.applicationContext,
+						"Stack name already taken", Toast.LENGTH_LONG).show();
 				return null;
 			}
 		}
-		
+
 		// Add random Cards to Stack
 		Random generator = new Random();
-		
-		for(int i=0;i<=Card.allCards.size()/5;i++){
-			Card cardToAdd = Card.allCards.get(generator.nextInt(Card.allCards.size()));
+
+		for (int i = 0; i <= Card.allCards.size() / 5; i++) {
+			Card cardToAdd = Card.allCards.get(generator.nextInt(Card.allCards
+					.size()));
 			cards.add(cardToAdd);
 			cardToAdd.increaseTotalStacks();
 		}
-		
+
 		return new Stack(false, name, cards);
 	}
 
 	/**
 	 * Create a new dynamic Stack
 	 * 
-	 * @param name: Name of new dynamic Stack
-	 * @param tags: Tags of dynamic Stack
+	 * @param name
+	 *            : Name of new dynamic Stack
+	 * @param tags
+	 *            : Tags of dynamic Stack
 	 * @return boolean, true if it worked
 	 */
 	public boolean newDynStack(String name, List<Tag> tags) {
@@ -114,8 +121,8 @@ public class Create {
 		// Check if Stack Name is allowed or already taken
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
-				ErrorHandler.getInstance().handleError(
-						ErrorHandler.getInstance().NAME_ALREADY_TAKEN);
+				Toast.makeText(ErrorHandlerFragment.applicationContext,
+						"Stack name already taken", Toast.LENGTH_LONG).show();
 				return false;
 			}
 		}
@@ -141,7 +148,7 @@ public class Create {
 		// Write new Data into DB
 		dynamicStack = new Stack(true, name, cards);
 		dynamicStack.setDynamicStackTags(tags);
-		
+
 		return Database.getInstance().addNewStack(dynamicStack);
 
 	}
@@ -170,7 +177,7 @@ public class Create {
 						}
 					}
 				}
-				if(stack.getDynamicStackTags().size()==0){
+				if (stack.getDynamicStackTags().size() == 0) {
 					Delete.getInstance().deleteStack(stack);
 				}
 			}
@@ -202,7 +209,7 @@ public class Create {
 					}
 				}
 			}
-			if(stack.getDynamicStackTags().size()==0){
+			if (stack.getDynamicStackTags().size() == 0) {
 				Delete.getInstance().deleteStack(stack);
 			}
 		}
@@ -212,16 +219,21 @@ public class Create {
 	/**
 	 * Creates a new card and returns it
 	 * 
-	 * @param front: Front Text of Card
-	 * @param back: Back Text of Card
-	 * @param tags: List containing tags of new Card
-	 * @param frontPic: Path of FrontPic
-	 * @param backPic: Path of BacPic
+	 * @param front
+	 *            : Front Text of Card
+	 * @param back
+	 *            : Back Text of Card
+	 * @param tags
+	 *            : List containing tags of new Card
+	 * @param frontPic
+	 *            : Path of FrontPic
+	 * @param backPic
+	 *            : Path of BacPic
 	 * @return the new Card
 	 */
 	public Card newCard(String front, String back, List<Tag> tags,
 			String frontPic, String backPic) {
-		
+
 		// Create new Card, using the constructor
 		Card card = new Card(front, back, frontPic, backPic, tags);
 
@@ -232,17 +244,18 @@ public class Create {
 				Database.getInstance().changeTag(tag);
 			}
 		}
-		
+
 		// Write new Card in DB
 		Database.getInstance().addNewCard(card);
-		
+
 		return card;
 	}
 
 	/**
 	 * Creates a new tag and returns it
 	 * 
-	 * @param name: Tag Name
+	 * @param name
+	 *            : Tag Name
 	 * @return the new Tag
 	 */
 	public Tag newTag(String name) {

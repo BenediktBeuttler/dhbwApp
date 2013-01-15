@@ -10,7 +10,6 @@ import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.control.Exchange;
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
@@ -90,8 +89,10 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 						i.putExtra("isRandomStack", true);
 						startActivityForResult(i, 1);
 					} else {
-						ErrorHandler.getInstance().handleError(
-								ErrorHandler.getInstance().GENERAL_ERROR);
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(getFragmentManager(), "dialog");
 					}
 				}
 			}
@@ -574,8 +575,10 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 			finish();
 			return true;
 		default:
-			ErrorHandler error = new ErrorHandler(getApplicationContext());
-			error.handleError(1);
+			ErrorHandlerFragment newFragment = ErrorHandlerFragment
+					.newInstance(R.string.error_handler_general,
+							ErrorHandlerFragment.GENERAL_ERROR);
+			newFragment.show(getFragmentManager(), "dialog");
 			return false;
 		}
 	}

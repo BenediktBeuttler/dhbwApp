@@ -26,7 +26,6 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import wi2010d.dhbwapp.control.Exchange;
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
@@ -44,7 +43,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -274,16 +272,16 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 
 				// try to import the stack to our app
 				try {
-					if(Exchange.getInstance().importStack(
+					if (Exchange.getInstance().importStack(
 							Environment.getExternalStorageDirectory().getPath()
-							+ "/knowItOwl/" + attachmentName)){
+									+ "/knowItOwl/" + attachmentName)) {
 						// if the stack got imported successfully, make a toast
 						Toast.makeText(getApplicationContext(),
 								attachmentName + " got imported successfully!",
-								Toast.LENGTH_SHORT).show();	
-						
+								Toast.LENGTH_SHORT).show();
+
 					}
-					
+
 				} catch (JDOMException e) {
 					// display a general error if the file is not found
 					ErrorHandlerFragment newFragment = ErrorHandlerFragment
@@ -408,8 +406,10 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 			finish();
 			return true;
 		default:
-			ErrorHandler error = new ErrorHandler(getApplicationContext());
-			error.handleError(1);
+			ErrorHandlerFragment newFragment = ErrorHandlerFragment
+					.newInstance(R.string.error_handler_general,
+							ErrorHandlerFragment.GENERAL_ERROR);
+			newFragment.show(this.getFragmentManager(), "dialog");
 			return false;
 		}
 	}
@@ -592,7 +592,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 							v.getContext(), R.layout.layout_listitem, items);
 					AdminImportExport.importListAdapter = importListAdapter;
 					importList.setAdapter(importListAdapter);
-					
+
 				} else {
 					importListAdapter = new ArrayAdapter<String>(
 							v.getContext(), R.layout.layout_listitem, items);
@@ -656,16 +656,21 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 																						+ " got imported successfully!",
 																				Toast.LENGTH_SHORT);
 																toast.show();
-																
-																//Update the ExportList
-																ArrayList<String> items = new ArrayList<String>();
-																for(Stack stack : Stack.allStacks){
-																	items.add(stack.getStackName());
-																}
-																exportAdapter.clear();
-																exportAdapter.addAll(items);
 
-																exportList.setAdapter(exportAdapter);
+																// Update the
+																// ExportList
+																ArrayList<String> items = new ArrayList<String>();
+																for (Stack stack : Stack.allStacks) {
+																	items.add(stack
+																			.getStackName());
+																}
+																exportAdapter
+																		.clear();
+																exportAdapter
+																		.addAll(items);
+
+																exportList
+																		.setAdapter(exportAdapter);
 
 															}
 														} catch (Exception e) {
@@ -742,10 +747,10 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 								+ importName + " got imported successfully!",
 								Toast.LENGTH_SHORT);
 						toast.show();
-						
-						//Update the ExportList
+
+						// Update the ExportList
 						ArrayList<String> items = new ArrayList<String>();
-						for(Stack stack : Stack.allStacks){
+						for (Stack stack : Stack.allStacks) {
 							items.add(stack.getStackName());
 						}
 						exportAdapter.clear();
@@ -854,8 +859,8 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 				items.add(0, "All Stacks");
 			}
 
-			exportAdapter = new ArrayAdapter<String>(
-					v.getContext(), R.layout.layout_listitem, items);
+			exportAdapter = new ArrayAdapter<String>(v.getContext(),
+					R.layout.layout_listitem, items);
 
 			exportList.setAdapter(exportAdapter);
 			exportList.setOnItemClickListener(new OnItemClickListener() {
@@ -898,11 +903,10 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 																	+ stack.getStackName() + ".xml")));
 											uris.add(u);
 										} catch (Exception e) {
-											ErrorHandler
-													.getInstance()
-													.handleError(
-															ErrorHandler
-																	.getInstance().EXPORT_ERROR);
+											Toast.makeText(
+													getActivity(),
+													R.string.error_handler_export_error,
+													Toast.LENGTH_SHORT).show();
 										}
 									}
 									toast = Toast.makeText(getActivity(),
@@ -956,11 +960,11 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 																		+ "/knowItOwl/",
 																stackName);
 											} catch (Exception e) {
-												ErrorHandler
-														.getInstance()
-														.handleError(
-																ErrorHandler
-																		.getInstance().EXPORT_ERROR);
+												Toast.makeText(
+														getActivity(),
+														R.string.error_handler_export_error,
+														Toast.LENGTH_SHORT)
+														.show();
 											}
 
 											toast = Toast

@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 
 import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Learn;
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
@@ -341,8 +340,10 @@ public class LearningCard extends OnResumeFragmentActivity implements
 				return true;
 
 			default:
-				ErrorHandler error = new ErrorHandler(getApplicationContext());
-				error.handleError(1);
+				ErrorHandlerFragment newFragment = ErrorHandlerFragment
+						.newInstance(R.string.error_handler_general,
+								ErrorHandlerFragment.GENERAL_ERROR);
+				newFragment.show(this.getFragmentManager(), "dialog");
 				return false;
 			}
 		} else {
@@ -468,8 +469,10 @@ public class LearningCard extends OnResumeFragmentActivity implements
 				fragment = new CardBack();
 				break;
 			default:
-				ErrorHandler error = new ErrorHandler(getApplicationContext());
-				error.handleError(1);
+				ErrorHandlerFragment newFragment = ErrorHandlerFragment
+						.newInstance(R.string.error_handler_general,
+								ErrorHandlerFragment.GENERAL_ERROR);
+				newFragment.show(getFragmentManager(), "dialog");
 				break;
 			}
 

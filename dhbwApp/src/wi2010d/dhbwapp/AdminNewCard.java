@@ -10,7 +10,6 @@ import java.util.Date;
 
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Edit;
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
@@ -512,13 +511,15 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	protected boolean isCardNotEmpty() {
 		if (cardFront.getText() == null
 				|| cardFront.getText().toString().equals("")) {
-			ErrorHandler.getInstance().handleError(
-					ErrorHandler.getInstance().TEXT_FIELD_FRONT_EMPTY);
+			Toast.makeText(getApplicationContext(),
+					"Cannot create Card, front text is empty!",
+					Toast.LENGTH_LONG).show();
 			return false;
 		} else if (cardBack.getText() == null
 				|| cardBack.getText().toString().equals("")) {
-			ErrorHandler.getInstance().handleError(
-					ErrorHandler.getInstance().TEXT_FIELD_BACK_EMPTY);
+			Toast.makeText(getApplicationContext(),
+					"Cannot create Card, back text is empty!",
+					Toast.LENGTH_LONG).show();
 			return false;
 		} else
 			return true;
@@ -781,8 +782,8 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			return true;
 		case R.id.btn_admin_new_card_existing_stack:
 			if (Stack.allStacks.size() == 0) {
-				ErrorHandler.getInstance().handleError(
-						ErrorHandler.getInstance().NO_STACK_AVAILABLE);
+				Toast.makeText(getApplicationContext(), "No Stacks available",
+						Toast.LENGTH_LONG).show();
 			} else if (isCardNotEmpty()) {
 				// find the checked Tags from the list
 				cardTagList.clear();

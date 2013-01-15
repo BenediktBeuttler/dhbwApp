@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Edit;
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
@@ -56,7 +55,7 @@ public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// reload the data, if sth got garbage collected
 		this.reloadOnGarbageCollected();
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_new_card);
 
@@ -313,8 +312,10 @@ public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 			}
 			return true;
 		default:
-			ErrorHandler error = new ErrorHandler(getApplicationContext());
-			error.handleError(1);
+			ErrorHandlerFragment newFragment = ErrorHandlerFragment
+					.newInstance(R.string.error_handler_general,
+							ErrorHandlerFragment.GENERAL_ERROR);
+			newFragment.show(this.getFragmentManager(), "dialog");
 			return false;
 		}
 	}

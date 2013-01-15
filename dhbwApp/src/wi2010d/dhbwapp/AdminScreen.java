@@ -1,8 +1,7 @@
 package wi2010d.dhbwapp;
 
 import wi2010d.dhbwapp.control.Create;
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
-import wi2010d.dhbwapp.model.Card;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Tag;
 import android.content.Intent;
 import android.os.Bundle;
@@ -75,8 +74,10 @@ public class AdminScreen extends OnResumeActivity implements OnClickListener {
 			finish();
 			return true;
 		default:
-			ErrorHandler error = new ErrorHandler(getApplicationContext());
-			error.handleError(1);
+			ErrorHandlerFragment newFragment = ErrorHandlerFragment
+					.newInstance(R.string.error_handler_general,
+							ErrorHandlerFragment.GENERAL_ERROR);
+			newFragment.show(this.getFragmentManager(), "dialog");
 			return false;
 		}
 	}

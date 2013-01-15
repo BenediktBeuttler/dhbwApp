@@ -1,20 +1,17 @@
 package wi2010d.dhbwapp.control;
 
-import java.util.AbstractQueue;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ArrayBlockingQueue;
-import android.util.Log;
-import android.widget.Toast;
 
-import wi2010d.dhbwapp.LearningCard;
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import org.xml.sax.ErrorHandler;
+
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
+import android.widget.Toast;
 
 public class Learn {
 	private CardQueue sure;
@@ -128,8 +125,10 @@ public class Learn {
 					card = (Card) sure.remove();
 					run = 3;
 				} else {
-					ErrorHandler.getInstance().handleError(
-							ErrorHandler.getInstance().GENERAL_ERROR);
+					Toast.makeText(
+							ErrorHandlerFragment.applicationContext,
+							"Something went wrong, please restart Know it Owl.",
+							Toast.LENGTH_LONG).show();
 					card = null;
 				}
 			}
@@ -327,7 +326,9 @@ public class Learn {
 		 */
 		public void remove(int index) {
 			if (index < 0 || index > queueSize) {
-				ErrorHandler.getInstance().handleError(ErrorHandler.getInstance().GENERAL_ERROR);
+				Toast.makeText(ErrorHandlerFragment.applicationContext,
+						"Something went wrong, please restart Know it Owl.",
+						Toast.LENGTH_LONG).show();
 			} else {
 				queueSize--;
 				arrayList.remove(index);

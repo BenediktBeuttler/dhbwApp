@@ -5,7 +5,7 @@ import java.util.Date;
 import wi2010d.dhbwapp.AdminImportExport;
 import wi2010d.dhbwapp.R;
 import wi2010d.dhbwapp.StartScreen;
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
@@ -15,9 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 /**
  * Reads all the data from the DB and initializes the objects. While doing that,
@@ -41,10 +39,11 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 	 */
 	@Override
 	protected void onPreExecute() {
-
 		super.onPreExecute();
 		startScreenActivity.setContentView(R.layout.progress_screen);
 
+		ErrorHandlerFragment.applicationContext = startScreenActivity
+				.getApplicationContext();
 		ProgressBar pb = (ProgressBar) startScreenActivity
 				.findViewById(R.id.progress_bar_progress_screen);
 	}
@@ -55,36 +54,39 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 	@Override
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
-		new ErrorHandler(startScreenActivity.getApplicationContext());
-
+		
 		/*
-		 * if the user clicked on a xml-file outside of our app, store 
-		 * the intent data in a new intent for the import activity
+		 * if the user clicked on a xml-file outside of our app, store the
+		 * intent data in a new intent for the import activity
 		 */
 		if (startScreenActivity.getIntent().getData() != null
 				&& startScreenActivity.getIntent().getData().getPath() != null) {
 			Intent intent = new Intent(
 					startScreenActivity.getApplicationContext(),
 					AdminImportExport.class);
-			
-			/* 
-			 * write a path-extra with a file path, if the user clicked on a xml-file in
-			 * Dropbox, Drive, a FileManager or something similar
+
+			/*
+			 * write a path-extra with a file path, if the user clicked on a
+			 * xml-file in Dropbox, Drive, a FileManager or something similar
 			 */
-			if(startScreenActivity.getIntent().getScheme().equals("file")){
-				intent.putExtra("Path", startScreenActivity.getIntent().getData().getPath());
+			if (startScreenActivity.getIntent().getScheme().equals("file")) {
+				intent.putExtra("Path", startScreenActivity.getIntent()
+						.getData().getPath());
 			}
-			
-			/* 
-			 * write a data-extra with content data, if the user clicked on a xml-file in
-			 * an email-attachment or something comparable
+
+			/*
+			 * write a data-extra with content data, if the user clicked on a
+			 * xml-file in an email-attachment or something comparable
 			 */
-			else if (startScreenActivity.getIntent().getScheme().equals("content")){
-				intent.putExtra("Data", startScreenActivity.getIntent().getData());
+			else if (startScreenActivity.getIntent().getScheme()
+					.equals("content")) {
+				intent.putExtra("Data", startScreenActivity.getIntent()
+						.getData());
 			}
-			
-			/* 
-			 * if the intent scheme is not file and not content, we do not handle it today
+
+			/*
+			 * if the intent scheme is not file and not content, we do not
+			 * handle it today
 			 */
 			else {
 				intent.putExtra("Path", "");

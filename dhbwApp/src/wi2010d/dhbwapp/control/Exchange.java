@@ -14,11 +14,13 @@ import org.jdom2.JDOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import wi2010d.dhbwapp.R;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
+import android.widget.Toast;
 
 public class Exchange {
 
@@ -161,8 +163,8 @@ public class Exchange {
 			// check if the stack is already existing
 			for (Stack stack : Stack.allStacks) {
 				if (stack.getStackName().equals(stackName)) {
-					ErrorHandler.getInstance().handleError(
-							ErrorHandler.getInstance().STACK_EXISTING);
+					Toast.makeText(ErrorHandlerFragment.applicationContext,
+							"Stack already exists", Toast.LENGTH_LONG).show();
 					return false;
 				}
 			}
@@ -204,8 +206,9 @@ public class Exchange {
 			Database.getInstance().addNewStack(stack);
 
 		} else {
-			ErrorHandler handler = ErrorHandler.getInstance();
-			handler.handleError(handler.IMPORT_ERROR);
+			Toast.makeText(ErrorHandlerFragment.applicationContext,
+					R.string.error_handler_import_error, Toast.LENGTH_LONG)
+					.show();
 			return false;
 		}
 		return true;

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import wi2010d.dhbwapp.control.Edit;
-import wi2010d.dhbwapp.errorhandler.ErrorHandler;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Tag;
@@ -366,10 +365,10 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 					// Delete Picture and show toast
 					if (picture.delete()) {
-						Toast toast = Toast.makeText(getApplicationContext(),
+						Toast.makeText(getApplicationContext(),
 								"Picture has been deleted successfully",
-								Toast.LENGTH_LONG);
-						toast.show();
+								Toast.LENGTH_LONG).show();
+
 					}
 
 					// Save changes in card and in DB
@@ -601,13 +600,15 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 	protected boolean isCardNotEmpty() {
 		if (cardFront.getText() == null
 				|| cardFront.getText().toString().equals("")) {
-			ErrorHandler.getInstance().handleError(
-					ErrorHandler.getInstance().TEXT_FIELD_FRONT_EMPTY);
+			Toast.makeText(getApplicationContext(),
+					"Cannot create Card, front text is empty!",
+					Toast.LENGTH_LONG).show();
 			return false;
 		} else if (cardBack.getText() == null
 				|| cardBack.getText().toString().equals("")) {
-			ErrorHandler.getInstance().handleError(
-					ErrorHandler.getInstance().TEXT_FIELD_BACK_EMPTY);
+			Toast.makeText(getApplicationContext(),
+					"Cannot create Card, back text is empty!",
+					Toast.LENGTH_LONG).show();
 			return false;
 		} else
 			return true;
@@ -774,8 +775,10 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			}
 			return true;
 		default:
-			ErrorHandler error = new ErrorHandler(getApplicationContext());
-			error.handleError(1);
+			ErrorHandlerFragment newFragment = ErrorHandlerFragment
+					.newInstance(R.string.error_handler_general,
+							ErrorHandlerFragment.GENERAL_ERROR);
+			newFragment.show(this.getFragmentManager(), "dialog");
 			return false;
 		}
 	}
