@@ -23,6 +23,7 @@
         <TextView
             android:id="@+id/lbl_statistics_lastReview_stackName"
             android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_column="3"
             android:layout_columnSpan="2"
             android:layout_gravity="left"
@@ -42,6 +43,7 @@
         <TextView
             android:id="@+id/lbl_statistics_lastReview_lastRunthrough"
             android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_column="3"
             android:layout_columnSpan="2"
             android:layout_gravity="left"
@@ -61,6 +63,7 @@
         <TextView
             android:id="@+id/lbl_statistics_lastReview_duration"
             android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_column="3"
             android:layout_columnSpan="2"
             android:layout_gravity="left"
