@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout"
-    style="@style/style_Layout"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:padding="16dp" >
 
     <GridLayout
         android:layout_width="match_parent"
@@ -17,16 +17,17 @@
             android:layout_columnSpan="3"
             android:layout_gravity="left"
             android:layout_row="1"
-            android:text="Stack Name:"
+            android:text="@string/text_stack_name"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/lbl_statistics_lastReview_stackName"
+            android:layout_width="140dp"
             android:layout_column="3"
             android:layout_columnSpan="2"
             android:layout_gravity="left"
             android:layout_row="1"
-            android:text="No Data Available"
+            android:text="@string/text_no_data_available"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -35,16 +36,17 @@
             android:layout_columnSpan="3"
             android:layout_gravity="left"
             android:layout_row="2"
-            android:text="Last Runthrough:"
+            android:text="@string/text_last_runthrough"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/lbl_statistics_lastReview_lastRunthrough"
+            android:layout_width="140dp"
             android:layout_column="3"
             android:layout_columnSpan="2"
             android:layout_gravity="left"
             android:layout_row="2"
-            android:text="No Data Available"
+            android:text="@string/text_no_data_available"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -53,16 +55,17 @@
             android:layout_columnSpan="2"
             android:layout_gravity="left"
             android:layout_row="3"
-            android:text="Duration:"
+            android:text="@string/text_duration"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/lbl_statistics_lastReview_duration"
+            android:layout_width="140dp"
             android:layout_column="3"
             android:layout_columnSpan="2"
             android:layout_gravity="left"
             android:layout_row="3"
-            android:text="No Data Available"
+            android:text="@string/text_no_data_available"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -70,7 +73,7 @@
             android:layout_column="1"
             android:layout_gravity="left"
             android:layout_row="4"
-            android:text="Status before:"
+            android:text="@string/text_status_before"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -78,7 +81,7 @@
             android:layout_column="1"
             android:layout_gravity="left"
             android:layout_row="6"
-            android:text="Don&apos;t know:"
+            android:text="@string/text_dont_know:"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -86,7 +89,7 @@
             android:layout_column="4"
             android:layout_gravity="left"
             android:layout_row="6"
-            android:text="No Data Available"
+            android:text="@string/text_no_data_available"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -94,7 +97,7 @@
             android:layout_column="1"
             android:layout_gravity="left|bottom"
             android:layout_row="7"
-            android:text="Not sure:"
+            android:text="@string/text_not_sure:"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -102,7 +105,7 @@
             android:layout_column="4"
             android:layout_gravity="left"
             android:layout_row="7"
-            android:text="No Data Available"
+            android:text="@string/text_no_data_available"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -110,7 +113,7 @@
             android:layout_column="1"
             android:layout_gravity="left"
             android:layout_row="8"
-            android:text="Sure:"
+            android:text="@string/text_sure:"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -118,7 +121,7 @@
             android:layout_column="4"
             android:layout_gravity="left"
             android:layout_row="8"
-            android:text="No Data Available"
+            android:text="@string/text_no_data_available"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -126,7 +129,7 @@
             android:layout_column="1"
             android:layout_gravity="left"
             android:layout_row="10"
-            android:text="Status after:"
+            android:text="@string/text_status_after"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -134,7 +137,7 @@
             android:layout_column="1"
             android:layout_gravity="left|bottom"
             android:layout_row="12"
-            android:text="Don&apos;t know:"
+            android:text="@string/text_dont_know:"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -142,7 +145,7 @@
             android:layout_column="4"
             android:layout_gravity="left"
             android:layout_row="12"
-            android:text="No Data Available"
+            android:text="@string/text_no_data_available"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -150,7 +153,7 @@
             android:layout_column="1"
             android:layout_gravity="left"
             android:layout_row="13"
-            android:text="Not sure:"
+            android:text="@string/text_not_sure:"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -158,7 +161,7 @@
             android:layout_column="4"
             android:layout_gravity="left"
             android:layout_row="13"
-            android:text="No Data Available"
+            android:text="@string/text_no_data_available"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -167,7 +170,7 @@
             android:layout_gravity="left"
             android:layout_row="14"
             android:layout_rowSpan="2"
-            android:text="Sure:"
+            android:text="@string/text_sure:"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <Space
@@ -184,7 +187,7 @@
 
         <Space
             android:layout_width="1dp"
-            android:layout_height="21dp"
+            android:layout_height="1dp"
             android:layout_column="0"
             android:layout_row="0" />
 
@@ -248,7 +251,7 @@
             android:layout_gravity="left"
             android:layout_row="14"
             android:layout_rowSpan="2"
-            android:text="No Data Available"
+            android:text="@string/text_no_data_available"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <Space
