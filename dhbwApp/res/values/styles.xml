@@ -130,12 +130,18 @@
     <style name="style_Layout">
         <item name="android:background">@drawable/background</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:padding">15dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingRight">6dp</item>
+        <item name="android:paddingTop">16dp</item>
         <item name="android:layout_gravity">center_vertical|center_horizontal</item>
     </style>
     <style name="style_Layout_no_back">
         <item name="android:orientation">vertical</item>
-        <item name="android:padding">15dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingRight">6dp</item>
+        <item name="android:paddingTop">16dp</item>
         <item name="android:layout_gravity">center_vertical|center_horizontal</item>
     </style>
     <style name="imageButton" parent="android:Widget.Holo.ImageButton">

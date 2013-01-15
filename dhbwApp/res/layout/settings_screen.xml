@@ -26,6 +26,7 @@
             android:id="@+id/btn_write_test_data"
             style="@style/style_iconButton2"
             android:layout_column="1"
+            android:layout_gravity="right"
             android:layout_row="0"
             android:drawableTop="@drawable/writing"
             android:text="@string/btn_settings_testdata" />
@@ -42,6 +43,7 @@
             android:id="@+id/btn_settings_reset_drawer"
             style="@style/style_iconButton2"
             android:layout_column="1"
+            android:layout_gravity="right"
             android:layout_row="1"
             android:drawableTop="@drawable/resetdrawers"
             android:text="@string/btn_settings_reset_drawers" />
