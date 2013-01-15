@@ -61,15 +61,22 @@ public class StatisticsProgressDiagram {
 		dataset.addSeries(sureLine);
 		
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); 
+		
 		XYSeriesRenderer renderer1 = new XYSeriesRenderer();
 		renderer1.setColor(Color.RED);
+		renderer1.setLineWidth(5);
 		mRenderer.addSeriesRenderer(renderer1);
+		
 		XYSeriesRenderer renderer2 = new XYSeriesRenderer();
 		renderer2.setColor(Color.WHITE);
+		renderer2.setLineWidth(5);
 		mRenderer.addSeriesRenderer(renderer2);
+		
 		XYSeriesRenderer renderer3 = new XYSeriesRenderer();
 		renderer3.setColor(Color.BLUE);
+		renderer3.setLineWidth(5);
 		mRenderer.addSeriesRenderer(renderer3);
+
 		mRenderer.setMargins(new int[] {40, 40, 40, 40});
 		mRenderer.setZoomButtonsVisible(true);
 		mRenderer.setPanLimits(new double[] { 0, 10, 0, 100 });

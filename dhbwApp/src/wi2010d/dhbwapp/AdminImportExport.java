@@ -274,9 +274,15 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 
 				// try to import the stack to our app
 				try {
-					Exchange.getInstance().importStack(
+					if(Exchange.getInstance().importStack(
 							Environment.getExternalStorageDirectory().getPath()
-									+ "/knowItOwl/" + attachmentName);
+							+ "/knowItOwl/" + attachmentName)){
+						// if the stack got imported successfully, make a toast
+						Toast.makeText(getApplicationContext(),
+								attachmentName + " got imported successfully!",
+								Toast.LENGTH_SHORT).show();					
+					}
+					
 				} catch (JDOMException e) {
 					// display a general error if the file is not found
 					ErrorHandlerFragment newFragment = ErrorHandlerFragment
@@ -292,12 +298,6 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 					newFragment.show(this.getFragmentManager(), "dialog");
 					e.printStackTrace();
 				}
-
-				// if the stack got imported successfully, make a toast
-				Toast toast = Toast.makeText(getApplicationContext(),
-						attachmentName + " got imported successfully!",
-						Toast.LENGTH_SHORT);
-				toast.show();
 			}
 
 			finish();
