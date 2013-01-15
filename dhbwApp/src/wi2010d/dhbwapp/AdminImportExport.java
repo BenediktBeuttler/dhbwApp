@@ -21,9 +21,8 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.w3c.dom.Document;
-
 import org.jdom2.JDOMException;
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import wi2010d.dhbwapp.control.Exchange;
@@ -47,13 +46,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
@@ -84,11 +83,12 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	ViewPager mViewPager;
-	static ListView importList;
-	static ArrayAdapter<String> importListAdapter;
-	static View importView;
-	static boolean stacksAvailable = false;
+	private ViewPager mViewPager;
+	private static ListView importList;
+	private static ArrayAdapter<String> importListAdapter;
+	private static View importView;
+	private static boolean stacksAvailable = false;
+	private static ArrayList<String> items = new ArrayList<String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -346,6 +346,21 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 		}
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (importList != null) {
+			AdminImportExport.importList.setAdapter(AdminImportExport
+					.updateImportListAdapter());
+			if (!items.get(0).equals("No stacks available")) {
+				registerForContextMenu(importList);
+			}
+		}
+		if (stacksAvailable) {
+			registerForContextMenu(importList);
+		}
+	}
+
 	/**
 	 * Copys the given source file to the destination
 	 * 
@@ -572,10 +587,17 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 									Toast.LENGTH_SHORT);
 					toast.show();
 					items.add("No stacks available");
+					importListAdapter = new ArrayAdapter<String>(
+							v.getContext(), R.layout.layout_listitem, items);
+					AdminImportExport.importListAdapter = importListAdapter;
+					
 				} else {
 					importListAdapter = new ArrayAdapter<String>(
 							v.getContext(), R.layout.layout_listitem, items);
 					AdminImportExport.importListAdapter = importListAdapter;
+					if (!items.get(0).equals("No stacks available")) {
+						registerForContextMenu(AdminImportExport.importList);
+					}
 
 					importList.setAdapter(importListAdapter);
 					importList.setClickable(true);
@@ -939,7 +961,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 															.updateImportListAdapter());
 											if (stacksAvailable) {
 												registerForContextMenu(importList);
-										}
+											}
 
 											for (String uri : Exchange
 													.getInstance()
@@ -999,7 +1021,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 	 * @return the updated Adapter
 	 */
 	protected static ArrayAdapter<String> updateImportListAdapter() {
-		ArrayList<String> items = new ArrayList<String>();
+		items.clear();
 		File knowItOwlDir = new File(Environment.getExternalStorageDirectory()
 				.getPath() + "/knowItOwl/");
 		File[] fileList = knowItOwlDir.listFiles();
@@ -1017,7 +1039,9 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 		return importListAdapter;
 	}
 
-	// Use this method to get the filename of the attachment in the email
+	/**
+	 * Use this method to get the filename of the attachment in the email
+	 */
 	public static String getContentName(ContentResolver resolver, Uri uri) {
 		Cursor cursor = resolver.query(uri,
 				new String[] { MediaStore.MediaColumns.DISPLAY_NAME }, null,
