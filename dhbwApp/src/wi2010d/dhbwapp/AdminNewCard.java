@@ -15,7 +15,6 @@ import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
@@ -30,14 +29,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -75,14 +72,14 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	public static final int STACK_CHOSEN = 10;
 	
 	public static final int TAKE_PICTURE_FRONT = 1;
-	private Button takePictureFront;
-	private Button deletePictureFront;
+	private ImageButton takePictureFront;
+	private ImageButton deletePictureFront;
 	private ImageButton showPictureFront;
 	public Uri imageUriFront;
 	
 	public static final int TAKE_PICTURE_BACK = 2;
-	private Button takePictureBack;
-	private Button deletePictureBack;
+	private ImageButton takePictureBack;
+	private ImageButton deletePictureBack;
 	private ImageButton showPictureBack;
 	public Uri imageUriBack;
 
@@ -259,7 +256,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	}
 
 	/**
-	 * Fragment for the cards' front, offering text view + buttons to take and view picture.
+	 * Fragment for the cards' front, offering text view + ImageButtons to take and view picture.
 	 */
 	public class NewCardFront extends Fragment {
 		/**
@@ -280,8 +277,8 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 			cardFront = (EditText) v.findViewById(R.id.txt_new_card_front);
 
-			// Set up Button to take new picture
-			takePictureFront = (Button) v
+			// Set up ImageButton to take new picture
+			takePictureFront = (ImageButton) v
 					.findViewById(R.id.btn_admin_new_card_picture_front);
 			takePictureFront.setOnClickListener(new View.OnClickListener() {
 
@@ -343,11 +340,11 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				}
 			});
 			
-			// Set up Button for deleting the picture
-			deletePictureFront = (Button) v.findViewById(
+			// Set up ImageButton for deleting the picture
+			deletePictureFront = (ImageButton) v.findViewById(
 						R.id.btn_admin_new_card_picture_front_delete);
 
-			deletePictureFront.setVisibility(Button.GONE);
+			deletePictureFront.setVisibility(ImageButton.GONE);
 			
 			deletePictureFront.setOnClickListener(new View.OnClickListener() {
 							
@@ -362,10 +359,10 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 							toast.show();
 						}
 						
-						// set cardFrontPic "" and set visibility of button = GONE as there is
+						// set cardFrontPic "" and set visibility of ImageButton = GONE as there is
 						// no picture anymore, update thumbnail
 						cardFrontPic = "";
-						deletePictureFront.setVisibility(Button.GONE);
+						deletePictureFront.setVisibility(ImageButton.GONE);
 						updateImageButtonNewCard(true, showPictureFront);
 								
 					}
@@ -400,7 +397,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 			cardBack = (EditText) v.findViewById(R.id.txt_new_card_back);
 
-			takePictureBack = (Button) v
+			takePictureBack = (ImageButton) v
 					.findViewById(R.id.btn_admin_new_card_picture_back);
 			takePictureBack.setOnClickListener(new View.OnClickListener() {
 
@@ -461,10 +458,10 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			});
 			
 			// Set up Button for deleting the picture
-			deletePictureBack = (Button) v.findViewById(
+			deletePictureBack = (ImageButton) v.findViewById(
 						R.id.btn_admin_new_card_picture_back_delete);
 			
-			deletePictureBack.setVisibility(Button.GONE);
+			deletePictureBack.setVisibility(ImageButton.GONE);
 
 			deletePictureBack.setOnClickListener(new View.OnClickListener() {
 							
@@ -482,7 +479,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 						}
 						
 						cardBackPic = "";
-						deletePictureBack.setVisibility(Button.GONE);
+						deletePictureBack.setVisibility(ImageButton.GONE);
 						updateImageButtonNewCard(false, showPictureBack);
 								
 					}
@@ -555,7 +552,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 				// Update Buttons
 				updateImageButtonNewCard(true, showPictureFront);
-				deletePictureFront.setVisibility(Button.VISIBLE);
+				deletePictureFront.setVisibility(ImageButton.VISIBLE);
 				
 				Toast.makeText(getApplicationContext(),
 						"Picture saved under: " + imageUriFront.getPath(),
@@ -578,9 +575,9 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				// Save path in cardBackPic
 				cardBackPic = imageUriBack.getPath();
 
-				// Update Buttons
+				// Update ImageButtons
 				updateImageButtonNewCard(false, showPictureBack);
-				deletePictureBack.setVisibility(Button.VISIBLE);
+				deletePictureBack.setVisibility(ImageButton.VISIBLE);
 				
 				Toast.makeText(getApplicationContext(),
 						"Picture saved under: " + imageUriBack.getPath(),
@@ -632,7 +629,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 				byte[] byteArray = baos.toByteArray();
 
-				// Update Button
+				// Update ImageButton
 				pictureBtn.setVisibility(ImageButton.VISIBLE);
 				pictureBtn.setImageBitmap(imageBitmap);
 				
@@ -665,7 +662,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 				byte[] byteArray = baos.toByteArray();
 
-				// Update Button
+				// Update ImageButton
 				pictureBtn.setVisibility(ImageButton.VISIBLE);
 				pictureBtn.setImageBitmap(imageBitmap);
 				
