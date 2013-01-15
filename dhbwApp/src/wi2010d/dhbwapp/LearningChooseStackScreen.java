@@ -192,13 +192,13 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		if (isDynamic) {
 			menu.add(0, v.getId(), 0, "Start Learning");
 			menu.add(0, v.getId(), 1, "Change Name and Tags");
-			menu.add(0, v.getId(), 2, "Reset Anwsers");
+			menu.add(0, v.getId(), 2, "Reset Answers");
 			menu.add(0, v.getId(), 3, "Delete");
 			menu.add(0, v.getId(), 4, "Archive");
 		} else {
 			menu.add(0, v.getId(), 0, "Start Learning");
 			menu.add(0, v.getId(), 1, "Change Name");
-			menu.add(0, v.getId(), 2, "Reset Anwsers");
+			menu.add(0, v.getId(), 2, "Reset Answers");
 			menu.add(0, v.getId(), 3, "Add Tags to all Cards");
 			menu.add(0, v.getId(), 4, "Delete");
 			menu.add(0, v.getId(), 5, "Archive");
@@ -310,14 +310,14 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 				i.putExtra("buttonInvisible", true);
 				startActivityForResult(i, 1);
 
-			} else if (item.getTitle() == "Reset Anwsers") {
+			} else if (item.getTitle() == "Reset Answers") {
 				// all cards of this stack get reseted and set back to the
 				// answer:
 				// don't know
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						this);
 				// set title
-				alertDialogBuilder.setTitle("Reset Anwsers");
+				alertDialogBuilder.setTitle("Reset Answers");
 				// set dialog message
 				alertDialogBuilder
 						.setMessage(
