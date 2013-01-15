@@ -396,7 +396,7 @@ public class Statistics {
 				for (int j = 0; j < 3; j++){
 					// Calculate progress for each drawer (j)
 					result = (((float) statusAfter[j] / totalCards) * 100);
-					progress[i][j] = (int) result;
+					progress[i][j] = Math.round(result);
 				}
 			}
 		}
