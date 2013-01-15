@@ -21,9 +21,8 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.w3c.dom.Document;
-
 import org.jdom2.JDOMException;
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import wi2010d.dhbwapp.control.Exchange;
@@ -47,13 +46,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
@@ -84,10 +83,12 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	ViewPager mViewPager;
-	static ListView importList;
-	static ArrayAdapter<String> importListAdapter;
-	static View importView;
+	private ViewPager mViewPager;
+	private static ListView importList;
+	private static ArrayAdapter<String> importListAdapter;
+	private static View importView;
+	private static boolean stacksAvailable = false;
+	private static ArrayList<String> items = new ArrayList<String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -142,15 +143,16 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 				}
 
 				/*
-				 * the current state is that there is only one possibility to import
-				 * a stack, that also has pictures in its cards. This is possible,
-				 * if the xml-file of the stack is in the same directory as the
-				 * pictures for its cards. In this case, the user has to click on
-				 * the xml-file in a FileManager and choose open with KnowItOwl. If
+				 * the current state is that there is only one possibility to
+				 * import a stack, that also has pictures in its cards. This is
+				 * possible, if the xml-file of the stack is in the same
+				 * directory as the pictures for its cards. In this case, the
+				 * user has to click on the xml-file in a FileManager and choose
+				 * open with KnowItOwl. If
 				 */
 				int end1 = path.lastIndexOf("/");
 				String str2 = path.substring(0, end1 + 1);
-				
+
 				for (String image : Exchange.getInstance().getImageList()) {
 					try {
 						copyFile(new File(str2 + image), new File(Environment
@@ -159,7 +161,8 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 					} catch (IOException e) {
 						// Show an import Error, when a File couldn't get
 						// copied
-						// TODO: Bene: dieser Error kommt nur, wenn die Bilder nicht gefunden wurden
+						// TODO: Bene: dieser Error kommt nur, wenn die Bilder
+						// nicht gefunden wurden
 						ErrorHandlerFragment newFragment = ErrorHandlerFragment
 								.newInstance(
 										R.string.error_handler_import_error,
@@ -340,6 +343,21 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 			actionBar.addTab(actionBar.newTab()
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (importList != null) {
+			AdminImportExport.importList.setAdapter(AdminImportExport
+					.updateImportListAdapter());
+			if (!items.get(0).equals("No stacks available")) {
+				registerForContextMenu(importList);
+			}
+		}
+		if (stacksAvailable) {
+			registerForContextMenu(importList);
 		}
 	}
 
@@ -532,10 +550,6 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 			importList = (ListView) v
 					.findViewById(R.id.list_admin_import_stacks);
 			AdminImportExport.importList = importList;
-			// tell android that we want this view to create a menu when it is
-			// long
-			// pressed. Method onCreateContextMenu is further relevant
-			registerForContextMenu(importList);
 
 			if (!Environment.getExternalStorageState().equals(
 					Environment.MEDIA_UNMOUNTED)
@@ -573,10 +587,17 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 									Toast.LENGTH_SHORT);
 					toast.show();
 					items.add("No stacks available");
+					importListAdapter = new ArrayAdapter<String>(
+							v.getContext(), R.layout.layout_listitem, items);
+					AdminImportExport.importListAdapter = importListAdapter;
+					
 				} else {
 					importListAdapter = new ArrayAdapter<String>(
 							v.getContext(), R.layout.layout_listitem, items);
 					AdminImportExport.importListAdapter = importListAdapter;
+					if (!items.get(0).equals("No stacks available")) {
+						registerForContextMenu(AdminImportExport.importList);
+					}
 
 					importList.setAdapter(importListAdapter);
 					importList.setClickable(true);
@@ -744,6 +765,9 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 									AdminImportExport.importList
 											.setAdapter(AdminImportExport
 													.updateImportListAdapter());
+									if (stacksAvailable) {
+										registerForContextMenu(importList);
+									}
 								} else {
 									// problem during delete
 									ErrorHandlerFragment newFragment = ErrorHandlerFragment
@@ -868,6 +892,9 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 									AdminImportExport.importList
 											.setAdapter(AdminImportExport
 													.updateImportListAdapter());
+									if (stacksAvailable) {
+										registerForContextMenu(importList);
+									}
 
 									for (String uri : Exchange.getInstance()
 											.getImageListPath()) {
@@ -932,6 +959,9 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 											AdminImportExport.importList
 													.setAdapter(AdminImportExport
 															.updateImportListAdapter());
+											if (stacksAvailable) {
+												registerForContextMenu(importList);
+											}
 
 											for (String uri : Exchange
 													.getInstance()
@@ -991,14 +1021,14 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 	 * @return the updated Adapter
 	 */
 	protected static ArrayAdapter<String> updateImportListAdapter() {
-		ArrayList<String> items = new ArrayList<String>();
+		items.clear();
 		File knowItOwlDir = new File(Environment.getExternalStorageDirectory()
 				.getPath() + "/knowItOwl/");
 		File[] fileList = knowItOwlDir.listFiles();
 
 		for (File stackName : fileList) {
 			items.add(stackName.getName());
-			Log.d("file", stackName.toString());
+			stacksAvailable = true;
 		}
 		if (items.size() == 0) {
 			items.add("No stacks available");
@@ -1009,7 +1039,9 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 		return importListAdapter;
 	}
 
-	// Use this method to get the filename of the attachment in the email
+	/**
+	 * Use this method to get the filename of the attachment in the email
+	 */
 	public static String getContentName(ContentResolver resolver, Uri uri) {
 		Cursor cursor = resolver.query(uri,
 				new String[] { MediaStore.MediaColumns.DISPLAY_NAME }, null,

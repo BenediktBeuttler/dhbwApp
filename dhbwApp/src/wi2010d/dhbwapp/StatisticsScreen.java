@@ -1,7 +1,9 @@
 package wi2010d.dhbwapp;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import wi2010d.dhbwapp.control.Delete;
@@ -449,8 +451,6 @@ public class StatisticsScreen extends OnResumeFragmentActivity implements
 			spinner = (Spinner) v
 					.findViewById(R.id.lbl_statistics_progress_stackSpinner);
 
-			
-
 			// Instantiating list that contains all Stack Names later
 			List<String> items = new ArrayList<String>();
 
@@ -500,7 +500,7 @@ public class StatisticsScreen extends OnResumeFragmentActivity implements
 
 				}
 			});
-			
+
 			// Initializing Button to show diagram and set OnClickListener
 			showDiagram = (Button) v
 					.findViewById(R.id.btn_statistics_progress_diagram);
@@ -508,44 +508,52 @@ public class StatisticsScreen extends OnResumeFragmentActivity implements
 
 				@Override
 				public void onClick(View v) {
-					// start a new activity which calls the graphical diagram to
-					// show
-					Intent intent = new Intent(context,
-							StatisticsProgressDiagramActivity.class);
-					
 					// Get Stack that is selected in Spinner
 					String selectedStack = (String) spinner.getSelectedItem();
-					
-					// Get Number of Runthroughs for the selected Stack
-					int numberRunthroughs = Statistics.getInstance().
-							getNumberOfRunthroughs(selectedStack);
-					
-					// ini Y-value of sure answers
-					int[] sureY = new int[10];
-					// ini Y-value of notSure answers
-					int[] notSureY = new int[10];
-					// ini Y-value of dontKnow answers
-					int[] dontKnowY = new int[10];
 
-					int[][] allData = Statistics.getInstance().getLastProgress(
-							selectedStack);
-					
-					for (int i = 0; i < numberRunthroughs; i++) {
-						// fill the variable dontKnow with the Y-values
-						dontKnowY[i] = allData[i][0];
-						// fill the variable with notSureY the Y-values
-						notSureY[i] = allData[i][1];
-						// fill the variable sureY with Y-values
-						sureY[i] = allData[i][2];
+					if (!selectedStack.equals("No stacks available")) {
+
+						// start a new activity which calls the graphical
+						// diagram to
+						// show
+						Intent intent = new Intent(context,
+								StatisticsProgressDiagramActivity.class);
+
+						// Get Number of Runthroughs for the selected Stack
+						int numberRunthroughs = Statistics.getInstance()
+								.getNumberOfRunthroughs(selectedStack);
+
+						// ini Y-value of sure answers
+						int[] sureY = new int[10];
+						// ini Y-value of notSure answers
+						int[] notSureY = new int[10];
+						// ini Y-value of dontKnow answers
+						int[] dontKnowY = new int[10];
+
+						int[][] allData = Statistics.getInstance()
+								.getLastProgress(selectedStack);
+
+						long[] lastDates = Statistics.getInstance()
+								.getLastRunthroughDatesAsDate(selectedStack);
+
+						for (int i = 0; i < numberRunthroughs; i++) {
+							// fill the variable dontKnow with the Y-values
+							dontKnowY[i] = allData[i][0];
+							// fill the variable with notSureY the Y-values
+							notSureY[i] = allData[i][1];
+							// fill the variable sureY with Y-values
+							sureY[i] = allData[i][2];
+						}
+
+						// add the values via putExtra to the intent
+						intent.putExtra("notSureY", notSureY);
+						intent.putExtra("sureY", sureY);
+						intent.putExtra("dontKnowY", dontKnowY);
+						intent.putExtra("lastDates", lastDates);
+
+						// start the Activity with the added extras
+						startActivity(intent);
 					}
-
-					// add the values via putExtra to the intent
-					intent.putExtra("notSureY", notSureY);
-					intent.putExtra("sureY", sureY);
-					intent.putExtra("dontKnowY", dontKnowY);
-
-					// start the Activity with the added extras
-					startActivity(intent);
 				}
 			});
 

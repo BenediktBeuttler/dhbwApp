@@ -1,5 +1,8 @@
 package wi2010d.dhbwapp;
 
+import java.util.Date;
+
+import wi2010d.dhbwapp.model.Runthrough;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,10 +22,10 @@ public class StatisticsProgressDiagramActivity extends Activity {
 		int[]sureY = getIntent().getExtras().getIntArray("sureY");
 		int[]dontKnowY = getIntent().getExtras().getIntArray("dontKnowY");
 		//TODO: X value is missing
-		int[]x = null;
+		long[] x = getIntent().getExtras().getLongArray("lastDates");
 		
 		Intent lineIntent = line.getDiagram(this, notSureY, sureY, dontKnowY, x);
-		
+
 		//start the actual graphical diagram activity
 		startActivity(lineIntent);
 		finish();

@@ -16,6 +16,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -38,20 +39,17 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 	public final static int RESULT_FAIL = 2;
 	private ListView lv;
 	private ArrayAdapter<String> lvAdapter;
+	private boolean stackAvailable = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// reload the data, if sth got garbage collected
 		this.reloadOnGarbageCollected();
-		
+
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.admin_choose_stack_screen);
 		lv = (ListView) findViewById(R.id.admin_stack_list);
-
-		// tell android that we want this view to create a menu when it is long
-		// pressed. Method onCreateContextMenu is further relevant
-		registerForContextMenu(lv);
 
 		updateStackList();
 
@@ -259,7 +257,7 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 				// show it
 				alertDialog.show();
 
-			}else if (item.getTitle() == "Add Tags to all Cards") {
+			} else if (item.getTitle() == "Add Tags to all Cards") {
 				AlertDialog.Builder alert = new AlertDialog.Builder(this);
 				alert.setTitle("Add Tag to Cards");
 				alert.setMessage("Please insert the name of the Tag you want to add to all Cards in this Stack");
@@ -275,12 +273,12 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 									int whichButton) {
 								String newTagName = input.getText().toString();
 								Tag newTag = new Tag(newTagName);
-								Stack clickedStack = null;								
+								Stack clickedStack = null;
 								for (Stack stack : Stack.allStacks) {
-									if (stack.getStackName().equals(
-											stackName)) {										
+									if (stack.getStackName().equals(stackName)) {
 										clickedStack = stack;
-										Edit.getInstance().addTagToStack(newTag, clickedStack);
+										Edit.getInstance().addTagToStack(
+												newTag, clickedStack);
 										break;
 									}
 								}
@@ -402,20 +400,32 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 	 * @return true, if it worked
 	 */
 	public boolean updateStackList() {
+		stackAvailable = false;
+
 		ArrayList<String> items = new ArrayList<String>();
 		for (Stack stack : Stack.allStacks) {
 			if (stack.isDynamicGenerated()) {
 				if (stack.getStackName().startsWith("<Dyn>")) {
 					items.add(stack.getStackName());
+					stackAvailable = true;
 				} else {
 					items.add("<Dyn> " + stack.getStackName());
+					stackAvailable = true;
 				}
 			} else {
 				items.add(stack.getStackName());
+				stackAvailable = true;
 			}
 		}
 		if (items.size() == 0) {
 			items.add("No stacks available");
+			stackAvailable = false;
+		}
+
+		// tell android that we want this view to create a menu when it is long
+		// pressed. Method onCreateContextMenu is further relevant
+		if (stackAvailable) {
+			registerForContextMenu(lv);
 		}
 		Collections.sort(items);
 		lvAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,

@@ -19,7 +19,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.AvoidXfermode;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -69,28 +68,31 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		// When the device is shaked, start the random learning session
 		@Override
 		public void onSensorChanged(SensorEvent event) {
-			float x = event.values[0];
-			float y = event.values[1];
-			float z = event.values[2];
-			mAccelLast = mAccelCurrent;
-			mAccelCurrent = (float) Math.sqrt((double) (x * x + y * y + z * z));
-			float delta = mAccelCurrent - mAccelLast;
-			mAccel = mAccel * 0.9f + delta;
-			if (mAccel > 7) {
-				Random generator = new Random();
-				Stack rndStack = Create.getInstance().newRandomStack(
-						"RandomStack " + new Date(),
-						Card.allCards.get(generator.nextInt(Card.allCards
-								.size())));
-				Intent i = new Intent(getApplicationContext(),
-						LearningCard.class);
-				if (rndStack != null) {
-					i.putExtra("stackName", rndStack.getStackName());
-					i.putExtra("isRandomStack", true);
-					startActivityForResult(i, 1);
-				} else {
-					ErrorHandler.getInstance().handleError(
-							ErrorHandler.getInstance().GENERAL_ERROR);
+			if (Stack.allStacks.size() > 0) {
+				float x = event.values[0];
+				float y = event.values[1];
+				float z = event.values[2];
+				mAccelLast = mAccelCurrent;
+				mAccelCurrent = (float) Math.sqrt((double) (x * x + y * y + z
+						* z));
+				float delta = mAccelCurrent - mAccelLast;
+				mAccel = mAccel * 0.9f + delta;
+				if (mAccel > 7) {
+					Random generator = new Random();
+					Stack rndStack = Create.getInstance().newRandomStack(
+							"RandomStack " + new Date(),
+							Card.allCards.get(generator.nextInt(Card.allCards
+									.size())));
+					Intent i = new Intent(getApplicationContext(),
+							LearningCard.class);
+					if (rndStack != null) {
+						i.putExtra("stackName", rndStack.getStackName());
+						i.putExtra("isRandomStack", true);
+						startActivityForResult(i, 1);
+					} else {
+						ErrorHandler.getInstance().handleError(
+								ErrorHandler.getInstance().GENERAL_ERROR);
+					}
 				}
 			}
 		}
@@ -137,9 +139,6 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		});
 
 		lv = (ListView) findViewById(R.id.learn_stack_list);
-		// tell android that we want this view to create a menu when it is long
-		// pressed. Method onCreateContextMenu is further relevant
-		registerForContextMenu(lv);
 		updateStackList();
 		lv.setClickable(true);
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -193,13 +192,13 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		if (isDynamic) {
 			menu.add(0, v.getId(), 0, "Start Learning");
 			menu.add(0, v.getId(), 1, "Change Name and Tags");
-			menu.add(0, v.getId(), 2, "Reset Anwsers");
+			menu.add(0, v.getId(), 2, "Reset Answers");
 			menu.add(0, v.getId(), 3, "Delete");
 			menu.add(0, v.getId(), 4, "Archive");
 		} else {
 			menu.add(0, v.getId(), 0, "Start Learning");
 			menu.add(0, v.getId(), 1, "Change Name");
-			menu.add(0, v.getId(), 2, "Reset Anwsers");
+			menu.add(0, v.getId(), 2, "Reset Answers");
 			menu.add(0, v.getId(), 3, "Add Tags to all Cards");
 			menu.add(0, v.getId(), 4, "Delete");
 			menu.add(0, v.getId(), 5, "Archive");
@@ -311,14 +310,14 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 				i.putExtra("buttonInvisible", true);
 				startActivityForResult(i, 1);
 
-			} else if (item.getTitle() == "Reset Anwsers") {
+			} else if (item.getTitle() == "Reset Answers") {
 				// all cards of this stack get reseted and set back to the
 				// answer:
 				// don't know
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						this);
 				// set title
-				alertDialogBuilder.setTitle("Reset Anwsers");
+				alertDialogBuilder.setTitle("Reset Answers");
 				// set dialog message
 				alertDialogBuilder
 						.setMessage(
@@ -510,19 +509,29 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 	 */
 	public boolean updateStackList() {
 		ArrayList<String> items = new ArrayList<String>();
+		boolean stacksAvailable = false;
 		for (Stack stack : Stack.allStacks) {
 			if (stack.isDynamicGenerated()) {
 				if (stack.getStackName().startsWith("<Dyn>")) {
 					items.add(stack.getStackName());
+					stacksAvailable = true;
 				} else {
 					items.add("<Dyn> " + stack.getStackName());
+					stacksAvailable = true;
 				}
 			} else {
 				items.add(stack.getStackName());
+				stacksAvailable = true;
 			}
 		}
 		if (items.size() == 0) {
 			items.add("No stacks available");
+		}
+		if (stacksAvailable) {
+			// tell android that we want this view to create a menu when it is
+			// long
+			// pressed. Method onCreateContextMenu is further relevant
+			registerForContextMenu(lv);
 		}
 		Collections.sort(items);
 		lvAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,
