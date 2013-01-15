@@ -4,6 +4,7 @@
     style="@style/style_Layout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_vertical"
     tools:context=".Settings" >
 
     <GridLayout

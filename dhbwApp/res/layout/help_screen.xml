@@ -4,7 +4,8 @@
     android:id="@+id/LinearLayout"
     style="@style/style_Layout"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical" >
 
     <GridLayout
         android:id="@+id/GridLayout"
