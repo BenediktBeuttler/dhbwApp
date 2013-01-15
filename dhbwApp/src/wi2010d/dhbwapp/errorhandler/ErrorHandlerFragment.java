@@ -79,7 +79,7 @@ public class ErrorHandlerFragment extends DialogFragment{
     }
 
 	private void onOk(int errorCode) {
-		// TODO Auto-generated method stub
+		// show 
 		switch (errorCode) {
 		case 10:
 		{

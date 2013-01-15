@@ -163,12 +163,10 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 					} catch (IOException e) {
 						// Show an import Error, when a File couldn't get
 						// copied
-						// TODO: Bene: dieser Error kommt nur, wenn die Bilder
-						// nicht gefunden wurden
 						ErrorHandlerFragment newFragment = ErrorHandlerFragment
 								.newInstance(
-										R.string.error_handler_import_error,
-										ErrorHandlerFragment.IMPORT_ERROR);
+										R.string.error_handler_file_not_found,
+										ErrorHandlerFragment.FILE_NOT_FOUND);
 						newFragment.show(this.getFragmentManager(), "dialog");
 					}
 				}

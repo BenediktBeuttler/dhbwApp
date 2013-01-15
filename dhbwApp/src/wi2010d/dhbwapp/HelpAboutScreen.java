@@ -53,7 +53,6 @@ public class HelpAboutScreen extends OnResumeActivity implements OnClickListener
 						Toast.LENGTH_SHORT);
 				toast.show();
 			}else{
-				//TODO: Thomas do it! Die Variable mit dem Rating is ratingNumer, aber als float
 				// kannst meine Mailadresse angeben: benedikt.beuttler@gmail.com
 				// Start Sending Intent
 				Intent emailIntent = new Intent(

@@ -75,10 +75,10 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// reload the data, if sth got garbage collected
 		this.reloadOnGarbageCollected();
-		
+
 		getWindow().setSoftInputMode(
-			      WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_edit_card);
 
@@ -248,8 +248,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 	}
 
 	/**
-	 * Fragment for the cards' front, offering a TextView and a ImageButtons to take
-	 * a picture or view it.
+	 * Fragment for the cards' front, offering a TextView and a ImageButtons to
+	 * take a picture or view it.
 	 */
 	public class EditCardFront extends Fragment {
 		/**
@@ -277,7 +277,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			cardFront.setText(card.getCardFront());
 
 			// Set up ImageButton for taking new picture
-			editPicture = (ImageButton) v.findViewById(R.id.btn_edit_picture_front);
+			editPicture = (ImageButton) v
+					.findViewById(R.id.btn_edit_picture_front);
 			editPicture.setOnClickListener(new View.OnClickListener() {
 
 				@Override
@@ -320,7 +321,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			// Update Image ImageButton (Thumbnail)
 			updateImageButtonAdminEdit(true, showPictureButton);
 
-			// Set onClickListener on image ImageButton (to show picture in Gallery)
+			// Set onClickListener on image ImageButton (to show picture in
+			// Gallery)
 			showPictureButton.setOnClickListener(new View.OnClickListener() {
 
 				@Override
@@ -344,7 +346,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			// Set delete ImageButton only visible, if picture is available
 			if (!card.getCardFrontPicture().equals("")
 					&& checkPictureAvailability(true)) {
-				// If there is a picture available, do nothing, as the ImageButton is
+				// If there is a picture available, do nothing, as the
+				// ImageButton is
 				// already visible
 				;
 			} else {
@@ -390,15 +393,15 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				Intent data) {
 			// Gets called when a picture is taken
 			if (resultCode == Activity.RESULT_OK) {
-				
-				if (!card.getCardFrontPicture().equals("") &&
-						checkPictureAvailability(true)){
-					
+
+				if (!card.getCardFrontPicture().equals("")
+						&& checkPictureAvailability(true)) {
+
 					// Delete former file from SD-Card
 					File fileToDelete = new File(card.getCardFrontPicture());
 					fileToDelete.delete();
 				}
-				
+
 				Edit.getInstance().addNewPicToCard(true,
 						imageUriFront.getPath(), card);
 
@@ -410,7 +413,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 						"Picture saved under: " + imageUriFront.getPath(),
 						Toast.LENGTH_LONG).show();
 
-				// Set delete ImageButton visible as there is a new pic which can be
+				// Set delete ImageButton visible as there is a new pic which
+				// can be
 				// deleted now
 				deletePicture.setVisibility(ImageButton.VISIBLE);
 			}
@@ -419,8 +423,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 	}
 
 	/**
-	 * Fragment for the cards' back, offering text view + ImageButtons to take and
-	 * view picture.
+	 * Fragment for the cards' back, offering text view + ImageButtons to take
+	 * and view picture.
 	 */
 	public class EditCardBack extends Fragment {
 		/**
@@ -449,7 +453,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			cardBack.setText(card.getCardBack());
 
 			// Set up edit picture ImageButton
-			editPicture = (ImageButton) v.findViewById(R.id.btn_edit_picture_back);
+			editPicture = (ImageButton) v
+					.findViewById(R.id.btn_edit_picture_back);
 			editPicture.setOnClickListener(new View.OnClickListener() {
 
 				@Override
@@ -514,7 +519,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			// Set delete ImageButton only visible, if picture is available
 			if (!card.getCardBackPicture().equals("")
 					&& checkPictureAvailability(false)) {
-				// If there is a picture available, do nothing, as the ImageButton is
+				// If there is a picture available, do nothing, as the
+				// ImageButton is
 				// already visible
 				;
 			} else {
@@ -560,15 +566,15 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 			// Gets called, when a picture is taken
 			if (resultCode == Activity.RESULT_OK) {
-				
-				if (!card.getCardBackPicture().equals("") &&
-						checkPictureAvailability(false)){
-					
+
+				if (!card.getCardBackPicture().equals("")
+						&& checkPictureAvailability(false)) {
+
 					// Delete former file from SD-Card
 					File fileToDelete = new File(card.getCardBackPicture());
 					fileToDelete.delete();
 				}
-				
+
 				Edit.getInstance().addNewPicToCard(false, imageUri.getPath(),
 						card);
 
@@ -579,7 +585,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 						"Picture saved under: " + imageUri.getPath(),
 						Toast.LENGTH_LONG).show();
 
-				// Set delete ImageButton visible as there is any picture to delete
+				// Set delete ImageButton visible as there is any picture to
+				// delete
 				// now
 				deletePicture.setVisibility(ImageButton.VISIBLE);
 			}
@@ -606,8 +613,6 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			return true;
 	}
 
-	// TODO: Gucken, ob hier auch dieselbe Methode aus der Learner-Klasse
-	// aufgerufen werden kann
 	public boolean updateImageButtonAdminEdit(boolean front,
 			ImageButton pictureBtn) {
 		final int THUMBNAIL_SIZE = 128;

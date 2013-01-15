@@ -11,6 +11,7 @@ import java.util.Date;
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
@@ -69,15 +70,15 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	ViewPager mViewPager;
 	EditText cardFront;
 	EditText cardBack;
-	
+
 	public static final int STACK_CHOSEN = 10;
-	
+
 	public static final int TAKE_PICTURE_FRONT = 1;
 	private ImageButton takePictureFront;
 	private ImageButton deletePictureFront;
 	private ImageButton showPictureFront;
 	public Uri imageUriFront;
-	
+
 	public static final int TAKE_PICTURE_BACK = 2;
 	private ImageButton takePictureBack;
 	private ImageButton deletePictureBack;
@@ -99,10 +100,10 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// reload the data, if sth got garbage collected
 		this.reloadOnGarbageCollected();
-		
+
 		getWindow().setSoftInputMode(
-			      WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_new_card);
 
@@ -260,7 +261,8 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	}
 
 	/**
-	 * Fragment for the cards' front, offering text view + ImageButtons to take and view picture.
+	 * Fragment for the cards' front, offering text view + ImageButtons to take
+	 * and view picture.
 	 */
 	public class NewCardFront extends Fragment {
 		/**
@@ -292,8 +294,9 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 					// New intent to take picture
 					Intent takePicture = new Intent(
 							"android.media.action.IMAGE_CAPTURE");
-					
-					// Create unique name for picture with help of the actual date
+
+					// Create unique name for picture with help of the actual
+					// date
 					Date date = new Date();
 					SimpleDateFormat sd = new SimpleDateFormat("yyMMddhhmmss");
 					String picName = sd.format(date);
@@ -320,7 +323,6 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				}
 			});
 
-			
 			// Set up image Butto
 			showPictureFront = (ImageButton) v
 					.findViewById(R.id.btn_admin_new_card_picture_front_show);
@@ -329,11 +331,11 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 				@Override
 				public void onClick(View v) {
-					
+
 					// Check if there is an existing picture
-					if (!cardFrontPic.equals("") 
+					if (!cardFrontPic.equals("")
 							&& checkPictureAvailability(true)) {
-						
+
 						// Show picture in Gallery
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
@@ -343,35 +345,38 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 					}
 				}
 			});
-			
+
 			// Set up ImageButton for deleting the picture
-			deletePictureFront = (ImageButton) v.findViewById(
-						R.id.btn_admin_new_card_picture_front_delete);
+			deletePictureFront = (ImageButton) v
+					.findViewById(R.id.btn_admin_new_card_picture_front_delete);
 
 			deletePictureFront.setVisibility(ImageButton.GONE);
-			
+
 			deletePictureFront.setOnClickListener(new View.OnClickListener() {
-							
-					@Override
-					public void onClick(View v) {
-								
-						// Set front pic = "" and update Image Button and delete file from SD-Card
-						File fileToDelete = new File(cardFrontPic);
-						if (fileToDelete.delete()){
-							Toast toast = Toast.makeText(getApplicationContext(), 
-									"Picture has been deleted successfully", Toast.LENGTH_LONG);
-							toast.show();
-						}
-						
-						// set cardFrontPic "" and set visibility of ImageButton = GONE as there is
-						// no picture anymore, update thumbnail
-						cardFrontPic = "";
-						deletePictureFront.setVisibility(ImageButton.GONE);
-						updateImageButtonNewCard(true, showPictureFront);
-								
+
+				@Override
+				public void onClick(View v) {
+
+					// Set front pic = "" and update Image Button and delete
+					// file from SD-Card
+					File fileToDelete = new File(cardFrontPic);
+					if (fileToDelete.delete()) {
+						Toast toast = Toast.makeText(getApplicationContext(),
+								"Picture has been deleted successfully",
+								Toast.LENGTH_LONG);
+						toast.show();
 					}
-				});
-			
+
+					// set cardFrontPic "" and set visibility of ImageButton =
+					// GONE as there is
+					// no picture anymore, update thumbnail
+					cardFrontPic = "";
+					deletePictureFront.setVisibility(ImageButton.GONE);
+					updateImageButtonNewCard(true, showPictureFront);
+
+				}
+			});
+
 			// set imageButton GONE as there is no picture onCreate
 			showPictureFront.setVisibility(ImageButton.GONE);
 
@@ -411,13 +416,14 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 					// New intent to take picture
 					Intent takePicture = new Intent(
 							"android.media.action.IMAGE_CAPTURE");
-					
+
 					// Create unique picture name with help of the actual date
 					Date date = new Date();
 					SimpleDateFormat sd = new SimpleDateFormat("yyMMddhhmmss");
 					String picName = sd.format(date);
 
-					// Check if file /knowItOwl/picture exists --> if not, create it
+					// Check if file /knowItOwl/picture exists --> if not,
+					// create it
 					if (!new File(Environment.getExternalStorageDirectory()
 							.getPath() + "/knowItOwl/pictures").exists()) {
 						new File(Environment.getExternalStorageDirectory()
@@ -446,11 +452,11 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 				@Override
 				public void onClick(View v) {
-					
+
 					// Check if there is any existing Card
 					if (!cardBackPic.equals("")
 							&& checkPictureAvailability(false)) {
-						
+
 						// New intent to show picture
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
@@ -460,36 +466,38 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 					}
 				}
 			});
-			
+
 			// Set up Button for deleting the picture
-			deletePictureBack = (ImageButton) v.findViewById(
-						R.id.btn_admin_new_card_picture_back_delete);
-			
+			deletePictureBack = (ImageButton) v
+					.findViewById(R.id.btn_admin_new_card_picture_back_delete);
+
 			deletePictureBack.setVisibility(ImageButton.GONE);
 
 			deletePictureBack.setOnClickListener(new View.OnClickListener() {
-							
-					@Override
-					public void onClick(View v) {
-						
-						
-						// Set back pic = "" and update Image Button and delete file from SD-Card
-						File fileToDelete = new File(cardBackPic);
-				
-						if (fileToDelete.delete()){
-							Toast toast = Toast.makeText(getApplicationContext(), 
-									"Picture has been deleted successfully", Toast.LENGTH_LONG);
-							toast.show();
-						}
-						
-						cardBackPic = "";
-						deletePictureBack.setVisibility(ImageButton.GONE);
-						updateImageButtonNewCard(false, showPictureBack);
-								
+
+				@Override
+				public void onClick(View v) {
+
+					// Set back pic = "" and update Image Button and delete file
+					// from SD-Card
+					File fileToDelete = new File(cardBackPic);
+
+					if (fileToDelete.delete()) {
+						Toast toast = Toast.makeText(getApplicationContext(),
+								"Picture has been deleted successfully",
+								Toast.LENGTH_LONG);
+						toast.show();
 					}
-				});
-						
-			// Set picture visibility GONE as there is no picture to show anymore
+
+					cardBackPic = "";
+					deletePictureBack.setVisibility(ImageButton.GONE);
+					updateImageButtonNewCard(false, showPictureBack);
+
+				}
+			});
+
+			// Set picture visibility GONE as there is no picture to show
+			// anymore
 			showPictureBack.setVisibility(ImageButton.GONE);
 
 			return v;
@@ -520,8 +528,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		String stackName;
 		Toast toast;
-		
-		
+
 		switch (requestCode) {
 		case STACK_CHOSEN:
 			stackName = data.getExtras().getString("stackName");
@@ -539,25 +546,24 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			}
 			break;
 		case 65537:
-			
+
 			// If picture is taken (front)
 			if (resultCode == RESULT_OK) {
 
-				if (!cardFrontPic.equals("") &&
-						checkPictureAvailability(true)){
-					
+				if (!cardFrontPic.equals("") && checkPictureAvailability(true)) {
+
 					// Delete former file from SD-Card
 					File fileToDelete = new File(cardFrontPic);
 					fileToDelete.delete();
 				}
-				
+
 				// Save path in cardFrontPic
 				cardFrontPic = imageUriFront.getPath();
 
 				// Update Buttons
 				updateImageButtonNewCard(true, showPictureFront);
 				deletePictureFront.setVisibility(ImageButton.VISIBLE);
-				
+
 				Toast.makeText(getApplicationContext(),
 						"Picture saved under: " + imageUriFront.getPath(),
 						Toast.LENGTH_LONG).show();
@@ -567,22 +573,21 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		case 131074:
 			// If picture is taken (back)
 			if (resultCode == RESULT_OK) {
-				
-				if (!cardBackPic.equals("") &&
-						checkPictureAvailability(false)){
-					
+
+				if (!cardBackPic.equals("") && checkPictureAvailability(false)) {
+
 					// Delete former file from SD-Card
 					File fileToDelete = new File(cardBackPic);
 					fileToDelete.delete();
 				}
-				
+
 				// Save path in cardBackPic
 				cardBackPic = imageUriBack.getPath();
 
 				// Update ImageButtons
 				updateImageButtonNewCard(false, showPictureBack);
 				deletePictureBack.setVisibility(ImageButton.VISIBLE);
-				
+
 				Toast.makeText(getApplicationContext(),
 						"Picture saved under: " + imageUriBack.getPath(),
 						Toast.LENGTH_LONG).show();
@@ -595,34 +600,38 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	}
 
 	/**
-	 * Method to update an ImageButton --> set the actual thumbnail or set Button GONE if there is
-	 * no picture available
+	 * Method to update an ImageButton --> set the actual thumbnail or set
+	 * Button GONE if there is no picture available
 	 * 
-	 * @param front: TRUE = set Image Button on front, FALSE = set Image Button on back
-	 * @param pictureBtn: ImageButton that is to be updated
+	 * @param front
+	 *            : TRUE = set Image Button on front, FALSE = set Image Button
+	 *            on back
+	 * @param pictureBtn
+	 *            : ImageButton that is to be updated
 	 * @return true if it has worked
 	 */
 	public boolean updateImageButtonNewCard(boolean front,
 			ImageButton pictureBtn) {
-		
+
 		// height and width of thumbnail
 		final int THUMBNAIL_SIZE = 128;
 
 		// if the ImageButton on front is to be updated
 		if (front) {
-			
+
 			// check if there is any existing front picture
-			if (!cardFrontPic.equals("")
-					&& checkPictureAvailability(true)) {
-				
+			if (!cardFrontPic.equals("") && checkPictureAvailability(true)) {
+
 				FileInputStream fis = null;
 				try {
 					fis = new FileInputStream(new File(cardFrontPic));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					ErrorHandlerFragment newFragment = ErrorHandlerFragment
+							.newInstance(R.string.error_handler_file_not_found,
+									ErrorHandlerFragment.FILE_NOT_FOUND);
+					newFragment.show(this.getFragmentManager(), "dialog");
 				}
-				
+
 				// new bitmap (thumbnail)
 				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
 
@@ -636,26 +645,27 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				// Update ImageButton
 				pictureBtn.setVisibility(ImageButton.VISIBLE);
 				pictureBtn.setImageBitmap(imageBitmap);
-				
-			// if there is no front picture available
+
+				// if there is no front picture available
 			} else {
 				pictureBtn.setVisibility(ImageButton.GONE);
 			}
-		// If the imageButton on back is to be updated
+			// If the imageButton on back is to be updated
 		} else {
-			
+
 			// If there is an existing picture
-			if (!cardBackPic.equals("")
-					&& checkPictureAvailability(false)) {
-				
+			if (!cardBackPic.equals("") && checkPictureAvailability(false)) {
+
 				FileInputStream fis = null;
 				try {
 					fis = new FileInputStream(new File(cardBackPic));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					ErrorHandlerFragment newFragment = ErrorHandlerFragment
+							.newInstance(R.string.error_handler_file_not_found,
+									ErrorHandlerFragment.FILE_NOT_FOUND);
+					newFragment.show(this.getFragmentManager(), "dialog");
 				}
-				
+
 				// Create Bitmap (Thumbnail)
 				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
 
@@ -669,8 +679,8 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				// Update ImageButton
 				pictureBtn.setVisibility(ImageButton.VISIBLE);
 				pictureBtn.setImageBitmap(imageBitmap);
-				
-			// If there is no back picture available
+
+				// If there is no back picture available
 			} else {
 				pictureBtn.setVisibility(ImageButton.GONE);
 			}
@@ -794,7 +804,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Check if picture exists
 	 * 

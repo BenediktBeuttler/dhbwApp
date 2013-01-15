@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Learn;
 import wi2010d.dhbwapp.errorhandler.ErrorHandler;
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
@@ -681,8 +682,10 @@ public class LearningCard extends OnResumeFragmentActivity implements
 					fis = new FileInputStream(new File(
 							card.getCardFrontPicture()));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					ErrorHandlerFragment newFragment = ErrorHandlerFragment
+							.newInstance(R.string.error_handler_file_not_found,
+									ErrorHandlerFragment.FILE_NOT_FOUND);
+					newFragment.show(this.getFragmentManager(), "dialog");
 				}
 				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
 
@@ -714,7 +717,10 @@ public class LearningCard extends OnResumeFragmentActivity implements
 					fis = new FileInputStream(new File(
 							card.getCardBackPicture()));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
+					ErrorHandlerFragment newFragment = ErrorHandlerFragment
+							.newInstance(R.string.error_handler_file_not_found,
+									ErrorHandlerFragment.FILE_NOT_FOUND);
+					newFragment.show(this.getFragmentManager(), "dialog");
 					e.printStackTrace();
 				}
 				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
