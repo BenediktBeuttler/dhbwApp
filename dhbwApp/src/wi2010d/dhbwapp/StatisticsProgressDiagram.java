@@ -1,8 +1,10 @@
 package wi2010d.dhbwapp;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
 import org.achartengine.chart.BarChart;
 import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
@@ -13,6 +15,7 @@ import android.R.layout;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint.Align;
 import android.util.Log;
 
 /**
@@ -31,6 +34,8 @@ public class StatisticsProgressDiagram {
  */
 	public Intent getDiagram(Context context, int[]sureY, int[]notSureY, int[]dontKnowY, long[] x){
 		
+		// SimpleDateFormat formater = new SimpleDateFormat();
+		SimpleDateFormat sd = new SimpleDateFormat("dd.MM.yy',' HH:mm");
 		
 		//set a series which displays the 3 graphs
 		TimeSeries dontKnowLine = new TimeSeries("Don't know");
@@ -56,19 +61,38 @@ public class StatisticsProgressDiagram {
 		dataset.addSeries(sureLine);
 		
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); 
+		
 		XYSeriesRenderer renderer1 = new XYSeriesRenderer();
 		renderer1.setColor(Color.RED);
+		renderer1.setLineWidth(5);
 		mRenderer.addSeriesRenderer(renderer1);
+		
 		XYSeriesRenderer renderer2 = new XYSeriesRenderer();
 		renderer2.setColor(Color.WHITE);
+		renderer2.setLineWidth(5);
 		mRenderer.addSeriesRenderer(renderer2);
+		
 		XYSeriesRenderer renderer3 = new XYSeriesRenderer();
 		renderer3.setColor(Color.BLUE);
+		renderer3.setLineWidth(5);
 		mRenderer.addSeriesRenderer(renderer3);
+
 		mRenderer.setMargins(new int[] {40, 40, 40, 40});
 		mRenderer.setZoomButtonsVisible(true);
-		mRenderer.setPanLimits(new double[] { 10, 10, 10, 100 });
+		mRenderer.setPanLimits(new double[] { 0, 10, 0, 100 });
 		//mRenderer.setZoomLimits(new double[] { -10, 20, -10, 40 });
+		
+		//set value for x axis      
+	    mRenderer.setXLabels(10);   
+	    mRenderer.setXLabelsAlign(Align.CENTER);
+	    
+	    //set value for y axis
+	    mRenderer.setYLabels(10);  
+	    mRenderer.setYTitle("in %", 0);
+	    mRenderer.setYAxisMin(0, 0);
+	    mRenderer.setYAxisMax(100, 0);
+	    mRenderer.setYAxisAlign(Align.LEFT, 0);
+	    mRenderer.setYLabelsAlign(Align.LEFT, 0);
 		
 		//call the graphActivity to draw everything
 		Intent intent = ChartFactory.getLineChartIntent(context, dataset, mRenderer, "Progress Chart");
