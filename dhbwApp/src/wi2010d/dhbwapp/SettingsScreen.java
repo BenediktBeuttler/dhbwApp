@@ -32,7 +32,7 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 	protected void onCreate(Bundle savedInstanceState) {
 		// reload the data, if sth got garbage collected
 		this.reloadOnGarbageCollected();
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings_screen);
 
@@ -41,10 +41,10 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 
 		testData = (Button) findViewById(R.id.btn_write_test_data);
 		testData.setOnClickListener(this);
-		
+
 		resetStatistics = (Button) findViewById(R.id.btn_settings_reset_statistics);
 		resetStatistics.setOnClickListener(this);
-		
+
 		resetDrawers = (Button) findViewById(R.id.btn_settings_reset_drawer);
 		resetDrawers.setOnClickListener(this);
 	}
@@ -93,138 +93,154 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 			break;
 
 		case R.id.btn_write_test_data:
-			//creates TestData: 100 new Cards in various stacks with various tags
-			List<Tag> tags0 = new ArrayList<Tag>();
-			List<Tag> tags1 = new ArrayList<Tag>();
-			List<Tag> tags2 = new ArrayList<Tag>();
-			List<Tag> tags3 = new ArrayList<Tag>();
-			List<Tag> tags4 = null;
+			// If there's data available don't write the data, because the app
+			// will crash
+			if (Stack.allStacks.size() == 0 && Card.allCards.size() == 0
+					&& Tag.allTags.size() == 0
+					&& Runthrough.allRunthroughs.size() == 0) {
+				// creates TestData: 100 new Cards in various stacks with
+				// various tags
+				List<Tag> tags0 = new ArrayList<Tag>();
+				List<Tag> tags1 = new ArrayList<Tag>();
+				List<Tag> tags2 = new ArrayList<Tag>();
+				List<Tag> tags3 = new ArrayList<Tag>();
+				List<Tag> tags4 = null;
 
-			List<Card> allCards = new ArrayList<Card>();
-			
-			Tag mundl = Create.getInstance().newTag("Mündlich");
-			Tag presentation = Create.getInstance()
-					.newTag("2. PA Präsentation");
-			Tag nachpruefung = Create.getInstance().newTag("Nachprüfung Recht");
-			Tag projektmgmt = Create.getInstance().newTag(
-					"Projektmgmt. Zertifizierung");
+				List<Card> allCards = new ArrayList<Card>();
 
-			tags0.add(mundl);
-			tags0.add(presentation);
-			tags1.add(nachpruefung);
-			tags1.add(projektmgmt);
-			tags2.add(nachpruefung);
-			tags3.add(projektmgmt);
-			tags3.add(mundl);
-			tags3.add(presentation);
+				Tag mundl = Create.getInstance().newTag("Mündlich");
+				Tag presentation = Create.getInstance().newTag(
+						"2. PA Präsentation");
+				Tag nachpruefung = Create.getInstance().newTag(
+						"Nachprüfung Recht");
+				Tag projektmgmt = Create.getInstance().newTag(
+						"Projektmgmt. Zertifizierung");
 
-			for (int i = 0; i < 100; i++) {
+				tags0.add(mundl);
+				tags0.add(presentation);
+				tags1.add(nachpruefung);
+				tags1.add(projektmgmt);
+				tags2.add(nachpruefung);
+				tags3.add(projektmgmt);
+				tags3.add(mundl);
+				tags3.add(presentation);
 
-				if (i < 25) {
-					allCards.add(Create.getInstance().newCard(
-							"Card " + i + " front", "Card " + i + " back",
-							tags0, "", ""));
+				for (int i = 0; i < 100; i++) {
+
+					if (i < 25) {
+						allCards.add(Create.getInstance().newCard(
+								"Card " + i + " front", "Card " + i + " back",
+								tags0, "", ""));
+					}
+
+					if ((24 < i) && (i < 45)) {
+						allCards.add(Create.getInstance().newCard(
+								"Card " + i + " front", "Card " + i + " back",
+								tags1, "", ""));
+					}
+
+					if ((44 < i) && (i < 60)) {
+						allCards.add(Create.getInstance().newCard(
+								"Card " + i + " front", "Card " + i + " back",
+								tags2, "", ""));
+					}
+
+					if ((59 < i) && (i < 80)) {
+						allCards.add(Create.getInstance().newCard(
+								"Card " + i + " front", "Card " + i + " back",
+								tags3, "", ""));
+					}
+
+					if (i > 79) {
+						allCards.add(Create.getInstance().newCard(
+								"Card " + i + " front", "Card " + i + " back",
+								tags4, "", ""));
+					}
 				}
 
-				if ((24 < i) && (i < 45)) {
-					allCards.add(Create.getInstance().newCard(
-							"Card " + i + " front", "Card " + i + " back",
-							tags1, "", ""));
+				int cardNumber = 100;
+				int randomNumber;
+				List<Card> cards = new ArrayList<Card>();
+
+				for (int i = 0; i < 25; i++) {
+
+					cards.clear();
+
+					for (int j = 0; j < 4; j++) {
+
+						randomNumber = (int) Math
+								.floor((Math.random() * cardNumber));
+						cardNumber = cardNumber - 1;
+						cards.add(allCards.get(randomNumber));
+						allCards.remove(randomNumber);
+					}
+
+					Database.getInstance().addNewStack(
+							new Stack(false, "Stack " + i, cards));
 				}
 
-				if ((44 < i) && (i < 60)) {
-					allCards.add(Create.getInstance().newCard(
-							"Card " + i + " front", "Card " + i + " back",
-							tags2, "", ""));
-				}
-
-				if ((59 < i) && (i < 80)) {
-					allCards.add(Create.getInstance().newCard(
-							"Card " + i + " front", "Card " + i + " back",
-							tags3, "", ""));
-				}
-
-				if (i > 79) {
-					allCards.add(Create.getInstance().newCard(
-							"Card " + i + " front", "Card " + i + " back",
-							tags4, "", ""));
-				}
+				Toast toast;
+				toast = Toast.makeText(getApplicationContext(),
+						"Test data written!", Toast.LENGTH_SHORT);
+				toast.show();
+				break;
+			} else {
+				Toast.makeText(
+						getApplicationContext(),
+						"There's data available, please reset the Database first",
+						Toast.LENGTH_LONG).show();
+				break;
 			}
-
-			int cardNumber = 100;
-			int randomNumber;
-			List<Card> cards = new ArrayList<Card>();
-
-			for (int i = 0; i < 25; i++) {
-
-				cards.clear();
-
-				for (int j = 0; j < 4; j++) {
-
-					randomNumber = (int) Math
-							.floor((Math.random() * cardNumber));
-					cardNumber = cardNumber - 1;
-					cards.add(allCards.get(randomNumber));
-					allCards.remove(randomNumber);
-				}
-
-				Database.getInstance().addNewStack(
-						new Stack(false, "Stack " + i, cards));
-			}
-
-			Toast toast;
-			toast = Toast.makeText(getApplicationContext(),
-					"Test data written!", Toast.LENGTH_SHORT);
-			toast.show();
-			break;
 		case R.id.btn_settings_reset_statistics:
-			
+
 			// Check if there is any Stack available
-			if (Stack.allStacks.size() != 0){
+			if (Stack.allStacks.size() != 0) {
 				// Get every Stack to delete every Runthrough
-				for (Stack stack : Stack.allStacks){
-					for (Runthrough run : stack.getLastRunthroughs()){
-						
+				for (Stack stack : Stack.allStacks) {
+					for (Runthrough run : stack.getLastRunthroughs()) {
+
 						// Delete Runthrough in DB
 						Delete.getInstance().deleteRunthrough(run);
 					}
-					
+
 					stack.getLastRunthroughs().clear();
 				}
-				
-				Toast toastStatistics = Toast.makeText(getApplicationContext(), 
-						"Statistics has been resetted successfully", Toast.LENGTH_LONG);
+
+				Toast toastStatistics = Toast.makeText(getApplicationContext(),
+						"Statistics has been resetted successfully",
+						Toast.LENGTH_LONG);
 				toastStatistics.show();
-			// if there are no stacks available
-			}else{
-				Toast toastStatistics = Toast.makeText(getApplicationContext(), 
+				// if there are no stacks available
+			} else {
+				Toast toastStatistics = Toast.makeText(getApplicationContext(),
 						"There are no Stacks available", Toast.LENGTH_LONG);
 				toastStatistics.show();
 			}
-			
+
 			break;
 		case R.id.btn_settings_reset_drawer:
-			
+
 			// Check if there is any Stack available
-			if (Stack.allStacks.size() != 0){
+			if (Stack.allStacks.size() != 0) {
 				// Reset drawers for each stack
 				// Get all stacks
-				for (Stack stack : Stack.allStacks){
+				for (Stack stack : Stack.allStacks) {
 					Edit.getInstance().resetDrawer(stack);
 				}
-				
+
 				Toast toastDrawers = Toast.makeText(getApplicationContext(),
-						"Answers have been resetted successfully", Toast.LENGTH_LONG);
+						"Answers have been resetted successfully",
+						Toast.LENGTH_LONG);
 				toastDrawers.show();
-			// if there are no stacks available
-			}else{
+				// if there are no stacks available
+			} else {
 				Toast toastDrawers = Toast.makeText(getApplicationContext(),
 						"There are no Stacks available", Toast.LENGTH_LONG);
 				toastDrawers.show();
 			}
-			
+
 			break;
-			
+
 		default:
 			// if anything goes wrong (case not found), display general error
 			// dialog
