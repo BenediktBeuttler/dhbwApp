@@ -44,7 +44,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -274,9 +273,15 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 
 				// try to import the stack to our app
 				try {
-					Exchange.getInstance().importStack(
+					if(Exchange.getInstance().importStack(
 							Environment.getExternalStorageDirectory().getPath()
-									+ "/knowItOwl/" + attachmentName);
+							+ "/knowItOwl/" + attachmentName)){
+						// if the stack got imported successfully, make a toast
+						Toast.makeText(getApplicationContext(),
+								attachmentName + " got imported successfully!",
+								Toast.LENGTH_SHORT).show();					
+					}
+					
 				} catch (JDOMException e) {
 					// display a general error if the file is not found
 					ErrorHandlerFragment newFragment = ErrorHandlerFragment
@@ -292,12 +297,6 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 					newFragment.show(this.getFragmentManager(), "dialog");
 					e.printStackTrace();
 				}
-
-				// if the stack got imported successfully, make a toast
-				Toast toast = Toast.makeText(getApplicationContext(),
-						attachmentName + " got imported successfully!",
-						Toast.LENGTH_SHORT);
-				toast.show();
 			}
 
 			finish();
@@ -1035,7 +1034,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 		}
 		importListAdapter = new ArrayAdapter<String>(
 				AdminImportExport.importView.getContext(),
-				android.R.layout.simple_list_item_1, items);
+				R.layout.layout_listitem, items);
 		return importListAdapter;
 	}
 
