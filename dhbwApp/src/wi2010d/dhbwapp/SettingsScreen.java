@@ -236,7 +236,13 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 					}
 
 					stack.getLastRunthroughs().clear();
+					
+					// Reset overall learning time for each stack
+					Runthrough overallRunthrough = stack.getOverallRunthrough();
+					overallRunthrough.setDurationSecs(0);
+					Database.getInstance().changeRunthrough(overallRunthrough);
 				}
+	
 
 				Toast toastStatistics = Toast.makeText(getApplicationContext(),
 						"Statistics has been resetted successfully",
