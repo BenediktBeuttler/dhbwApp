@@ -44,6 +44,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -88,6 +89,8 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 	private static View importView;
 	private static boolean stacksAvailable = false;
 	private static ArrayList<String> items = new ArrayList<String>();
+	private static ListView exportList;
+	private static ArrayAdapter<String> exportAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -279,7 +282,8 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 						// if the stack got imported successfully, make a toast
 						Toast.makeText(getApplicationContext(),
 								attachmentName + " got imported successfully!",
-								Toast.LENGTH_SHORT).show();					
+								Toast.LENGTH_SHORT).show();	
+						
 					}
 					
 				} catch (JDOMException e) {
@@ -589,6 +593,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 					importListAdapter = new ArrayAdapter<String>(
 							v.getContext(), R.layout.layout_listitem, items);
 					AdminImportExport.importListAdapter = importListAdapter;
+					importList.setAdapter(importListAdapter);
 					
 				} else {
 					importListAdapter = new ArrayAdapter<String>(
@@ -653,6 +658,16 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 																						+ " got imported successfully!",
 																				Toast.LENGTH_SHORT);
 																toast.show();
+																
+																//Update the ExportList
+																ArrayList<String> items = new ArrayList<String>();
+																for(Stack stack : Stack.allStacks){
+																	items.add(stack.getStackName());
+																}
+																exportAdapter.clear();
+																exportAdapter.addAll(items);
+
+																exportList.setAdapter(exportAdapter);
 
 															}
 														} catch (Exception e) {
@@ -729,7 +744,16 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 								+ importName + " got imported successfully!",
 								Toast.LENGTH_SHORT);
 						toast.show();
+						
+						//Update the ExportList
+						ArrayList<String> items = new ArrayList<String>();
+						for(Stack stack : Stack.allStacks){
+							items.add(stack.getStackName());
+						}
+						exportAdapter.clear();
+						exportAdapter.addAll(items);
 
+						exportList.setAdapter(exportAdapter);
 					}
 				} catch (Exception e) {
 					// display a general error if import
@@ -817,7 +841,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 			// number argument value.
 			View v = inflater.inflate(R.layout.admin_export, null);
 
-			final ListView exportList = (ListView) v
+			exportList = (ListView) v
 					.findViewById(R.id.list_admin_export_stacks);
 
 			List<String> items = new ArrayList<String>();
@@ -832,10 +856,10 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 				items.add(0, "All Stacks");
 			}
 
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+			exportAdapter = new ArrayAdapter<String>(
 					v.getContext(), R.layout.layout_listitem, items);
 
-			exportList.setAdapter(adapter);
+			exportList.setAdapter(exportAdapter);
 			exportList.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
