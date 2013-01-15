@@ -104,80 +104,112 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 				List<Tag> tags1 = new ArrayList<Tag>();
 				List<Tag> tags2 = new ArrayList<Tag>();
 				List<Tag> tags3 = new ArrayList<Tag>();
-				List<Tag> tags4 = null;
 
-				List<Card> allCards = new ArrayList<Card>();
+				List<Card> Java = new ArrayList<Card>();
+				List<Card> NachprfRecht = new ArrayList<Card>();
+				List<Card> PMZert = new ArrayList<Card>();
+				List<Card> BWLGrund = new ArrayList<Card>();
 
-				Tag mundl = Create.getInstance().newTag("Mündlich");
-				Tag presentation = Create.getInstance().newTag(
-						"2. PA Präsentation");
+
+				Tag mundl = Create.getInstance().newTag("Mündliche Prüfung");
+				Tag java = Create.getInstance().newTag("Java");
 				Tag nachpruefung = Create.getInstance().newTag(
 						"Nachprüfung Recht");
 				Tag projektmgmt = Create.getInstance().newTag(
 						"Projektmgmt. Zertifizierung");
+				Tag bwlgrund = Create.getInstance().newTag(
+						"BWL Grundlagen 1");
 
 				tags0.add(mundl);
-				tags0.add(presentation);
+				tags0.add(java);
+
 				tags1.add(nachpruefung);
-				tags1.add(projektmgmt);
-				tags2.add(nachpruefung);
+
+				tags2.add(bwlgrund);
 				tags3.add(projektmgmt);
-				tags3.add(mundl);
-				tags3.add(presentation);
 
-				for (int i = 0; i < 100; i++) {
-
-					if (i < 25) {
-						allCards.add(Create.getInstance().newCard(
-								"Card " + i + " front", "Card " + i + " back",
+				Java.add(Create.getInstance().newCard(
+						"Mit welcher Methode erstellt man ein Objekt?",
+						"Dem Konstruktor", tags0, "", ""));
+				Java.add(Create.getInstance().newCard(
+						"Wie heißt der kleinste native Datentyp?", "byte",
+						tags0, "", ""));
+				Java.add(Create.getInstance().newCard(
+						"Aus wievielen bytes besteht der Datentyp long?",
+						"8 byte.", tags0, "", ""));
+				Java.add(Create.getInstance().newCard(
+						"Welche Werte kann boolean annehmen?",
+						"true und false", tags0, "", ""));
+				Java.add(Create.getInstance().newCard(
+						"Wie groß ist der int Wertebereich?",
+						"- 2^31 bis 2^31 -1", tags0, "", ""));
+				Java.add(Create.getInstance().newCard(
+						"Wie wird ein eindimenstionales Array initialisiert?"
+								+ "Als Bsp int array.",
+						"int[] meinArray = new int[10];", tags0, "", ""));
+				Java.add(Create
+						.getInstance()
+						.newCard(
+								"Welches Objekt ist meist besser zum Speichern von Daten geeignet als ein Array",
+								"Eine ArrayList, da diese dynamisch erweiterbar ist.",
 								tags0, "", ""));
-					}
+				Java.add(Create
+						.getInstance()
+						.newCard(
+								"Nenne alle elementaren Java Datentypen",
+								"boolean, byte, short, int, long, float, double und char.",
+								tags0, "", ""));
 
-					if ((24 < i) && (i < 45)) {
-						allCards.add(Create.getInstance().newCard(
-								"Card " + i + " front", "Card " + i + " back",
-								tags1, "", ""));
-					}
+				
+				NachprfRecht.add(Create.getInstance().newCard(
+						"Welches ist der wichtigste Paragraph bei Käufen im BGB?", "§433BGB", tags1,
+						"", ""));
+				NachprfRecht.add(Create.getInstance().newCard(
+						"Was bedeutet Recht im objektiven Sinne?", "Ein abgrenzbarer Teilbereich der Gesamtheit der gesellschaftlichen Normen ", tags1,
+						"", ""));
+				NachprfRecht.add(Create.getInstance().newCard(
+						"Was bedeutet Recht im subjektiven Sinne?", "Die sich aus dem objektiven Recht ableitende Befugnis des Einzelnen  ", tags1,
+						"", ""));
+				NachprfRecht.add(Create.getInstance().newCard(
+						"Wie heißt der Hauptsatz beim bearbeiten von Rechtsfällen?", "Wer will was von wem woraus?", tags1,
+						"", ""));
+				
+				BWLGrund.add(Create.getInstance().newCard(
+						"In welche 2 Unterbereiche Gliedert sich die BWL", "Allgemeine BWL (ABWL) und Spezielle BWL (SBWL)", tags2,
+						"", ""));
+				BWLGrund.add(Create.getInstance().newCard(
+						"Was ist das Ökonomische Prinzip?", "Das ökonomische Prinzip beschreibt die betriebswirtschaftliche Notwendigkeit, die nötigen Mittel zur Erreichung der Unternehmensziele möglichst ideal einzusetzen.", tags2,
+						"", ""));
+				BWLGrund.add(Create.getInstance().newCard(
+						"Nenne 3 mögliche Unternehmensziele.", "Nutzen-, Gewinn-, Umsatzsteigerung usw.", tags2,
+						"", ""));
+				BWLGrund.add(Create.getInstance().newCard(
+						"Was sind die 3 Prinzipien, um die Unternehmensziele zu erreichen?.", "Minimalprinzip, Maximalprinzip und Optimalprinzip.", tags2,
+						"", ""));
+				
+				PMZert.add(Create.getInstance().newCard(
+						"Nenne die Definition von Projektmanagement?.", "Als Projektmanagement (PM) bezeichnet man das Planen, Steuern und Kontrollieren von Projekten.", tags3,
+						"", ""));
+				PMZert.add(Create.getInstance().newCard(
+						"Nenne die Phasen des PMs","Analyse, Machbarkeitsstudie,Entwurf,Umsetzung,Test,Pilotierung,Rollout bei den Anwendern, Abschluss", tags3,
+						"", ""));
+				PMZert.add(Create.getInstance().newCard(
+						"Nenne 5 der 9 Wissensgebiete des PMs?.", "Integrationsmanagement 	Umfangsmanagement 	Terminmanagement Kostenmanagement Qualitätsmanagement Personalmanagement Kommunikationsmanagement 	Risikomanagement 	Beschaffungsmanagement", tags3,
+						"", ""));
+				PMZert.add(Create.getInstance().newCard(
+						"Was sind die 3 Erwartungsbereiche der Stakeholder?.", "Zeit, Kosten und Inhalt/Umfang des Projekts.", tags3,
+						"", ""));
 
-					if ((44 < i) && (i < 60)) {
-						allCards.add(Create.getInstance().newCard(
-								"Card " + i + " front", "Card " + i + " back",
-								tags2, "", ""));
-					}
-
-					if ((59 < i) && (i < 80)) {
-						allCards.add(Create.getInstance().newCard(
-								"Card " + i + " front", "Card " + i + " back",
-								tags3, "", ""));
-					}
-
-					if (i > 79) {
-						allCards.add(Create.getInstance().newCard(
-								"Card " + i + " front", "Card " + i + " back",
-								tags4, "", ""));
-					}
-				}
-
-				int cardNumber = 100;
-				int randomNumber;
-				List<Card> cards = new ArrayList<Card>();
-
-				for (int i = 0; i < 25; i++) {
-
-					cards.clear();
-
-					for (int j = 0; j < 4; j++) {
-
-						randomNumber = (int) Math
-								.floor((Math.random() * cardNumber));
-						cardNumber = cardNumber - 1;
-						cards.add(allCards.get(randomNumber));
-						allCards.remove(randomNumber);
-					}
 
 					Database.getInstance().addNewStack(
-							new Stack(false, "Stack " + i, cards));
-				}
+							new Stack(false, "BWL Grundlagen 1", BWLGrund));
+					Database.getInstance().addNewStack(
+							new Stack(false, "Java", Java));
+					Database.getInstance().addNewStack(
+							new Stack(false, "Nachprüfung Recht", NachprfRecht));
+					Database.getInstance().addNewStack(
+							new Stack(false, "Projektmanagement Zertifizierung", PMZert));
+				
 
 				Toast toast;
 				toast = Toast.makeText(getApplicationContext(),
