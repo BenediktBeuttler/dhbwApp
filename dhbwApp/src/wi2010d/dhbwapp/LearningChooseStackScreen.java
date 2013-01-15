@@ -68,28 +68,31 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		// When the device is shaked, start the random learning session
 		@Override
 		public void onSensorChanged(SensorEvent event) {
-			float x = event.values[0];
-			float y = event.values[1];
-			float z = event.values[2];
-			mAccelLast = mAccelCurrent;
-			mAccelCurrent = (float) Math.sqrt((double) (x * x + y * y + z * z));
-			float delta = mAccelCurrent - mAccelLast;
-			mAccel = mAccel * 0.9f + delta;
-			if (mAccel > 7) {
-				Random generator = new Random();
-				Stack rndStack = Create.getInstance().newRandomStack(
-						"RandomStack " + new Date(),
-						Card.allCards.get(generator.nextInt(Card.allCards
-								.size())));
-				Intent i = new Intent(getApplicationContext(),
-						LearningCard.class);
-				if (rndStack != null) {
-					i.putExtra("stackName", rndStack.getStackName());
-					i.putExtra("isRandomStack", true);
-					startActivityForResult(i, 1);
-				} else {
-					ErrorHandler.getInstance().handleError(
-							ErrorHandler.getInstance().GENERAL_ERROR);
+			if (Stack.allStacks.size() > 0) {
+				float x = event.values[0];
+				float y = event.values[1];
+				float z = event.values[2];
+				mAccelLast = mAccelCurrent;
+				mAccelCurrent = (float) Math.sqrt((double) (x * x + y * y + z
+						* z));
+				float delta = mAccelCurrent - mAccelLast;
+				mAccel = mAccel * 0.9f + delta;
+				if (mAccel > 7) {
+					Random generator = new Random();
+					Stack rndStack = Create.getInstance().newRandomStack(
+							"RandomStack " + new Date(),
+							Card.allCards.get(generator.nextInt(Card.allCards
+									.size())));
+					Intent i = new Intent(getApplicationContext(),
+							LearningCard.class);
+					if (rndStack != null) {
+						i.putExtra("stackName", rndStack.getStackName());
+						i.putExtra("isRandomStack", true);
+						startActivityForResult(i, 1);
+					} else {
+						ErrorHandler.getInstance().handleError(
+								ErrorHandler.getInstance().GENERAL_ERROR);
+					}
 				}
 			}
 		}
