@@ -414,7 +414,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 				// set dialog message
 				alertDialogBuilder
 						.setMessage(
-								"Are you sure you want to delete this stack?")
+								"Are you sure you want to delete "+stackName+"?")
 						.setIcon(R.drawable.question)
 						.setCancelable(false)
 						.setPositiveButton("Yes",
