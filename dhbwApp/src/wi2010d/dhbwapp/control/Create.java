@@ -53,7 +53,7 @@ public class Create {
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
 				Toast.makeText(ErrorHandlerFragment.applicationContext,
-						"Stack name already taken", Toast.LENGTH_LONG).show();
+						"Stack name already taken, please select another one", Toast.LENGTH_LONG).show();
 				return false;
 			}
 		}
