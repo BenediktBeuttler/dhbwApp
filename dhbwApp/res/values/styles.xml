@@ -88,11 +88,11 @@
     </style>
 
     <style name="style_listView" parent="android:Widget.Holo.ListView">
-        <item name="android:dividerHeight">0.5dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:layout_marginRight">10dp</item>
-        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:dividerHeight">2dp</item>
+        <item name="android:layout_marginBottom">7dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginTop">7dp</item>
     </style>
 
     <style name="style_textViewFront" parent="android:Widget.Holo.TextView">

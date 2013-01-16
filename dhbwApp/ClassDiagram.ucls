@@ -1,0 +1,2728 @@
+<class-diagram version="1.0.11" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.model.Runthrough" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/model/Runthrough.java" binary="false">    
+    <position height="571" width="244" x="2174" y="3892"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.model.Tag" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/model/Tag.java" binary="false">    
+    <position height="401" width="150" x="190" y="5976"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Statistics" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Statistics.java" binary="false">    
+    <position height="418" width="268" x="4816" y="1654"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminTagListFragment.TagArrayAdapter" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminTagListFragment.java" binary="false">    
+    <position height="112" width="202" x="568" y="2122"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminImportExport.SectionsPagerAdapter" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminImportExport.java" binary="false">    
+    <position height="129" width="228" x="1578" y="1044"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Learn" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Learn.java" binary="false">    
+    <position height="265" width="195" x="4508" y="1654"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminScreen.java" binary="false">    
+    <position height="248" width="228" x="895" y="-602"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.Progress" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/Progress.java" binary="false">    
+    <position height="112" width="132" x="2473" y="-602"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="9" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminNewCard" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminNewCard.java" binary="false">    
+    <position height="554" width="311" x="2412" y="450"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="10" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminTagListFragment" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminTagListFragment.java" binary="false">    
+    <position height="231" width="337" x="224" y="1654"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="11" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminImportExport.Import" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminImportExport.java" binary="false">    
+    <position height="248" width="337" x="1578" y="1298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="12" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.HelpAboutScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/HelpAboutScreen.java" binary="false">    
+    <position height="265" width="228" x="2095" y="1654"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="13" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StatisticsProgressDiagram" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/StatisticsProgressDiagram.java" binary="false">    
+    <position height="95" width="241" x="5149" y="2122"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="14" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.OnResumeActivity" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/OnResumeActivity.java" binary="false">    
+    <position height="129" width="185" x="895" y="-771"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="15" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StatisticsScreen.LastReview" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/StatisticsScreen.java" binary="false">    
+    <position height="316" width="291" x="4776" y="1298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="16" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.LearningCard.SectionsPagerAdapter" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/LearningCard.java" binary="false">    
+    <position height="129" width="228" x="4963" y="450"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="17" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StatisticsScreen.Progress" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/StatisticsScreen.java" binary="false">    
+    <position height="180" width="291" x="5149" y="1298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="18" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditDynamicStack.SectionsPagerAdapter" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditDynamicStack.java" binary="false">    
+    <position height="129" width="228" x="-422" y="1044"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="19" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Init" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Init.java" binary="false">    
+    <position height="367" width="189" x="3397" y="-93"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="20" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.LearningCard.CardFront" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/LearningCard.java" binary="false">    
+    <position height="163" width="291" x="5212" y="1044"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="21" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Database" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Database.java" binary="false">    
+    <position height="792" width="265" x="998" y="4513"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="22" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminImportExport.DummySectionFragment" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminImportExport.java" binary="false">    
+    <position height="112" width="291" x="1997" y="1298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="23" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Create" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Create.java" binary="false">    
+    <position height="214" width="273" x="56" y="2122"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="24" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminImportExport.Export" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminImportExport.java" binary="false">    
+    <position height="163" width="291" x="1205" y="1298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="25" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Learn.CardQueue" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Learn.java" binary="false">    
+    <position height="180" width="111" x="4292" y="2122"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="26" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StatisticsScreen.SectionsPagerAdapter" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/StatisticsScreen.java" binary="false">    
+    <position height="129" width="228" x="4671" y="1044"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="27" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.SettingsScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/SettingsScreen.java" binary="false">    
+    <position height="214" width="228" x="226" y="1044"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="28" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Delete" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Delete.java" binary="false">    
+    <position height="180" width="214" x="218" y="2386"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="29" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminNewCard.DummySectionFragment" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminNewCard.java" binary="false">    
+    <position height="112" width="291" x="3116" y="1298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="30" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditCard.DummySectionFragment" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditCard.java" binary="false">    
+    <position height="112" width="291" x="5606" y="1654"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="31" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditDynamicStack.DummySectionFragment" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditDynamicStack.java" binary="false">    
+    <position height="112" width="291" x="-837" y="1298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="32" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.LearningCard.DummySectionFragment" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/LearningCard.java" binary="false">    
+    <position height="112" width="291" x="3657" y="1044"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="33" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditDynamicStack.EditDynStack" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditDynamicStack.java" binary="false">    
+    <position height="112" width="291" x="-443" y="1298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="34" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.LearningChooseStackScreen" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/LearningChooseStackScreen.java" binary="false">    
+    <position height="469" width="337" x="455" y="-602"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="35" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.HelpScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/HelpScreen.java" binary="false">    
+    <position height="248" width="228" x="727" y="1298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="36" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditCard.EditCardBack" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditCard.java" binary="false">    
+    <position height="214" width="291" x="3657" y="1654"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="37" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.model.Stack" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/model/Stack.java" binary="false">    
+    <position height="571" width="221" x="2449" y="3261"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="38" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditCard" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditCard.java" binary="false">    
+    <position height="299" width="312" x="4032" y="-602"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="39" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditCard.SectionsPagerAdapter" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditCard.java" binary="false">    
+    <position height="129" width="228" x="4093" y="1298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="40" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Edit" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Edit.java" binary="false">    
+    <position height="282" width="328" x="629" y="2386"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="41" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminNewCardChooseStack" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminNewCardChooseStack.java" binary="false">    
+    <position height="163" width="206" x="1332" y="1044"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="42" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.LearningCard.CardBack" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/LearningCard.java" binary="false">    
+    <position height="146" width="291" x="5543" y="1044"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="43" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminTagListFragment.TagViewHolder" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminTagListFragment.java" binary="false">    
+    <position height="163" width="203" x="1028" y="2386"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="44" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.HelpLearnStatisticsScreen" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/HelpLearnStatisticsScreen.java" binary="false">    
+    <position height="95" width="177" x="622" y="1654"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="45" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminChooseStackScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminChooseStackScreen.java" binary="false">    
+    <position height="265" width="337" x="96" y="-93"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="46" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StatisticsScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/StatisticsScreen.java" binary="false">    
+    <position height="248" width="260" x="4384" y="450"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="47" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminNewCard.NewCardBack" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminNewCard.java" binary="false">    
+    <position height="112" width="291" x="2454" y="1298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="48" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminCreateDynamicStack" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminCreateDynamicStack.java" binary="false">    
+    <position height="214" width="228" x="643" y="450"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="49" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/errorhandler/ErrorHandlerFragment.java" binary="false">    
+    <position height="333" width="229" x="2489" y="2386"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="50" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.OnResumeFragmentActivity" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/OnResumeFragmentActivity.java" binary="false">    
+    <position height="129" width="185" x="2432" y="-771"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="51" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.DatabaseManager" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/DatabaseManager.java" binary="false">    
+    <position height="452" width="216" x="3967" y="2759"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="52" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminNewCard.NewCardFront" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminNewCard.java" binary="false">    
+    <position height="112" width="291" x="2785" y="1298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="53" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.model.Card" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/model/Card.java" binary="false">    
+    <position height="571" width="225" x="4319" y="5355"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="54" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.HelpIntroductionScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/HelpIntroductionScreen.java" binary="false">    
+    <position height="95" width="158" x="839" y="1654"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="55" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StatisticsScreen.DummySectionFragment" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/StatisticsScreen.java" binary="false">    
+    <position height="112" width="291" x="5501" y="1298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="56" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StatisticsProgressDiagramActivity" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/StatisticsProgressDiagramActivity.java" binary="false">    
+    <position height="95" width="220" x="5149" y="1654"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="57" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminNewCard.SectionsPagerAdapter" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminNewCard.java" binary="false">    
+    <position height="129" width="228" x="2412" y="1044"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="58" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditCard.EditCardFront" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditCard.java" binary="false">    
+    <position height="214" width="291" x="4009" y="1654"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="59" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminEditDynamicStack" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminEditDynamicStack.java" binary="false">    
+    <position height="231" width="260" x="-286" y="450"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="60" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.HelpSettingsScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/HelpSettingsScreen.java" binary="false">    
+    <position height="95" width="137" x="1297" y="1654"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="61" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StatisticsScreen.Overview" 
+    project="dhbwApp" file="/dhbwApp/src/wi2010d/dhbwapp/StatisticsScreen.java" binary="false">    
+    <position height="248" width="291" x="4445" y="1298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="62" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.control.Exchange" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/control/Exchange.java" binary="false">    
+    <position height="214" width="220" x="1495" y="1654"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="63" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.AdminImportExport" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/AdminImportExport.java" binary="false">    
+    <position height="384" width="260" x="1578" y="450"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="64" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.LearningCard" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/LearningCard.java" binary="false">    
+    <position height="503" width="265" x="4923" y="-93"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="65" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.HelpEditCardsStackScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/HelpEditCardsStackScreen.java" binary="false">    
+    <position height="95" width="178" x="1079" y="1654"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="66" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.HelpImportExportScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/HelpImportExportScreen.java" binary="false">    
+    <position height="95" width="164" x="1870" y="1654"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="67" corner="BOTTOM_RIGHT" language="java" name="wi2010d.dhbwapp.StartScreen" project="dhbwApp" 
+    file="/dhbwApp/src/wi2010d/dhbwapp/StartScreen.java" binary="false">    
+    <position height="214" width="132" x="2531" y="2122"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <dependency id="68">    
+    <bendpoint x="1610" y="-93"/>    
+    <bendpoint x="1174" y="450"/>    
+    <bendpoint x="1027" y="1044"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <nesting id="69">    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="5"/>  
+  </nesting>  
+  <nesting id="70">    
+    <bendpoint x="4929" y="1044"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="17"/>  
+  </nesting>  
+  <generalization id="71">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <nesting id="72">    
+    <bendpoint x="1836" y="1044"/>    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="11"/>  
+  </nesting>  
+  <dependency id="73">    
+    <bendpoint x="3626" y="2122"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <dependency id="74">    
+    <bendpoint x="2825" y="3261"/>    
+    <bendpoint x="2825" y="3892"/>    
+    <bendpoint x="2783" y="4513"/>    
+    <bendpoint x="2783" y="5355"/>    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="75">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <association id="76">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="77" name="allTags"/>      
+      <multiplicity id="78" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="79">    
+    <bendpoint x="1240" y="2759"/>    
+    <bendpoint x="1282" y="3261"/>    
+    <bendpoint x="1303" y="3892"/>    
+    <bendpoint x="1303" y="4513"/>    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <dependency id="80">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="54"/>  
+  </dependency>  
+  <association id="81">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="82" name="create"/>      
+      <multiplicity id="83" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="84">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="85">    
+    <bendpoint x="570" y="450"/>    
+    <bendpoint x="589" y="1044"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <association id="86">    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="87" name="allStacks"/>      
+      <multiplicity id="88" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="37" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="89">    
+    <end type="SOURCE" refId="56"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="90">    
+    <bendpoint x="493" y="2759"/>    
+    <bendpoint x="493" y="3261"/>    
+    <bendpoint x="493" y="3892"/>    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <association id="91">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="92" name="notSure"/>      
+      <multiplicity id="93" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="94">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="4"/>  
+  </nesting>  
+  <generalization id="95">    
+    <bendpoint x="2421" y="-93"/>    
+    <bendpoint x="2421" y="-602"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="50"/>  
+  </generalization>  
+  <dependency id="96">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="56"/>  
+  </dependency>  
+  <dependency id="97">    
+    <bendpoint x="577" y="2386"/>    
+    <bendpoint x="388" y="2759"/>    
+    <bendpoint x="304" y="3261"/>    
+    <bendpoint x="283" y="3892"/>    
+    <bendpoint x="262" y="4513"/>    
+    <bendpoint x="262" y="5355"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="98">    
+    <bendpoint x="-298" y="-93"/>    
+    <bendpoint x="-474" y="450"/>    
+    <bendpoint x="-474" y="1044"/>    
+    <bendpoint x="-474" y="1298"/>    
+    <bendpoint x="-143" y="1654"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="99">    
+    <bendpoint x="4125" y="450"/>    
+    <bendpoint x="4270" y="1044"/>    
+    <bendpoint x="4414" y="1298"/>    
+    <bendpoint x="4785" y="1654"/>    
+    <bendpoint x="4785" y="2122"/>    
+    <bendpoint x="5170" y="2386"/>    
+    <bendpoint x="5554" y="2759"/>    
+    <bendpoint x="5741" y="3261"/>    
+    <bendpoint x="5927" y="3892"/>    
+    <bendpoint x="5948" y="4513"/>    
+    <bendpoint x="5948" y="5355"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="100">    
+    <bendpoint x="4083" y="1044"/>    
+    <bendpoint x="3781" y="1298"/>    
+    <bendpoint x="3479" y="1654"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <dependency id="101">    
+    <bendpoint x="67" y="1298"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="102">    
+    <bendpoint x="884" y="2122"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="103">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <association id="104">    
+    <bendpoint x="-122" y="1044"/>    
+    <bendpoint x="-122" y="1298"/>    
+    <bendpoint x="-206" y="1654"/>    
+    <bendpoint x="-38" y="2122"/>    
+    <bendpoint x="472" y="2386"/>    
+    <bendpoint x="472" y="2759"/>    
+    <end type="SOURCE" refId="59" navigable="false">      
+      <attribute id="105" name="stack"/>      
+      <multiplicity id="106" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="37" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="107">    
+    <bendpoint x="199" y="2759"/>    
+    <bendpoint x="199" y="3261"/>    
+    <bendpoint x="262" y="3892"/>    
+    <bendpoint x="346" y="4513"/>    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <dependency id="108">    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="47"/>  
+  </dependency>  
+  <generalization id="109">    
+    <bendpoint x="612" y="1298"/>    
+    <bendpoint x="675" y="1044"/>    
+    <bendpoint x="901" y="450"/>    
+    <bendpoint x="885" y="-93"/>    
+    <bendpoint x="843" y="-602"/>    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <association id="110">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="111" name="init"/>      
+      <multiplicity id="112" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="113">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="42"/>  
+  </dependency>  
+  <dependency id="114">    
+    <bendpoint x="2353" y="1654"/>    
+    <bendpoint x="2353" y="2122"/>    
+    <bendpoint x="2353" y="2386"/>    
+    <bendpoint x="2353" y="2759"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="115">    
+    <bendpoint x="549" y="450"/>    
+    <bendpoint x="568" y="1044"/>    
+    <bendpoint x="654" y="1298"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="62"/>  
+  </dependency>  
+  <dependency id="116">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <association id="117">    
+    <end type="SOURCE" refId="63" navigable="false">      
+      <attribute id="118" name="mSectionsPagerAdapter"/>      
+      <multiplicity id="119" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="120">    
+    <bendpoint x="4589" y="1044"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="15"/>  
+  </nesting>  
+  <generalization id="121">    
+    <bendpoint x="277" y="1298"/>    
+    <bendpoint x="132" y="1044"/>    
+    <bendpoint x="25" y="450"/>    
+    <bendpoint x="-319" y="-93"/>    
+    <bendpoint x="-319" y="-602"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <nesting id="122">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="57"/>  
+  </nesting>  
+  <dependency id="123">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="124">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="125">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="126">    
+    <bendpoint x="1345" y="2759"/>    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="127">    
+    <bendpoint x="4414" y="1654"/>    
+    <bendpoint x="4198" y="2122"/>    
+    <bendpoint x="4156" y="2386"/>    
+    <bendpoint x="3894" y="2759"/>    
+    <end type="SOURCE" refId="61"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <association id="128">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="129" name="dontKnow"/>      
+      <multiplicity id="130" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="131">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="25"/>  
+  </nesting>  
+  <association id="132">    
+    <bendpoint x="5948" y="-93"/>    
+    <bendpoint x="5948" y="450"/>    
+    <bendpoint x="5948" y="1044"/>    
+    <bendpoint x="5948" y="1298"/>    
+    <bendpoint x="5948" y="1654"/>    
+    <bendpoint x="5948" y="2122"/>    
+    <bendpoint x="5948" y="2386"/>    
+    <bendpoint x="5948" y="2759"/>    
+    <bendpoint x="5948" y="3261"/>    
+    <bendpoint x="5948" y="3892"/>    
+    <bendpoint x="5927" y="4513"/>    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="133" name="card"/>      
+      <multiplicity id="134" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="53" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="135">    
+    <bendpoint x="1111" y="1044"/>    
+    <bendpoint x="675" y="1298"/>    
+    <bendpoint x="193" y="1654"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <nesting id="136">    
+    <bendpoint x="842" y="2122"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="43"/>  
+  </nesting>  
+  <dependency id="137">    
+    <bendpoint x="1090" y="1044"/>    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <dependency id="138">    
+    <bendpoint x="5843" y="1298"/>    
+    <bendpoint x="5554" y="1654"/>    
+    <bendpoint x="5548" y="2122"/>    
+    <bendpoint x="5541" y="2386"/>    
+    <bendpoint x="5533" y="2759"/>    
+    <bendpoint x="5533" y="3261"/>    
+    <bendpoint x="5533" y="3892"/>    
+    <bendpoint x="5533" y="4513"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <dependency id="139">    
+    <bendpoint x="2756" y="2122"/>    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <dependency id="140">    
+    <bendpoint x="1839" y="1654"/>    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <dependency id="141">    
+    <bendpoint x="800" y="2122"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <dependency id="142">    
+    <bendpoint x="298" y="1298"/>    
+    <bendpoint x="172" y="1654"/>    
+    <bendpoint x="537" y="2122"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <association id="143">    
+    <bendpoint x="2762" y="3892"/>    
+    <bendpoint x="2762" y="4513"/>    
+    <bendpoint x="2762" y="5355"/>    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="144" name="dynamicStackTags"/>      
+      <multiplicity id="145" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="146">    
+    <bendpoint x="943" y="-93"/>    
+    <bendpoint x="964" y="450"/>    
+    <bendpoint x="901" y="1044"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <nesting id="147">    
+    <bendpoint x="2691" y="1044"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="52"/>  
+  </nesting>  
+  <dependency id="148">    
+    <bendpoint x="1111" y="450"/>    
+    <bendpoint x="830" y="1044"/>    
+    <bendpoint x="549" y="1298"/>    
+    <bendpoint x="151" y="1654"/>    
+    <bendpoint x="369" y="2122"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <nesting id="149">    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="16"/>  
+  </nesting>  
+  <dependency id="150">    
+    <bendpoint x="556" y="2386"/>    
+    <bendpoint x="1282" y="2759"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="151">    
+    <bendpoint x="-340" y="-93"/>    
+    <bendpoint x="-604" y="450"/>    
+    <bendpoint x="-868" y="1044"/>    
+    <bendpoint x="-868" y="1298"/>    
+    <bendpoint x="-485" y="1654"/>    
+    <bendpoint x="-101" y="2122"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="152">    
+    <bendpoint x="109" y="1298"/>    
+    <bendpoint x="-59" y="1654"/>    
+    <bendpoint x="-80" y="2122"/>    
+    <bendpoint x="7" y="2386"/>    
+    <bendpoint x="94" y="2759"/>    
+    <bendpoint x="178" y="3261"/>    
+    <bendpoint x="304" y="3892"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="153">    
+    <bendpoint x="1526" y="1298"/>    
+    <bendpoint x="2437" y="1654"/>    
+    <bendpoint x="2437" y="2122"/>    
+    <bendpoint x="2437" y="2386"/>    
+    <bendpoint x="2437" y="2759"/>    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="154">    
+    <bendpoint x="430" y="2759"/>    
+    <bendpoint x="325" y="3261"/>    
+    <bendpoint x="325" y="3892"/>    
+    <bendpoint x="304" y="4513"/>    
+    <bendpoint x="304" y="5355"/>    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="155">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="156">    
+    <bendpoint x="-973" y="-93"/>    
+    <bendpoint x="-973" y="450"/>    
+    <bendpoint x="-973" y="1044"/>    
+    <bendpoint x="-973" y="1298"/>    
+    <bendpoint x="-973" y="1654"/>    
+    <bendpoint x="-973" y="2122"/>    
+    <bendpoint x="-973" y="2386"/>    
+    <bendpoint x="-973" y="2759"/>    
+    <bendpoint x="-973" y="3261"/>    
+    <bendpoint x="-973" y="3892"/>    
+    <bendpoint x="-973" y="4513"/>    
+    <bendpoint x="-973" y="5355"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="157">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <generalization id="158">    
+    <bendpoint x="4374" y="-93"/>    
+    <bendpoint x="4374" y="-602"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="50"/>  
+  </generalization>  
+  <association id="159">    
+    <bendpoint x="4020" y="450"/>    
+    <bendpoint x="4041" y="1044"/>    
+    <bendpoint x="4041" y="1298"/>    
+    <bendpoint x="4372" y="1654"/>    
+    <bendpoint x="4240" y="2122"/>    
+    <bendpoint x="4289" y="2386"/>    
+    <bendpoint x="4349" y="2759"/>    
+    <bendpoint x="4307" y="3261"/>    
+    <bendpoint x="4181" y="3892"/>    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="160" name="database"/>      
+      <multiplicity id="161" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="162">    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <association id="163">    
+    <bendpoint x="4391" y="2386"/>    
+    <bendpoint x="4412" y="2759"/>    
+    <bendpoint x="4412" y="3261"/>    
+    <bendpoint x="4412" y="3892"/>    
+    <bendpoint x="4412" y="4513"/>    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="164" name="arrayList"/>      
+      <multiplicity id="165" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="53" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="166">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="58"/>  
+  </dependency>  
+  <nesting id="167">    
+    <bendpoint x="4104" y="450"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="32"/>  
+  </nesting>  
+  <dependency id="168">    
+    <bendpoint x="2297" y="1044"/>    
+    <bendpoint x="2360" y="1298"/>    
+    <bendpoint x="2647" y="1654"/>    
+    <bendpoint x="2693" y="2122"/>    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <association id="169">    
+    <end type="SOURCE" refId="59" navigable="false">      
+      <attribute id="170" name="mSectionsPagerAdapter"/>      
+      <multiplicity id="171" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="172">    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="173">    
+    <bendpoint x="943" y="1044"/>    
+    <bendpoint x="1048" y="1298"/>    
+    <bendpoint x="2374" y="1654"/>    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <dependency id="174">    
+    <bendpoint x="235" y="1298"/>    
+    <bendpoint x="130" y="1654"/>    
+    <bendpoint x="495" y="2122"/>    
+    <bendpoint x="997" y="2386"/>    
+    <bendpoint x="1366" y="2759"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="175">    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="52"/>  
+  </dependency>  
+  <dependency id="176">    
+    <bendpoint x="633" y="1298"/>    
+    <bendpoint x="1818" y="1654"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <dependency id="177">    
+    <bendpoint x="1505" y="-93"/>    
+    <bendpoint x="2753" y="450"/>    
+    <bendpoint x="3500" y="1044"/>    
+    <bendpoint x="3563" y="1298"/>    
+    <bendpoint x="3542" y="1654"/>    
+    <bendpoint x="3584" y="2122"/>    
+    <bendpoint x="4114" y="2386"/>    
+    <bendpoint x="4223" y="2759"/>    
+    <bendpoint x="4244" y="3261"/>    
+    <bendpoint x="4244" y="3892"/>    
+    <bendpoint x="4244" y="4513"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <dependency id="178">    
+    <bendpoint x="451" y="2759"/>    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="179">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="62"/>  
+  </dependency>  
+  <dependency id="180">    
+    <end type="SOURCE" refId="67"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="181">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="182">    
+    <bendpoint x="5885" y="1298"/>    
+    <bendpoint x="5575" y="1654"/>    
+    <bendpoint x="5575" y="2122"/>    
+    <bendpoint x="5575" y="2386"/>    
+    <bendpoint x="5575" y="2759"/>    
+    <bendpoint x="5575" y="3261"/>    
+    <bendpoint x="5575" y="3892"/>    
+    <bendpoint x="5575" y="4513"/>    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <generalization id="183">    
+    <bendpoint x="864" y="-93"/>    
+    <bendpoint x="864" y="-602"/>    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="50"/>  
+  </generalization>  
+  <association id="184">    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="185" name="dynamicStack"/>      
+      <multiplicity id="186" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="37" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="187">    
+    <bendpoint x="547" y="1044"/>    
+    <bendpoint x="507" y="1298"/>    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="188">    
+    <bendpoint x="4219" y="2122"/>    
+    <bendpoint x="4310" y="2386"/>    
+    <bendpoint x="4391" y="2759"/>    
+    <bendpoint x="4391" y="3261"/>    
+    <bendpoint x="4391" y="3892"/>    
+    <bendpoint x="4391" y="4513"/>    
+    <end type="SOURCE" refId="58"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <nesting id="189">    
+    <bendpoint x="5221" y="450"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="20"/>  
+  </nesting>  
+  <dependency id="190">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="191">    
+    <bendpoint x="25" y="1298"/>    
+    <bendpoint x="-164" y="1654"/>    
+    <bendpoint x="-164" y="2122"/>    
+    <bendpoint x="-164" y="2386"/>    
+    <bendpoint x="-164" y="2759"/>    
+    <bendpoint x="-164" y="3261"/>    
+    <bendpoint x="-164" y="3892"/>    
+    <bendpoint x="-164" y="4513"/>    
+    <bendpoint x="-164" y="5355"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="192">    
+    <bendpoint x="612" y="450"/>    
+    <bendpoint x="696" y="1044"/>    
+    <bendpoint x="696" y="1298"/>    
+    <bendpoint x="1776" y="1654"/>    
+    <bendpoint x="2332" y="2122"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="193">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="194">    
+    <bendpoint x="2095" y="1044"/>    
+    <bendpoint x="2318" y="1298"/>    
+    <bendpoint x="2605" y="1654"/>    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <dependency id="195">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="64"/>  
+  </dependency>  
+  <dependency id="196">    
+    <bendpoint x="193" y="1298"/>    
+    <bendpoint x="67" y="1654"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="197">    
+    <bendpoint x="863" y="2122"/>    
+    <bendpoint x="598" y="2386"/>    
+    <bendpoint x="367" y="2759"/>    
+    <bendpoint x="262" y="3261"/>    
+    <bendpoint x="241" y="3892"/>    
+    <bendpoint x="241" y="4513"/>    
+    <bendpoint x="241" y="5355"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <association id="198">    
+    <bendpoint x="4580" y="2122"/>    
+    <bendpoint x="4580" y="2386"/>    
+    <bendpoint x="4580" y="2759"/>    
+    <bendpoint x="4559" y="3261"/>    
+    <bendpoint x="4559" y="3892"/>    
+    <bendpoint x="4559" y="4513"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="199" name="cards"/>      
+      <multiplicity id="200" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="53" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="201">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <dependency id="202">    
+    <bendpoint x="4456" y="1654"/>    
+    <bendpoint x="4496" y="2122"/>    
+    <bendpoint x="4517" y="2386"/>    
+    <bendpoint x="4559" y="2759"/>    
+    <bendpoint x="4580" y="3261"/>    
+    <bendpoint x="4622" y="3892"/>    
+    <bendpoint x="4643" y="4513"/>    
+    <bendpoint x="4643" y="5355"/>    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="203">    
+    <bendpoint x="65" y="-93"/>    
+    <bendpoint x="46" y="450"/>    
+    <bendpoint x="46" y="1044"/>    
+    <bendpoint x="46" y="1298"/>    
+    <bendpoint x="46" y="1654"/>    
+    <bendpoint x="432" y="2122"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <dependency id="204">    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <association id="205">    
+    <end type="SOURCE" refId="40" navigable="false">      
+      <attribute id="206" name="edit"/>      
+      <multiplicity id="207" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="40" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="208">    
+    <bendpoint x="4433" y="2122"/>    
+    <bendpoint x="4240" y="2386"/>    
+    <bendpoint x="3936" y="2759"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="209" name="stack"/>      
+      <multiplicity id="210" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="37" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="211">    
+    <bendpoint x="2720" y="3261"/>    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="212">    
+    <bendpoint x="174" y="1044"/>    
+    <bendpoint x="591" y="1298"/>    
+    <bendpoint x="1797" y="1654"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <dependency id="213">    
+    <bendpoint x="2463" y="-93"/>    
+    <bendpoint x="2381" y="450"/>    
+    <bendpoint x="2360" y="1044"/>    
+    <bendpoint x="2339" y="1298"/>    
+    <bendpoint x="2500" y="1654"/>    
+    <bendpoint x="2374" y="2122"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <dependency id="214">    
+    <bendpoint x="2458" y="3892"/>    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="215">    
+    <bendpoint x="411" y="2122"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="216">    
+    <bendpoint x="3458" y="1044"/>    
+    <bendpoint x="3521" y="1298"/>    
+    <bendpoint x="3458" y="1654"/>    
+    <bendpoint x="3458" y="2122"/>    
+    <bendpoint x="3458" y="2386"/>    
+    <bendpoint x="3458" y="2759"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="217">    
+    <bendpoint x="172" y="1298"/>    
+    <bendpoint x="25" y="1654"/>    
+    <bendpoint x="25" y="2122"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="218">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="60"/>  
+  </dependency>  
+  <generalization id="219">    
+    <bendpoint x="1589" y="-93"/>    
+    <bendpoint x="1589" y="-602"/>    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="50"/>  
+  </generalization>  
+  <dependency id="220">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <dependency id="221">    
+    <bendpoint x="505" y="-93"/>    
+    <bendpoint x="214" y="450"/>    
+    <bendpoint x="69" y="1044"/>    
+    <bendpoint x="4" y="1298"/>    
+    <bendpoint x="-38" y="1654"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="222">    
+    <bendpoint x="1526" y="-93"/>    
+    <bendpoint x="1868" y="450"/>    
+    <bendpoint x="2339" y="1044"/>    
+    <bendpoint x="2402" y="1298"/>    
+    <bendpoint x="2735" y="1654"/>    
+    <bendpoint x="2735" y="2122"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="223">    
+    <bendpoint x="4393" y="1044"/>    
+    <bendpoint x="4393" y="1298"/>    
+    <bendpoint x="4393" y="1654"/>    
+    <bendpoint x="4156" y="2122"/>    
+    <bendpoint x="4135" y="2386"/>    
+    <bendpoint x="3873" y="2759"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <nesting id="224">    
+    <bendpoint x="5242" y="450"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="42"/>  
+  </nesting>  
+  <association id="225">    
+    <bendpoint x="2741" y="3892"/>    
+    <bendpoint x="2741" y="3261"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="226" name="dbManager"/>      
+      <multiplicity id="227" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="51" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="228">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="229">    
+    <bendpoint x="187" y="2386"/>    
+    <bendpoint x="220" y="2759"/>    
+    <bendpoint x="241" y="3261"/>    
+    <bendpoint x="346" y="3892"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <nesting id="230">    
+    <bendpoint x="5906" y="-93"/>    
+    <bendpoint x="5906" y="450"/>    
+    <bendpoint x="5906" y="1044"/>    
+    <bendpoint x="5906" y="1298"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="30"/>  
+  </nesting>  
+  <generalization id="231">    
+    <bendpoint x="1547" y="450"/>    
+    <bendpoint x="1547" y="-93"/>    
+    <bendpoint x="1547" y="-602"/>    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <association id="232">    
+    <end type="SOURCE" refId="53" navigable="false">      
+      <attribute id="233" name="tags"/>      
+      <multiplicity id="234" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="235">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="44"/>  
+  </dependency>  
+  <dependency id="236">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="64"/>  
+  </dependency>  
+  <dependency id="237">    
+    <bendpoint x="4806" y="2122"/>    
+    <bendpoint x="4771" y="2386"/>    
+    <bendpoint x="4735" y="2759"/>    
+    <bendpoint x="4698" y="3261"/>    
+    <bendpoint x="4660" y="3892"/>    
+    <bendpoint x="4622" y="4513"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <dependency id="238">    
+    <bendpoint x="985" y="-93"/>    
+    <bendpoint x="985" y="450"/>    
+    <bendpoint x="985" y="1044"/>    
+    <bendpoint x="985" y="1298"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="62"/>  
+  </dependency>  
+  <dependency id="239">    
+    <bendpoint x="4932" y="450"/>    
+    <bendpoint x="5015" y="1044"/>    
+    <bendpoint x="5097" y="1298"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="240">    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="241">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <dependency id="242">    
+    <bendpoint x="3626" y="-93"/>    
+    <bendpoint x="3563" y="450"/>    
+    <bendpoint x="3542" y="1044"/>    
+    <bendpoint x="3542" y="1298"/>    
+    <bendpoint x="3416" y="1654"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <association id="243">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="244" name="learn"/>      
+      <multiplicity id="245" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="246">    
+    <end type="SOURCE" refId="53" navigable="false">      
+      <attribute id="247" name="allCards"/>      
+      <multiplicity id="248" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="53" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="249">    
+    <bendpoint x="3999" y="450"/>    
+    <bendpoint x="3999" y="1044"/>    
+    <bendpoint x="3978" y="1298"/>    
+    <bendpoint x="3978" y="1654"/>    
+    <bendpoint x="4093" y="2122"/>    
+    <bendpoint x="4093" y="2386"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="51"/>  
+  </dependency>  
+  <nesting id="250">    
+    <bendpoint x="5181" y="1044"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="55"/>  
+  </nesting>  
+  <dependency id="251">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="252">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="253">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="254">    
+    <end type="SOURCE" refId="49"/>    
+    <end type="TARGET" refId="51"/>  
+  </dependency>  
+  <dependency id="255">    
+    <bendpoint x="1174" y="-93"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="63"/>  
+  </dependency>  
+  <dependency id="256">    
+    <bendpoint x="-277" y="-93"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="59"/>  
+  </dependency>  
+  <dependency id="257">    
+    <bendpoint x="526" y="1044"/>    
+    <bendpoint x="256" y="1298"/>    
+    <bendpoint x="88" y="1654"/>    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <nesting id="258">    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="18"/>  
+  </nesting>  
+  <dependency id="259">    
+    <bendpoint x="3437" y="2122"/>    
+    <end type="SOURCE" refId="58"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <association id="260">    
+    <bendpoint x="4517" y="2122"/>    
+    <bendpoint x="4433" y="2386"/>    
+    <bendpoint x="4370" y="2759"/>    
+    <bendpoint x="4223" y="3261"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="261" name="runthrough"/>      
+      <multiplicity id="262" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="263">    
+    <bendpoint x="1006" y="1298"/>    
+    <bendpoint x="1048" y="1044"/>    
+    <bendpoint x="1069" y="450"/>    
+    <bendpoint x="1111" y="-93"/>    
+    <bendpoint x="1174" y="-602"/>    
+    <end type="SOURCE" refId="66"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <association id="264">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="265" name="statistics"/>      
+      <multiplicity id="266" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="267">    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="268" name="overallRunthrough"/>      
+      <multiplicity id="269" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="270">    
+    <bendpoint x="-453" y="1044"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="31"/>  
+  </nesting>  
+  <dependency id="271">    
+    <bendpoint x="4477" y="1654"/>    
+    <bendpoint x="4261" y="2122"/>    
+    <bendpoint x="4198" y="2386"/>    
+    <bendpoint x="3915" y="2759"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="272">    
+    <bendpoint x="3479" y="450"/>    
+    <bendpoint x="3479" y="1044"/>    
+    <bendpoint x="3479" y="1298"/>    
+    <bendpoint x="3395" y="1654"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <association id="273">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="274" name="allRunthroughs"/>      
+      <multiplicity id="275" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="276">    
+    <bendpoint x="5864" y="450"/>    
+    <bendpoint x="5864" y="1044"/>    
+    <bendpoint x="5864" y="1298"/>    
+    <bendpoint x="5399" y="1654"/>    
+    <bendpoint x="4622" y="2122"/>    
+    <bendpoint x="4475" y="2386"/>    
+    <bendpoint x="4307" y="2759"/>    
+    <end type="SOURCE" refId="64" navigable="false">      
+      <attribute id="277" name="stack"/>      
+      <multiplicity id="278" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="37" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="279">    
+    <bendpoint x="2714" y="1654"/>    
+    <bendpoint x="3437" y="1298"/>    
+    <bendpoint x="3437" y="1044"/>    
+    <bendpoint x="2939" y="450"/>    
+    <bendpoint x="2442" y="-93"/>    
+    <bendpoint x="2400" y="-602"/>    
+    <end type="SOURCE" refId="67"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <dependency id="280">    
+    <bendpoint x="235" y="450"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="281">    
+    <bendpoint x="1132" y="-93"/>    
+    <bendpoint x="1494" y="450"/>    
+    <bendpoint x="1857" y="1044"/>    
+    <bendpoint x="1966" y="1298"/>    
+    <bendpoint x="2563" y="1654"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <dependency id="282">    
+    <bendpoint x="1324" y="2122"/>    
+    <bendpoint x="1324" y="2386"/>    
+    <bendpoint x="1324" y="2759"/>    
+    <bendpoint x="1324" y="3261"/>    
+    <bendpoint x="1324" y="3892"/>    
+    <bendpoint x="1324" y="4513"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <dependency id="283">    
+    <bendpoint x="5118" y="1298"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="284">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="285">    
+    <bendpoint x="-495" y="1298"/>    
+    <bendpoint x="-319" y="1654"/>    
+    <bendpoint x="-143" y="2122"/>    
+    <bendpoint x="157" y="2386"/>    
+    <bendpoint x="409" y="2759"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="286">    
+    <bendpoint x="-931" y="-93"/>    
+    <bendpoint x="-931" y="450"/>    
+    <bendpoint x="-931" y="1044"/>    
+    <bendpoint x="-931" y="1298"/>    
+    <bendpoint x="-569" y="1654"/>    
+    <bendpoint x="-206" y="2122"/>    
+    <bendpoint x="52" y="2386"/>    
+    <bendpoint x="346" y="2759"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="287">    
+    <bendpoint x="1069" y="-93"/>    
+    <bendpoint x="1006" y="450"/>    
+    <bendpoint x="922" y="1044"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <dependency id="288">    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="59"/>  
+  </dependency>  
+  <nesting id="289">    
+    <bendpoint x="4435" y="1044"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="61"/>  
+  </nesting>  
+  <dependency id="290">    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="46"/>  
+  </dependency>  
+  <dependency id="291">    
+    <bendpoint x="2290" y="2122"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="292">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="66"/>  
+  </dependency>  
+  <association id="293">    
+    <bendpoint x="283" y="2759"/>    
+    <bendpoint x="283" y="3261"/>    
+    <bendpoint x="367" y="3892"/>    
+    <end type="SOURCE" refId="28" navigable="false">      
+      <attribute id="294" name="db"/>      
+      <multiplicity id="295" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="296">    
+    <bendpoint x="3978" y="1044"/>    
+    <bendpoint x="3500" y="1298"/>    
+    <bendpoint x="2584" y="1654"/>    
+    <bendpoint x="2269" y="2122"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="297">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="62"/>  
+  </dependency>  
+  <dependency id="298">    
+    <bendpoint x="-17" y="1044"/>    
+    <bendpoint x="-17" y="1298"/>    
+    <bendpoint x="-17" y="1654"/>    
+    <bendpoint x="390" y="2122"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <association id="299">    
+    <bendpoint x="3521" y="1044"/>    
+    <bendpoint x="3647" y="1298"/>    
+    <bendpoint x="3626" y="1654"/>    
+    <bendpoint x="4114" y="2122"/>    
+    <bendpoint x="4177" y="2386"/>    
+    <bendpoint x="4286" y="2759"/>    
+    <bendpoint x="4286" y="3261"/>    
+    <bendpoint x="4286" y="3892"/>    
+    <bendpoint x="4286" y="4513"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="300" name="card"/>      
+      <multiplicity id="301" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="53" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="302">    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="303" name="lastRunthroughs"/>      
+      <multiplicity id="304" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="305">    
+    <bendpoint x="4177" y="2122"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <association id="306">    
+    <end type="SOURCE" refId="64" navigable="false">      
+      <attribute id="307" name="mSectionsPagerAdapter"/>      
+      <multiplicity id="308" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="309">    
+    <bendpoint x="2923" y="-602"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <association id="310">    
+    <bendpoint x="1237" y="1044"/>    
+    <bendpoint x="1090" y="1298"/>    
+    <bendpoint x="1464" y="1654"/>    
+    <bendpoint x="821" y="2122"/>    
+    <bendpoint x="535" y="2386"/>    
+    <bendpoint x="241" y="2759"/>    
+    <bendpoint x="157" y="3261"/>    
+    <bendpoint x="157" y="3892"/>    
+    <bendpoint x="157" y="4513"/>    
+    <bendpoint x="157" y="5355"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="311" name="cardTagList"/>      
+      <multiplicity id="312" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="313">    
+    <bendpoint x="4559" y="2122"/>    
+    <bendpoint x="4412" y="2386"/>    
+    <bendpoint x="4265" y="2759"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <nesting id="314">    
+    <bendpoint x="2670" y="1044"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="47"/>  
+  </nesting>  
+  <dependency id="315">    
+    <bendpoint x="5822" y="1298"/>    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="316">    
+    <bendpoint x="1153" y="-93"/>    
+    <bendpoint x="943" y="450"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="317">    
+    <bendpoint x="1261" y="2122"/>    
+    <bendpoint x="1261" y="2386"/>    
+    <bendpoint x="1261" y="2759"/>    
+    <bendpoint x="1261" y="3261"/>    
+    <bendpoint x="1261" y="3892"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="318">    
+    <bendpoint x="5160" y="1044"/>    
+    <bendpoint x="5470" y="1298"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="319">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <association id="320">    
+    <bendpoint x="-826" y="1044"/>    
+    <bendpoint x="-889" y="1298"/>    
+    <bendpoint x="-889" y="1654"/>    
+    <bendpoint x="-889" y="2122"/>    
+    <bendpoint x="-889" y="2386"/>    
+    <bendpoint x="-889" y="2759"/>    
+    <bendpoint x="-889" y="3261"/>    
+    <bendpoint x="-889" y="3892"/>    
+    <bendpoint x="-889" y="4513"/>    
+    <bendpoint x="-889" y="5355"/>    
+    <end type="SOURCE" refId="59" navigable="false">      
+      <attribute id="321" name="stackTagList"/>      
+      <multiplicity id="322" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="323">    
+    <bendpoint x="1568" y="-93"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <generalization id="324">    
+    <bendpoint x="1174" y="1298"/>    
+    <bendpoint x="1195" y="1044"/>    
+    <bendpoint x="1195" y="450"/>    
+    <bendpoint x="1195" y="-93"/>    
+    <bendpoint x="1195" y="-602"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <dependency id="325">    
+    <bendpoint x="4062" y="450"/>    
+    <bendpoint x="4125" y="1044"/>    
+    <bendpoint x="4372" y="1298"/>    
+    <bendpoint x="4743" y="1654"/>    
+    <bendpoint x="4538" y="2122"/>    
+    <bendpoint x="4538" y="2386"/>    
+    <bendpoint x="4538" y="2759"/>    
+    <bendpoint x="4538" y="3261"/>    
+    <bendpoint x="4538" y="3892"/>    
+    <bendpoint x="4538" y="4513"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <dependency id="326">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="33"/>  
+  </dependency>  
+  <dependency id="327">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="55"/>  
+  </dependency>  
+  <dependency id="328">    
+    <bendpoint x="3647" y="-93"/>    
+    <bendpoint x="3647" y="450"/>    
+    <bendpoint x="3605" y="1044"/>    
+    <bendpoint x="3605" y="1298"/>    
+    <bendpoint x="3521" y="1654"/>    
+    <bendpoint x="3521" y="2122"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="329">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="43"/>  
+  </dependency>  
+  <dependency id="330">    
+    <bendpoint x="570" y="-93"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="48"/>  
+  </dependency>  
+  <dependency id="331">    
+    <bendpoint x="2381" y="1044"/>    
+    <bendpoint x="2381" y="1298"/>    
+    <bendpoint x="2626" y="1654"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <dependency id="332">    
+    <bendpoint x="90" y="1044"/>    
+    <bendpoint x="214" y="1298"/>    
+    <bendpoint x="591" y="1654"/>    
+    <bendpoint x="905" y="2122"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <nesting id="333">    
+    <bendpoint x="4041" y="-93"/>    
+    <bendpoint x="4041" y="450"/>    
+    <bendpoint x="4020" y="1044"/>    
+    <bendpoint x="3957" y="1298"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="36"/>  
+  </nesting>  
+  <dependency id="334">    
+    <bendpoint x="3626" y="450"/>    
+    <bendpoint x="3626" y="1044"/>    
+    <bendpoint x="3668" y="1298"/>    
+    <bendpoint x="3584" y="1654"/>    
+    <bendpoint x="3605" y="2122"/>    
+    <bendpoint x="3605" y="2386"/>    
+    <bendpoint x="3605" y="2759"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="335">    
+    <bendpoint x="4202" y="3261"/>    
+    <bendpoint x="4202" y="3892"/>    
+    <bendpoint x="4202" y="4513"/>    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <association id="336">    
+    <bendpoint x="516" y="2122"/>    
+    <bendpoint x="514" y="2386"/>    
+    <bendpoint x="304" y="2759"/>    
+    <bendpoint x="220" y="3261"/>    
+    <bendpoint x="199" y="3892"/>    
+    <bendpoint x="199" y="4513"/>    
+    <bendpoint x="199" y="5355"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="337" name="newTagList"/>      
+      <multiplicity id="338" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="339">    
+    <bendpoint x="1048" y="-93"/>    
+    <bendpoint x="1090" y="450"/>    
+    <bendpoint x="1216" y="1044"/>    
+    <bendpoint x="1547" y="1298"/>    
+    <bendpoint x="2521" y="1654"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <generalization id="340">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="50"/>  
+  </generalization>  
+  <association id="341">    
+    <bendpoint x="4188" y="-93"/>    
+    <bendpoint x="4188" y="450"/>    
+    <bendpoint x="4188" y="1044"/>    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="342" name="mSectionsPagerAdapter"/>      
+      <multiplicity id="343" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="39" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="344">    
+    <bendpoint x="-256" y="-93"/>    
+    <bendpoint x="-572" y="450"/>    
+    <bendpoint x="-889" y="1044"/>    
+    <bendpoint x="-952" y="1298"/>    
+    <bendpoint x="-952" y="1654"/>    
+    <bendpoint x="-952" y="2122"/>    
+    <bendpoint x="-952" y="2386"/>    
+    <bendpoint x="-952" y="2759"/>    
+    <bendpoint x="-952" y="3261"/>    
+    <bendpoint x="-952" y="3892"/>    
+    <bendpoint x="-952" y="4513"/>    
+    <bendpoint x="-952" y="5355"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="345">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="45"/>  
+  </dependency>  
+  <dependency id="346">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="347">    
+    <bendpoint x="1027" y="-93"/>    
+    <bendpoint x="1048" y="450"/>    
+    <bendpoint x="1069" y="1044"/>    
+    <bendpoint x="1111" y="1298"/>    
+    <bendpoint x="2064" y="1654"/>    
+    <bendpoint x="2395" y="2122"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="348">    
+    <bendpoint x="2423" y="1298"/>    
+    <bendpoint x="2668" y="1654"/>    
+    <bendpoint x="2714" y="2122"/>    
+    <bendpoint x="2748" y="2386"/>    
+    <bendpoint x="2057" y="2759"/>    
+    <bendpoint x="1366" y="3261"/>    
+    <bendpoint x="1282" y="3892"/>    
+    <bendpoint x="967" y="4513"/>    
+    <bendpoint x="967" y="5355"/>    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="349">    
+    <bendpoint x="2458" y="1654"/>    
+    <bendpoint x="2479" y="2122"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <generalization id="350">    
+    <bendpoint x="-361" y="-93"/>    
+    <bendpoint x="-298" y="-602"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="50"/>  
+  </generalization>  
+  <association id="351">    
+    <end type="SOURCE" refId="28" navigable="false">      
+      <attribute id="352" name="delete"/>      
+      <multiplicity id="353" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="354">    
+    <bendpoint x="3416" y="1044"/>    
+    <bendpoint x="3458" y="1298"/>    
+    <bendpoint x="3437" y="1654"/>    
+    <bendpoint x="3416" y="2122"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="355">    
+    <bendpoint x="591" y="-93"/>    
+    <bendpoint x="591" y="450"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <association id="356">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="357" name="db"/>      
+      <multiplicity id="358" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="359">    
+    <bendpoint x="964" y="-93"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="48"/>  
+  </dependency>  
+  <dependency id="360">    
+    <bendpoint x="115" y="2386"/>    
+    <bendpoint x="115" y="2759"/>    
+    <bendpoint x="136" y="3261"/>    
+    <bendpoint x="220" y="3892"/>    
+    <bendpoint x="325" y="4513"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <dependency id="361">    
+    <bendpoint x="-453" y="450"/>    
+    <bendpoint x="-847" y="1044"/>    
+    <bendpoint x="-910" y="1298"/>    
+    <bendpoint x="-910" y="1654"/>    
+    <bendpoint x="-910" y="2122"/>    
+    <bendpoint x="-910" y="2386"/>    
+    <bendpoint x="-910" y="2759"/>    
+    <bendpoint x="-910" y="3261"/>    
+    <bendpoint x="-910" y="3892"/>    
+    <bendpoint x="-910" y="4513"/>    
+    <bendpoint x="-910" y="5355"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="362">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <nesting id="363">    
+    <bendpoint x="4146" y="-93"/>    
+    <bendpoint x="4146" y="450"/>    
+    <bendpoint x="4146" y="1044"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="39"/>  
+  </nesting>  
+  <dependency id="364">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="45"/>  
+  </dependency>  
+  <dependency id="365">    
+    <bendpoint x="4414" y="1044"/>    
+    <bendpoint x="4351" y="1298"/>    
+    <bendpoint x="4351" y="1654"/>    
+    <bendpoint x="4072" y="2122"/>    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <nesting id="366">    
+    <bendpoint x="4083" y="-93"/>    
+    <bendpoint x="4083" y="450"/>    
+    <bendpoint x="4062" y="1044"/>    
+    <bendpoint x="4020" y="1298"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="58"/>  
+  </nesting>  
+  <nesting id="367">    
+    <bendpoint x="1301" y="1044"/>    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="24"/>  
+  </nesting>  
+  <generalization id="368">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <dependency id="369">    
+    <bendpoint x="111" y="450"/>    
+    <bendpoint x="111" y="1044"/>    
+    <bendpoint x="130" y="1298"/>    
+    <bendpoint x="109" y="1654"/>    
+    <bendpoint x="474" y="2122"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <association id="370">    
+    <bendpoint x="528" y="1298"/>    
+    <bendpoint x="1048" y="1654"/>    
+    <bendpoint x="1408" y="2122"/>    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="371" name="newFragment"/>      
+      <multiplicity id="372" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="49" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="373">    
+    <bendpoint x="1734" y="2122"/>    
+    <bendpoint x="1734" y="2386"/>    
+    <bendpoint x="1734" y="2759"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="374">    
+    <bendpoint x="2542" y="1654"/>    
+    <bendpoint x="2500" y="2122"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="375">    
+    <bendpoint x="484" y="-93"/>    
+    <bendpoint x="484" y="450"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <generalization id="376">    
+    <bendpoint x="528" y="450"/>    
+    <bendpoint x="549" y="-93"/>    
+    <bendpoint x="822" y="-602"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <dependency id="377">    
+    <bendpoint x="-516" y="1298"/>    
+    <bendpoint x="-516" y="1654"/>    
+    <bendpoint x="-516" y="2122"/>    
+    <bendpoint x="-516" y="2386"/>    
+    <bendpoint x="-516" y="2759"/>    
+    <bendpoint x="-516" y="3261"/>    
+    <bendpoint x="-516" y="3892"/>    
+    <bendpoint x="-516" y="4513"/>    
+    <bendpoint x="-516" y="5355"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="378">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <generalization id="379">    
+    <bendpoint x="570" y="1298"/>    
+    <bendpoint x="505" y="1044"/>    
+    <bendpoint x="505" y="450"/>    
+    <bendpoint x="463" y="-93"/>    
+    <bendpoint x="424" y="-602"/>    
+    <end type="SOURCE" refId="65"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <association id="380">    
+    <bendpoint x="2804" y="3892"/>    
+    <bendpoint x="2804" y="4513"/>    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="381" name="cards"/>      
+      <multiplicity id="382" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="53" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="383">    
+    <bendpoint x="1755" y="1654"/>    
+    <bendpoint x="1755" y="2122"/>    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <association id="384">    
+    <bendpoint x="4601" y="2122"/>    
+    <bendpoint x="4601" y="2386"/>    
+    <bendpoint x="4601" y="2759"/>    
+    <bendpoint x="4601" y="3261"/>    
+    <bendpoint x="4601" y="3892"/>    
+    <bendpoint x="4601" y="4513"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="385" name="card"/>      
+      <multiplicity id="386" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="53" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="387">    
+    <bendpoint x="2116" y="1044"/>    
+    <bendpoint x="1945" y="1298"/>    
+    <bendpoint x="2395" y="1654"/>    
+    <bendpoint x="2311" y="2122"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <association id="388">    
+    <bendpoint x="5969" y="-93"/>    
+    <bendpoint x="5969" y="450"/>    
+    <bendpoint x="5969" y="1044"/>    
+    <bendpoint x="5969" y="1298"/>    
+    <bendpoint x="5969" y="1654"/>    
+    <bendpoint x="5969" y="2122"/>    
+    <bendpoint x="5969" y="2386"/>    
+    <bendpoint x="5969" y="2759"/>    
+    <bendpoint x="5969" y="3261"/>    
+    <bendpoint x="5969" y="3892"/>    
+    <bendpoint x="5969" y="4513"/>    
+    <bendpoint x="5969" y="5355"/>    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="389" name="cardTagList"/>      
+      <multiplicity id="390" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="391">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <generalization id="392">    
+    <bendpoint x="319" y="1298"/>    
+    <bendpoint x="195" y="1044"/>    
+    <bendpoint x="132" y="450"/>    
+    <bendpoint x="44" y="-93"/>    
+    <bendpoint x="44" y="-602"/>    
+    <end type="SOURCE" refId="54"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <dependency id="393">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="41"/>  
+  </dependency>  
+  <association id="394">    
+    <bendpoint x="153" y="1044"/>    
+    <bendpoint x="-38" y="1298"/>    
+    <bendpoint x="-227" y="1654"/>    
+    <bendpoint x="-227" y="2122"/>    
+    <bendpoint x="-227" y="2386"/>    
+    <bendpoint x="-227" y="2759"/>    
+    <bendpoint x="-227" y="3261"/>    
+    <bendpoint x="-227" y="3892"/>    
+    <bendpoint x="-227" y="4513"/>    
+    <bendpoint x="-227" y="5355"/>    
+    <end type="SOURCE" refId="48" navigable="false">      
+      <attribute id="395" name="dynStackTagList"/>      
+      <multiplicity id="396" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="397">    
+    <bendpoint x="964" y="1044"/>    
+    <bendpoint x="1027" y="450"/>    
+    <bendpoint x="1090" y="-93"/>    
+    <bendpoint x="1153" y="-602"/>    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <dependency id="398">    
+    <bendpoint x="1153" y="1044"/>    
+    <bendpoint x="1069" y="1298"/>    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="62"/>  
+  </dependency>  
+  <dependency id="399">    
+    <bendpoint x="484" y="1044"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <dependency id="400">    
+    <bendpoint x="1387" y="2122"/>    
+    <bendpoint x="1387" y="2386"/>    
+    <bendpoint x="1387" y="2759"/>    
+    <bendpoint x="1387" y="3261"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="401">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="65"/>  
+  </dependency>  
+  <dependency id="402">    
+    <bendpoint x="151" y="1298"/>    
+    <bendpoint x="4" y="1654"/>    
+    <bendpoint x="-17" y="2122"/>    
+    <bendpoint x="136" y="2386"/>    
+    <bendpoint x="262" y="2759"/>    
+    <bendpoint x="346" y="3261"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="403">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="63"/>  
+  </dependency>  
+  <dependency id="404">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <association id="405">    
+    <end type="SOURCE" refId="46" navigable="false">      
+      <attribute id="406" name="mSectionsPagerAdapter"/>      
+      <multiplicity id="407" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="408">    
+    <bendpoint x="-164" y="1044"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="33"/>  
+  </nesting>  
+  <association id="409">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="410" name="sure"/>      
+      <multiplicity id="411" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="412">    
+    <bendpoint x="4643" y="2122"/>    
+    <bendpoint x="4559" y="2386"/>    
+    <bendpoint x="4433" y="2759"/>    
+    <bendpoint x="4265" y="3261"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <generalization id="413">    
+    <bendpoint x="403" y="-602"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <dependency id="414">    
+    <bendpoint x="1889" y="450"/>    
+    <bendpoint x="1174" y="1044"/>    
+    <bendpoint x="1027" y="1298"/>    
+    <bendpoint x="1027" y="1654"/>    
+    <bendpoint x="453" y="2122"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="415">    
+    <bendpoint x="2479" y="1654"/>    
+    <bendpoint x="2458" y="2122"/>    
+    <bendpoint x="2458" y="2386"/>    
+    <bendpoint x="2458" y="2759"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="416">    
+    <bendpoint x="717" y="1044"/>    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <dependency id="417">    
+    <bendpoint x="3584" y="450"/>    
+    <bendpoint x="3584" y="1044"/>    
+    <bendpoint x="3626" y="1298"/>    
+    <bendpoint x="3563" y="1654"/>    
+    <bendpoint x="3563" y="2122"/>    
+    <bendpoint x="3479" y="2386"/>    
+    <bendpoint x="2949" y="2759"/>    
+    <bendpoint x="2418" y="3261"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <nesting id="418">    
+    <bendpoint x="1878" y="1044"/>    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="22"/>  
+  </nesting>  
+  <nesting id="419">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="26"/>  
+  </nesting>  
+  <dependency id="420">    
+    <bendpoint x="1153" y="1298"/>    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="421">    
+    <bendpoint x="4167" y="1044"/>    
+    <bendpoint x="4062" y="1298"/>    
+    <bendpoint x="4330" y="1654"/>    
+    <bendpoint x="4051" y="2122"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="422">    
+    <bendpoint x="4" y="450"/>    
+    <bendpoint x="-49" y="1044"/>    
+    <bendpoint x="-101" y="1298"/>    
+    <bendpoint x="-185" y="1654"/>    
+    <bendpoint x="-59" y="2122"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <nesting id="423">    
+    <bendpoint x="2773" y="1044"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="29"/>  
+  </nesting>  
+  <dependency id="424">    
+    <end type="SOURCE" refId="61"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="425">    
+    <bendpoint x="1132" y="1044"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <dependency id="426">    
+    <bendpoint x="2416" y="2122"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="427">    
+    <bendpoint x="988" y="5355"/>    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="428">    
+    <bendpoint x="2318" y="1044"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <association id="429">    
+    <bendpoint x="5885" y="450"/>    
+    <bendpoint x="5927" y="1044"/>    
+    <bendpoint x="5927" y="1298"/>    
+    <bendpoint x="5927" y="1654"/>    
+    <bendpoint x="5923" y="2122"/>    
+    <bendpoint x="5920" y="2386"/>    
+    <bendpoint x="5916" y="2759"/>    
+    <bendpoint x="5911" y="3261"/>    
+    <bendpoint x="5906" y="3892"/>    
+    <bendpoint x="5906" y="4513"/>    
+    <end type="SOURCE" refId="64" navigable="false">      
+      <attribute id="430" name="card"/>      
+      <multiplicity id="431" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="53" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="432">    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <association id="433">    
+    <end type="SOURCE" refId="51" navigable="false">      
+      <attribute id="434" name="databaseManager"/>      
+      <multiplicity id="435" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="51" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="436">    
+    <bendpoint x="67" y="450"/>    
+    <bendpoint x="4" y="1044"/>    
+    <bendpoint x="-59" y="1298"/>    
+    <bendpoint x="-122" y="1654"/>    
+    <bendpoint x="4" y="2122"/>    
+    <bendpoint x="493" y="2386"/>    
+    <bendpoint x="514" y="2759"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="437">    
+    <bendpoint x="325" y="2759"/>    
+    <bendpoint x="367" y="3261"/>    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="438">    
+    <bendpoint x="922" y="450"/>    
+    <bendpoint x="1006" y="1044"/>    
+    <bendpoint x="1132" y="1298"/>    
+    <bendpoint x="2416" y="1654"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <dependency id="439">    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="440">    
+    <bendpoint x="88" y="1298"/>    
+    <bendpoint x="-101" y="1654"/>    
+    <bendpoint x="-122" y="2122"/>    
+    <bendpoint x="-50" y="2386"/>    
+    <bendpoint x="22" y="2759"/>    
+    <bendpoint x="94" y="3261"/>    
+    <bendpoint x="178" y="3892"/>    
+    <bendpoint x="283" y="4513"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <dependency id="441">    
+    <bendpoint x="2442" y="-602"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <generalization id="442">    
+    <bendpoint x="4395" y="-602"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="50"/>  
+  </generalization>  
+  <dependency id="443">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <association id="444">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="445" name="mSectionsPagerAdapter"/>      
+      <multiplicity id="446" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="57" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="447">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="448">    
+    <bendpoint x="4135" y="2122"/>    
+    <bendpoint x="4219" y="2386"/>    
+    <bendpoint x="4328" y="2759"/>    
+    <bendpoint x="4328" y="3261"/>    
+    <bendpoint x="4328" y="3892"/>    
+    <bendpoint x="4328" y="4513"/>    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <dependency id="449">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="24"/>  
+  </dependency>  
+  <dependency id="450">    
+    <bendpoint x="4167" y="450"/>    
+    <bendpoint x="4104" y="1044"/>    
+    <bendpoint x="3999" y="1298"/>    
+    <bendpoint x="3605" y="1654"/>    
+    <bendpoint x="3542" y="2122"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="451">    
+    <bendpoint x="3542" y="450"/>    
+    <bendpoint x="3563" y="1044"/>    
+    <bendpoint x="3584" y="1298"/>    
+    <bendpoint x="3500" y="1654"/>    
+    <bendpoint x="3500" y="2122"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="452">    
+    <bendpoint x="136" y="2759"/>    
+    <bendpoint x="115" y="3261"/>    
+    <bendpoint x="115" y="3892"/>    
+    <bendpoint x="115" y="4513"/>    
+    <bendpoint x="115" y="5355"/>    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="453">    
+    <bendpoint x="4764" y="1654"/>    
+    <bendpoint x="4475" y="2122"/>    
+    <bendpoint x="4359" y="2386"/>    
+    <bendpoint x="4244" y="2759"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="454">    
+    <bendpoint x="4435" y="1654"/>    
+    <bendpoint x="4454" y="2122"/>    
+    <bendpoint x="4454" y="2386"/>    
+    <bendpoint x="4454" y="2759"/>    
+    <bendpoint x="4454" y="3261"/>    
+    <bendpoint x="4454" y="3892"/>    
+    <bendpoint x="4454" y="4513"/>    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <dependency id="455">    
+    <bendpoint x="73" y="2386"/>    
+    <bendpoint x="73" y="2759"/>    
+    <bendpoint x="73" y="3261"/>    
+    <bendpoint x="73" y="3892"/>    
+    <bendpoint x="73" y="4513"/>    
+    <bendpoint x="73" y="5355"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <association id="456">    
+    <end type="SOURCE" refId="62" navigable="false">      
+      <attribute id="457" name="exchange"/>      
+      <multiplicity id="458" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="62" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="459">    
+    <bendpoint x="-80" y="1044"/>    
+    <bendpoint x="-80" y="1298"/>    
+    <bendpoint x="-80" y="1654"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
