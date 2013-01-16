@@ -149,6 +149,7 @@ public class Delete {
 					if (stack.getDynamicStackTags().get(i).getTagID() == tag
 							.getTagID()) {
 						stack.getDynamicStackTags().remove(i);
+						Create.getInstance().updateDynStack(stack);
 					}
 				}
 				Create.getInstance().updateDynStack(stack);
