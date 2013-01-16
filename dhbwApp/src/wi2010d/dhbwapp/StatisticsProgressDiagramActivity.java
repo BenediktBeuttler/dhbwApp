@@ -2,10 +2,17 @@ package wi2010d.dhbwapp;
 
 import java.util.Date;
 
+import org.achartengine.GraphicalView;
+
 import wi2010d.dhbwapp.model.Runthrough;
+import android.R.layout;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
 
 /**
  * Stores the graphic values (X,Y) and starts / initialize the graphical diagram
@@ -17,6 +24,8 @@ public class StatisticsProgressDiagramActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		setContentView(R.layout.statistics_screen_graph);
+		
 		StatisticsProgressDiagram line = new StatisticsProgressDiagram();
 		// get the X and Y values for the diagram
 		int[] notSureY = getIntent().getExtras().getIntArray("notSureY");
@@ -25,11 +34,13 @@ public class StatisticsProgressDiagramActivity extends Activity {
 		// get the X-value
 		long[] x = getIntent().getExtras().getLongArray("lastDates");
 
-		Intent lineIntent = line
-				.getDiagram(this, sureY, notSureY, dontKnowY, x);
-
+		GraphicalView gv=line.getDiagram(this, sureY, notSureY, dontKnowY, x);
 		// start the actual graphical diagram activity
-		startActivity(lineIntent);
-		finish();
+		LayoutParams layoutP = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		LinearLayout ll = new LinearLayout(getApplicationContext());
+		ll.setOrientation(LinearLayout.VERTICAL);
+		ll.setGravity(Gravity.CENTER);
+		ll.addView(gv);
+		this.addContentView(ll, layoutP);
 	}
 }
