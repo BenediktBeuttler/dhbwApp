@@ -511,6 +511,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 	public boolean updateStackList() {
 		ArrayList<String> items = new ArrayList<String>();
 		boolean stacksAvailable = false;
+		unregisterForContextMenu(lv);
 		for (Stack stack : Stack.allStacks) {
 			if (stack.isDynamicGenerated()) {
 				if (stack.getStackName().startsWith("<Dyn>")) {

@@ -30,6 +30,7 @@ public class AdminNewCardChooseStack extends OnResumeActivity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_new_card_choose_stack);
+		setResult(RESULT_CANCELED);
 
 		// get the name of every Stack for the listView
 		for (Stack stack : Stack.allStacks) {

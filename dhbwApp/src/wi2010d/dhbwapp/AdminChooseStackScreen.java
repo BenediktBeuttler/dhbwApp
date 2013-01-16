@@ -301,7 +301,8 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 				// set dialog message
 				alertDialogBuilder
 						.setMessage(
-								"Are you sure you want to delete "+stackName+"?")
+								"Are you sure you want to delete " + stackName
+										+ "?")
 						.setIcon(R.drawable.question)
 						.setCancelable(false)
 						.setPositiveButton("Yes",
@@ -424,6 +425,10 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 		// pressed. Method onCreateContextMenu is further relevant
 		if (stackAvailable) {
 			registerForContextMenu(lv);
+			lv.setClickable(true);
+		} else {
+			unregisterForContextMenu(lv);
+			lv.setClickable(false);
 		}
 		Collections.sort(items);
 		lvAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,

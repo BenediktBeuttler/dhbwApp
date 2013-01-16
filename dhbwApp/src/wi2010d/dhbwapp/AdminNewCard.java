@@ -532,20 +532,22 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 		switch (requestCode) {
 		case STACK_CHOSEN:
-			stackName = data.getExtras().getString("stackName");
-			for (Stack stack : Stack.allStacks) {
-				if (stack.getStackName().equals(stackName)) {
+			if (resultCode == STACK_CHOSEN) {
+				stackName = data.getExtras().getString("stackName");
+				for (Stack stack : Stack.allStacks) {
+					if (stack.getStackName().equals(stackName)) {
 
-					Edit.getInstance().addCardToStack(stack, card);
+						Edit.getInstance().addCardToStack(stack, card);
 
-					toast = Toast.makeText(this, "Card added to stack "
-							+ stackName, Toast.LENGTH_LONG);
-					toast.show();
-					finish();
-					break;
+						toast = Toast.makeText(this, "Card added to stack "
+								+ stackName, Toast.LENGTH_LONG);
+						toast.show();
+						finish();
+						break;
+					}
 				}
+				break;
 			}
-			break;
 		case 65537:
 
 			// If picture is taken (front)
