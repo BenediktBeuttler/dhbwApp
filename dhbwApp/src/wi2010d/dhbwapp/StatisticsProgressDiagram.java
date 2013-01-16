@@ -3,6 +3,7 @@ package wi2010d.dhbwapp;
 import java.text.SimpleDateFormat;
 
 import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
@@ -36,7 +37,7 @@ public class StatisticsProgressDiagram {
 	 *            The X-Value of the runthrough at position x
 	 * @return Intent, to start Activity
 	 */
-	public Intent getDiagram(Context context, int[] sureY, int[] notSureY,
+	public GraphicalView getDiagram(Context context, int[] sureY, int[] notSureY,
 			int[] dontKnowY, long[] x) {
 
 		int maxX = 0;
@@ -150,11 +151,12 @@ public class StatisticsProgressDiagram {
 		mRenderer.setYLabelsAlign(Align.LEFT, 0);
 		mRenderer.setLegendTextSize(20);
 		mRenderer.setLabelsTextSize(20);
+		mRenderer.setPanEnabled(false,false);
+		mRenderer.setZoomEnabled(false,false);
+		mRenderer.setClickEnabled(false);
 
 		// call the graphActivity to draw everything
-		Intent intent = ChartFactory.getLineChartIntent(context, dataset,
-				mRenderer, "Progress Chart");
-		return intent;
+		return ChartFactory.getLineChartView(context, dataset, mRenderer);
 
 	}
 
