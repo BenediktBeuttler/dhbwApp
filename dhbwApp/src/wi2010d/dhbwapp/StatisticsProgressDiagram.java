@@ -39,28 +39,52 @@ public class StatisticsProgressDiagram {
 			int[] dontKnowY, long[] x) {
 
 		int maxX = 0;
-		// SimpleDateFormat formater = new SimpleDateFormat();
-		SimpleDateFormat sd = new SimpleDateFormat("dd.MM.yy',' HH:mm");
+		boolean add;
+		for (int i = 0; i < x.length; i++) {
+			// get max X Value
+			if (x[i] > 0) {
+				maxX = maxX + 1;
+			}
+		}
+		Log.e("maxX", "" + maxX);
+		if (maxX < 10) {
+			add = true;
+		} else {
+			add = false;
+		}
 
 		// set a series which displays the 3 graphs
 		TimeSeries dontKnowLine = new TimeSeries("Don't know");
 		for (int i = 0; i < x.length; i++) {
 			// LineGraph for the drawer to be displayed
 			dontKnowLine.add(i, 100);
-			//get max X Value
-			if (x[i] > 0) {
-				maxX = maxX + 1;
-			}
 		}
 		TimeSeries notSureLine = new TimeSeries("Not Sure");
 		for (int i = 0; i < x.length; i++) {
-			// LineGraph for the drawer to be displayed
-			notSureLine.add(i, notSureY[i]+sureY[i]);
+			if (i == 0 && add) {
+				notSureLine.add(0, 0);
+			} else {
+				if (add) {
+					// LineGraph for the drawer to be displayed
+					notSureLine.add(i, notSureY[i - 1] + sureY[i - 1]);
+				} else {
+					notSureLine.add(i, notSureY[i] + sureY[i]);
+				}
+
+			}
 		}
 		TimeSeries sureLine = new TimeSeries("Sure");
 		for (int i = 0; i < x.length; i++) {
-			// LineGraph for the drawer to be displayed
-			sureLine.add(i, sureY[i]);
+			if (i == 0 && add) {
+				sureLine.add(0, 0);
+			} else {
+				if (add) {
+					// LineGraph for the drawer to be displayed
+					sureLine.add(i, sureY[i - 1]);
+				} else {
+					sureLine.add(i, sureY[i]);
+				}
+			}
 		}
 
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
@@ -94,16 +118,25 @@ public class StatisticsProgressDiagram {
 		mRenderer.addSeriesRenderer(renderer3);
 
 		mRenderer.setMargins(new int[] { 40, 40, 40, 40 });
-		mRenderer.setPanLimits(new double[] { 0, maxX, 0, 100 });
+		if (maxX == 10) {
+			mRenderer.setPanLimits(new double[] { 0, 9, 0, 100 });
+		} else {
+			mRenderer.setPanLimits(new double[] { 0, maxX, 0, 100 });
+		}
 		// mRenderer.setZoomLimits(new double[] { -10, 20, -10, 40 });
 
 		// set the Background Color
 		mRenderer.setApplyBackgroundColor(true);
 		mRenderer.setMarginsColor(Color.BLACK);
-		
+
 		// set value for x axis
-		mRenderer.setXLabels(maxX);
-		mRenderer.setXAxisMax(maxX, 0);
+		if (maxX == 10) {
+			mRenderer.setXLabels(maxX - 1);
+			mRenderer.setXAxisMax(maxX - 1, 0);
+		} else {
+			mRenderer.setXLabels(maxX);
+			mRenderer.setXAxisMax(maxX, 0);
+		}
 		mRenderer.setXLabelsAlign(Align.CENTER);
 
 		// set value for y axis
