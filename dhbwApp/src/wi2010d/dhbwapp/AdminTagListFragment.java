@@ -279,7 +279,7 @@ public class AdminTagListFragment extends Fragment {
 								}
 								mainListView.setAdapter(tagListAdapter);
 								Toast toast;
-								toast = Toast.makeText(getActivity(), tagName
+								toast = Toast.makeText(getActivity(),"Tag "+ tagName
 										+ " has been deleted.",
 										Toast.LENGTH_LONG);
 								toast.show();
