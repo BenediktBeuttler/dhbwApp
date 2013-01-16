@@ -13,6 +13,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -468,42 +469,15 @@ public class StatisticsScreen extends OnResumeFragmentActivity implements
 				Collections.sort(items);
 			}
 
-			// Instantiating and Initializing adapter
-			ArrayAdapter<String> adapter;
-			adapter = new ArrayAdapter<String>(v.getContext(),
-					android.R.layout.simple_spinner_item, items);
-
-			// Specify the layout to use when the list of choices appears
-			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			// Apply the adapter to the spinner
-			spinner.setAdapter(adapter);
-
-			// Set OnItemSelectedListener of Spinner
-			spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View view,
-						int position, long id) {
-
-					// If there are available Stacks, get the selected Stack and
-					// set Content of
-					// Page, based on the Stack Name
-					if (stacksAvailable) {
-						String name = (String) parent
-								.getItemAtPosition(position);
-						setContent(name, (View) view.getParent().getParent());
-					}
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-
-				}
-			});
-
 			// Initializing Button to show diagram and set OnClickListener
 			showDiagram = (Button) v
 					.findViewById(R.id.btn_statistics_progress_diagram);
+
+			if (stacksAvailable) {
+				showDiagram.setVisibility(Button.VISIBLE);
+			} else {
+				showDiagram.setVisibility(Button.GONE);
+			}
 			showDiagram.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -554,6 +528,47 @@ public class StatisticsScreen extends OnResumeFragmentActivity implements
 						// start the Activity with the added extras
 						startActivity(intent);
 					}
+				}
+			});
+
+			// Instantiating and Initializing adapter
+			ArrayAdapter<String> adapter;
+			adapter = new ArrayAdapter<String>(v.getContext(),
+					android.R.layout.simple_spinner_item, items);
+
+			// Specify the layout to use when the list of choices appears
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			// Apply the adapter to the spinner
+			spinner.setAdapter(adapter);
+
+			// Set OnItemSelectedListener of Spinner
+			spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view,
+						int position, long id) {
+
+					// If there are available Stacks, get the selected Stack and
+					// set Content of
+					// Page, based on the Stack Name
+					if (stacksAvailable) {
+						String name = (String) parent
+								.getItemAtPosition(position);
+						setContent(name, (View) view.getParent().getParent());
+
+						if (Statistics.getInstance().getNumberOfRunthroughs(
+								name) > 0) {
+							showDiagram.setVisibility(Button.VISIBLE);
+						}
+						else{
+							showDiagram.setVisibility(Button.GONE);
+						}
+					}
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+
 				}
 			});
 
