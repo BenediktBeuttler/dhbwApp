@@ -278,6 +278,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		public Uri imageUriFront;
 		public static final int TAKE_PICTURE = 1;
 		private static final int SELECT_PHOTO = 100;
+		private static final int SELECT_PDF = 200;
 
 		public EditCardFront() {
 		}
@@ -301,7 +302,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				public void onClick(View v) {
 
 					final CharSequence[] items = { "Take Picture",
-							"Picture from Gallery", "Add a PDF" };
+							"Picture from Gallery", "Add a PDF", "Add Hyperlink" };
 
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 							context);
@@ -324,21 +325,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 												"yyMMddhhmmss");
 										String picName = sd.format(date);
 
-										// Check if there is file
-										// /knowItOwl/pictures, if not -->
-										// create it
-										if (!new File(Environment
-												.getExternalStorageDirectory()
-												.getPath()
-												+ "/knowItOwl/pictures")
-												.exists()) {
-											new File(
-													Environment
-															.getExternalStorageDirectory()
-															.getPath()
-															+ "/knowItOwl/pictures")
-													.mkdir();
-										}
+										checkFileAvailability();
 
 										// Create file for the new picture
 										File photo = new File(Environment
@@ -356,22 +343,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 										break;
 
 									case 1:
-										// Check if there is file
-										// /knowItOwl/pictures, if not -->
-										// create it
-										if (!new File(Environment
-												.getExternalStorageDirectory()
-												.getPath()
-												+ "/knowItOwl/pictures")
-												.exists()) {
-											new File(
-													Environment
-															.getExternalStorageDirectory()
-															.getPath()
-															+ "/knowItOwl/pictures")
-													.mkdir();
-										}
 										
+										checkFileAvailability();
 										
 										// New intent to start gallery in order to choose a
 										// picture
@@ -380,6 +353,19 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 										photoPickerIntent.setType("image/*");
 										startActivityForResult(photoPickerIntent, SELECT_PHOTO);
 										
+										break;
+									case 2:
+										/*
+										checkFileAvailability();
+										
+										// New intent to start gallery in order to choose a
+										// picture
+										Intent pdfPickerIntent = new Intent(Intent.ACTION_PICK);
+										pdfPickerIntent.setType("application/pdf");
+										startActivityForResult(pdfPickerIntent, SELECT_PDF);
+										break;
+										*/
+									case 3:
 										break;
 									default:
 										break;
@@ -608,7 +594,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				@Override
 				public void onClick(View v) {
 					final CharSequence[] items = { "Take Picture",
-							"Picture from Gallery", "Add a PDF" };
+							"Picture from Gallery", "Add a PDF", "Add Hyperlink" };
 
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 							context);
@@ -631,21 +617,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 												"yyMMddhhmmss");
 										String picName = sd.format(date);
 
-										// Check if there is file
-										// /knowItOwl/pictures, if not -->
-										// create it
-										if (!new File(Environment
-												.getExternalStorageDirectory()
-												.getPath()
-												+ "/knowItOwl/pictures")
-												.exists()) {
-											new File(
-													Environment
-															.getExternalStorageDirectory()
-															.getPath()
-															+ "/knowItOwl/pictures")
-													.mkdir();
-										}
+										checkFileAvailability();
 
 										// Create file for the new picture
 										File photo = new File(Environment
@@ -663,22 +635,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 										break;
 
 									case 1:
-										// Check if there is file
-										// /knowItOwl/pictures, if not -->
-										// create it
-										if (!new File(Environment
-												.getExternalStorageDirectory()
-												.getPath()
-												+ "/knowItOwl/pictures")
-												.exists()) {
-											new File(
-													Environment
-															.getExternalStorageDirectory()
-															.getPath()
-															+ "/knowItOwl/pictures")
-													.mkdir();
-										}
 										
+										checkFileAvailability();
 										
 										// New intent to start gallery in order to choose a
 										// picture
@@ -687,6 +645,10 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 										photoPickerIntent.setType("image/*");
 										startActivityForResult(photoPickerIntent, SELECT_PHOTO);
 										
+										break;
+									case 2:
+										break;
+									case 3:
 										break;
 									default:
 										break;
@@ -1095,6 +1057,28 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
         return cursor.getString(column_index);
     }
 
+	/**
+	 * Checks if there is any file /knowItOwl/pictures existing
+	 * if not --> create it
+	 * 
+	 */
+	public void checkFileAvailability(){
+		// Check if there is file
+		// /knowItOwl/pictures, if not -->
+		// create it
+		if (!new File(Environment
+				.getExternalStorageDirectory()
+				.getPath()
+				+ "/knowItOwl/pictures")
+				.exists()) {
+			new File(
+					Environment
+							.getExternalStorageDirectory()
+							.getPath()
+							+ "/knowItOwl/pictures")
+					.mkdir();
+		}
+	}
 
 
 }
