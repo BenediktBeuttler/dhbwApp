@@ -301,7 +301,7 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 				// set dialog message
 				alertDialogBuilder
 						.setMessage(
-								"Are you sure you want to delete this stack?")
+								"Are you sure you want to delete "+stackName+"?")
 						.setIcon(R.drawable.question)
 						.setCancelable(false)
 						.setPositiveButton("Yes",
