@@ -4,6 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +25,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -32,6 +36,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -267,11 +272,12 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
-		private ImageButton editPicture;
+		private ImageButton addMedia;
 		private ImageButton deletePicture;
 		private ImageButton showPictureButton;
 		public Uri imageUriFront;
 		public static final int TAKE_PICTURE = 1;
+		private static final int SELECT_PHOTO = 100;
 
 		public EditCardFront() {
 		}
@@ -287,9 +293,9 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			cardFront.setText(card.getCardFront());
 
 			// Set up ImageButton for taking new picture
-			editPicture = (ImageButton) v
+			addMedia = (ImageButton) v
 					.findViewById(R.id.btn_edit_picture_front);
-			editPicture.setOnClickListener(new View.OnClickListener() {
+			addMedia.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
@@ -350,7 +356,30 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 										break;
 
 									case 1:
-
+										// Check if there is file
+										// /knowItOwl/pictures, if not -->
+										// create it
+										if (!new File(Environment
+												.getExternalStorageDirectory()
+												.getPath()
+												+ "/knowItOwl/pictures")
+												.exists()) {
+											new File(
+													Environment
+															.getExternalStorageDirectory()
+															.getPath()
+															+ "/knowItOwl/pictures")
+													.mkdir();
+										}
+										
+										
+										// New intent to start gallery in order to choose a
+										// picture
+										
+										Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+										photoPickerIntent.setType("image/*");
+										startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+										
 										break;
 									default:
 										break;
@@ -441,32 +470,100 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		@Override
 		public void onActivityResult(int requestCode, int resultCode,
 				Intent data) {
-			// Gets called when a picture is taken
-			if (resultCode == Activity.RESULT_OK) {
-
-				if (!card.getCardFrontPicture().equals("")
-						&& checkPictureAvailability(true)) {
-
-					// Delete former file from SD-Card
-					File fileToDelete = new File(card.getCardFrontPicture());
-					fileToDelete.delete();
+			
+			switch (requestCode){
+			case TAKE_PICTURE:
+				// Gets called when a picture is taken
+				if (resultCode == Activity.RESULT_OK) {
+	
+					if (!card.getCardFrontPicture().equals("")
+							&& checkPictureAvailability(true)) {
+	
+						// Delete former file from SD-Card
+						File fileToDelete = new File(card.getCardFrontPicture());
+						fileToDelete.delete();
+					}
+	
+					Edit.getInstance().addNewPicToCard(true,
+							imageUriFront.getPath(), card);
+	
+					// Updates the ImageButton to show the new picture as a
+					// thumbnail
+					updateImageButtonAdminEdit(true, showPictureButton);
+	
+					Toast.makeText(getApplicationContext(),
+							"Picture saved under: " + imageUriFront.getPath(),
+							Toast.LENGTH_LONG).show();
+	
+					// Set delete ImageButton visible as there is a new pic which
+					// can be
+					// deleted now
+					deletePicture.setVisibility(ImageButton.VISIBLE);
+					break;
 				}
-
-				Edit.getInstance().addNewPicToCard(true,
-						imageUriFront.getPath(), card);
-
-				// Updates the ImageButton to show the new picture as a
-				// thumbnail
-				updateImageButtonAdminEdit(true, showPictureButton);
-
-				Toast.makeText(getApplicationContext(),
-						"Picture saved under: " + imageUriFront.getPath(),
-						Toast.LENGTH_LONG).show();
-
-				// Set delete ImageButton visible as there is a new pic which
-				// can be
-				// deleted now
-				deletePicture.setVisibility(ImageButton.VISIBLE);
+			case SELECT_PHOTO:
+				
+				if(resultCode == RESULT_OK){  
+					
+					
+					// Delete former picture if available
+					if (!card.getCardFrontPicture().equals("")
+							&& checkPictureAvailability(true)) {
+	
+						// Delete former file from SD-Card
+						File fileToDelete = new File(card.getCardFrontPicture());
+						fileToDelete.delete();
+					}
+					
+					// Create file with existing picture
+					Uri selectedImage = data.getData();
+		    		File picture = new File(getRealPathFromURI(selectedImage));
+		    		
+		    		// Create a unique PicName with help of
+					// the actual date
+					Date date = new Date();
+					SimpleDateFormat sd = new SimpleDateFormat(
+							"yyMMddhhmmss");
+					String picName = sd.format(date);
+		    		
+		    		File destination = new File(Environment
+												.getExternalStorageDirectory()
+												+ "/knowItOwl/pictures",
+												picName + ".jpg");
+		    		
+		  
+		    		try {
+						copyFile(picture, destination);
+						Log.e("AdminEditCard", "Copied");
+					} catch (IOException e) {
+						// display a general error if the file could not be copied
+						/*
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(ErrorHandlerFragment.applicationContext., "dialog");
+						*/
+					}
+		    		
+					Edit.getInstance().addNewPicToCard(true,
+							destination.getPath(), card);
+	
+					// Updates the ImageButton to show the new picture as a
+					// thumbnail
+					updateImageButtonAdminEdit(true, showPictureButton);
+	
+					Toast.makeText(getApplicationContext(),
+							"Set new picture successfully",
+							Toast.LENGTH_LONG).show();
+	
+					// Set delete ImageButton visible as there is a new pic which
+					// can be
+					// deleted now
+					deletePicture.setVisibility(ImageButton.VISIBLE);
+					break;
+		    		
+		    		
+		        }
 			}
 		}
 
@@ -489,6 +586,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		private ImageButton showPictureButton;
 		public Uri imageUri;
 		public static final int TAKE_PICTURE = 1;
+		public static final int SELECT_PHOTO = 100;
 
 		public EditCardBack() {
 		}
@@ -565,7 +663,30 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 										break;
 
 									case 1:
-
+										// Check if there is file
+										// /knowItOwl/pictures, if not -->
+										// create it
+										if (!new File(Environment
+												.getExternalStorageDirectory()
+												.getPath()
+												+ "/knowItOwl/pictures")
+												.exists()) {
+											new File(
+													Environment
+															.getExternalStorageDirectory()
+															.getPath()
+															+ "/knowItOwl/pictures")
+													.mkdir();
+										}
+										
+										
+										// New intent to start gallery in order to choose a
+										// picture
+										
+										Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+										photoPickerIntent.setType("image/*");
+										startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+										
 										break;
 									default:
 										break;
@@ -652,34 +773,99 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		@Override
 		public void onActivityResult(int requestCode, int resultCode,
 				Intent data) {
-
+			
+			switch (requestCode){
+			case TAKE_PICTURE:
 			// Gets called, when a picture is taken
-			if (resultCode == Activity.RESULT_OK) {
-
-				if (!card.getCardBackPicture().equals("")
-						&& checkPictureAvailability(false)) {
-
-					// Delete former file from SD-Card
-					File fileToDelete = new File(card.getCardBackPicture());
-					fileToDelete.delete();
+				if (resultCode == Activity.RESULT_OK) {
+	
+					if (!card.getCardBackPicture().equals("")
+							&& checkPictureAvailability(false)) {
+	
+						// Delete former file from SD-Card
+						File fileToDelete = new File(card.getCardBackPicture());
+						fileToDelete.delete();
+					}
+	
+					Edit.getInstance().addNewPicToCard(false, imageUri.getPath(),
+							card);
+	
+					// Update the Thumbnail on the back of the card
+					updateImageButtonAdminEdit(false, showPictureButton);
+	
+					Toast.makeText(getApplicationContext(),
+							"Picture saved under: " + imageUri.getPath(),
+							Toast.LENGTH_LONG).show();
+	
+					// Set delete ImageButton visible as there is any picture to
+					// delete
+					// now
+					deletePicture.setVisibility(ImageButton.VISIBLE);
 				}
-
-				Edit.getInstance().addNewPicToCard(false, imageUri.getPath(),
-						card);
-
-				// Update the Thumbnail on the back of the card
-				updateImageButtonAdminEdit(false, showPictureButton);
-
-				Toast.makeText(getApplicationContext(),
-						"Picture saved under: " + imageUri.getPath(),
-						Toast.LENGTH_LONG).show();
-
-				// Set delete ImageButton visible as there is any picture to
-				// delete
-				// now
-				deletePicture.setVisibility(ImageButton.VISIBLE);
+				break;
+			case SELECT_PHOTO:
+				
+				if(resultCode == RESULT_OK){  
+					
+					
+					// Delete former picture if available
+					if (!card.getCardBackPicture().equals("")
+							&& checkPictureAvailability(false)) {
+	
+						// Delete former file from SD-Card
+						File fileToDelete = new File(card.getCardBackPicture());
+						fileToDelete.delete();
+					}
+					
+					// Create file with existing picture
+					Uri selectedImage = data.getData();
+		    		File picture = new File(getRealPathFromURI(selectedImage));
+		    		
+		    		// Create a unique PicName with help of
+					// the actual date
+					Date date = new Date();
+					SimpleDateFormat sd = new SimpleDateFormat(
+							"yyMMddhhmmss");
+					String picName = sd.format(date);
+		    		
+		    		File destination = new File(Environment
+												.getExternalStorageDirectory()
+												+ "/knowItOwl/pictures",
+												picName + ".jpg");
+		    		
+		  
+		    		try {
+						copyFile(picture, destination);
+						Log.e("AdminEditCard", "Copied");
+					} catch (IOException e) {
+						// display a general error if the file could not be copied
+						/*
+						ErrorHandlerFragment newFragment = ErrorHandlerFragment
+								.newInstance(R.string.error_handler_general,
+										ErrorHandlerFragment.GENERAL_ERROR);
+						newFragment.show(ErrorHandlerFragment.applicationContext., "dialog");
+						*/
+					}
+		    		
+					Edit.getInstance().addNewPicToCard(false,
+							destination.getPath(), card);
+	
+					// Updates the ImageButton to show the new picture as a
+					// thumbnail
+					updateImageButtonAdminEdit(false, showPictureButton);
+	
+					Toast.makeText(getApplicationContext(),
+							"Set new picture successfully",
+							Toast.LENGTH_LONG).show();
+	
+					// Set delete ImageButton visible as there is a new pic which
+					// can be
+					// deleted now
+					deletePicture.setVisibility(ImageButton.VISIBLE);
+				}
+				break;
 			}
-		}
+		}	
 	}
 
 	/**
@@ -872,5 +1058,43 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			return false;
 		}
 	}
+	
+	/**
+	 * Copys the given source file to the destination
+	 * 
+	 * @param src
+	 *            source file
+	 * @param dst
+	 *            destination folder
+	 * @throws IOException
+	 */
+	public static void copyFile(File src, File dst) throws IOException {
+		FileChannel inChannel = new FileInputStream(src).getChannel();
+		FileChannel outChannel = new FileOutputStream(dst).getChannel();
+		try {
+			inChannel.transferTo(0, inChannel.size(), outChannel);
+		} finally {
+			if (inChannel != null)
+				inChannel.close();
+			if (outChannel != null)
+				outChannel.close();
+		}
+	}
+	
+	/**
+	 * Returns the real path from Uri
+	 * 
+	 * @param contentUri
+	 * @return
+	 */
+	public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
+
 
 }
