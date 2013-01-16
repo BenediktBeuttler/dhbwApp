@@ -433,9 +433,13 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 										// Delete the stack
 										Delete.getInstance().deleteStack(
 												clickedStack);
-
 										// Update the stackList
 										updateStackList();
+										Toast.makeText(
+												getApplicationContext(),
+												stackName
+														+ " deleted sucessfully",
+												Toast.LENGTH_LONG).show();
 									}
 								})
 						.setNegativeButton("No",

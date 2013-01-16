@@ -737,15 +737,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 								Toast toast;
-								boolean nameTaken = false;
-								for (Stack stack : Stack.allStacks) {
-									if (input.getText().toString()
-											.equals(stack.getStackName())) {
-										nameTaken = true;
-										break;
-									}
-								}
-
+								
 								if (input.getText().toString().equals("")) {
 									Toast.makeText(getApplicationContext(),
 											"Please insert a stack name!",
@@ -757,26 +749,22 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 											"Stack name cannot be 'All Stacks', please select another one!",
 											Toast.LENGTH_LONG).show();
 
-								} else if (nameTaken) {
-									Toast.makeText(
-											getApplicationContext(),
-											"Stack name already taken, please select another one!",
-											Toast.LENGTH_LONG).show();
 								} else {
 									String stackName = input.getText()
 											.toString();
+									if(
 									Create.getInstance().newStack(stackName,
-											card);
-
-									toast = Toast
-											.makeText(
-													getApplicationContext(),
-													"Stack "
-															+ stackName
-															+ " created and Card added",
-													Toast.LENGTH_LONG);
-									toast.show();
-									finish();
+											card)){
+										toast = Toast
+												.makeText(
+														getApplicationContext(),
+														"Stack "
+																+ stackName
+																+ " created and Card added",
+														Toast.LENGTH_LONG);
+										toast.show();
+										finish();
+									}
 								}
 							}
 						});

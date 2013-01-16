@@ -321,9 +321,14 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 										// Delete the stack
 										Delete.getInstance().deleteStack(
 												clickedStack);
-
 										// Update the stackList
 										updateStackList();
+										// Show Toast
+										Toast.makeText(
+												getApplicationContext(),
+												stackName
+														+ " deleted sucessfully",
+												Toast.LENGTH_LONG).show();
 									}
 								})
 						.setNegativeButton("No",
