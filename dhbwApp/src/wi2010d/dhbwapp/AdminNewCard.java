@@ -737,22 +737,31 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 								Toast toast;
+								boolean nameTaken = false;
+								for (Stack stack : Stack.allStacks) {
+									if (input.getText().toString()
+											.equals(stack.getStackName())) {
+										nameTaken = true;
+										break;
+									}
+								}
 
 								if (input.getText().toString().equals("")) {
-									toast = Toast.makeText(
-											getApplicationContext(),
+									Toast.makeText(getApplicationContext(),
 											"Please insert a stack name!",
-											Toast.LENGTH_SHORT);
-									toast.show();
+											Toast.LENGTH_SHORT).show();
 								} else if (input.getText().toString()
 										.equals("All Stacks")) {
-									toast = Toast
-											.makeText(
-													getApplicationContext(),
-													"Stack name cannot be 'All Stacks', please select another one!",
-													Toast.LENGTH_LONG);
-									toast.show();
+									Toast.makeText(
+											getApplicationContext(),
+											"Stack name cannot be 'All Stacks', please select another one!",
+											Toast.LENGTH_LONG).show();
 
+								} else if (nameTaken) {
+									Toast.makeText(
+											getApplicationContext(),
+											"Stack name already taken, please select another one!",
+											Toast.LENGTH_LONG).show();
 								} else {
 									String stackName = input.getText()
 											.toString();
