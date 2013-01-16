@@ -53,7 +53,8 @@ public class Create {
 		for (Stack stack : Stack.allStacks) {
 			if (stack.getStackName().equals(name)) {
 				Toast.makeText(ErrorHandlerFragment.applicationContext,
-						"Stack name already taken, please select another one", Toast.LENGTH_LONG).show();
+						"Stack name already taken, please select another one",
+						Toast.LENGTH_LONG).show();
 				return false;
 			}
 		}
@@ -211,6 +212,12 @@ public class Create {
 			}
 			if (stack.getDynamicStackTags().size() == 0) {
 				Delete.getInstance().deleteStack(stack);
+				Toast.makeText(
+						ErrorHandlerFragment.applicationContext,
+						"Dyn. Stack "
+								+ stack.getStackName()
+								+ " had no tags anymore, so it has been deleted",
+						Toast.LENGTH_LONG).show();
 			}
 		}
 		return true;
