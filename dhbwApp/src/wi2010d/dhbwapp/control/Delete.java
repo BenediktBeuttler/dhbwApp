@@ -152,7 +152,6 @@ public class Delete {
 						Create.getInstance().updateDynStack(stack);
 					}
 				}
-				Create.getInstance().updateDynStack(stack);
 			}
 		}
 
