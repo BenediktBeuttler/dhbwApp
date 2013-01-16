@@ -97,7 +97,17 @@ public class AdminTagListFragment extends Fragment {
 													ErrorHandlerFragment.NAME_TAKEN);
 									newFragment.show(getActivity()
 											.getFragmentManager(), "dialog");
-								} else {
+								} else if(newTagName.equals("")){
+									//Error Handling if no name is typed
+									ErrorHandlerFragment newFragment = ErrorHandlerFragment
+											.newInstance(
+													R.string.error_handler_no_input,
+													ErrorHandlerFragment.NO_INPUT);
+									newFragment.show(getActivity()
+											.getFragmentManager(), "dialog");
+
+								}else {
+								
 									// Create new Tag
 									Tag newTag = Create.getInstance().newTag(
 											newTagName);
@@ -132,7 +142,16 @@ public class AdminTagListFragment extends Fragment {
 								// Canceled.
 							}
 						});
-				alert.show();
+				boolean tagChosen = false;
+				for (Tag tag : Tag.allTags) {
+					if (tag.isChecked()) {
+						tagChosen = true;
+						break;
+					}
+				}
+				if (tagChosen) {
+					alert.show();
+				}
 			}
 		});
 
@@ -251,12 +270,12 @@ public class AdminTagListFragment extends Fragment {
 										break;
 									}
 								}
-								if(!buttonInvisible){
+								if (!buttonInvisible) {
 									tagListAdapter = new TagArrayAdapter(
 											getActivity(), Tag.allTags);
-								}else{
-								tagListAdapter = new TagArrayAdapter(
-										getActivity(), getTagsWithCards());
+								} else {
+									tagListAdapter = new TagArrayAdapter(
+											getActivity(), getTagsWithCards());
 								}
 								mainListView.setAdapter(tagListAdapter);
 								Toast toast;
