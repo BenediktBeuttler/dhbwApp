@@ -17,6 +17,7 @@ import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -69,6 +70,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	ViewPager mViewPager;
 	EditText cardFront;
 	EditText cardBack;
+	Context context;
 
 	public static final int STACK_CHOSEN = 10;
 
@@ -79,7 +81,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	public Uri imageUriFront;
 
 	public static final int TAKE_PICTURE_BACK = 2;
-	private ImageButton takePictureBack;
+	private ImageButton addMedia;
 	private ImageButton deletePictureBack;
 	private ImageButton showPictureBack;
 	public Uri imageUriBack;
@@ -99,6 +101,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// reload the data, if sth got garbage collected
 		this.reloadOnGarbageCollected();
+		context = this;
 
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -290,35 +293,72 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				@Override
 				public void onClick(View v) {
 
-					// New intent to take picture
-					Intent takePicture = new Intent(
-							"android.media.action.IMAGE_CAPTURE");
+					final CharSequence[] items = { "Take Picture",
+							"Picture from Gallery", "Add a PDF" };
 
-					// Create unique name for picture with help of the actual
-					// date
-					Date date = new Date();
-					SimpleDateFormat sd = new SimpleDateFormat("yyMMddhhmmss");
-					String picName = sd.format(date);
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							context);
+					builder.setTitle("Add Media");
+					builder.setItems(items,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int item) {
+									switch (item) {
+									case 0:
+										// New intent to take picture
+										Intent takePicture = new Intent(
+												"android.media.action.IMAGE_CAPTURE");
 
-					// Check if there is a path /knowItOwl/pictures available
-					// if not --> create it
-					if (!new File(Environment.getExternalStorageDirectory()
-							.getPath() + "/knowItOwl/pictures").exists()) {
-						new File(Environment.getExternalStorageDirectory()
-								.getPath() + "/knowItOwl/pictures").mkdir();
-					}
+										// Create unique name for picture with
+										// help of the actual
+										// date
+										Date date = new Date();
+										SimpleDateFormat sd = new SimpleDateFormat(
+												"yyMMddhhmmss");
+										String picName = sd.format(date);
 
-					// New file for the picture
-					File photo = new File(Environment
-							.getExternalStorageDirectory()
-							+ "/knowItOwl/pictures", picName + ".jpg");
-					takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
-							Uri.fromFile(photo));
-					imageUriFront = Uri.fromFile(photo);
+										// Check if there is a path
+										// /knowItOwl/pictures available
+										// if not --> create it
+										if (!new File(Environment
+												.getExternalStorageDirectory()
+												.getPath()
+												+ "/knowItOwl/pictures")
+												.exists()) {
+											new File(
+													Environment
+															.getExternalStorageDirectory()
+															.getPath()
+															+ "/knowItOwl/pictures")
+													.mkdir();
+										}
 
-					// Start activity
-					startActivityForResult(takePicture, TAKE_PICTURE_FRONT);
+										// New file for the picture
+										File photo = new File(Environment
+												.getExternalStorageDirectory()
+												+ "/knowItOwl/pictures",
+												picName + ".jpg");
+										takePicture.putExtra(
+												MediaStore.EXTRA_OUTPUT,
+												Uri.fromFile(photo));
+										imageUriFront = Uri.fromFile(photo);
 
+										// Start activity
+										startActivityForResult(takePicture,
+												TAKE_PICTURE_FRONT);
+
+										break;
+
+									case 1:
+
+										break;
+									default:
+										break;
+									}
+								}
+							});
+					AlertDialog alert = builder.create();
+					alert.show();
 				}
 			});
 
@@ -405,41 +445,78 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 			cardBack = (EditText) v.findViewById(R.id.txt_new_card_back);
 
-			takePictureBack = (ImageButton) v
+			addMedia = (ImageButton) v
 					.findViewById(R.id.btn_admin_new_card_picture_back);
-			takePictureBack.setOnClickListener(new View.OnClickListener() {
+			addMedia.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 
-					// New intent to take picture
-					Intent takePicture = new Intent(
-							"android.media.action.IMAGE_CAPTURE");
+					final CharSequence[] items = { "Take Picture",
+							"Picture from Gallery", "Add a PDF" };
 
-					// Create unique picture name with help of the actual date
-					Date date = new Date();
-					SimpleDateFormat sd = new SimpleDateFormat("yyMMddhhmmss");
-					String picName = sd.format(date);
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							context);
+					builder.setTitle("Add Media");
+					builder.setItems(items,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int item) {
+									switch (item) {
+									case 0:
 
-					// Check if file /knowItOwl/picture exists --> if not,
-					// create it
-					if (!new File(Environment.getExternalStorageDirectory()
-							.getPath() + "/knowItOwl/pictures").exists()) {
-						new File(Environment.getExternalStorageDirectory()
-								.getPath() + "/knowItOwl/pictures").mkdir();
-					}
+										// New intent to take picture
+										Intent takePicture = new Intent(
+												"android.media.action.IMAGE_CAPTURE");
 
-					// Create new file
-					File photo = new File(Environment
-							.getExternalStorageDirectory()
-							+ "/knowItOwl/pictures", picName + ".jpg");
-					takePicture.putExtra(MediaStore.EXTRA_OUTPUT,
-							Uri.fromFile(photo));
-					imageUriBack = Uri.fromFile(photo);
+										// Create unique picture name with help
+										// of the actual date
+										Date date = new Date();
+										SimpleDateFormat sd = new SimpleDateFormat(
+												"yyMMddhhmmss");
+										String picName = sd.format(date);
 
-					// Start activity and take picture
-					startActivityForResult(takePicture, TAKE_PICTURE_BACK);
+										// Check if file /knowItOwl/picture
+										// exists --> if not,
+										// create it
+										if (!new File(Environment
+												.getExternalStorageDirectory()
+												.getPath()
+												+ "/knowItOwl/pictures")
+												.exists()) {
+											new File(
+													Environment
+															.getExternalStorageDirectory()
+															.getPath()
+															+ "/knowItOwl/pictures")
+													.mkdir();
+										}
 
+										// Create new file
+										File photo = new File(Environment
+												.getExternalStorageDirectory()
+												+ "/knowItOwl/pictures",
+												picName + ".jpg");
+										takePicture.putExtra(
+												MediaStore.EXTRA_OUTPUT,
+												Uri.fromFile(photo));
+										imageUriBack = Uri.fromFile(photo);
+
+										// Start activity and take picture
+										startActivityForResult(takePicture,
+												TAKE_PICTURE_BACK);
+										break;
+
+									case 1:
+
+										break;
+									default:
+										break;
+									}
+								}
+							});
+					AlertDialog alert = builder.create();
+					alert.show();
 				}
 			});
 
@@ -737,7 +814,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 								Toast toast;
-								
+
 								if (input.getText().toString().equals("")) {
 									Toast.makeText(getApplicationContext(),
 											"Please insert a stack name!",
@@ -752,9 +829,8 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 								} else {
 									String stackName = input.getText()
 											.toString();
-									if(
-									Create.getInstance().newStack(stackName,
-											card)){
+									if (Create.getInstance().newStack(
+											stackName, card)) {
 										toast = Toast
 												.makeText(
 														getApplicationContext(),

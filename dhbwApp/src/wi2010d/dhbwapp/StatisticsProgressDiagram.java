@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 
 /**
@@ -96,25 +97,25 @@ public class StatisticsProgressDiagram {
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
 
 		XYSeriesRenderer renderer1 = new XYSeriesRenderer();
-		renderer1.setColor(Color.RED);
+		renderer1.setColor(Color.rgb(192, 18, 18));
 		renderer1.setLineWidth(1);
 		renderer1.setFillBelowLine(true);
-		renderer1.setFillBelowLineColor(Color.RED);
+		renderer1.setFillBelowLineColor(Color.rgb(192, 18, 18));
 		renderer1.setChartValuesTextSize(20);
 		mRenderer.addSeriesRenderer(renderer1);
 
 		XYSeriesRenderer renderer2 = new XYSeriesRenderer();
-		renderer2.setColor(Color.YELLOW);
+		renderer2.setColor(Color.rgb(252, 248, 82));
 		renderer2.setLineWidth(1);
 		renderer2.setFillBelowLine(true);
-		renderer2.setFillBelowLineColor(Color.YELLOW);
+		renderer2.setFillBelowLineColor(Color.rgb(252, 248, 82));
 		mRenderer.addSeriesRenderer(renderer2);
 
 		XYSeriesRenderer renderer3 = new XYSeriesRenderer();
-		renderer3.setColor(Color.GREEN);
+		renderer3.setColor(Color.rgb(54, 192, 54));
 		renderer3.setLineWidth(1);
 		renderer3.setFillBelowLine(true);
-		renderer3.setFillBelowLineColor(Color.GREEN);
+		renderer3.setFillBelowLineColor(Color.rgb(54, 192, 54));
 		mRenderer.addSeriesRenderer(renderer3);
 
 		mRenderer.setMargins(new int[] { 40, 40, 40, 40 });
@@ -127,7 +128,7 @@ public class StatisticsProgressDiagram {
 
 		// set the Background Color
 		mRenderer.setApplyBackgroundColor(true);
-		mRenderer.setMarginsColor(Color.BLACK);
+		mRenderer.setMarginsColor(GradientDrawable.SWEEP_GRADIENT);
 
 		// set value for x axis
 		if (maxX == 10) {
