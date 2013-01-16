@@ -438,7 +438,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 										Toast.makeText(
 												getApplicationContext(),
 												stackName
-														+ " deleted sucessfully",
+														+ " got deleted successfuly",
 												Toast.LENGTH_LONG).show();
 									}
 								})

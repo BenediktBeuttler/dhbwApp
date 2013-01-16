@@ -327,7 +327,7 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 										Toast.makeText(
 												getApplicationContext(),
 												stackName
-														+ " deleted sucessfully",
+														+ " got deleted successfuly",
 												Toast.LENGTH_LONG).show();
 									}
 								})
