@@ -26,7 +26,7 @@ public class StatisticsProgressDiagramActivity extends Activity {
 		long[] x = getIntent().getExtras().getLongArray("lastDates");
 
 		Intent lineIntent = line
-				.getDiagram(this, notSureY, sureY, dontKnowY, x);
+				.getDiagram(this, sureY, notSureY, dontKnowY, x);
 
 		// start the actual graphical diagram activity
 		startActivity(lineIntent);
