@@ -119,10 +119,11 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 	 * @return true, if everything worked
 	 */
 	public boolean loadFromDB() {
-		// We need to wait, till all 4 loading threads are finished, so we use a
+		// We need to wait, till all loading//assinging threads are finished, so
+		// we use a
 		// CountDownLatch
-		final CountDownLatch loadingCountDown = new CountDownLatch(4);
-		final CountDownLatch assigningCountDown = new CountDownLatch(3);
+		final CountDownLatch loadingCountDown = new CountDownLatch(3);
+		final CountDownLatch assigningCountDown = new CountDownLatch(4);
 
 		// Define the loading and assigning Threads
 		Thread loadStacksThread = new Thread() {
@@ -143,10 +144,10 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 				loadingCountDown.countDown();
 			}
 		};
-		Thread loadRunthroughsThread = new Thread() {
+		Thread loadAssignRunthroughsThread = new Thread() {
 			public void run() {
 				loadRunthroughs();
-				loadingCountDown.countDown();
+				assigningCountDown.countDown();
 			}
 		};
 		Thread assignCardsToStacksThread = new Thread() {
@@ -167,30 +168,36 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 				assigningCountDown.countDown();
 			}
 		};
-		
+
 		try {
-			// Start all the threads
+			// Open the DB for reading
 			Database.getInstance().openRead();
+			// Start all the threads
 			loadStacksThread.start();
 			loadCardsThread.start();
 			loadTagsThread.start();
-			loadRunthroughsThread.start();
-			
-			//Wait till all loading threads are finished, then start the assigning threads
+
+			// Wait till all loading threads are finished, then start the
+			// assigning threads
 			loadingCountDown.await();
-			
-			//start the assigning threads
+
+			// start the assigning threads
+			loadAssignRunthroughsThread.start(); // Optimization -> load and
+													// assign runthroughs here
+													// -> faster loading
 			assignCardsToStacksThread.start();
 			assignTagsToCardsThread.start();
 			assignTagsToStacksThread.start();
-			
-			//wait till the assigning threads are finished, then do the rest
+
+			// wait till the assigning threads are finished, then do the rest
 			assigningCountDown.await();
+
+			//Close the DB, after loading everything
 			Database.getInstance().close();
-			
-			//Delete the unused tags
+
+			// Delete the unused tags
 			deleteUnusedTags();
-			
+
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 			return false;
