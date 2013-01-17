@@ -20,7 +20,6 @@ import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -34,7 +33,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.text.util.Linkify;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,6 +43,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,7 +75,6 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	ViewPager mViewPager;
 	EditText cardFront;
 	EditText cardBack;
-	Context context;
 
 	public static final int STACK_CHOSEN = 10;
 
@@ -83,17 +82,16 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	private ImageButton takePictureFront;
 	private ImageButton deletePictureFront;
 	private ImageButton showPictureFront;
+	private String linkPathFront;
 	public Uri imageUriFront;
 
 	public static final int TAKE_PICTURE_BACK = 2;
 	private ImageButton addMedia;
 	private ImageButton deletePictureBack;
 	private ImageButton showPictureBack;
+	private String linkPathBack;
 	public Uri imageUriBack;
 
-	public static final int SELECT_PHOTO_FRONT = 100;
-	public static final int SELECT_PHOTO_BACK =  200;
-	
 	public Card getCard() {
 		return card;
 	}
@@ -109,7 +107,6 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// reload the data, if sth got garbage collected
 		this.reloadOnGarbageCollected();
-		context = this;
 
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -299,14 +296,15 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			takePictureFront.setOnClickListener(new View.OnClickListener() {
 
 				@Override
-				public void onClick(View v) {
+				public void onClick(final View v) {
 
 					final CharSequence[] items = { "Take Picture",
-							"Picture from Gallery", "Add a PDF" };
+							"Picture from Gallery", "Add a PDF",
+							"Add Hyperlink" };
 
-					AlertDialog.Builder builder = new AlertDialog.Builder(
-							context);
-					builder.setTitle("Add Media");
+					final AlertDialog.Builder builder = new AlertDialog.Builder(
+							v.getContext());
+					builder.setTitle("Mediacenter");
 					builder.setItems(items,
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
@@ -325,7 +323,21 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 												"yyMMddhhmmss");
 										String picName = sd.format(date);
 
-										checkFileAvailability();
+										// Check if there is a path
+										// /knowItOwl/pictures available
+										// if not --> create it
+										if (!new File(Environment
+												.getExternalStorageDirectory()
+												.getPath()
+												+ "/knowItOwl/pictures")
+												.exists()) {
+											new File(
+													Environment
+															.getExternalStorageDirectory()
+															.getPath()
+															+ "/knowItOwl/pictures")
+													.mkdir();
+										}
 
 										// New file for the picture
 										File photo = new File(Environment
@@ -344,18 +356,83 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 										break;
 
 									case 1:
-										
-										checkFileAvailability();
-										
-										// New intent to start gallery in order to choose a
-										// picture
-										
-										Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-										photoPickerIntent.setType("image/*");
-										startActivityForResult(photoPickerIntent, SELECT_PHOTO_FRONT);
-										
-										break;
 
+										break;
+									case 3:
+										AlertDialog.Builder alert = new AlertDialog.Builder(
+												v.getContext());
+										// set Layout for dialog
+										LinearLayout ll = new LinearLayout(v
+												.getContext());
+										ll.setOrientation(LinearLayout.VERTICAL);
+
+										alert.setTitle("Add Hyperlink");
+										alert.setMessage("Insert Link");
+
+										// set edit text and text view to insert
+										// link path and name it
+										final TextView lblLinkPath = new TextView(
+												v.getContext());
+										lblLinkPath.setText("Paste Link:");
+
+										final EditText editLinkPath = new EditText(
+												v.getContext());
+
+										ll.addView(lblLinkPath);
+										ll.addView(editLinkPath);
+
+										alert.setView(ll);
+
+										alert.setPositiveButton(
+												"Add",
+												new DialogInterface.OnClickListener() {
+													public void onClick(
+															DialogInterface dialog,
+															int whichButton) {
+														// check if inputs are
+														// empty
+														if (editLinkPath
+																.getText()
+																.toString()
+																.equals("")) {
+															Toast.makeText(
+																	getApplicationContext(),
+																	"Please insert a text.",
+																	Toast.LENGTH_LONG)
+																	.show();
+														} else {
+															// if fiels is not
+															// empty open input
+															// dialog for links
+															linkPathFront = editLinkPath
+																	.getText()
+																	.toString();
+															// save text before
+															// adding hyperlink
+															String newText = card
+																	.getCardBack();
+															newText = newText
+																	+ linkPathBack;
+															cardFront.setAutoLinkMask(Linkify.WEB_URLS);
+															cardFront.setText(newText);
+														}
+
+													}
+												});
+
+										alert.setNegativeButton(
+												"Cancel",
+												new DialogInterface.OnClickListener() {
+													public void onClick(
+															DialogInterface dialog,
+															int whichButton) {
+														// cancel dialog
+														dialog.cancel();
+													}
+												});
+										builder.create();
+										alert.show();
+										break;
 									default:
 										break;
 									}
@@ -454,14 +531,15 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			addMedia.setOnClickListener(new View.OnClickListener() {
 
 				@Override
-				public void onClick(View v) {
+				public void onClick(final View v) {
 
 					final CharSequence[] items = { "Take Picture",
-							"Picture from Gallery", "Add a PDF" };
+							"Picture from Gallery", "Add a PDF",
+							"Add Hyperlink" };
 
-					AlertDialog.Builder builder = new AlertDialog.Builder(
-							context);
-					builder.setTitle("Add Media");
+					final AlertDialog.Builder builder = new AlertDialog.Builder(
+							v.getContext());
+					builder.setTitle("Mediacenter");
 					builder.setItems(items,
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
@@ -480,7 +558,21 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 												"yyMMddhhmmss");
 										String picName = sd.format(date);
 
-										checkFileAvailability();
+										// Check if file /knowItOwl/picture
+										// exists --> if not,
+										// create it
+										if (!new File(Environment
+												.getExternalStorageDirectory()
+												.getPath()
+												+ "/knowItOwl/pictures")
+												.exists()) {
+											new File(
+													Environment
+															.getExternalStorageDirectory()
+															.getPath()
+															+ "/knowItOwl/pictures")
+													.mkdir();
+										}
 
 										// Create new file
 										File photo = new File(Environment
@@ -499,15 +591,81 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 									case 1:
 
-										checkFileAvailability();
+										break;
+									case 3:
+										AlertDialog.Builder alert = new AlertDialog.Builder(
+												v.getContext());
+										// set Layout for dialog
+										LinearLayout ll = new LinearLayout(v
+												.getContext());
+										ll.setOrientation(LinearLayout.VERTICAL);
+
+										alert.setTitle("Add Hyperlink");
+										alert.setMessage("Insert Link");
+
+										// set edit text and text view to insert
+										// link path and name it
+										final TextView lblLinkPath = new TextView(
+												v.getContext());
+										lblLinkPath.setText("Paste Link:");
+
+										final EditText editLinkPath = new EditText(
+												v.getContext());
 										
-										// New intent to start gallery in order to choose a
-										// picture
-										
-										Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-										photoPickerIntent.setType("image/*");
-										startActivityForResult(photoPickerIntent, SELECT_PHOTO_BACK);
-										
+										ll.addView(lblLinkPath);
+										ll.addView(editLinkPath);
+
+										alert.setView(ll);
+
+										alert.setPositiveButton(
+												"Add",
+												new DialogInterface.OnClickListener() {
+													public void onClick(
+															DialogInterface dialog,
+															int whichButton) {
+														// check if inputs are
+														// empty
+														if (editLinkPath
+																.getText()
+																.toString()
+																.equals("")) {
+															Toast.makeText(
+																	getApplicationContext(),
+																	"Please insert a text.",
+																	Toast.LENGTH_LONG)
+																	.show();
+														} else {
+															// if fiels is not
+															// empty open input
+															// dialog for links
+															linkPathBack = editLinkPath
+																	.getText()
+																	.toString();
+															// save text before
+															// adding hyperlink
+															String newText = card
+																	.getCardBack();
+															newText = newText
+																	+ linkPathBack;
+															cardBack.setAutoLinkMask(Linkify.WEB_URLS);
+															cardBack.setText(newText);
+														}
+
+													}
+												});
+
+										alert.setNegativeButton(
+												"Cancel",
+												new DialogInterface.OnClickListener() {
+													public void onClick(
+															DialogInterface dialog,
+															int whichButton) {
+														// cancel dialog
+														dialog.cancel();
+													}
+												});
+										builder.create();
+										alert.show();
 										break;
 									default:
 										break;
@@ -606,9 +764,6 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		String stackName;
 		Toast toast;
 
-		Log.e("New Card", "request code: "  + requestCode);
-		
-		
 		switch (requestCode) {
 		case STACK_CHOSEN:
 			if (resultCode == STACK_CHOSEN) {
@@ -674,122 +829,6 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 						"Picture saved under: " + imageUriBack.getPath(),
 						Toast.LENGTH_LONG).show();
 				break;
-			}
-			break;
-		case 65636:
-			if(resultCode == RESULT_OK){  
-				
-				// Delete former picture if available
-				if (!cardFrontPic.equals("")
-						&& checkPictureAvailability(true)) {
-
-					// Delete former file from SD-Card
-					File fileToDelete = new File(cardFrontPic);
-					fileToDelete.delete();
-				}
-				
-				// Create file with existing picture
-				Uri selectedImage = data.getData();
-	    		File picture = new File(getRealPathFromURI(selectedImage));
-	    		
-	    		// Create a unique PicName with help of
-				// the actual date
-				Date date = new Date();
-				SimpleDateFormat sd = new SimpleDateFormat(
-						"yyMMddhhmmss");
-				String picName = sd.format(date);
-	    		
-	    		File destination = new File(Environment
-											.getExternalStorageDirectory()
-											+ "/knowItOwl/pictures",
-											picName + ".jpg");
-	    		
-	  
-	    		try {
-					copyFile(picture, destination);
-					Log.e("AdminEditCard", "Copied");
-				} catch (IOException e) {
-					// display a general error if the file could not be copied
-					/*
-					ErrorHandlerFragment newFragment = ErrorHandlerFragment
-							.newInstance(R.string.error_handler_general,
-									ErrorHandlerFragment.GENERAL_ERROR);
-					newFragment.show(ErrorHandlerFragment.applicationContext., "dialog");
-					*/
-				}
-	    		
-	    		cardFrontPic = destination.getPath();
-
-				// Updates the ImageButton to show the new picture as a
-				// thumbnail
-				updateImageButtonNewCard(true, showPictureFront);
-
-				Toast.makeText(getApplicationContext(),
-						"Set new picture successfully",
-						Toast.LENGTH_LONG).show();
-
-				// Set delete ImageButton visible as there is a new pic which
-				// can be
-				// deleted now
-				deletePictureFront.setVisibility(ImageButton.VISIBLE);
-			}
-			break;
-		case 131272:
-			if(resultCode == RESULT_OK){  
-				
-				// Delete former picture if available
-				if (!cardBackPic.equals("")
-						&& checkPictureAvailability(false)) {
-
-					// Delete former file from SD-Card
-					File fileToDelete = new File(cardBackPic);
-					fileToDelete.delete();
-				}
-				
-				// Create file with existing picture
-				Uri selectedImage = data.getData();
-	    		File picture = new File(getRealPathFromURI(selectedImage));
-	    		
-	    		// Create a unique PicName with help of
-				// the actual date
-				Date date = new Date();
-				SimpleDateFormat sd = new SimpleDateFormat(
-						"yyMMddhhmmss");
-				String picName = sd.format(date);
-	    		
-	    		File destination = new File(Environment
-											.getExternalStorageDirectory()
-											+ "/knowItOwl/pictures",
-											picName + ".jpg");
-	    		
-	  
-	    		try {
-					copyFile(picture, destination);
-					Log.e("AdminEditCard", "Copied");
-				} catch (IOException e) {
-					// display a general error if the file could not be copied
-					/*
-					ErrorHandlerFragment newFragment = ErrorHandlerFragment
-							.newInstance(R.string.error_handler_general,
-									ErrorHandlerFragment.GENERAL_ERROR);
-					newFragment.show(ErrorHandlerFragment.applicationContext., "dialog");
-					*/
-				}
-	    		
-	    		cardBackPic = destination.getPath();
-	    		
-				// Updates the ImageButton to show the new picture as a
-				// thumbnail
-				updateImageButtonNewCard(false, showPictureBack);
-
-				Toast.makeText(getApplicationContext(),
-						"Set new picture successfully",
-						Toast.LENGTH_LONG).show();
-
-				// Set delete ImageButton visible as there is a new pic which
-				// can be
-				// deleted now
-				deletePictureBack.setVisibility(ImageButton.VISIBLE);
 			}
 			break;
 		default:
@@ -1022,7 +1061,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Copys the given source file to the destination
 	 * 
@@ -1044,7 +1083,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				outChannel.close();
 		}
 	}
-	
+
 	/**
 	 * Returns the real path from Uri
 	 * 
@@ -1052,33 +1091,27 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	 * @return
 	 */
 	public String getRealPathFromURI(Uri contentUri) {
-        String[] proj = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(contentUri, proj, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
-    }
+		String[] proj = { MediaStore.Images.Media.DATA };
+		Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+		int column_index = cursor
+				.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+		cursor.moveToFirst();
+		return cursor.getString(column_index);
+	}
 
 	/**
-	 * Checks if there is any file /knowItOwl/pictures existing
-	 * if not --> create it
+	 * Checks if there is any file /knowItOwl/pictures existing if not -->
+	 * create it
 	 * 
 	 */
-	public void checkFileAvailability(){
+	public void checkFileAvailability() {
 		// Check if there is file
 		// /knowItOwl/pictures, if not -->
 		// create it
-		if (!new File(Environment
-				.getExternalStorageDirectory()
-				.getPath()
-				+ "/knowItOwl/pictures")
-				.exists()) {
-			new File(
-					Environment
-							.getExternalStorageDirectory()
-							.getPath()
-							+ "/knowItOwl/pictures")
-					.mkdir();
+		if (!new File(Environment.getExternalStorageDirectory().getPath()
+				+ "/knowItOwl/pictures").exists()) {
+			new File(Environment.getExternalStorageDirectory().getPath()
+					+ "/knowItOwl/pictures").mkdir();
 		}
 	}
 

@@ -24,6 +24,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.method.ScrollingMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -197,12 +198,13 @@ public class LearningCard extends OnResumeFragmentActivity implements
 					finish();
 				} else {
 					mViewPager.setCurrentItem(0);
-					Log.e("TB", Learn.getInstance().getActualProgressAsString());
 					txt_counter_front.setText(Learn.getInstance()
 							.getActualProgressAsString());
 					txt_counter_back.setText(Learn.getInstance()
 							.getActualProgressAsString());
+					txt_front.setAutoLinkMask(Linkify.WEB_URLS);
 					txt_front.setText(card.getCardFront());
+					txt_back.setAutoLinkMask(Linkify.WEB_URLS);
 					txt_back.setText(card.getCardBack());
 					updateImageButton(true, showImageFront);
 					updateImageButton(false, showImageBack);
@@ -223,7 +225,9 @@ public class LearningCard extends OnResumeFragmentActivity implements
 							.getActualProgressAsString());
 					txt_counter_back.setText(Learn.getInstance()
 							.getActualProgressAsString());
+					txt_front.setAutoLinkMask(Linkify.WEB_URLS);
 					txt_front.setText(card.getCardFront());
+					txt_back.setAutoLinkMask(Linkify.WEB_URLS);
 					txt_back.setText(card.getCardBack());
 					updateImageButton(true, showImageFront);
 					updateImageButton(false, showImageBack);
@@ -244,7 +248,9 @@ public class LearningCard extends OnResumeFragmentActivity implements
 							.getActualProgressAsString());
 					txt_counter_back.setText(Learn.getInstance()
 							.getActualProgressAsString());
+					txt_front.setAutoLinkMask(Linkify.WEB_URLS);
 					txt_front.setText(card.getCardFront());
+					txt_back.setAutoLinkMask(Linkify.WEB_URLS);
 					txt_back.setText(card.getCardBack());
 					updateImageButton(true, showImageFront);
 					updateImageButton(false, showImageBack);
@@ -310,8 +316,11 @@ public class LearningCard extends OnResumeFragmentActivity implements
 													.setText(Learn
 															.getInstance()
 															.getActualProgressAsString());
+											txt_front
+													.setAutoLinkMask(Linkify.WEB_URLS);
 											txt_front.setText(card
 													.getCardFront());
+											txt_back.setAutoLinkMask(Linkify.WEB_URLS);
 											txt_back.setText(card.getCardBack());
 											updateImageButton(true,
 													showImageFront);
@@ -366,7 +375,9 @@ public class LearningCard extends OnResumeFragmentActivity implements
 					break;
 				}
 			}
+			txt_front.setAutoLinkMask(Linkify.WEB_URLS);
 			txt_front.setText(card.getCardFront());
+			txt_back.setAutoLinkMask(Linkify.WEB_URLS);
 			txt_back.setText(card.getCardBack());
 			txt_counter_front.setText(Learn.getInstance()
 					.getActualProgressAsString());
@@ -553,6 +564,9 @@ public class LearningCard extends OnResumeFragmentActivity implements
 			View v = inflater.inflate(R.layout.learning_card_front, null);
 			txt_front = (TextView) v.findViewById(R.id.txt_card_front);
 			txt_front.setMovementMethod(new ScrollingMovementMethod());
+			// if any hyperlinks are available, make clickable and change color
+			// and underline
+			txt_front.setAutoLinkMask(Linkify.WEB_URLS);
 			txt_front.setText(card.getCardFront());
 			txt_counter_front = (TextView) v
 					.findViewById(R.id.txt_learning_counter);
@@ -613,6 +627,9 @@ public class LearningCard extends OnResumeFragmentActivity implements
 			View v = inflater.inflate(R.layout.learning_card_back, null);
 			txt_back = (TextView) v.findViewById(R.id.txt_card_back);
 			txt_back.setMovementMethod(new ScrollingMovementMethod());
+			// if any hyperlinks are available, make clickable and change color
+			// and underline
+			txt_back.setAutoLinkMask(Linkify.WEB_URLS);
 			txt_back.setText(card.getCardBack());
 			txt_counter_back = (TextView) v
 					.findViewById(R.id.txt_learning_counter);
