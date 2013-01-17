@@ -4,6 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +23,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -30,6 +34,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -86,6 +91,9 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	private ImageButton showPictureBack;
 	public Uri imageUriBack;
 
+	public static final int SELECT_PHOTO_FRONT = 100;
+	public static final int SELECT_PHOTO_BACK =  200;
+	
 	public Card getCard() {
 		return card;
 	}
@@ -317,21 +325,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 												"yyMMddhhmmss");
 										String picName = sd.format(date);
 
-										// Check if there is a path
-										// /knowItOwl/pictures available
-										// if not --> create it
-										if (!new File(Environment
-												.getExternalStorageDirectory()
-												.getPath()
-												+ "/knowItOwl/pictures")
-												.exists()) {
-											new File(
-													Environment
-															.getExternalStorageDirectory()
-															.getPath()
-															+ "/knowItOwl/pictures")
-													.mkdir();
-										}
+										checkFileAvailability();
 
 										// New file for the picture
 										File photo = new File(Environment
@@ -350,8 +344,18 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 										break;
 
 									case 1:
-
+										
+										checkFileAvailability();
+										
+										// New intent to start gallery in order to choose a
+										// picture
+										
+										Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+										photoPickerIntent.setType("image/*");
+										startActivityForResult(photoPickerIntent, SELECT_PHOTO_FRONT);
+										
 										break;
+
 									default:
 										break;
 									}
@@ -476,21 +480,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 												"yyMMddhhmmss");
 										String picName = sd.format(date);
 
-										// Check if file /knowItOwl/picture
-										// exists --> if not,
-										// create it
-										if (!new File(Environment
-												.getExternalStorageDirectory()
-												.getPath()
-												+ "/knowItOwl/pictures")
-												.exists()) {
-											new File(
-													Environment
-															.getExternalStorageDirectory()
-															.getPath()
-															+ "/knowItOwl/pictures")
-													.mkdir();
-										}
+										checkFileAvailability();
 
 										// Create new file
 										File photo = new File(Environment
@@ -509,6 +499,15 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 									case 1:
 
+										checkFileAvailability();
+										
+										// New intent to start gallery in order to choose a
+										// picture
+										
+										Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+										photoPickerIntent.setType("image/*");
+										startActivityForResult(photoPickerIntent, SELECT_PHOTO_BACK);
+										
 										break;
 									default:
 										break;
@@ -607,6 +606,9 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		String stackName;
 		Toast toast;
 
+		Log.e("New Card", "request code: "  + requestCode);
+		
+		
 		switch (requestCode) {
 		case STACK_CHOSEN:
 			if (resultCode == STACK_CHOSEN) {
@@ -672,6 +674,122 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 						"Picture saved under: " + imageUriBack.getPath(),
 						Toast.LENGTH_LONG).show();
 				break;
+			}
+			break;
+		case 65636:
+			if(resultCode == RESULT_OK){  
+				
+				// Delete former picture if available
+				if (!cardFrontPic.equals("")
+						&& checkPictureAvailability(true)) {
+
+					// Delete former file from SD-Card
+					File fileToDelete = new File(cardFrontPic);
+					fileToDelete.delete();
+				}
+				
+				// Create file with existing picture
+				Uri selectedImage = data.getData();
+	    		File picture = new File(getRealPathFromURI(selectedImage));
+	    		
+	    		// Create a unique PicName with help of
+				// the actual date
+				Date date = new Date();
+				SimpleDateFormat sd = new SimpleDateFormat(
+						"yyMMddhhmmss");
+				String picName = sd.format(date);
+	    		
+	    		File destination = new File(Environment
+											.getExternalStorageDirectory()
+											+ "/knowItOwl/pictures",
+											picName + ".jpg");
+	    		
+	  
+	    		try {
+					copyFile(picture, destination);
+					Log.e("AdminEditCard", "Copied");
+				} catch (IOException e) {
+					// display a general error if the file could not be copied
+					/*
+					ErrorHandlerFragment newFragment = ErrorHandlerFragment
+							.newInstance(R.string.error_handler_general,
+									ErrorHandlerFragment.GENERAL_ERROR);
+					newFragment.show(ErrorHandlerFragment.applicationContext., "dialog");
+					*/
+				}
+	    		
+	    		cardFrontPic = destination.getPath();
+
+				// Updates the ImageButton to show the new picture as a
+				// thumbnail
+				updateImageButtonNewCard(true, showPictureFront);
+
+				Toast.makeText(getApplicationContext(),
+						"Set new picture successfully",
+						Toast.LENGTH_LONG).show();
+
+				// Set delete ImageButton visible as there is a new pic which
+				// can be
+				// deleted now
+				deletePictureFront.setVisibility(ImageButton.VISIBLE);
+			}
+			break;
+		case 131272:
+			if(resultCode == RESULT_OK){  
+				
+				// Delete former picture if available
+				if (!cardBackPic.equals("")
+						&& checkPictureAvailability(false)) {
+
+					// Delete former file from SD-Card
+					File fileToDelete = new File(cardBackPic);
+					fileToDelete.delete();
+				}
+				
+				// Create file with existing picture
+				Uri selectedImage = data.getData();
+	    		File picture = new File(getRealPathFromURI(selectedImage));
+	    		
+	    		// Create a unique PicName with help of
+				// the actual date
+				Date date = new Date();
+				SimpleDateFormat sd = new SimpleDateFormat(
+						"yyMMddhhmmss");
+				String picName = sd.format(date);
+	    		
+	    		File destination = new File(Environment
+											.getExternalStorageDirectory()
+											+ "/knowItOwl/pictures",
+											picName + ".jpg");
+	    		
+	  
+	    		try {
+					copyFile(picture, destination);
+					Log.e("AdminEditCard", "Copied");
+				} catch (IOException e) {
+					// display a general error if the file could not be copied
+					/*
+					ErrorHandlerFragment newFragment = ErrorHandlerFragment
+							.newInstance(R.string.error_handler_general,
+									ErrorHandlerFragment.GENERAL_ERROR);
+					newFragment.show(ErrorHandlerFragment.applicationContext., "dialog");
+					*/
+				}
+	    		
+	    		cardBackPic = destination.getPath();
+	    		
+				// Updates the ImageButton to show the new picture as a
+				// thumbnail
+				updateImageButtonNewCard(false, showPictureBack);
+
+				Toast.makeText(getApplicationContext(),
+						"Set new picture successfully",
+						Toast.LENGTH_LONG).show();
+
+				// Set delete ImageButton visible as there is a new pic which
+				// can be
+				// deleted now
+				deletePictureBack.setVisibility(ImageButton.VISIBLE);
 			}
 			break;
 		default:
@@ -907,4 +1025,64 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			return false;
 		}
 	}
+	
+	/**
+	 * Copys the given source file to the destination
+	 * 
+	 * @param src
+	 *            source file
+	 * @param dst
+	 *            destination folder
+	 * @throws IOException
+	 */
+	public static void copyFile(File src, File dst) throws IOException {
+		FileChannel inChannel = new FileInputStream(src).getChannel();
+		FileChannel outChannel = new FileOutputStream(dst).getChannel();
+		try {
+			inChannel.transferTo(0, inChannel.size(), outChannel);
+		} finally {
+			if (inChannel != null)
+				inChannel.close();
+			if (outChannel != null)
+				outChannel.close();
+		}
+	}
+	
+	/**
+	 * Returns the real path from Uri
+	 * 
+	 * @param contentUri
+	 * @return
+	 */
+	public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
+	/**
+	 * Checks if there is any file /knowItOwl/pictures existing
+	 * if not --> create it
+	 * 
+	 */
+	public void checkFileAvailability(){
+		// Check if there is file
+		// /knowItOwl/pictures, if not -->
+		// create it
+		if (!new File(Environment
+				.getExternalStorageDirectory()
+				.getPath()
+				+ "/knowItOwl/pictures")
+				.exists()) {
+			new File(
+					Environment
+							.getExternalStorageDirectory()
+							.getPath()
+							+ "/knowItOwl/pictures")
+					.mkdir();
+		}
+	}
+
 }
