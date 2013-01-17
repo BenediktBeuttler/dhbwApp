@@ -54,6 +54,12 @@
     <string name="btn_help_importexport">Import/Export</string>
     <string name="title_activity_learning_screen">Learn</string>
     <string name="title_activity_help_screen">Help/About</string>
+    <string name="title_activity_help_screen_introduction">Help - Introduction</string>
+    <string name="title_activity_help_screen_learn_statistics">Help - Learn/Statistics</string>
+    <string name="title_activity_help_screen_edit_cards_stacks">Help - Edit Cards/Stacks</string>
+    <string name="title_activity_help_screen_settings">Help - Settings</string>
+    <string name="title_activity_help_screen_import_export">Help - Import/Export</string>
+    <string name="title_activity_help_screen_about">Help - About</string>
     <string name="title_activity_admin_screen">Administration</string>
     <string name="title_activity_admin_new_card_choose_stack_screen">Choose Stack</string>
     <string name="title_activity_admin_new_stack">New Stack</string>
@@ -94,7 +100,6 @@
     <string name="title_activity_admin_edit_card">Edit Card</string>
     <string name="title_activity_admin_create_dynamic_stack">Create Dynamic Stack</string>
     <string name="title_activity_admin_edit_dynamic_stack">Create Dynamic Stack</string>
-    
     <string name="error_handler_delete_db">Delete Database?</string>
     <string name="error_handler_general">An Error has occurred</string>
     <string name="error_handler_import_error">Import Error</string>
@@ -104,37 +109,35 @@
     <string name="error_handler_no_tag">No Tags selected</string>
     <string name="error_handler_file_not_found">File not found</string>
     <string name="error_handler_export_error">Export Error</string>
-    
     <string name="text_help_introduction">Know it Owl helps you to organize your learning cards for school, university or for fun. You are always informed of your learning progress. You can exchange know-how in terms of pictures, text, videos or easily in terms of links. Share your learning cards/ knowledge with your friends and profit from theirs. That is the way how you can know it All/Owl.</string>
     <string name="text_help_learn_statistics">When you want to track your learning progress you can see the statistics in two ways: \n \n At the end of each learning-round you are automatically shown your recent learning results in the tab LAST REVIEW also available out of the STATISTICS menu.There you see the duration of the learning process and you have the comparison of your recent to your last learning results concerning how many cards you did not know(dn), how many cards you were not sure(ns) about and how many cards you were sure(s) about. \n \n Second way is to click on the main menu point STATISTICS, where first of all you get an overview of the number of all cards of every stack you did not know, you were not sure about and you were sure about. In the next step you can choose a certain stack and then you only get the number of cards (for dn, ns and s) for the specific stack. In the next tab PROGRESS it is shown the last (at a maximum of 10) learning results of the different learning trials for the chosen stack. The last tab LAST REVIEW is already described before. :)</string>
-	<string name="text_help_settings">text for help_settings</string>
-	<string name="text_help_import_export">text for help_import_export</string>
-	<string name="text_edit_cards">text for help_edit_cards</string>
-	<string name="btn_settings_testdata">Write Test Data</string>
-	<string name="btn_settings_reset_drawers">Reset Answers</string>
-	<string name="btn_settings_reset_statistics">Reset Statistic</string>
-	<string name="btn_help_about">About</string>
-	<string name="lbl_help_about_version">Version 1.0</string>
-	<string name="lbl_help_about_feedback">Feel free to rate this App and send us your Feedback</string>
-	<string name="text_choose_stack">Choose Stack:</string>
-	<string name="text_hyphen">-</string>
-	<string name="text_dont_know:">Don\'t Know:</string>
-	<string name="text_sure:">Sure:</string>
-	<string name="text_not_sure:">Not Sure:</string>
-	<string name="text_acutal_status">Actual Status:</string>
-	<string name="text_dont_know">Don\'t Know</string>
-	<string name="text_sure">Sure</string>
-	<string name="text_not_sure">Not Sure</string>
-	<string name="text_no_data_available">No Data Available</string>
-	<string name="text_date">Date</string>
-	<string name="text_total_time">Total Time:</string>
-	<string name="text_number_of_cards"># of Cards:</string>
-	<string name="text_last_runthrough">Last Runtrough:</string>
-	<string name="text_stack_name">Stack Name:</string>
-	<string name="text_duration">Duration:</string>
-	<string name="text_status_before">Status before:</string>
-	<string name="text_status_after">Status after:</string>
-	<string name="btn_diagram">Show Diagram</string>
-
+    <string name="text_help_settings">text for help_settings</string>
+    <string name="text_help_import_export">text for help_import_export</string>
+    <string name="text_edit_cards">text for help_edit_cards</string>
+    <string name="btn_settings_testdata">Write Test Data</string>
+    <string name="btn_settings_reset_drawers">Reset Answers</string>
+    <string name="btn_settings_reset_statistics">Reset Statistic</string>
+    <string name="btn_help_about">About</string>
+    <string name="lbl_help_about_version">Version 1.0</string>
+    <string name="lbl_help_about_feedback">Feel free to rate this App and send us your Feedback</string>
+    <string name="text_choose_stack">Choose Stack:</string>
+    <string name="text_hyphen">-</string>
+    <string name="text_dont_know:">Don\'t Know:</string>
+    <string name="text_sure:">Sure:</string>
+    <string name="text_not_sure:">Not Sure:</string>
+    <string name="text_acutal_status">Actual Status:</string>
+    <string name="text_dont_know">Don\'t Know</string>
+    <string name="text_sure">Sure</string>
+    <string name="text_not_sure">Not Sure</string>
+    <string name="text_no_data_available">No Data Available</string>
+    <string name="text_date">Date</string>
+    <string name="text_total_time">Total Time:</string>
+    <string name="text_number_of_cards"># of Cards:</string>
+    <string name="text_last_runthrough">Last Runtrough:</string>
+    <string name="text_stack_name">Stack Name:</string>
+    <string name="text_duration">Duration:</string>
+    <string name="text_status_before">Status before:</string>
+    <string name="text_status_after">Status after:</string>
+    <string name="btn_diagram">Show Diagram</string>
 
 </resources>

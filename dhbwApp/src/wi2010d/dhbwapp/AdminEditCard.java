@@ -983,15 +983,12 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		switch (item.getItemId()) {
 		case R.id.menu_start_screen:
 			startActivity(new Intent(this, StartScreen.class));
-			finish();
 			return true;
 		case R.id.menu_help:
 			startActivity(new Intent(this, HelpEditCardsStackScreen.class));
-			finish();
 			return true;
 		case R.id.menu_settings:
 			startActivity(new Intent(this, SettingsScreen.class));
-			finish();
 			return true;
 		case R.id.btn_admin_edit_card_save:
 			if (isCardNotEmpty()) {

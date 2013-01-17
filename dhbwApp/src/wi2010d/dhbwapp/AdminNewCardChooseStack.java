@@ -3,9 +3,12 @@ package wi2010d.dhbwapp;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -76,6 +79,27 @@ public class AdminNewCardChooseStack extends OnResumeActivity {
 		// Create the options menu
 		getMenuInflater().inflate(R.menu.admin_choose_stack_screen, menu);
 		return true;
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.menu_start_screen:
+			startActivity(new Intent(this, StartScreen.class));
+			return true;
+		case R.id.menu_help:
+			startActivity(new Intent(this, HelpImportExportScreen.class));
+			return true;
+		case R.id.menu_settings:
+			startActivity(new Intent(this, SettingsScreen.class));
+			return true;
+		default:
+			ErrorHandlerFragment newFragment = ErrorHandlerFragment
+					.newInstance(R.string.error_handler_general,
+							ErrorHandlerFragment.GENERAL_ERROR);
+			newFragment.show(this.getFragmentManager(), "dialog");
+			return false;
+		}
 	}
 
 }

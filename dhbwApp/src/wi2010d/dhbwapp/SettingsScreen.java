@@ -62,11 +62,9 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 		switch (item.getItemId()) {
 		case R.id.menu_start_screen:
 			startActivity(new Intent(this, StartScreen.class));
-			finish();
 			return true;
 		case R.id.menu_help:
 			startActivity(new Intent(this, HelpSettingsScreen.class));
-			finish();
 			return true;
 		default:
 			// if anything goes wrong (case not found), display general error

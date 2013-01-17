@@ -61,15 +61,12 @@ public class StatisticsProgressDiagramActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.menu_start_screen:
 			startActivity(new Intent(this, StartScreen.class));
-			finish();
 			return true;
 		case R.id.menu_settings:
 			startActivity(new Intent(this, SettingsScreen.class));
-			finish();
 			return true;
 		case R.id.menu_help:
 			startActivity(new Intent(this, HelpLearnStatisticsScreen.class));
-			finish();
 			return true;
 		default:
 			// if anything goes wrong in the switchcase show dialog
