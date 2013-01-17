@@ -65,7 +65,7 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 			finish();
 			return true;
 		case R.id.menu_help:
-			startActivity(new Intent(this, HelpScreen.class));
+			startActivity(new Intent(this, HelpSettingsScreen.class));
 			finish();
 			return true;
 		default:

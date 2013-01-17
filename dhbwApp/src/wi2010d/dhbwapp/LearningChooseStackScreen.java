@@ -572,7 +572,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 			finish();
 			return true;
 		case R.id.menu_help:
-			startActivity(new Intent(this, HelpScreen.class));
+			startActivity(new Intent(this, HelpLearnStatisticsScreen.class));
 			finish();
 			return true;
 		case R.id.menu_settings:

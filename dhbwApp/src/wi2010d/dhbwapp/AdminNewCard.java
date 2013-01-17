@@ -778,7 +778,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			finish();
 			return true;
 		case R.id.menu_help:
-			startActivity(new Intent(this, HelpScreen.class));
+			startActivity(new Intent(this, HelpEditCardsStackScreen.class));
 			finish();
 			return true;
 		case R.id.menu_settings:

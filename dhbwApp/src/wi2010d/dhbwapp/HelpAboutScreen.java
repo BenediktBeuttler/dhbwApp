@@ -86,6 +86,10 @@ public class HelpAboutScreen extends OnResumeActivity implements OnClickListener
 			startActivity(new Intent(this, StartScreen.class));
 			finish();
 			return true;
+		case R.id.menu_settings:
+			startActivity(new Intent(this, SettingsScreen.class));
+			finish();
+			return true;
 		default:
 			// if anything goes wrong in the switchcase show dialog
 			ErrorHandlerFragment newFragment = ErrorHandlerFragment
