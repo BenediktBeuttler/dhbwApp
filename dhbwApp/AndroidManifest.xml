@@ -166,32 +166,32 @@
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.HelpEditCardsStackScreen"
-            android:label="@string/title_activity_help_screen"
+            android:label="@string/title_activity_help_screen_edit_cards_stacks"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.HelpImportExportScreen"
-            android:label="@string/title_activity_help_screen"
+            android:label="@string/title_activity_help_screen_import_export"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.HelpIntroductionScreen"
-            android:label="@string/title_activity_help_screen"
+            android:label="@string/title_activity_help_screen_introduction"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.HelpLearnStatisticsScreen"
-            android:label="@string/title_activity_help_screen"
+            android:label="@string/title_activity_help_screen_learn_statistics"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.HelpSettingsScreen"
-            android:label="@string/title_activity_help_screen"
+            android:label="@string/title_activity_help_screen_settings"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.HelpAboutScreen"
-            android:label="@string/title_activity_help_screen"
+            android:label="@string/title_activity_help_screen_about"
             android:screenOrientation="portrait" >
         </activity>
     </application>

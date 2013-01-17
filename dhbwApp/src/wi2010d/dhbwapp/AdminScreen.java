@@ -63,15 +63,12 @@ public class AdminScreen extends OnResumeActivity implements OnClickListener {
 		switch (item.getItemId()) {
 		case R.id.menu_start_screen:
 			startActivity(new Intent(this, StartScreen.class));
-			finish();
 			return true;
 		case R.id.menu_help:
 			startActivity(new Intent(this, HelpScreen.class));
-			finish();
 			return true;
 		case R.id.menu_settings:
 			startActivity(new Intent(this, SettingsScreen.class));
-			finish();
 			return true;
 		default:
 			ErrorHandlerFragment newFragment = ErrorHandlerFragment
