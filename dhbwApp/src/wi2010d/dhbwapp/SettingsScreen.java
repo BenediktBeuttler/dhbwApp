@@ -96,8 +96,8 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 			if (Stack.allStacks.size() == 0 && Card.allCards.size() == 0
 					&& Tag.allTags.size() == 0
 					&& Runthrough.allRunthroughs.size() == 0) {
-				// creates TestData: 100 new Cards in various stacks with
-				// various tags
+				new Thread() {
+					public void run() {				
 				List<Tag> tags0 = new ArrayList<Tag>();
 				List<Tag> tags1 = new ArrayList<Tag>();
 				List<Tag> tags2 = new ArrayList<Tag>();
@@ -198,7 +198,6 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 						"Was sind die 3 Erwartungsbereiche der Stakeholder?.", "Zeit, Kosten und Inhalt/Umfang des Projekts.", tags3,
 						"", ""));
 
-
 					Database.getInstance().addNewStack(
 							new Stack(false, "BWL Grundlagen 1", BWLGrund));
 					Database.getInstance().addNewStack(
@@ -207,7 +206,7 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 							new Stack(false, "Nachprüfung Recht", NachprfRecht));
 					Database.getInstance().addNewStack(
 							new Stack(false, "Projektmanagement Zertifizierung", PMZert));
-				
+					}}.start();
 
 				Toast toast;
 				toast = Toast.makeText(getApplicationContext(),
