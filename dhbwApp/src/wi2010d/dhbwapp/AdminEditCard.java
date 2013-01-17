@@ -36,6 +36,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -48,6 +49,7 @@ import android.view.WindowManager;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -291,6 +293,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			View v = inflater.inflate(R.layout.admin_edit_card_front, null);
 
 			cardFront = (EditText) v.findViewById(R.id.txt_edit_card_front);
+			cardFront.setAutoLinkMask(Linkify.WEB_URLS);
 			cardFront.setText(card.getCardFront());
 
 			// Set up ImageButton for taking new picture
@@ -299,12 +302,12 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			addMedia.setOnClickListener(new View.OnClickListener() {
 
 				@Override
-				public void onClick(View v) {
+				public void onClick(final View v) {
 
 					final CharSequence[] items = { "Take Picture",
 							"Picture from Gallery", "Add a PDF", "Add Hyperlink" };
 
-					AlertDialog.Builder builder = new AlertDialog.Builder(
+					final AlertDialog.Builder builder = new AlertDialog.Builder(
 							context);
 					builder.setTitle("Add Media");
 					builder.setItems(items,
@@ -366,6 +369,76 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 										break;
 										*/
 									case 3:
+										AlertDialog.Builder alert = new AlertDialog.Builder(
+												v.getContext());
+										// set Layout for dialog
+										LinearLayout ll = new LinearLayout(v
+												.getContext());
+										ll.setOrientation(LinearLayout.VERTICAL);
+
+										alert.setTitle("Add Hyperlink");
+										alert.setMessage("Insert Link");
+
+										// set edit text and text view to insert
+										// link path and name it
+										final TextView lblLinkPath = new TextView(
+												v.getContext());
+										lblLinkPath.setText("Paste Link:");
+
+										final EditText editLinkPath = new EditText(
+												v.getContext());
+
+										ll.addView(lblLinkPath);
+										ll.addView(editLinkPath);
+
+										alert.setView(ll);
+
+										alert.setPositiveButton(
+												"Add",
+												new DialogInterface.OnClickListener() {
+													public void onClick(
+															DialogInterface dialog,
+															int whichButton) {
+														// check if inputs are
+														// empty
+														if (editLinkPath
+																.getText()
+																.toString()
+																.equals("")) {
+															Toast.makeText(
+																	getApplicationContext(),
+																	"Please insert a text.",
+																	Toast.LENGTH_LONG)
+																	.show();
+														} else {
+															// if fiels is not
+															// empty open input
+															// dialog for links
+															String linkPathFront = editLinkPath
+																	.getText()
+																	.toString();
+															// save text before
+															// adding hyperlink
+															cardFront.setAutoLinkMask(Linkify.WEB_URLS);
+															cardFront.append(linkPathFront);
+															cardFront.setText(cardFront.getText().toString());
+														}
+
+													}
+												});
+
+										alert.setNegativeButton(
+												"Cancel",
+												new DialogInterface.OnClickListener() {
+													public void onClick(
+															DialogInterface dialog,
+															int whichButton) {
+														// cancel dialog
+														dialog.cancel();
+													}
+												});
+										builder.create();
+										alert.show();
 										break;
 									default:
 										break;
@@ -584,6 +657,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			View v = inflater.inflate(R.layout.admin_edit_card_back, null);
 
 			cardBack = (EditText) v.findViewById(R.id.txt_edit_card_back);
+			cardBack.setAutoLinkMask(Linkify.WEB_URLS);
 			cardBack.setText(card.getCardBack());
 
 			// Set up edit picture ImageButton
@@ -592,11 +666,11 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			addMedia.setOnClickListener(new View.OnClickListener() {
 
 				@Override
-				public void onClick(View v) {
+				public void onClick(final View v) {
 					final CharSequence[] items = { "Take Picture",
 							"Picture from Gallery", "Add a PDF", "Add Hyperlink" };
 
-					AlertDialog.Builder builder = new AlertDialog.Builder(
+					final AlertDialog.Builder builder = new AlertDialog.Builder(
 							context);
 					builder.setTitle("Add Media");
 					builder.setItems(items,
@@ -649,6 +723,72 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 									case 2:
 										break;
 									case 3:
+										AlertDialog.Builder alert = new AlertDialog.Builder(
+												v.getContext());
+										// set Layout for dialog
+										LinearLayout ll = new LinearLayout(v
+												.getContext());
+										ll.setOrientation(LinearLayout.VERTICAL);
+
+										alert.setTitle("Add Hyperlink");
+										// set edit text and text view to insert
+										// link path and name it
+										final TextView lblLinkPath = new TextView(
+												v.getContext());
+										lblLinkPath.setText("Paste Link:");
+
+										final EditText editLinkPath = new EditText(
+												v.getContext());
+
+										ll.addView(lblLinkPath);
+										ll.addView(editLinkPath);
+										alert.setView(ll);
+										alert.setPositiveButton(
+												"Add",
+												new DialogInterface.OnClickListener() {
+													public void onClick(
+															DialogInterface dialog,
+															int whichButton) {
+														// check if inputs are
+														// empty
+														if (editLinkPath
+																.getText()
+																.toString()
+																.equals("")) {
+															Toast.makeText(
+																	getApplicationContext(),
+																	"Please insert a text.",
+																	Toast.LENGTH_LONG)
+																	.show();
+														} else {
+															// if fiels is not
+															// empty open input
+															// dialog to insert link
+															String linkPathBack = editLinkPath
+																	.getText()
+																	.toString();
+															// save text before
+															// adding hyperlink
+															cardBack.setAutoLinkMask(Linkify.WEB_URLS);
+															cardBack.append(linkPathBack);
+															cardBack.setText(cardBack.getText().toString());
+														}
+
+													}
+												});
+
+										alert.setNegativeButton(
+												"Cancel",
+												new DialogInterface.OnClickListener() {
+													public void onClick(
+															DialogInterface dialog,
+															int whichButton) {
+														// cancel dialog
+														dialog.cancel();
+													}
+												});
+										builder.create();
+										alert.show();
 										break;
 									default:
 										break;
