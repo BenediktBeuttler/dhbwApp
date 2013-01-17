@@ -88,7 +88,7 @@ public class AdminNewCardChooseStack extends OnResumeActivity {
 			startActivity(new Intent(this, StartScreen.class));
 			return true;
 		case R.id.menu_help:
-			startActivity(new Intent(this, HelpImportExportScreen.class));
+			startActivity(new Intent(this, HelpEditCardsStackScreen.class));
 			return true;
 		case R.id.menu_settings:
 			startActivity(new Intent(this, SettingsScreen.class));
