@@ -20,6 +20,8 @@ public class Database {
 	private SQLiteDatabase database;
 	private DatabaseManager dbManager;
 	private static Database db;
+	
+	//-----------------VAR DECLARATION--------------------
 
 	// Query Strings
 	private final String QUERY_STACK = "Select _id, stackName, isDynamicGenerated, dontKnow, notSure, sure from stack;";
