@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_column="1"
             android:layout_row="0"
-            android:src="@drawable/camera" />
+            android:src="@drawable/mediacenter" />
 
         <ImageButton
             android:id="@+id/btn_admin_new_card_picture_back_show"
