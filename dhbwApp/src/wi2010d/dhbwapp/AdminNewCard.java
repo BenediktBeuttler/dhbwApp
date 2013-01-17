@@ -82,14 +82,12 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	private ImageButton takePictureFront;
 	private ImageButton deletePictureFront;
 	private ImageButton showPictureFront;
-	private String linkPathFront;
 	public Uri imageUriFront;
 
 	public static final int TAKE_PICTURE_BACK = 2;
 	private ImageButton addMedia;
 	private ImageButton deletePictureBack;
 	private ImageButton showPictureBack;
-	private String linkPathBack;
 	public Uri imageUriBack;
 
 	public Card getCard() {
@@ -404,17 +402,15 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 															// if fiels is not
 															// empty open input
 															// dialog for links
-															linkPathFront = editLinkPath
+															String linkPathFront = editLinkPath
 																	.getText()
 																	.toString();
 															// save text before
 															// adding hyperlink
-															String newText = card
-																	.getCardBack();
-															newText = newText
-																	+ linkPathBack;
 															cardFront.setAutoLinkMask(Linkify.WEB_URLS);
-															cardFront.setText(newText);
+															cardFront
+																	.append(linkPathFront);
+															cardFront.setText(cardFront.getText().toString());
 														}
 
 													}
@@ -638,17 +634,14 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 															// if fiels is not
 															// empty open input
 															// dialog for links
-															linkPathBack = editLinkPath
+															String linkPathBack = editLinkPath
 																	.getText()
 																	.toString();
 															// save text before
 															// adding hyperlink
-															String newText = card
-																	.getCardBack();
-															newText = newText
-																	+ linkPathBack;
 															cardBack.setAutoLinkMask(Linkify.WEB_URLS);
-															cardBack.setText(newText);
+															cardBack.append(linkPathBack);
+															cardBack.setText(card.getCardBack());
 														}
 
 													}
