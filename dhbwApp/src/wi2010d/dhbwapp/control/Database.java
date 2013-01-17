@@ -70,7 +70,6 @@ public class Database {
 	 * @return Cursor containing complete stack table
 	 */
 	public Cursor queryStack() {
-		this.openRead();
 		Cursor cursor = database.rawQuery(QUERY_STACK, null);
 		return cursor;
 	}
@@ -81,7 +80,6 @@ public class Database {
 	 * @return Cursor containing complete card table
 	 */
 	public Cursor queryCard() {
-		this.openRead();
 		Cursor cursor = database.rawQuery(QUERY_CARD, null);
 		return cursor;
 	}
@@ -92,7 +90,6 @@ public class Database {
 	 * @return Cursor containing complete tag table
 	 */
 	public Cursor queryTag() {
-		this.openRead();
 		Cursor cursor = database.rawQuery(QUERY_TAG, null);
 		return cursor;
 	}
@@ -103,7 +100,6 @@ public class Database {
 	 * @return Cursor containing complete runthrough table
 	 */
 	public Cursor queryRunthrough() {
-		this.openRead();
 		Cursor cursor = database.rawQuery(QUERY_RUNTHROUGH, null);
 		return cursor;
 	}
@@ -114,7 +110,6 @@ public class Database {
 	 * @return Cursor containing complete stackcard table
 	 */
 	public Cursor queryStackCard() {
-		this.openRead();
 		Cursor cursor = database.rawQuery(QUERY_STACK_CARD, null);
 		return cursor;
 	}
@@ -125,7 +120,6 @@ public class Database {
 	 * @return Cursor containing complete cardtag table
 	 */
 	public Cursor queryCardTag() {
-		this.openRead();
 		Cursor cursor = database.rawQuery(QUERY_CARD_TAG, null);
 		return cursor;
 	}
@@ -136,7 +130,6 @@ public class Database {
 	 * @return Cursor containing complete stacktag table
 	 */
 	public Cursor queryStackTag() {
-		this.openRead();
 		Cursor cursor = database.rawQuery(QUERY_STACK_TAG, null);
 		return cursor;
 	}

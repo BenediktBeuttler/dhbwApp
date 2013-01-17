@@ -1,6 +1,7 @@
 package wi2010d.dhbwapp.control;
 
 import java.util.Date;
+import java.util.concurrent.CountDownLatch;
 
 import wi2010d.dhbwapp.AdminImportExport;
 import wi2010d.dhbwapp.R;
@@ -54,7 +55,7 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 	@Override
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
-		
+
 		/*
 		 * if the user clicked on a xml-file outside of our app, store the
 		 * intent data in a new intent for the import activity
@@ -113,23 +114,87 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 	}
 
 	/**
-	 * Starts all the loading tasks one after the other
+	 * Starts all the loading & assigning tasks in multiple threads.
 	 * 
 	 * @return true, if everything worked
 	 */
 	public boolean loadFromDB() {
-		// load the objects from DB
-		this.loadStacks();
-		this.loadCards();
-		this.loadTags();
-		this.loadRunthroughs();
+		// We need to wait, till all 4 loading threads are finished, so we use a
+		// CountDownLatch
+		final CountDownLatch loadingCountDown = new CountDownLatch(4);
+		final CountDownLatch assigningCountDown = new CountDownLatch(3);
 
-		// assign the objects
-		this.assignCardsToStacks();
-		this.assignTagsToCards();
-		this.assignTagstoStacks();
-
-		this.deleteUnusedTags();
+		// Define the loading and assigning Threads
+		Thread loadStacksThread = new Thread() {
+			public void run() {
+				loadStacks();
+				loadingCountDown.countDown();
+			}
+		};
+		Thread loadCardsThread = new Thread() {
+			public void run() {
+				loadCards();
+				loadingCountDown.countDown();
+			}
+		};
+		Thread loadTagsThread = new Thread() {
+			public void run() {
+				loadTags();
+				loadingCountDown.countDown();
+			}
+		};
+		Thread loadRunthroughsThread = new Thread() {
+			public void run() {
+				loadRunthroughs();
+				loadingCountDown.countDown();
+			}
+		};
+		Thread assignCardsToStacksThread = new Thread() {
+			public void run() {
+				assignCardsToStacks();
+				assigningCountDown.countDown();
+			}
+		};
+		Thread assignTagsToCardsThread = new Thread() {
+			public void run() {
+				assignTagsToCards();
+				assigningCountDown.countDown();
+			}
+		};
+		Thread assignTagsToStacksThread = new Thread() {
+			public void run() {
+				assignTagstoStacks();
+				assigningCountDown.countDown();
+			}
+		};
+		
+		try {
+			// Start all the threads
+			Database.getInstance().openRead();
+			loadStacksThread.start();
+			loadCardsThread.start();
+			loadTagsThread.start();
+			loadRunthroughsThread.start();
+			
+			//Wait till all loading threads are finished, then start the assigning threads
+			loadingCountDown.await();
+			
+			//start the assigning threads
+			assignCardsToStacksThread.start();
+			assignTagsToCardsThread.start();
+			assignTagsToStacksThread.start();
+			
+			//wait till the assigning threads are finished, then do the rest
+			assigningCountDown.await();
+			Database.getInstance().close();
+			
+			//Delete the unused tags
+			deleteUnusedTags();
+			
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			return false;
+		}
 		runComplete = true;
 		return true;
 	}
@@ -172,7 +237,6 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 			cursor.moveToNext();
 		}
 		cursor.close();
-		Database.getInstance().close();
 		return true;
 	}
 
@@ -197,7 +261,6 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 			cursor.moveToNext();
 		}
 		cursor.close();
-		Database.getInstance().close();
 		return true;
 
 	}
@@ -232,7 +295,6 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 			cursor.moveToNext();
 		}
 		cursor.close();
-		Database.getInstance().close();
 		return true;
 
 	}
@@ -294,7 +356,6 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 
 		}
 		cursor.close();
-		Database.getInstance().close();
 		return true;
 	}
 
@@ -324,7 +385,6 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 			cursor.moveToNext();
 		}
 		cursor.close();
-		Database.getInstance().close();
 		return true;
 	}
 
@@ -353,7 +413,6 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 			cursor.moveToNext();
 		}
 		cursor.close();
-		Database.getInstance().close();
 		return true;
 	}
 
@@ -383,7 +442,6 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 			cursor.moveToNext();
 		}
 		cursor.close();
-		Database.getInstance().close();
 		return true;
 
 	}
