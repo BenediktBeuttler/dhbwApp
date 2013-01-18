@@ -309,7 +309,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 					final AlertDialog.Builder builder = new AlertDialog.Builder(
 							context);
-					builder.setTitle("Add Media");
+					builder.setTitle("Mediacenter");
 					builder.setItems(items,
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
@@ -387,12 +387,9 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 										final EditText editLinkPath = new EditText(
 												v.getContext());
-
 										ll.addView(lblLinkPath);
 										ll.addView(editLinkPath);
-
 										alert.setView(ll);
-
 										alert.setPositiveButton(
 												"Add",
 												new DialogInterface.OnClickListener() {
@@ -672,7 +669,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 					final AlertDialog.Builder builder = new AlertDialog.Builder(
 							context);
-					builder.setTitle("Add Media");
+					builder.setTitle("Mediacenter");
 					builder.setItems(items,
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
@@ -736,7 +733,6 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 										final TextView lblLinkPath = new TextView(
 												v.getContext());
 										lblLinkPath.setText("Paste Link:");
-
 										final EditText editLinkPath = new EditText(
 												v.getContext());
 

@@ -468,7 +468,7 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 	 * @return true, if one or more variable got garbage collected
 	 */
 	public static boolean isSthGarabageCollected() {
-		// optimization: Sorted the requests from the big to little, because
+		// optimization: Sorted the requests from big to small, because
 		// bigger variables are collected more likely
 		if (Card.allCards == null || Runthrough.allRunthroughs == null
 				|| Stack.allStacks == null || Tag.allTags == null) {
