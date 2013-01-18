@@ -27,6 +27,7 @@ import org.xml.sax.SAXException;
 
 import wi2010d.dhbwapp.control.Exchange;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
+import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -43,6 +44,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -99,6 +101,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 
 		// init variables
 		boolean copyOK = false;
+		int picturesNotFound = 0;
 		String attachmentName = "";
 		String path = "";
 
@@ -279,7 +282,32 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 						Toast.makeText(getApplicationContext(),
 								attachmentName + " got imported successfully!",
 								Toast.LENGTH_SHORT).show();
-
+						
+						//check if there were any pictures, that could not be imported
+						Stack importedStack = Stack.allStacks
+								.get(Stack.allStacks.size() - 1);
+						for (int i=0; i<importedStack.getCards().size(); i++) {
+							Card card=importedStack.getCards().get(i);
+							if (!card.getCardFrontPicture().equals("")) {
+								Log.e("card picture", card.getCardFrontPicture());
+								if (new File(card.getCardFrontPicture()).exists()) {
+									// picture was found
+								} else {
+									// picture was not found
+									picturesNotFound++;
+									card.setCardFrontPicture("");
+								}
+							}
+							if (!card.getCardBackPicture().equals("")) {
+								if (new File(card.getCardBackPicture()).exists()) {
+									// picture was found
+								} else {
+									// picture was not found
+									picturesNotFound++;
+									card.setCardBackPicture("");
+								}
+							}
+						}
 					}
 
 				} catch (JDOMException e) {
@@ -300,7 +328,9 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 			}
 
 			finish();
-			startActivity(new Intent(this, StartScreen.class));
+			Intent intent=new Intent(this, StartScreen.class);
+			intent.putExtra("picturesNotFound", picturesNotFound);
+			startActivity(intent);
 		}
 
 		setContentView(R.layout.admin_import_export_screen);
