@@ -1185,9 +1185,21 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		
 		checkFileAvailabilityThumbnails();
 		
-		File destination;
+		File destination = new File(Environment
+				.getExternalStorageDirectory()
+				+ "/knowItOwl/thumbnails",
+				picName + ".jpg");
 		
-		//FileChannel outChannel = new FileOutputStream(destination).getChannel();
+		//destination.createNewFile();
+		/* 
+		//write the bytes in file
+		FileOutputStream fo = new FileOutputStream(f);
+		fo.write(bytes.toByteArray());
+
+		// close de FileOutput
+		fo.close();	
+		*/
+		
 		
 	}
 
