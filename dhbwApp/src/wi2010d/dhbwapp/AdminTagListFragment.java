@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -67,14 +68,12 @@ public class AdminTagListFragment extends Fragment {
 			public void onClick(View v) {
 				AlertDialog.Builder alert = new AlertDialog.Builder(v
 						.getContext());
-
 				alert.setTitle("New Tag");
 				alert.setMessage("Insert Tag Name");
 
 				// Set an EditText view to get user input
 				final EditText input = new EditText(v.getContext());
 				alert.setView(input);
-
 				alert.setPositiveButton("Ok",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
@@ -149,9 +148,9 @@ public class AdminTagListFragment extends Fragment {
 						break;
 					}
 				}
-				if (tagChosen) {
+				//if (tagChosen) {
 					alert.show();
-				}
+				//}
 			}
 		});
 

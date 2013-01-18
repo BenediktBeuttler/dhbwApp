@@ -15,6 +15,7 @@ import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,6 +27,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,9 +48,11 @@ import android.widget.Toast;
 public class LearningChooseStackScreen extends OnResumeActivity implements
 		OnClickListener {
 
-	EditText card_front;
-	Button createDynStack;
-	Boolean fromLearning = true;
+	private EditText card_front;
+	private Button createDynStack;
+	private Button btnNewTag;
+	private Boolean fromLearning = true;
+	private Context context;
 	ArrayList<String> items = new ArrayList<String>();
 	ListView lv;
 	ArrayAdapter<String> lvAdapter;
@@ -103,7 +107,8 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// reload the data, if sth got garbage collected
 		this.reloadOnGarbageCollected();
-
+		context = this;
+		
 		super.onCreate(savedInstanceState);
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		mSensorManager.registerListener(mSensorListener,
@@ -368,41 +373,139 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 				alertDialog.show();
 
 			} else if (item.getTitle() == "Add Tags to all Cards") {
-				AlertDialog.Builder alert = new AlertDialog.Builder(this);
-				alert.setTitle("Add Tag to Cards");
-				alert.setMessage("Please insert the name of the Tag you want to add to all Cards in this Stack");
 
-				// Set an EditText view to get user input
-				final EditText input = new EditText(this);
-				alert.setView(input);
+				final Dialog builder = new Dialog(this);
+				LayoutInflater li = (LayoutInflater) this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				View v = li.inflate(R.layout.admin_new_card_tags, null, false);
+				ListView lv = (ListView) v.findViewById(R.id.tagsListView);
+				btnNewTag = (Button) v
+						.findViewById(R.id.btn_admin_new_card_new_tag);
 
-				// Set the new Stack name
-				alert.setPositiveButton("Add Tag",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								String newTagName = input.getText().toString();
-								Tag newTag = new Tag(newTagName);
-								Stack clickedStack = null;
-								for (Stack stack : Stack.allStacks) {
-									if (stack.getStackName().equals(stackName)) {
-										clickedStack = stack;
-										Edit.getInstance().addTagToStack(
-												newTag, clickedStack);
-										break;
+				ArrayList<String> items = new ArrayList<String>();
+				// populate the listView
+				for (Tag tag : Tag.allTags) {
+					items.add(tag.getTagName());
+				}
+
+				Collections.sort(items);
+				lvAdapter = new ArrayAdapter<String>(this,
+						R.layout.layout_listitem, items);
+				btnNewTag.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						AlertDialog.Builder alert = new AlertDialog.Builder(
+								context);
+						alert.setTitle("Add Tag to Cards");
+						alert.setMessage("Please insert the name of the Tag you want to add to all Cards in this Stack");
+
+						// Set an EditText view to get user input final
+						final EditText input = new EditText(context);
+						alert.setView(input);
+
+						// Set the new Stack name
+						alert.setPositiveButton("Add Tag",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int whichButton) {
+										// save the tagName in a variable
+										String newTagName = input.getText()
+												.toString();
+										Tag newTag = new Tag(newTagName);
+										Stack clickedStack = null;
+										// check if TagName is already taken
+										boolean alreadyTaken = false;
+										for (Tag tag : Tag.allTags) {
+											if (tag.getTagName().equals(
+													newTagName)) {
+												alreadyTaken = true;
+												break;
+											}
+										}
+										// TODO: hier jumpt er immer rein und
+										// bringt den ErrorHandler....WTF
+
+										if (alreadyTaken) {
+											// ErrorHandling if TagName is
+											// already taken
+											ErrorHandlerFragment newFragment = ErrorHandlerFragment
+													.newInstance(
+															R.string.error_handler_name_taken,
+															ErrorHandlerFragment.NAME_TAKEN);
+											newFragment.show(
+													getFragmentManager(),
+													"dialog");
+										} else if (newTagName.equals("")) {
+											// Error Handling if no name is
+											// typed
+											ErrorHandlerFragment newFragment = ErrorHandlerFragment
+													.newInstance(
+															R.string.error_handler_no_input,
+															ErrorHandlerFragment.NO_INPUT);
+											newFragment.show(
+													getFragmentManager(),
+													"dialog");
+
+										} else {
+											for (Stack stack : Stack.allStacks) {
+												if (stack.getStackName()
+														.equals(stackName)) {
+													clickedStack = stack;
+													Edit.getInstance()
+															.addTagToStack(
+																	newTag,
+																	clickedStack);
+													builder.dismiss();
+													break;
+												}
+											}
+										}
 									}
-								}
-							}
-						});
+								});
 
-				alert.setNegativeButton("Cancel",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								dialog.cancel();
+						alert.setNegativeButton("Cancel",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int whichButton) {
+										dialog.dismiss();
+									}
+								});
+						alert.show();
+					}
+				});
+				lv.setClickable(true);
+				lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, View v,
+							int position, long id) {
+
+						String newTagName = ((TextView) v).getText().toString();
+						Tag newTag = new Tag(newTagName);
+						Stack clickedStack = null;
+						for (Stack stack : Stack.allStacks) {
+							if (stack.getStackName().equals(stackName)) {
+								clickedStack = stack;
+								Edit.getInstance().addTagToStack(newTag,
+										clickedStack);
+								break;
 							}
-						});
-				alert.show();
+						}
+
+						Toast.makeText(
+								getApplicationContext(),
+								"Tag '" + newTag
+										+ "' has been added to the Stack '"
+										+ stackName + "'.", Toast.LENGTH_SHORT)
+								.show();
+						// builder.dismiss();
+					}
+				});
+				lv.setAdapter(lvAdapter);
+				builder.setTitle("Choose Tags");
+				builder.setContentView(v);
+				builder.show();
 
 			} else if (item.getTitle() == "Delete") {
 				// Delete the selected stack, after asking the user
@@ -414,7 +517,8 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 				// set dialog message
 				alertDialogBuilder
 						.setMessage(
-								"Are you sure you want to delete "+stackName+"?")
+								"Are you sure you want to delete " + stackName
+										+ "?")
 						.setIcon(R.drawable.question)
 						.setCancelable(false)
 						.setPositiveButton("Yes",
