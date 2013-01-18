@@ -304,8 +304,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				public void onClick(final View v) {
 
 					final CharSequence[] items = { "Take Picture",
-							"Picture from Gallery", "Add a PDF",
-							"Add Hyperlink" };
+							"Picture from Gallery", "Add Hyperlink" };
 
 					final AlertDialog.Builder builder = new AlertDialog.Builder(
 							v.getContext());
@@ -328,21 +327,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 												"yyMMddhhmmss");
 										String picName = sd.format(date);
 
-										// Check if there is a path
-										// /knowItOwl/pictures available
-										// if not --> create it
-										if (!new File(Environment
-												.getExternalStorageDirectory()
-												.getPath()
-												+ "/knowItOwl/pictures")
-												.exists()) {
-											new File(
-													Environment
-															.getExternalStorageDirectory()
-															.getPath()
-															+ "/knowItOwl/pictures")
-													.mkdir();
-										}
+										checkFileAvailabilityPictures();
 
 										// New file for the picture
 										File photo = new File(Environment
@@ -363,7 +348,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 									case 1:
 
 										break;
-									case 3:
+									case 2:
 										AlertDialog.Builder alert = new AlertDialog.Builder(
 												v.getContext());
 										// set Layout for dialog
@@ -536,8 +521,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				public void onClick(final View v) {
 
 					final CharSequence[] items = { "Take Picture",
-							"Picture from Gallery", "Add a PDF",
-							"Add Hyperlink" };
+							"Picture from Gallery", "Add Hyperlink" };
 
 					final AlertDialog.Builder builder = new AlertDialog.Builder(
 							v.getContext());
@@ -560,21 +544,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 												"yyMMddhhmmss");
 										String picName = sd.format(date);
 
-										// Check if file /knowItOwl/picture
-										// exists --> if not,
-										// create it
-										if (!new File(Environment
-												.getExternalStorageDirectory()
-												.getPath()
-												+ "/knowItOwl/pictures")
-												.exists()) {
-											new File(
-													Environment
-															.getExternalStorageDirectory()
-															.getPath()
-															+ "/knowItOwl/pictures")
-													.mkdir();
-										}
+										checkFileAvailabilityPictures();
 
 										// Create new file
 										File photo = new File(Environment
@@ -594,7 +564,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 									case 1:
 
 										break;
-									case 3:
+									case 2:
 										AlertDialog.Builder alert = new AlertDialog.Builder(
 												v.getContext());
 										// set Layout for dialog
@@ -791,7 +761,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 				// Save path in cardFrontPic
 				cardFrontPic = imageUriFront.getPath();
-
+				
 				// Update Buttons
 				updateImageButtonNewCard(true, showPictureFront);
 				deletePictureFront.setVisibility(ImageButton.VISIBLE);
@@ -1159,7 +1129,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	 * create it
 	 * 
 	 */
-	public void checkFileAvailability() {
+	public void checkFileAvailabilityPictures() {
 		// Check if there is file
 		// /knowItOwl/pictures, if not -->
 		// create it
@@ -1168,6 +1138,57 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			new File(Environment.getExternalStorageDirectory().getPath()
 					+ "/knowItOwl/pictures").mkdir();
 		}
+	}
+	
+	
+	/**
+	 * Checks if there is any file /knowItOwl/thumbnails existing if not -->
+	 * create it
+	 * 
+	 */
+	public void checkFileAvailabilityThumbnails() {
+		// Check if there is file
+		// /knowItOwl/thumbnails, if not -->
+		// create it
+		if (!new File(Environment.getExternalStorageDirectory().getPath()
+				+ "/knowItOwl/thumbnails").exists()) {
+			new File(Environment.getExternalStorageDirectory().getPath()
+					+ "/knowItOwl/thumbnails").mkdir();
+		}
+	}
+	
+	
+	
+	private void createThumbnail(String picName, String picPath){
+		
+		final int THUMBNAIL_SIZE = 128;
+		
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(new File(picPath));
+		} catch (FileNotFoundException e) {
+			ErrorHandlerFragment newFragment = ErrorHandlerFragment
+					.newInstance(R.string.error_handler_file_not_found,
+							ErrorHandlerFragment.FILE_NOT_FOUND);
+			newFragment.show(this.getFragmentManager(), "dialog");
+		}
+
+		// new bitmap (thumbnail)
+		Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
+
+		imageBitmap = Bitmap.createScaledBitmap(imageBitmap,
+				THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+		byte[] byteArray = baos.toByteArray();
+		
+		checkFileAvailabilityThumbnails();
+		
+		File destination;
+		
+		//FileChannel outChannel = new FileOutputStream(destination).getChannel();
+		
 	}
 
 }
