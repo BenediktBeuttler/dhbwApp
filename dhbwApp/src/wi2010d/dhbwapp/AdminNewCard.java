@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import wi2010d.dhbwapp.control.Create;
@@ -19,7 +20,9 @@ import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -34,6 +37,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -41,9 +45,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -363,24 +370,19 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 										LinearLayout ll = new LinearLayout(v
 												.getContext());
 										ll.setOrientation(LinearLayout.VERTICAL);
-
 										alert.setTitle("Add Hyperlink");
-										alert.setMessage("Insert Link");
 
 										// set edit text and text view to insert
 										// link path and name it
 										final TextView lblLinkPath = new TextView(
 												v.getContext());
 										lblLinkPath.setText("Paste Link:");
-
 										final EditText editLinkPath = new EditText(
 												v.getContext());
-
 										ll.addView(lblLinkPath);
 										ll.addView(editLinkPath);
 
 										alert.setView(ll);
-
 										alert.setPositiveButton(
 												"Add",
 												new DialogInterface.OnClickListener() {
@@ -407,10 +409,14 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 																	.toString();
 															// save text before
 															// adding hyperlink
-															cardFront.setAutoLinkMask(Linkify.WEB_URLS);
+															cardFront
+																	.setAutoLinkMask(Linkify.WEB_URLS);
 															cardFront
 																	.append(linkPathFront);
-															cardFront.setText(cardFront.getText().toString());
+															cardFront
+																	.setText(cardFront
+																			.getText()
+																			.toString());
 														}
 
 													}
@@ -597,8 +603,6 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 										ll.setOrientation(LinearLayout.VERTICAL);
 
 										alert.setTitle("Add Hyperlink");
-										alert.setMessage("Insert Link");
-
 										// set edit text and text view to insert
 										// link path and name it
 										final TextView lblLinkPath = new TextView(
@@ -607,12 +611,9 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 										final EditText editLinkPath = new EditText(
 												v.getContext());
-										
 										ll.addView(lblLinkPath);
 										ll.addView(editLinkPath);
-
 										alert.setView(ll);
-
 										alert.setPositiveButton(
 												"Add",
 												new DialogInterface.OnClickListener() {
@@ -641,7 +642,8 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 															// adding hyperlink
 															cardBack.setAutoLinkMask(Linkify.WEB_URLS);
 															cardBack.append(linkPathBack);
-															cardBack.setText(card.getCardBack());
+															cardBack.setText(card
+																	.getCardBack());
 														}
 
 													}
@@ -921,6 +923,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		ArrayAdapter<String> lvAdapter;
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.menu_start_screen:
@@ -1002,30 +1005,89 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				alert.show();
 			}
 			return true;
-		case R.id.btn_admin_new_card_existing_stack:
+
+		case R.id.btn_admin_new_card_existing_stack: {
 			if (Stack.allStacks.size() == 0) {
 				Toast.makeText(getApplicationContext(), "No Stacks available",
 						Toast.LENGTH_LONG).show();
+				break;
 			} else if (isCardNotEmpty()) {
-				// find the checked Tags from the list
-				cardTagList.clear();
-				for (Tag tag : Tag.allTags) {
-					if (tag.isChecked()) {
-						cardTagList.add(tag);
+				boolean stackAvailable = false;
+				final Dialog builder = new Dialog(this);
+				LayoutInflater li = (LayoutInflater) this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				View v = li.inflate(R.layout.admin_choose_stack_screen, null,
+						false);
+				ListView lv = (ListView) v.findViewById(R.id.admin_stack_list);
+				ArrayList<String> items = new ArrayList<String>();
+				for (Stack stack : Stack.allStacks) {
+					if (stack.isDynamicGenerated()) {
+						if (stack.getStackName().startsWith("<Dyn>")) {
+							items.add(stack.getStackName());
+							stackAvailable = true;
+						} else {
+							items.add("<Dyn> " + stack.getStackName());
+							stackAvailable = true;
+						}
+					} else {
+						items.add(stack.getStackName());
+						stackAvailable = true;
 					}
 				}
-				card = Create.getInstance().newCard(
-						cardFront.getText().toString(),
-						cardBack.getText().toString(), cardTagList,
-						cardFrontPic, cardBackPic);
+				if (items.size() == 0) {
+					items.add("No stacks available");
+					stackAvailable = false;
+				}
 
-				Intent i = new Intent(getApplicationContext(),
-						AdminNewCardChooseStack.class);
-				startActivityForResult(i, STACK_CHOSEN);
+				Collections.sort(items);
+				lvAdapter = new ArrayAdapter<String>(this,
+						R.layout.layout_listitem, items);
+				lv.setClickable(true);
+				lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, View v,
+							int position, long id) {
+						String stackName = ((TextView) v).getText().toString();
+
+						if (isCardNotEmpty()) {
+							// find the checked Tags from the list
+							cardTagList.clear();
+							for (Tag tag : Tag.allTags) {
+								if (tag.isChecked()) {
+									cardTagList.add(tag);
+								}
+							}
+							card = Create.getInstance().newCard(
+									cardFront.getText().toString(),
+									cardBack.getText().toString(), cardTagList,
+									cardFrontPic, cardBackPic);
+						}
+
+						for (Stack stack : Stack.allStacks) {
+							if (stack.getStackName().equals(stackName)) {
+								Edit.getInstance().addCardToStack(stack, card);
+								Toast.makeText(getApplicationContext(),
+										"Card added to " + stackName,
+										Toast.LENGTH_LONG).show();
+								builder.dismiss();
+								break;
+							}
+						}
+
+					}
+				});
+				lv.setAdapter(lvAdapter);
+				builder.setTitle("Choose Stack");
+				builder.setContentView(v);
+				builder.show();
+				break;
 			}
+		}
 		default:
 			return false;
 		}
+		return true;
 	}
 
 	/**

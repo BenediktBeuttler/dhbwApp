@@ -36,7 +36,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -49,7 +48,6 @@ import android.view.WindowManager;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -82,6 +80,11 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 	Card card;
 	int cardID;
 	Context context;
+	
+	String cardFrontPic;
+	String cardBackPic;
+	boolean newFrontPictureTaken;
+	boolean newBackPictureTaken;
 
 	// The array list holding the cards tags, used to change the tags when
 	// saving.
@@ -293,8 +296,11 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			View v = inflater.inflate(R.layout.admin_edit_card_front, null);
 
 			cardFront = (EditText) v.findViewById(R.id.txt_edit_card_front);
-			cardFront.setAutoLinkMask(Linkify.WEB_URLS);
 			cardFront.setText(card.getCardFront());
+			
+			// Initialize local variable containing the front picture
+			cardFrontPic = card.getCardFrontPicture();
+			newFrontPictureTaken = false;
 
 			// Set up ImageButton for taking new picture
 			addMedia = (ImageButton) v
@@ -302,12 +308,12 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			addMedia.setOnClickListener(new View.OnClickListener() {
 
 				@Override
-				public void onClick(final View v) {
+				public void onClick(View v) {
 
 					final CharSequence[] items = { "Take Picture",
-							"Picture from Gallery", "Add a PDF", "Add Hyperlink" };
+							"Picture from Gallery", "Add Hyperlink" };
 
-					final AlertDialog.Builder builder = new AlertDialog.Builder(
+					AlertDialog.Builder builder = new AlertDialog.Builder(
 							context);
 					builder.setTitle("Add Media");
 					builder.setItems(items,
@@ -358,93 +364,11 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 										
 										break;
 									case 2:
-										/*
-										checkFileAvailability();
-										
-										// New intent to start gallery in order to choose a
-										// picture
-										Intent pdfPickerIntent = new Intent(Intent.ACTION_PICK);
-										pdfPickerIntent.setType("application/pdf");
-										startActivityForResult(pdfPickerIntent, SELECT_PDF);
-										break;
-										*/
-									case 3:
-										AlertDialog.Builder alert = new AlertDialog.Builder(
-												v.getContext());
-										// set Layout for dialog
-										LinearLayout ll = new LinearLayout(v
-												.getContext());
-										ll.setOrientation(LinearLayout.VERTICAL);
-
-										alert.setTitle("Add Hyperlink");
-										alert.setMessage("Insert Link");
-
-										// set edit text and text view to insert
-										// link path and name it
-										final TextView lblLinkPath = new TextView(
-												v.getContext());
-										lblLinkPath.setText("Paste Link:");
-
-										final EditText editLinkPath = new EditText(
-												v.getContext());
-
-										ll.addView(lblLinkPath);
-										ll.addView(editLinkPath);
-
-										alert.setView(ll);
-
-										alert.setPositiveButton(
-												"Add",
-												new DialogInterface.OnClickListener() {
-													public void onClick(
-															DialogInterface dialog,
-															int whichButton) {
-														// check if inputs are
-														// empty
-														if (editLinkPath
-																.getText()
-																.toString()
-																.equals("")) {
-															Toast.makeText(
-																	getApplicationContext(),
-																	"Please insert a text.",
-																	Toast.LENGTH_LONG)
-																	.show();
-														} else {
-															// if fiels is not
-															// empty open input
-															// dialog for links
-															String linkPathFront = editLinkPath
-																	.getText()
-																	.toString();
-															// save text before
-															// adding hyperlink
-															cardFront.setAutoLinkMask(Linkify.WEB_URLS);
-															cardFront.append(linkPathFront);
-															cardFront.setText(cardFront.getText().toString());
-														}
-
-													}
-												});
-
-										alert.setNegativeButton(
-												"Cancel",
-												new DialogInterface.OnClickListener() {
-													public void onClick(
-															DialogInterface dialog,
-															int whichButton) {
-														// cancel dialog
-														dialog.cancel();
-													}
-												});
-										builder.create();
-										alert.show();
 										break;
 									default:
 										break;
 									}
-									// Toast.makeText(getApplicationContext(),
-									// items[item], Toast.LENGTH_SHORT).show();
+									
 								}
 							});
 					AlertDialog alert = builder.create();
@@ -466,12 +390,11 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				@Override
 				public void onClick(View v) {
 					// if there is any picture available
-					if (!card.getCardFrontPicture().equals("")
+					if (!cardFrontPic.equals("")
 							&& checkPictureAvailability(true)) {
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
-						show.setDataAndType(Uri.fromFile(new File(card
-								.getCardFrontPicture())), "image/*");
+						show.setDataAndType(Uri.fromFile(new File(cardFrontPic)), "image/*");
 						startActivity(show);
 					}
 				}
@@ -482,7 +405,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					.findViewById(R.id.btn_admin_edit_card_front_picture_delete);
 
 			// Set delete ImageButton only visible, if picture is available
-			if (!card.getCardFrontPicture().equals("")
+			if (!cardFrontPic.equals("")
 					&& checkPictureAvailability(true)) {
 				// If there is a picture available, do nothing, as the
 				// ImageButton is
@@ -500,7 +423,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				public void onClick(View v) {
 
 					// Create File with the picture that has to be deleted
-					File picture = new File(card.getCardFrontPicture());
+					File picture = new File(cardFrontPic);
 
 					// Delete Picture and show toast
 					if (picture.delete()) {
@@ -510,8 +433,13 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 					}
 
+					
 					// Save changes in card and in DB
-					Edit.getInstance().deletePicFromCard(true, card);
+					//Edit.getInstance().deletePicFromCard(true, card);
+					
+					// Set local variable containing front picture ""
+					cardFrontPic = "";
+					newFrontPictureTaken = false;
 
 					// Set delete ImageButton gone as there is no pic to delete
 					// anymore
@@ -535,6 +463,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				// Gets called when a picture is taken
 				if (resultCode == Activity.RESULT_OK) {
 	
+					/* Delete old picture
 					if (!card.getCardFrontPicture().equals("")
 							&& checkPictureAvailability(true)) {
 	
@@ -542,16 +471,31 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 						File fileToDelete = new File(card.getCardFrontPicture());
 						fileToDelete.delete();
 					}
+					
 	
 					Edit.getInstance().addNewPicToCard(true,
 							imageUriFront.getPath(), card);
 	
+					*/
+					
+					// If there is any picture that has been taken in edit mode before
+					if (newFrontPictureTaken){
+						
+						// Delete former file from SD-Card
+						File fileToDelete = new File(cardFrontPic);
+						fileToDelete.delete();
+					}
+					
+					// Save Path in local variable
+					cardFrontPic = imageUriFront.getPath();
+					newFrontPictureTaken = true;
+					
 					// Updates the ImageButton to show the new picture as a
 					// thumbnail
 					updateImageButtonAdminEdit(true, showPictureButton);
 	
 					Toast.makeText(getApplicationContext(),
-							"Picture saved under: " + imageUriFront.getPath(),
+							"New picture was taken successfully",
 							Toast.LENGTH_LONG).show();
 	
 					// Set delete ImageButton visible as there is a new pic which
@@ -564,7 +508,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				
 				if(resultCode == RESULT_OK){  
 					
-					
+					/* Delete old picture from 
 					// Delete former picture if available
 					if (!card.getCardFrontPicture().equals("")
 							&& checkPictureAvailability(true)) {
@@ -573,10 +517,21 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 						File fileToDelete = new File(card.getCardFrontPicture());
 						fileToDelete.delete();
 					}
+					*/
 					
 					// Create file with existing picture
 					Uri selectedImage = data.getData();
 		    		File picture = new File(getRealPathFromURI(selectedImage));
+		    		
+		    		
+					// If there is any picture that has been taken in edit mode before
+					if (newFrontPictureTaken){
+						
+						// Delete former file from SD-Card
+						File fileToDelete = new File(cardFrontPic);
+						fileToDelete.delete();
+					}
+					
 		    		
 		    		// Create a unique PicName with help of
 					// the actual date
@@ -604,9 +559,16 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 						*/
 					}
 		    		
+		    		/*
 					Edit.getInstance().addNewPicToCard(true,
 							destination.getPath(), card);
 	
+					*/
+		    		
+		    		// Save path of picture in local variable
+		    		cardFrontPic = destination.getPath();
+		    		newFrontPictureTaken = true;
+		    		
 					// Updates the ImageButton to show the new picture as a
 					// thumbnail
 					updateImageButtonAdminEdit(true, showPictureButton);
@@ -657,20 +619,24 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			View v = inflater.inflate(R.layout.admin_edit_card_back, null);
 
 			cardBack = (EditText) v.findViewById(R.id.txt_edit_card_back);
-			cardBack.setAutoLinkMask(Linkify.WEB_URLS);
 			cardBack.setText(card.getCardBack());
 
+			// Initialize local variable containing the back picture path and
+			// variable that indicates if there has been any new picture added in current edit mode
+			cardBackPic = card.getCardBackPicture();
+			newBackPictureTaken = false;
+			
 			// Set up edit picture ImageButton
 			addMedia = (ImageButton) v.findViewById(R.id.btn_edit_picture_back);
 
 			addMedia.setOnClickListener(new View.OnClickListener() {
 
 				@Override
-				public void onClick(final View v) {
+				public void onClick(View v) {
 					final CharSequence[] items = { "Take Picture",
-							"Picture from Gallery", "Add a PDF", "Add Hyperlink" };
+							"Picture from Gallery", "Add Hyperlink" };
 
-					final AlertDialog.Builder builder = new AlertDialog.Builder(
+					AlertDialog.Builder builder = new AlertDialog.Builder(
 							context);
 					builder.setTitle("Add Media");
 					builder.setItems(items,
@@ -722,79 +688,10 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 										break;
 									case 2:
 										break;
-									case 3:
-										AlertDialog.Builder alert = new AlertDialog.Builder(
-												v.getContext());
-										// set Layout for dialog
-										LinearLayout ll = new LinearLayout(v
-												.getContext());
-										ll.setOrientation(LinearLayout.VERTICAL);
-
-										alert.setTitle("Add Hyperlink");
-										// set edit text and text view to insert
-										// link path and name it
-										final TextView lblLinkPath = new TextView(
-												v.getContext());
-										lblLinkPath.setText("Paste Link:");
-
-										final EditText editLinkPath = new EditText(
-												v.getContext());
-
-										ll.addView(lblLinkPath);
-										ll.addView(editLinkPath);
-										alert.setView(ll);
-										alert.setPositiveButton(
-												"Add",
-												new DialogInterface.OnClickListener() {
-													public void onClick(
-															DialogInterface dialog,
-															int whichButton) {
-														// check if inputs are
-														// empty
-														if (editLinkPath
-																.getText()
-																.toString()
-																.equals("")) {
-															Toast.makeText(
-																	getApplicationContext(),
-																	"Please insert a text.",
-																	Toast.LENGTH_LONG)
-																	.show();
-														} else {
-															// if fiels is not
-															// empty open input
-															// dialog to insert link
-															String linkPathBack = editLinkPath
-																	.getText()
-																	.toString();
-															// save text before
-															// adding hyperlink
-															cardBack.setAutoLinkMask(Linkify.WEB_URLS);
-															cardBack.append(linkPathBack);
-															cardBack.setText(cardBack.getText().toString());
-														}
-
-													}
-												});
-
-										alert.setNegativeButton(
-												"Cancel",
-												new DialogInterface.OnClickListener() {
-													public void onClick(
-															DialogInterface dialog,
-															int whichButton) {
-														// cancel dialog
-														dialog.cancel();
-													}
-												});
-										builder.create();
-										alert.show();
-										break;
 									default:
 										break;
 									}
-									// Toast.makeText(getApplicationContext(),
-									// items[item], Toast.LENGTH_SHORT).show();
+
 								}
 							});
 					AlertDialog alert = builder.create();
@@ -813,12 +710,11 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 				@Override
 				public void onClick(View v) {
-					if (!card.getCardBackPicture().equals("")
+					if (!cardBackPic.equals("")
 							&& checkPictureAvailability(false)) {
 						Intent show = new Intent();
 						show.setAction(Intent.ACTION_VIEW);
-						show.setDataAndType(Uri.fromFile(new File(card
-								.getCardBackPicture())), "image/*");
+						show.setDataAndType(Uri.fromFile(new File(cardBackPic)), "image/*");
 						startActivity(show);
 					}
 				}
@@ -829,7 +725,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					.findViewById(R.id.btn_admin_edit_card_back_picture_delete);
 
 			// Set delete ImageButton only visible, if picture is available
-			if (!card.getCardBackPicture().equals("")
+			if (!cardBackPic.equals("")
 					&& checkPictureAvailability(false)) {
 				// If there is a picture available, do nothing, as the
 				// ImageButton is
@@ -846,7 +742,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				public void onClick(View v) {
 
 					// Create File with the picture that has to be deleted
-					File picture = new File(card.getCardBackPicture());
+					File picture = new File(cardBackPic);
 
 					// Delete Picture and show toast
 					if (picture.delete()) {
@@ -856,8 +752,13 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 						toast.show();
 					}
 
+					/*
 					// Save changes in card and in DB
 					Edit.getInstance().deletePicFromCard(false, card);
+					*/
+					
+					cardBackPic = "";
+					newBackPictureTaken = false;
 
 					// Set delete ImageButton gone as there is no pic to delete
 					// anymore
@@ -881,6 +782,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			// Gets called, when a picture is taken
 				if (resultCode == Activity.RESULT_OK) {
 	
+					/*
 					if (!card.getCardBackPicture().equals("")
 							&& checkPictureAvailability(false)) {
 	
@@ -891,12 +793,26 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 	
 					Edit.getInstance().addNewPicToCard(false, imageUri.getPath(),
 							card);
+					*/
+					
+					// If there is any picture that has been taken in edit mode before
+					if (newBackPictureTaken){
+						
+						// Delete former file from SD-Card
+						File fileToDelete = new File(cardBackPic);
+						fileToDelete.delete();
+					}
+					
+					// Save Path in local variable
+					cardBackPic = imageUri.getPath();
+					newBackPictureTaken = true;
+					
 	
 					// Update the Thumbnail on the back of the card
 					updateImageButtonAdminEdit(false, showPictureButton);
 	
 					Toast.makeText(getApplicationContext(),
-							"Picture saved under: " + imageUri.getPath(),
+							"New picture was taken successfully",
 							Toast.LENGTH_LONG).show();
 	
 					// Set delete ImageButton visible as there is any picture to
@@ -909,7 +825,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 				
 				if(resultCode == RESULT_OK){  
 					
-					
+					/*
 					// Delete former picture if available
 					if (!card.getCardBackPicture().equals("")
 							&& checkPictureAvailability(false)) {
@@ -918,10 +834,19 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 						File fileToDelete = new File(card.getCardBackPicture());
 						fileToDelete.delete();
 					}
+					*/
 					
 					// Create file with existing picture
 					Uri selectedImage = data.getData();
 		    		File picture = new File(getRealPathFromURI(selectedImage));
+		    		
+		    		// If there is any picture that has been taken in edit mode before
+					if (newBackPictureTaken){
+						
+						// Delete former file from SD-Card
+						File fileToDelete = new File(cardBackPic);
+						fileToDelete.delete();
+					}
 		    		
 		    		// Create a unique PicName with help of
 					// the actual date
@@ -949,8 +874,13 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 						*/
 					}
 		    		
+		    		/*
 					Edit.getInstance().addNewPicToCard(false,
 							destination.getPath(), card);
+					*/
+		    		
+		    		cardBackPic = destination.getPath();
+		    		newBackPictureTaken = true;
 	
 					// Updates the ImageButton to show the new picture as a
 					// thumbnail
@@ -999,14 +929,14 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		// Check if ImageButton on front (true) or back (false) is to be updated
 		if (front) {
 			// Check if there is any picture available
-			if (!card.getCardFrontPicture().equals("")
+			if (!cardFrontPic.equals("")
 					&& checkPictureAvailability(true)) {
 
 				// Set up file input stream
 				FileInputStream fis = null;
 				try {
 					fis = new FileInputStream(new File(
-							card.getCardFrontPicture()));
+							cardFrontPic));
 				} catch (FileNotFoundException e) {
 					// display a file not found error if the file is not found
 					ErrorHandlerFragment newFragment = ErrorHandlerFragment
@@ -1040,14 +970,14 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		} else {
 
 			// If card back picture is available
-			if (!card.getCardBackPicture().equals("")
+			if (!cardBackPic.equals("")
 					&& checkPictureAvailability(false)) {
 
 				// set up file input stream
 				FileInputStream fis = null;
 				try {
 					fis = new FileInputStream(new File(
-							card.getCardBackPicture()));
+							cardBackPic));
 				} catch (FileNotFoundException e) {
 					// display a file not found error if the file is not found
 					ErrorHandlerFragment newFragment = ErrorHandlerFragment
@@ -1096,9 +1026,9 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 		// Create file with the path where the picture is supposed to be stored
 		if (front) {
-			picture = new File(card.getCardFrontPicture());
+			picture = new File(cardFrontPic);
 		} else {
-			picture = new File(card.getCardBackPicture());
+			picture = new File(cardBackPic);
 		}
 
 		// Check if picture exists and return result
@@ -1139,12 +1069,13 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 						cardTagList.add(tag);
 					}
 				}
+				
 				String back = cardBack.getText().toString();
 				String front = cardFront.getText().toString();
 
 				setResult(LearningCard.RESULT_CHANGED);
 				Edit.getInstance().changeCard(front, back,
-						card.getCardFrontPicture(), card.getCardBackPicture(),
+						cardFrontPic, cardBackPic,
 						cardTagList, card);
 				finish();
 			}
