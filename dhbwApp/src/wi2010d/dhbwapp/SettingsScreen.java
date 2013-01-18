@@ -2,6 +2,7 @@ package wi2010d.dhbwapp;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Database;
 import wi2010d.dhbwapp.control.Delete;
@@ -13,6 +14,8 @@ import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -82,7 +85,8 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 		// Handle item selection
 		switch (v.getId()) {
 		case R.id.btn_reset_database:
-			// display a dialog to ask for permission to delete the database.
+			// display a dialog to ask for permission to delete the
+			// database.
 			// if "Yes" is clicked, DB will be deleted
 			ErrorHandlerFragment newFragment = ErrorHandlerFragment
 					.newInstance(R.string.error_handler_delete_db,
@@ -96,8 +100,7 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 			if (Stack.allStacks.size() == 0 && Card.allCards.size() == 0
 					&& Tag.allTags.size() == 0
 					&& Runthrough.allRunthroughs.size() == 0) {
-				new Thread() {
-					public void run() {				
+
 				List<Tag> tags0 = new ArrayList<Tag>();
 				List<Tag> tags1 = new ArrayList<Tag>();
 				List<Tag> tags2 = new ArrayList<Tag>();
@@ -108,15 +111,13 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 				List<Card> PMZert = new ArrayList<Card>();
 				List<Card> BWLGrund = new ArrayList<Card>();
 
-
 				Tag mundl = Create.getInstance().newTag("Mündliche Prüfung");
 				Tag java = Create.getInstance().newTag("Java");
 				Tag nachpruefung = Create.getInstance().newTag(
 						"Nachprüfung Recht");
 				Tag projektmgmt = Create.getInstance().newTag(
 						"Projektmgmt. Zertifizierung");
-				Tag bwlgrund = Create.getInstance().newTag(
-						"BWL Grundlagen 1");
+				Tag bwlgrund = Create.getInstance().newTag("BWL Grundlagen 1");
 
 				tags0.add(mundl);
 				tags0.add(java);
@@ -158,55 +159,87 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 								"boolean, byte, short, int, long, float, double und char.",
 								tags0, "", ""));
 
-				
-				NachprfRecht.add(Create.getInstance().newCard(
-						"Welches ist der wichtigste Paragraph bei Käufen im BGB?", "§433BGB", tags1,
-						"", ""));
-				NachprfRecht.add(Create.getInstance().newCard(
-						"Was bedeutet Recht im objektiven Sinne?", "Ein abgrenzbarer Teilbereich der Gesamtheit der gesellschaftlichen Normen ", tags1,
-						"", ""));
-				NachprfRecht.add(Create.getInstance().newCard(
-						"Was bedeutet Recht im subjektiven Sinne?", "Die sich aus dem objektiven Recht ableitende Befugnis des Einzelnen  ", tags1,
-						"", ""));
-				NachprfRecht.add(Create.getInstance().newCard(
-						"Wie heißt der Hauptsatz beim bearbeiten von Rechtsfällen?", "Wer will was von wem woraus?", tags1,
-						"", ""));
-				
+				NachprfRecht
+						.add(Create
+								.getInstance()
+								.newCard(
+										"Welches ist der wichtigste Paragraph bei Käufen im BGB?",
+										"§433BGB", tags1, "", ""));
+				NachprfRecht
+						.add(Create
+								.getInstance()
+								.newCard(
+										"Was bedeutet Recht im objektiven Sinne?",
+										"Ein abgrenzbarer Teilbereich der Gesamtheit der gesellschaftlichen Normen ",
+										tags1, "", ""));
+				NachprfRecht
+						.add(Create
+								.getInstance()
+								.newCard(
+										"Was bedeutet Recht im subjektiven Sinne?",
+										"Die sich aus dem objektiven Recht ableitende Befugnis des Einzelnen  ",
+										tags1, "", ""));
+				NachprfRecht
+						.add(Create
+								.getInstance()
+								.newCard(
+										"Wie heißt der Hauptsatz beim bearbeiten von Rechtsfällen?",
+										"Wer will was von wem woraus?", tags1,
+										"", ""));
+
 				BWLGrund.add(Create.getInstance().newCard(
-						"In welche 2 Unterbereiche Gliedert sich die BWL", "Allgemeine BWL (ABWL) und Spezielle BWL (SBWL)", tags2,
-						"", ""));
+						"In welche 2 Unterbereiche Gliedert sich die BWL",
+						"Allgemeine BWL (ABWL) und Spezielle BWL (SBWL)",
+						tags2, "", ""));
+				BWLGrund.add(Create
+						.getInstance()
+						.newCard(
+								"Was ist das Ökonomische Prinzip?",
+								"Das ökonomische Prinzip beschreibt die betriebswirtschaftliche Notwendigkeit, die nötigen Mittel zur Erreichung der Unternehmensziele möglichst ideal einzusetzen.",
+								tags2, "", ""));
 				BWLGrund.add(Create.getInstance().newCard(
-						"Was ist das Ökonomische Prinzip?", "Das ökonomische Prinzip beschreibt die betriebswirtschaftliche Notwendigkeit, die nötigen Mittel zur Erreichung der Unternehmensziele möglichst ideal einzusetzen.", tags2,
-						"", ""));
-				BWLGrund.add(Create.getInstance().newCard(
-						"Nenne 3 mögliche Unternehmensziele.", "Nutzen-, Gewinn-, Umsatzsteigerung usw.", tags2,
-						"", ""));
-				BWLGrund.add(Create.getInstance().newCard(
-						"Was sind die 3 Prinzipien, um die Unternehmensziele zu erreichen?.", "Minimalprinzip, Maximalprinzip und Optimalprinzip.", tags2,
-						"", ""));
-				
+						"Nenne 3 mögliche Unternehmensziele.",
+						"Nutzen-, Gewinn-, Umsatzsteigerung usw.", tags2, "",
+						""));
+				BWLGrund.add(Create
+						.getInstance()
+						.newCard(
+								"Was sind die 3 Prinzipien, um die Unternehmensziele zu erreichen?.",
+								"Minimalprinzip, Maximalprinzip und Optimalprinzip.",
+								tags2, "", ""));
+
+				PMZert.add(Create
+						.getInstance()
+						.newCard(
+								"Nenne die Definition von Projektmanagement?.",
+								"Als Projektmanagement (PM) bezeichnet man das Planen, Steuern und Kontrollieren von Projekten.",
+								tags3, "", ""));
+				PMZert.add(Create
+						.getInstance()
+						.newCard(
+								"Nenne die Phasen des PMs",
+								"Analyse, Machbarkeitsstudie,Entwurf,Umsetzung,Test,Pilotierung,Rollout bei den Anwendern, Abschluss",
+								tags3, "", ""));
+				PMZert.add(Create
+						.getInstance()
+						.newCard(
+								"Nenne 5 der 9 Wissensgebiete des PMs?.",
+								"Integrationsmanagement 	Umfangsmanagement 	Terminmanagement Kostenmanagement Qualitätsmanagement Personalmanagement Kommunikationsmanagement 	Risikomanagement 	Beschaffungsmanagement",
+								tags3, "", ""));
 				PMZert.add(Create.getInstance().newCard(
-						"Nenne die Definition von Projektmanagement?.", "Als Projektmanagement (PM) bezeichnet man das Planen, Steuern und Kontrollieren von Projekten.", tags3,
-						"", ""));
-				PMZert.add(Create.getInstance().newCard(
-						"Nenne die Phasen des PMs","Analyse, Machbarkeitsstudie,Entwurf,Umsetzung,Test,Pilotierung,Rollout bei den Anwendern, Abschluss", tags3,
-						"", ""));
-				PMZert.add(Create.getInstance().newCard(
-						"Nenne 5 der 9 Wissensgebiete des PMs?.", "Integrationsmanagement 	Umfangsmanagement 	Terminmanagement Kostenmanagement Qualitätsmanagement Personalmanagement Kommunikationsmanagement 	Risikomanagement 	Beschaffungsmanagement", tags3,
-						"", ""));
-				PMZert.add(Create.getInstance().newCard(
-						"Was sind die 3 Erwartungsbereiche der Stakeholder?.", "Zeit, Kosten und Inhalt/Umfang des Projekts.", tags3,
+						"Was sind die 3 Erwartungsbereiche der Stakeholder?.",
+						"Zeit, Kosten und Inhalt/Umfang des Projekts.", tags3,
 						"", ""));
 
-					Database.getInstance().addNewStack(
-							new Stack(false, "BWL Grundlagen 1", BWLGrund));
-					Database.getInstance().addNewStack(
-							new Stack(false, "Java", Java));
-					Database.getInstance().addNewStack(
-							new Stack(false, "Nachprüfung Recht", NachprfRecht));
-					Database.getInstance().addNewStack(
-							new Stack(false, "Projektmanagement Zertifizierung", PMZert));
-					}}.start();
+				Database.getInstance().addNewStack(
+						new Stack(false, "BWL Grundlagen 1", BWLGrund));
+				Database.getInstance().addNewStack(
+						new Stack(false, "Java", Java));
+				Database.getInstance().addNewStack(
+						new Stack(false, "Nachprüfung Recht", NachprfRecht));
+				Database.getInstance().addNewStack(
+						new Stack(false, "Projektmanagement Zertifizierung",
+								PMZert));
 
 				Toast toast;
 				toast = Toast.makeText(getApplicationContext(),
@@ -233,13 +266,12 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 					}
 
 					stack.getLastRunthroughs().clear();
-					
+
 					// Reset overall learning time for each stack
 					Runthrough overallRunthrough = stack.getOverallRunthrough();
 					overallRunthrough.setDurationSecs(0);
 					Database.getInstance().changeRunthrough(overallRunthrough);
 				}
-	
 
 				Toast toastStatistics = Toast.makeText(getApplicationContext(),
 						"Statistics has been resetted successfully",
