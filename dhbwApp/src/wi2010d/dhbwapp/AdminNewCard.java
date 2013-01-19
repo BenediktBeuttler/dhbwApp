@@ -864,6 +864,17 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				Toast.makeText(getApplicationContext(),
 						"Picture saved under: " + imageUriFront.getPath(),
 						Toast.LENGTH_LONG).show();
+				
+				File picture = new File(cardFrontPic);
+				String name = picture.getName();
+				
+				try {
+					createThumbnail(name, cardFrontPic);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				break;
 			}
 			break;
@@ -1251,10 +1262,12 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		}
 	}
 
-	private void createThumbnail(String picName, String picPath) {
+	private void createThumbnail(String picName, String picPath) throws FileNotFoundException {
 
 		final int THUMBNAIL_SIZE = 128;
 
+		checkFileAvailabilityThumbnails();
+		
 		FileInputStream fis = null;
 		try {
 			fis = new FileInputStream(new File(picPath));
@@ -1268,25 +1281,27 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		// new bitmap (thumbnail)
 		Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
 
+		// Resize picture to thumbnail size
 		imageBitmap = Bitmap.createScaledBitmap(imageBitmap, THUMBNAIL_SIZE,
 				THUMBNAIL_SIZE, false);
 
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-		byte[] byteArray = baos.toByteArray();
-
-		checkFileAvailabilityThumbnails();
-
 		File destination = new File(Environment.getExternalStorageDirectory()
 				+ "/knowItOwl/thumbnails", picName + ".jpg");
-
-		// destination.createNewFile();
-		/*
-		 * //write the bytes in file FileOutputStream fo = new
-		 * FileOutputStream(f); fo.write(bytes.toByteArray());
-		 * 
-		 * // close de FileOutput fo.close();
-		 */
+		
+		//destination.createNewFile();
+		
+		
+		 //write the bytes in file 
+		 FileOutputStream fo = new FileOutputStream(destination);
+		 imageBitmap.compress(Bitmap.CompressFormat.JPEG, 90, fo);
+		  
+		 // close FileOutput 
+		 try {
+			fo.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
