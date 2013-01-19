@@ -903,7 +903,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				
 				// create and save thumbnail
 				try {
-					createThumbnail(cardFrontPic);
+					createThumbnail(cardBackPic);
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -1070,7 +1070,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		} else {
 			
 			// check if there is any existing front picture
-			if (!cardBackPic.equals("") && checkPictureAvailability(true)) {
+			if (!cardBackPic.equals("") && checkPictureAvailability(false)) {
 
 				// Get name of thumbnail from path of picture
 				File picture = new File(cardBackPic);
@@ -1383,6 +1383,8 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 		// Check if the thumbnail file has already been created - if not --> create it!
 		checkFileAvailabilityThumbnails();
+		
+		Log.e("AdminNewCard", "Thumbnail erstellen erreicht");
 		
 		// Get name of selected picture
 		File picture = new File(picPath);
