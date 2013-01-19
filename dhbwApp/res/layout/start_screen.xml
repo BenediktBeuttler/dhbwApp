@@ -31,46 +31,60 @@
         android:text="@string/btn_start_learning" />
 
     <GridLayout
-        android:id="@+id/GridLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="2"
+        android:columnCount="1"
         android:rowCount="2" >
 
-        <Button
-            android:id="@+id/btn_start_admin"
-            style="@style/style_iconButton2"
-            android:drawableTop="@drawable/admin"
-            android:text="@string/btn_start_admin"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" 
             android:layout_column="0"
-            android:layout_row="0" />
-        
-        <Button
-            android:id="@+id/btn_start_statistic"
-            style="@style/style_iconButton2"
-            android:layout_column="1"
-            android:layout_gravity="right"
-            android:layout_row="0"
-            android:drawableTop="@drawable/statistics"
-            android:text="@string/btn_start_statistic" />
+            android:layout_row="0">
 
-        <Button
-            android:id="@+id/btn_start_settings"
-            style="@style/style_iconButton2"
-            android:drawableTop="@drawable/settings"
-            android:text="@string/btn_start_settings"
+            <Button
+                android:id="@+id/btn_start_admin"
+                style="@style/style_iconButton2"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/admin"
+                android:text="@string/btn_start_admin" />
+
+            <Button
+                android:id="@+id/btn_start_statistic"
+                style="@style/style_iconButton2"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/statistics"
+                android:text="@string/btn_start_statistic" />
+        </LinearLayout>
+
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_column="0"
-            android:layout_row="1" />
-        
-        <Button
-            android:id="@+id/btn_start_help"
-            style="@style/style_iconButton2"
-            android:layout_column="1"
-            android:layout_gravity="right"
             android:layout_row="1"
-            android:drawableTop="@drawable/lightbulbnew"
-            android:text="@string/btn_start_help" />
-        
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_start_settings"
+                style="@style/style_iconButton2"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/settings"
+                android:text="@string/btn_start_settings" />
+
+            <Button
+                android:id="@+id/btn_start_help"
+                style="@style/style_iconButton2"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/lightbulbnew"
+                android:text="@string/btn_start_help" />
+        </LinearLayout>
+
     </GridLayout>
 
 </LinearLayout>
