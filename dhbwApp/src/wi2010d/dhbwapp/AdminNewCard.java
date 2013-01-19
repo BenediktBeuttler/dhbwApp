@@ -98,6 +98,9 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	private ImageButton deletePictureBack;
 	private ImageButton showPictureBack;
 	public Uri imageUriBack;
+	
+	public static final int SELECT_PHOTO_FRONT = 100;
+	public static final int SELECT_PHOTO_BACK = 200;
 
 	public Card getCard() {
 		return card;
@@ -369,21 +372,14 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 										Intent takePicture = new Intent(
 												"android.media.action.IMAGE_CAPTURE");
 
-										// Create unique name for picture with
-										// help of the actual
-										// date
-										Date date = new Date();
-										SimpleDateFormat sd = new SimpleDateFormat(
-												"yyMMddhhmmss");
-										String picName = sd.format(date);
-
+										
 										checkFileAvailabilityPictures();
 
 										// New file for the picture
 										File photo = new File(Environment
 												.getExternalStorageDirectory()
 												+ "/knowItOwl/pictures",
-												picName + ".jpg");
+												createPicName() + ".jpg");
 										takePicture.putExtra(
 												MediaStore.EXTRA_OUTPUT,
 												Uri.fromFile(photo));
@@ -396,7 +392,19 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 										break;
 
 									case 1:
+										
+										checkFileAvailabilityPictures();
 
+										// New intent to start gallery in order
+										// to choose a
+										// picture
+
+										Intent photoPickerIntent = new Intent(
+												Intent.ACTION_PICK);
+										photoPickerIntent.setType("image/*");
+										startActivityForResult(
+												photoPickerIntent, SELECT_PHOTO_FRONT);
+										
 										break;
 									case 2:
 										AlertDialog.Builder alert = new AlertDialog.Builder(
@@ -513,15 +521,13 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				@Override
 				public void onClick(View v) {
 
-					// Set front pic = "" and update Image Button and delete
-					// file from SD-Card
-					File fileToDelete = new File(cardFrontPic);
-					if (fileToDelete.delete()) {
-						Toast toast = Toast.makeText(getApplicationContext(),
+					deletePictureAndThumbnail(cardFrontPic);
+					
+					Toast toast = Toast.makeText(getApplicationContext(),
 								"Picture has been deleted successfully",
 								Toast.LENGTH_LONG);
-						toast.show();
-					}
+					toast.show();
+					
 
 					// set cardFrontPic "" and set visibility of ImageButton =
 					// GONE as there is
@@ -632,20 +638,14 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 										Intent takePicture = new Intent(
 												"android.media.action.IMAGE_CAPTURE");
 
-										// Create unique picture name with help
-										// of the actual date
-										Date date = new Date();
-										SimpleDateFormat sd = new SimpleDateFormat(
-												"yyMMddhhmmss");
-										String picName = sd.format(date);
-
+										
 										checkFileAvailabilityPictures();
 
 										// Create new file
 										File photo = new File(Environment
 												.getExternalStorageDirectory()
 												+ "/knowItOwl/pictures",
-												picName + ".jpg");
+												createPicName() + ".jpg");
 										takePicture.putExtra(
 												MediaStore.EXTRA_OUTPUT,
 												Uri.fromFile(photo));
@@ -657,8 +657,20 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 										break;
 
 									case 1:
+										checkFileAvailabilityPictures();
 
+										// New intent to start gallery in order
+										// to choose a
+										// picture
+
+										Intent photoPickerIntent = new Intent(
+												Intent.ACTION_PICK);
+										photoPickerIntent.setType("image/*");
+										startActivityForResult(
+												photoPickerIntent, SELECT_PHOTO_BACK);
+										
 										break;
+										
 									case 2:
 										AlertDialog.Builder alert = new AlertDialog.Builder(
 												v.getContext());
@@ -771,17 +783,13 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				@Override
 				public void onClick(View v) {
 
-					// Set back pic = "" and update Image Button and delete file
-					// from SD-Card
-					File fileToDelete = new File(cardBackPic);
+					deletePictureAndThumbnail(cardBackPic);
 
-					if (fileToDelete.delete()) {
-						Toast toast = Toast.makeText(getApplicationContext(),
+					Toast toast = Toast.makeText(getApplicationContext(),
 								"Picture has been deleted successfully",
 								Toast.LENGTH_LONG);
-						toast.show();
-					}
-
+					toast.show();
+					
 					cardBackPic = "";
 					deletePictureBack.setVisibility(ImageButton.GONE);
 					updateImageButtonNewCard(false, showPictureBack);
@@ -824,6 +832,8 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		String stackName;
 		Toast toast;
 
+		Log.e("AdminNewCard", "Request Code: " + requestCode);
+		
 		switch (requestCode) {
 		case STACK_CHOSEN:
 			if (resultCode == STACK_CHOSEN) {
@@ -847,33 +857,30 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			// If picture is taken (front)
 			if (resultCode == RESULT_OK) {
 
+				// If there is any old picture for this card available
 				if (!cardFrontPic.equals("") && checkPictureAvailability(true)) {
-
-					// Delete former file from SD-Card
-					File fileToDelete = new File(cardFrontPic);
-					fileToDelete.delete();
+					deletePictureAndThumbnail(cardFrontPic);
 				}
 
 				// Save path in cardFrontPic
 				cardFrontPic = imageUriFront.getPath();
 
-				// Update Buttons
-				updateImageButtonNewCard(true, showPictureFront);
-				deletePictureFront.setVisibility(ImageButton.VISIBLE);
 
 				Toast.makeText(getApplicationContext(),
 						"Picture saved under: " + imageUriFront.getPath(),
 						Toast.LENGTH_LONG).show();
 				
-				File picture = new File(cardFrontPic);
-				String name = picture.getName();
-				
+				// Create and save thumbnail
 				try {
-					createThumbnail(name, cardFrontPic);
+					createThumbnail(cardFrontPic);
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+				// Update Buttons
+				updateImageButtonNewCard(true, showPictureFront);
+				deletePictureFront.setVisibility(ImageButton.VISIBLE);
 				
 				break;
 			}
@@ -882,24 +889,128 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			// If picture is taken (back)
 			if (resultCode == RESULT_OK) {
 
+				// if there is any old picture for this card available
 				if (!cardBackPic.equals("") && checkPictureAvailability(false)) {
-
-					// Delete former file from SD-Card
-					File fileToDelete = new File(cardBackPic);
-					fileToDelete.delete();
+					deletePictureAndThumbnail(cardBackPic);
 				}
 
 				// Save path in cardBackPic
 				cardBackPic = imageUriBack.getPath();
 
+				Toast.makeText(getApplicationContext(),
+						"Picture saved under: " + imageUriBack.getPath(),
+						Toast.LENGTH_LONG).show();
+				
+				// create and save thumbnail
+				try {
+					createThumbnail(cardFrontPic);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				// Update ImageButtons
 				updateImageButtonNewCard(false, showPictureBack);
 				deletePictureBack.setVisibility(ImageButton.VISIBLE);
 
-				Toast.makeText(getApplicationContext(),
-						"Picture saved under: " + imageUriBack.getPath(),
-						Toast.LENGTH_LONG).show();
+				
 				break;
+			}
+			break;
+		case 65636:
+			
+			if (resultCode == RESULT_OK) {
+
+				// Create file with existing picture
+				Uri selectedImage = data.getData();
+				File picture = new File(getRealPathFromURI(selectedImage));
+
+				// Delete former picture if available
+				if (!cardFrontPic.equals("")) {
+					deletePictureAndThumbnail(cardFrontPic);
+				}
+
+
+				File destination = new File(
+						Environment.getExternalStorageDirectory()
+								+ "/knowItOwl/pictures", createPicName() + ".jpg");
+
+				try {
+					copyFile(picture, destination);
+				} catch (IOException e) {
+					// display a general error if the file could not be
+					// copied
+				}
+
+				// Save path of picture in local variable
+				cardFrontPic = destination.getPath();
+
+				// Create and save thumbnail of picture
+				try {
+					createThumbnail(cardFrontPic);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				// Updates the ImageButton to show the new picture as a
+				// thumbnail
+				updateImageButtonNewCard(true, showPictureFront);
+
+				Toast.makeText(getApplicationContext(),
+						"Set new picture successfully", Toast.LENGTH_LONG)
+						.show();
+
+				// Set delete ImageButton visible as there is a new pic which can be
+				// deleted now
+				deletePictureFront.setVisibility(ImageButton.VISIBLE);
+			}
+			break;
+		case 131272:
+			if (resultCode == RESULT_OK) {
+
+				// Create file with existing picture
+				Uri selectedImage = data.getData();
+				File picture = new File(getRealPathFromURI(selectedImage));
+
+				// Delete former picture if available
+				if (!cardBackPic.equals("")) {
+					deletePictureAndThumbnail(cardBackPic);
+				}
+
+				File destination = new File(
+						Environment.getExternalStorageDirectory()
+								+ "/knowItOwl/pictures", createPicName() + ".jpg");
+
+				try {
+					copyFile(picture, destination);
+				} catch (IOException e) {
+					// display a general error if the file could not be
+					// copied
+				}
+
+				// Save path of picture in local variable
+				cardBackPic = destination.getPath();
+
+				// Create and save thumbnail of picture
+				try {
+					createThumbnail(cardBackPic);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				// Updates the ImageButton to show the new picture as a
+				// thumbnail
+				updateImageButtonNewCard(false, showPictureBack);
+
+				Toast.makeText(getApplicationContext(),
+						"Set new picture successfully", Toast.LENGTH_LONG)
+						.show();
+
+				// Set delete ImageButton visible as there is a new pic which can be
+				// deleted now
+				deletePictureFront.setVisibility(ImageButton.VISIBLE);
 			}
 			break;
 		default:
@@ -921,34 +1032,31 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	public boolean updateImageButtonNewCard(boolean front,
 			ImageButton pictureBtn) {
 
-		// height and width of thumbnail
-		final int THUMBNAIL_SIZE = 128;
-
 		// if the ImageButton on front is to be updated
 		if (front) {
 
 			// check if there is any existing front picture
 			if (!cardFrontPic.equals("") && checkPictureAvailability(true)) {
 
+				// Get name of thumbnail from path of picture
+				File picture = new File(cardFrontPic);
+				String pictureName = picture.getName();
+				
 				FileInputStream fis = null;
+				
 				try {
-					fis = new FileInputStream(new File(cardFrontPic));
+					fis = new FileInputStream(new File(Environment
+							.getExternalStorageDirectory()
+							+ "/knowItOwl/thumbnails",
+							pictureName));
 				} catch (FileNotFoundException e) {
 					ErrorHandlerFragment newFragment = ErrorHandlerFragment
 							.newInstance(R.string.error_handler_file_not_found,
 									ErrorHandlerFragment.FILE_NOT_FOUND);
 					newFragment.show(this.getFragmentManager(), "dialog");
 				}
-
-				// new bitmap (thumbnail)
+				
 				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
-
-				imageBitmap = Bitmap.createScaledBitmap(imageBitmap,
-						THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
-
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-				byte[] byteArray = baos.toByteArray();
 
 				// Update ImageButton
 				pictureBtn.setVisibility(ImageButton.VISIBLE);
@@ -960,38 +1068,39 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			}
 			// If the imageButton on back is to be updated
 		} else {
+			
+			// check if there is any existing front picture
+			if (!cardBackPic.equals("") && checkPictureAvailability(true)) {
 
-			// If there is an existing picture
-			if (!cardBackPic.equals("") && checkPictureAvailability(false)) {
-
+				// Get name of thumbnail from path of picture
+				File picture = new File(cardBackPic);
+				String pictureName = picture.getName();
+				
 				FileInputStream fis = null;
+				
 				try {
-					fis = new FileInputStream(new File(cardBackPic));
+					fis = new FileInputStream(new File(Environment
+							.getExternalStorageDirectory()
+							+ "/knowItOwl/thumbnails",
+							pictureName));
 				} catch (FileNotFoundException e) {
 					ErrorHandlerFragment newFragment = ErrorHandlerFragment
 							.newInstance(R.string.error_handler_file_not_found,
 									ErrorHandlerFragment.FILE_NOT_FOUND);
 					newFragment.show(this.getFragmentManager(), "dialog");
 				}
-
-				// Create Bitmap (Thumbnail)
+				
 				Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
-
-				imageBitmap = Bitmap.createScaledBitmap(imageBitmap,
-						THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
-
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-				byte[] byteArray = baos.toByteArray();
 
 				// Update ImageButton
 				pictureBtn.setVisibility(ImageButton.VISIBLE);
 				pictureBtn.setImageBitmap(imageBitmap);
 
-				// If there is no back picture available
+				// If there is no back picture available	 
 			} else {
 				pictureBtn.setVisibility(ImageButton.GONE);
 			}
+			
 		}
 
 		return true;
@@ -1262,11 +1371,22 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		}
 	}
 
-	private void createThumbnail(String picName, String picPath) throws FileNotFoundException {
+	/**
+	 * Creates thumbnail of new picture and saves it in "/knowitowl/thumbnails"
+	 * 
+	 * @param picPath of the new picture
+	 * @throws FileNotFoundException
+	 */
+	private void createThumbnail(String picPath) throws FileNotFoundException {
 
 		final int THUMBNAIL_SIZE = 128;
 
+		// Check if the thumbnail file has already been created - if not --> create it!
 		checkFileAvailabilityThumbnails();
+		
+		// Get name of selected picture
+		File picture = new File(picPath);
+		String picName = picture.getName();
 		
 		FileInputStream fis = null;
 		try {
@@ -1286,7 +1406,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				THUMBNAIL_SIZE, false);
 
 		File destination = new File(Environment.getExternalStorageDirectory()
-				+ "/knowItOwl/thumbnails", picName + ".jpg");
+				+ "/knowItOwl/thumbnails", picName);
 		
 		//destination.createNewFile();
 		
@@ -1302,8 +1422,47 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
+	
+	/**
+	 * Deletes Picture and Thumbnail of that picture
+	 * 
+	 * @param picPath: Path where the picture that is to be deleted is stored
+	 */
+	private void deletePictureAndThumbnail(String picPath){
+		
+		// Create file of picture that is to be deleted
+		File pictureToDelete = new File(picPath);
+		
+		// Get Name of picture with help of the file, before this one is deleted
+		String picName = pictureToDelete.getName();
+		
+		// Delete picture
+		pictureToDelete.delete();
+		
+		// Create file of thumbnail that is to be deleted
+		File thumbnailToDelete = new File (Environment.getExternalStorageDirectory()
+				+ "/knowItOwl/thumbnails", picName);
+		
+		// Delete thumbnail
+		thumbnailToDelete.delete();
+	}
+	
+	/**
+	 * Creates unique picture name with help of the actual date
+	 * 
+	 * @return String containing the new picture name
+	 */
+	private String createPicName(){
+		// Create a unique PicName with help of
+		// the actual date
+		Date date = new Date();
+		SimpleDateFormat sd = new SimpleDateFormat("yyMMddhhmmss");
+		String picName = sd.format(date);
+		return picName;
+	}
+	
+	
 
 
 }
