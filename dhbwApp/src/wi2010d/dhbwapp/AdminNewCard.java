@@ -1464,7 +1464,5 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		return picName;
 	}
 	
-	
-
 
 }
