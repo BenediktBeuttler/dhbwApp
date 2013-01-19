@@ -40,6 +40,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -71,8 +72,8 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
-	EditText cardFront;
-	EditText cardBack;
+	TextView cardFront;
+	TextView cardBack;
 	Card card;
 	int cardID;
 	Context context;
@@ -291,8 +292,56 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 			// number argument value.
 			View v = inflater.inflate(R.layout.admin_edit_card_front, null);
 
-			cardFront = (EditText) v.findViewById(R.id.txt_edit_card_front);
+			cardFront = (TextView) v.findViewById(R.id.txt_edit_card_front);
 			cardFront.setText(card.getCardFront());
+			
+			cardFront.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// create dialog to insert name of new stack
+					AlertDialog.Builder alert = new AlertDialog.Builder(context);
+					alert.setTitle("Edit Text");
+
+					// Set an EditText view to get user input
+					final EditText input = new EditText(getApplicationContext());
+					input.setText(cardFront.getText());
+					alert.setView(input);
+
+					// Set the new Stack name
+					alert.setPositiveButton("OK",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									Toast toast;
+									if (input.getText().toString().equals("")) { 
+										// handle no text
+										toast = Toast.makeText(
+												getApplicationContext(),
+												"Please insert a text!",
+												Toast.LENGTH_SHORT);
+										toast.show();
+									}
+									else {
+										String cardFrontText = input.getText()
+												.toString();
+										cardFront.setText(cardFrontText);
+									}
+								}
+							});
+
+					alert.setNegativeButton("Cancel",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									dialog.cancel();
+								}
+							});
+					alert.show();
+
+					
+				}
+			});
 
 			// Initialize local variable containing the front picture
 			cardFrontPic = card.getCardFrontPicture();
@@ -648,8 +697,57 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 			View v = inflater.inflate(R.layout.admin_edit_card_back, null);
 
-			cardBack = (EditText) v.findViewById(R.id.txt_edit_card_back);
+			cardBack = (TextView) v.findViewById(R.id.txt_edit_card_back);
 			cardBack.setText(card.getCardBack());
+			
+			cardBack.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// create dialog to insert name of new stack
+					AlertDialog.Builder alert = new AlertDialog.Builder(context);
+					alert.setTitle("Edit Text");
+
+					// Set an EditText view to get user input
+					final EditText input = new EditText(getApplicationContext());
+					input.setText(cardBack.getText());
+					alert.setView(input);
+
+					// Set the new Stack name
+					alert.setPositiveButton("OK",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									Toast toast;
+									if (input.getText().toString().equals("")) { 
+										// handle no text
+										toast = Toast.makeText(
+												getApplicationContext(),
+												"Please insert a text!",
+												Toast.LENGTH_SHORT);
+										toast.show();
+									}
+									else {
+										String cardFrontText = input.getText()
+												.toString();
+										cardBack.setText(cardFrontText);
+									}
+								}
+							});
+
+					alert.setNegativeButton("Cancel",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									dialog.cancel();
+								}
+							});
+					alert.show();
+
+					
+				}
+			});
+
 
 			// Initialize local variable containing the back picture path and
 			// variable that indicates if there has been any new picture added
