@@ -127,6 +127,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.newCard);
+		mViewPager.setOffscreenPageLimit (3);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// When swiping between different sections, select the corresponding
@@ -203,6 +204,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 					tag.setChecked(true);
 				}
 				fragment = new AdminTagListFragment();
+				break;
 			default:
 				break;
 			}
@@ -463,9 +465,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 															cardFront
 																	.append(linkPathFront);
 															cardFront
-																	.setText(cardFront
-																			.getText()
-																			.toString());
+																	.setText(cardFront.getText());
 														}
 
 													}
@@ -866,7 +866,7 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 															// adding hyperlink
 															cardBack.setAutoLinkMask(Linkify.WEB_URLS);
 															cardBack.append(linkPathBack);
-															cardBack.setText(cardBack.getText().toString());
+															cardBack.setText(cardBack.getText());
 														}
 
 													}

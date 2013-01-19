@@ -115,6 +115,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		// reload the data, if sth got garbage collected
 		this.reloadOnGarbageCollected();
 		context = this;
+		
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -132,6 +133,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.newCard);
+		mViewPager.setOffscreenPageLimit (3);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// When swiping between different sections, select the corresponding
@@ -212,7 +214,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 					tag.setChecked(false);
 				}
 				fragment = new AdminTagListFragment();
-
+				break;
 			default:
 				break;
 			}
@@ -448,8 +450,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 																	.append(linkPathFront);
 															cardFront
 																	.setText(cardFront
-																			.getText()
-																			.toString());
+																			.getText());
 														}
 
 													}
@@ -556,13 +557,13 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-
+			
 			View v = inflater.inflate(R.layout.admin_new_card_back, null);
 
 			cardBack = (TextView) v.findViewById(R.id.txt_new_card_back);
 
 			cardBack.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					// create dialog to insert name of new stack
@@ -580,15 +581,14 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 								public void onClick(DialogInterface dialog,
 										int whichButton) {
 									Toast toast;
-									if (input.getText().toString().equals("")) { 
+									if (input.getText().toString().equals("")) {
 										// handle no text
 										toast = Toast.makeText(
 												getApplicationContext(),
 												"Please insert a text!",
 												Toast.LENGTH_SHORT);
 										toast.show();
-									}
-									else {
+									} else {
 										String cardBackText = input.getText()
 												.toString();
 										cardBack.setText(cardBackText);
@@ -605,10 +605,9 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 							});
 					alert.show();
 
-					
 				}
 			});
-			
+
 			addMedia = (ImageButton) v
 					.findViewById(R.id.btn_admin_new_card_picture_back);
 			addMedia.setOnClickListener(new View.OnClickListener() {
@@ -708,8 +707,8 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 															// adding hyperlink
 															cardBack.setAutoLinkMask(Linkify.WEB_URLS);
 															cardBack.append(linkPathBack);
-															cardBack.setText(card
-																	.getCardBack());
+															cardBack.setText(cardBack
+																	.getText());
 														}
 
 													}
@@ -1290,5 +1289,6 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		 */
 
 	}
+
 
 }
