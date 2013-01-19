@@ -728,9 +728,9 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 										toast.show();
 									}
 									else {
-										String cardFrontText = input.getText()
+										String cardBackText = input.getText()
 												.toString();
-										cardBack.setText(cardFrontText);
+										cardBack.setText(cardBackText);
 									}
 								}
 							});

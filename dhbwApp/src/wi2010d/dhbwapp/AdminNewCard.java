@@ -45,6 +45,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -80,8 +81,9 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
-	EditText cardFront;
-	EditText cardBack;
+	TextView cardFront;
+	TextView cardBack;
+	Context context;
 
 	public static final int STACK_CHOSEN = 10;
 
@@ -112,7 +114,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// reload the data, if sth got garbage collected
 		this.reloadOnGarbageCollected();
-
+		context = this;
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -293,7 +295,53 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 			// number argument value.
 			View v = inflater.inflate(R.layout.admin_new_card_front, null);
 
-			cardFront = (EditText) v.findViewById(R.id.txt_new_card_front);
+			cardFront = (TextView) v.findViewById(R.id.txt_new_card_front);
+
+			cardFront.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// create dialog to insert name of new stack
+					AlertDialog.Builder alert = new AlertDialog.Builder(context);
+					alert.setTitle("Text Input");
+
+					// Set an EditText view to get user input
+					final EditText input = new EditText(getApplicationContext());
+					input.setText(cardFront.getText());
+					alert.setView(input);
+
+					// Set the new Stack name
+					alert.setPositiveButton("OK",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									Toast toast;
+									if (input.getText().toString().equals("")) {
+										// handle no text
+										toast = Toast.makeText(
+												getApplicationContext(),
+												"Please insert a text!",
+												Toast.LENGTH_SHORT);
+										toast.show();
+									} else {
+										String cardFrontText = input.getText()
+												.toString();
+										cardFront.setText(cardFrontText);
+									}
+								}
+							});
+
+					alert.setNegativeButton("Cancel",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									dialog.cancel();
+								}
+							});
+					alert.show();
+
+				}
+			});
 
 			// Set up ImageButton to take new picture
 			takePictureFront = (ImageButton) v
@@ -511,8 +559,56 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 			View v = inflater.inflate(R.layout.admin_new_card_back, null);
 
-			cardBack = (EditText) v.findViewById(R.id.txt_new_card_back);
+			cardBack = (TextView) v.findViewById(R.id.txt_new_card_back);
 
+			cardBack.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// create dialog to insert name of new stack
+					AlertDialog.Builder alert = new AlertDialog.Builder(context);
+					alert.setTitle("Text Input");
+
+					// Set an EditText view to get user input
+					final EditText input = new EditText(getApplicationContext());
+					input.setText(cardBack.getText());
+					alert.setView(input);
+
+					// Set the new Stack name
+					alert.setPositiveButton("OK",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									Toast toast;
+									if (input.getText().toString().equals("")) { 
+										// handle no text
+										toast = Toast.makeText(
+												getApplicationContext(),
+												"Please insert a text!",
+												Toast.LENGTH_SHORT);
+										toast.show();
+									}
+									else {
+										String cardBackText = input.getText()
+												.toString();
+										cardBack.setText(cardBackText);
+									}
+								}
+							});
+
+					alert.setNegativeButton("Cancel",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									dialog.cancel();
+								}
+							});
+					alert.show();
+
+					
+				}
+			});
+			
 			addMedia = (ImageButton) v
 					.findViewById(R.id.btn_admin_new_card_picture_back);
 			addMedia.setOnClickListener(new View.OnClickListener() {
@@ -761,7 +857,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 
 				// Save path in cardFrontPic
 				cardFrontPic = imageUriFront.getPath();
-				
+
 				// Update Buttons
 				updateImageButtonNewCard(true, showPictureFront);
 				deletePictureFront.setVisibility(ImageButton.VISIBLE);
@@ -1139,8 +1235,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 					+ "/knowItOwl/pictures").mkdir();
 		}
 	}
-	
-	
+
 	/**
 	 * Checks if there is any file /knowItOwl/thumbnails existing if not -->
 	 * create it
@@ -1156,13 +1251,11 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 					+ "/knowItOwl/thumbnails").mkdir();
 		}
 	}
-	
-	
-	
-	private void createThumbnail(String picName, String picPath){
-		
+
+	private void createThumbnail(String picName, String picPath) {
+
 		final int THUMBNAIL_SIZE = 128;
-		
+
 		FileInputStream fis = null;
 		try {
 			fis = new FileInputStream(new File(picPath));
@@ -1176,31 +1269,26 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		// new bitmap (thumbnail)
 		Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
 
-		imageBitmap = Bitmap.createScaledBitmap(imageBitmap,
-				THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+		imageBitmap = Bitmap.createScaledBitmap(imageBitmap, THUMBNAIL_SIZE,
+				THUMBNAIL_SIZE, false);
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 		byte[] byteArray = baos.toByteArray();
-		
-		checkFileAvailabilityThumbnails();
-		
-		File destination = new File(Environment
-				.getExternalStorageDirectory()
-				+ "/knowItOwl/thumbnails",
-				picName + ".jpg");
-		
-		//destination.createNewFile();
-		/* 
-		//write the bytes in file
-		FileOutputStream fo = new FileOutputStream(f);
-		fo.write(bytes.toByteArray());
 
-		// close de FileOutput
-		fo.close();	
-		*/
-		
-		
+		checkFileAvailabilityThumbnails();
+
+		File destination = new File(Environment.getExternalStorageDirectory()
+				+ "/knowItOwl/thumbnails", picName + ".jpg");
+
+		// destination.createNewFile();
+		/*
+		 * //write the bytes in file FileOutputStream fo = new
+		 * FileOutputStream(f); fo.write(bytes.toByteArray());
+		 * 
+		 * // close de FileOutput fo.close();
+		 */
+
 	}
 
 }
