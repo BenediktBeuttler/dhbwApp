@@ -9,19 +9,8 @@
         android:id="@+id/list_admin_export_stacks"
         style="@style/style_listView"
         android:layout_width="match_parent"
-        android:layout_height="392dp" >
+        android:layout_height="match_parent" >
     </ListView>
 
-    <Space
-        android:layout_width="1dp"
-        android:layout_height="41dp" />
-
-    <Space
-        android:layout_width="1dp"
-        android:layout_height="32dp" />
-
-    <Space
-        android:layout_width="1dp"
-        android:layout_height="155dp" />
 
 </LinearLayout>
