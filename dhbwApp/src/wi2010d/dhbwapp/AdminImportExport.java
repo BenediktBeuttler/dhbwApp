@@ -282,15 +282,18 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 						Toast.makeText(getApplicationContext(),
 								attachmentName + " got imported successfully!",
 								Toast.LENGTH_SHORT).show();
-						
-						//check if there were any pictures, that could not be imported
+
+						// check if there were any pictures, that could not be
+						// imported
 						Stack importedStack = Stack.allStacks
 								.get(Stack.allStacks.size() - 1);
-						for (int i=0; i<importedStack.getCards().size(); i++) {
-							Card card=importedStack.getCards().get(i);
+						for (int i = 0; i < importedStack.getCards().size(); i++) {
+							Card card = importedStack.getCards().get(i);
 							if (!card.getCardFrontPicture().equals("")) {
-								Log.e("card picture", card.getCardFrontPicture());
-								if (new File(card.getCardFrontPicture()).exists()) {
+								Log.e("card picture",
+										card.getCardFrontPicture());
+								if (new File(card.getCardFrontPicture())
+										.exists()) {
 									// picture was found
 								} else {
 									// picture was not found
@@ -299,7 +302,8 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 								}
 							}
 							if (!card.getCardBackPicture().equals("")) {
-								if (new File(card.getCardBackPicture()).exists()) {
+								if (new File(card.getCardBackPicture())
+										.exists()) {
 									// picture was found
 								} else {
 									// picture was not found
@@ -328,7 +332,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 			}
 
 			finish();
-			Intent intent=new Intent(this, StartScreen.class);
+			Intent intent = new Intent(this, StartScreen.class);
 			intent.putExtra("picturesNotFound", picturesNotFound);
 			startActivity(intent);
 		}
@@ -1079,8 +1083,10 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 		File[] fileList = knowItOwlDir.listFiles();
 
 		for (File stackName : fileList) {
-			items.add(stackName.getName());
-			stacksAvailable = true;
+			if (items.toString().endsWith("xml")) {
+				items.add(stackName.getName());
+				stacksAvailable = true;
+			}
 		}
 		if (items.size() == 0) {
 			items.add("No stacks available");
