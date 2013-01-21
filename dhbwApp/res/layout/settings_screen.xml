@@ -57,6 +57,14 @@
                 android:layout_weight="1"
                 android:drawableTop="@drawable/resetdrawers"
                 android:text="@string/btn_settings_reset_drawers" />
+            
+            <Button
+                android:id="@+id/btn_settings_cleanup_pictures"
+                style="@style/style_iconButton2"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/deletepicturebig"
+                android:text="@string/btn_settings_cleanup_pictures" />
+
         </LinearLayout>
 
     </GridLayout>
