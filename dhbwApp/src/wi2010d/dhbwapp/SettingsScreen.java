@@ -13,6 +13,8 @@ import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -312,60 +314,94 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 			break;
 
 		case R.id.btn_settings_cleanup_pictures:
-			ArrayList<String> pictures = new ArrayList<String>();
-			for (Card card : Card.allCards) {
-				if (!card.getCardFrontPicture().equals("")) {
-					pictures.add(card.getCardFrontPicture());
-				}
-				if (!card.getCardBackPicture().equals("")) {
-					pictures.add(card.getCardBackPicture());
-				}
-			}
-			File knowItOwlDir = new File(Environment
-					.getExternalStorageDirectory().getPath()
-					+ "/knowItOwl/pictures/");
-			if (!knowItOwlDir.exists()) {
-				try {
-					knowItOwlDir.mkdirs();
-				} catch (Exception e) {
-				}
-			} else if (knowItOwlDir.canWrite()) {
-				File[] pictureFileList = knowItOwlDir.listFiles();
-				int deletedPics = 0;
-				for (File picture : pictureFileList) {
-					boolean found = false;
-					for (String path : pictures) {
-						if (path.equals(picture.getAbsolutePath())) {
-							found = true;
-						}
-					}
-					if (found == false) {
-						picture.delete();
-						deletedPics++;
-					}
-				}
-				switch (deletedPics) {
-				case 0:
-					Toast.makeText(getApplicationContext(),
-							"No picture was deleted.", Toast.LENGTH_LONG)
-							.show();
-					break;
-				case 1:
-					Toast.makeText(
-							getApplicationContext(),
-							deletedPics
-									+ " picture has been deleted, because it was not used.",
-							Toast.LENGTH_LONG).show();
-					break;
-				default:
-					Toast.makeText(
-							getApplicationContext(),
-							deletedPics
-									+ " pictures have been deleted, because they were not used.",
-							Toast.LENGTH_LONG).show();
-				}
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					this);
+			// set title
+			alertDialogBuilder.setTitle("Clean up Pictures");
+			// set dialog message
+			alertDialogBuilder
+					.setMessage(
+							"Do you really want to clean up your KnowItOwl pictures? All unused KnowItOwl pictures will be deleted")
+					.setIcon(R.drawable.question)
+					.setPositiveButton("Yes",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									ArrayList<String> pictures = new ArrayList<String>();
+									for (Card card : Card.allCards) {
+										if (!card.getCardFrontPicture().equals(
+												"")) {
+											pictures.add(card
+													.getCardFrontPicture());
+										}
+										if (!card.getCardBackPicture().equals(
+												"")) {
+											pictures.add(card
+													.getCardBackPicture());
+										}
+									}
+									File knowItOwlDir = new File(Environment
+											.getExternalStorageDirectory()
+											.getPath()
+											+ "/knowItOwl/pictures/");
+									if (!knowItOwlDir.exists()) {
+										try {
+											knowItOwlDir.mkdirs();
+										} catch (Exception e) {
+										}
+									} else if (knowItOwlDir.canWrite()) {
+										File[] pictureFileList = knowItOwlDir
+												.listFiles();
+										int deletedPics = 0;
+										for (File picture : pictureFileList) {
+											boolean found = false;
+											for (String path : pictures) {
+												if (path.equals(picture
+														.getAbsolutePath())) {
+													found = true;
+												}
+											}
+											if (found == false) {
+												picture.delete();
+												deletedPics++;
+											}
+										}
+										switch (deletedPics) {
+										case 0:
+											Toast.makeText(
+													getApplicationContext(),
+													"No picture was deleted.",
+													Toast.LENGTH_LONG).show();
+											break;
+										case 1:
+											Toast.makeText(
+													getApplicationContext(),
+													deletedPics
+															+ " picture has been deleted, because it was not used.",
+													Toast.LENGTH_LONG).show();
+											break;
+										default:
+											Toast.makeText(
+													getApplicationContext(),
+													deletedPics
+															+ " pictures have been deleted, because they were not used.",
+													Toast.LENGTH_LONG).show();
+										}
 
-			}
+									}
+								}
+							})
+					.setNegativeButton("No",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									// if this button is clicked, just close
+									// the dialog box and do nothing
+									dialog.cancel();
+								}
+							});
+			alertDialogBuilder.show();
+
 			break;
 
 		default:
