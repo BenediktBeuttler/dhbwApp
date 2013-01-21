@@ -1,6 +1,5 @@
 package wi2010d.dhbwapp;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -43,9 +42,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -1256,6 +1255,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 										"Card added to " + stackName,
 										Toast.LENGTH_LONG).show();
 								builder.dismiss();
+								finish();
 								break;
 							}
 						}
