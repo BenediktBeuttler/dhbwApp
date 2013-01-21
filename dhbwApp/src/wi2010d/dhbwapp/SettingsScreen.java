@@ -1,5 +1,6 @@
 package wi2010d.dhbwapp;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,7 @@ import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +28,8 @@ import android.widget.Toast;
  */
 public class SettingsScreen extends OnResumeActivity implements OnClickListener {
 
-	private Button resetDB, testData, resetStatistics, resetDrawers;
+	private Button cleanUpPictures, resetDB, testData, resetStatistics,
+			resetDrawers;
 	private ErrorHandlerFragment newFragment;
 
 	@Override
@@ -38,6 +39,9 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings_screen);
+
+		cleanUpPictures = (Button) findViewById(R.id.btn_settings_cleanup_pictures);
+		cleanUpPictures.setOnClickListener(this);
 
 		resetDB = (Button) findViewById(R.id.btn_reset_database);
 		resetDB.setOnClickListener(this);
@@ -285,27 +289,83 @@ public class SettingsScreen extends OnResumeActivity implements OnClickListener 
 			}
 
 			break;
+
 		case R.id.btn_settings_reset_drawer:
 
 			// Check if there is any Stack available
-			if (Stack.allStacks.size() != 0) {
-				// Reset drawers for each stack
-				// Get all stacks
+			if (Stack.allStacks.size() != 0) { // Reset drawers for each stack
+												// // Get all stacks
 				for (Stack stack : Stack.allStacks) {
 					Edit.getInstance().resetDrawer(stack);
 				}
 
 				Toast toastDrawers = Toast.makeText(getApplicationContext(),
-						"Answers have been resetted successfully",
+						"Answers have been reseted successfully",
 						Toast.LENGTH_LONG);
-				toastDrawers.show();
-				// if there are no stacks available
+				toastDrawers.show(); // if there are no stacks available
 			} else {
 				Toast toastDrawers = Toast.makeText(getApplicationContext(),
 						"There are no Stacks available", Toast.LENGTH_LONG);
 				toastDrawers.show();
 			}
 
+			break;
+
+		case R.id.btn_settings_cleanup_pictures:
+			ArrayList<String> pictures = new ArrayList<String>();
+			for (Card card : Card.allCards) {
+				if (!card.getCardFrontPicture().equals("")) {
+					pictures.add(card.getCardFrontPicture());
+				}
+				if (!card.getCardBackPicture().equals("")) {
+					pictures.add(card.getCardBackPicture());
+				}
+			}
+			File knowItOwlDir = new File(Environment
+					.getExternalStorageDirectory().getPath()
+					+ "/knowItOwl/pictures/");
+			if (!knowItOwlDir.exists()) {
+				try {
+					knowItOwlDir.mkdirs();
+				} catch (Exception e) {
+				}
+			} else if (knowItOwlDir.canWrite()) {
+				File[] pictureFileList = knowItOwlDir.listFiles();
+				int deletedPics = 0;
+				for (File picture : pictureFileList) {
+					boolean found = false;
+					for (String path : pictures) {
+						if (path.equals(picture.getAbsolutePath())) {
+							found = true;
+						}
+					}
+					if (found == false) {
+						picture.delete();
+						deletedPics++;
+					}
+				}
+				switch (deletedPics) {
+				case 0:
+					Toast.makeText(getApplicationContext(),
+							"No picture was deleted.", Toast.LENGTH_LONG)
+							.show();
+					break;
+				case 1:
+					Toast.makeText(
+							getApplicationContext(),
+							deletedPics
+									+ " picture has been deleted, because it was not used.",
+							Toast.LENGTH_LONG).show();
+					break;
+				default:
+					Toast.makeText(
+							getApplicationContext(),
+							deletedPics
+									+ " pictures have been deleted, because they were not used.",
+							Toast.LENGTH_LONG).show();
+				}
+
+			}
 			break;
 
 		default:
