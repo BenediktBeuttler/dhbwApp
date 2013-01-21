@@ -59,7 +59,8 @@
             android:layout_column="2"
             android:layout_row="0"
             android:background="@null"
-            android:src="@drawable/accept" />
+            android:src="@drawable/accept"
+             android:adjustViewBounds="true" />
     </GridLayout>
 
 </LinearLayout>

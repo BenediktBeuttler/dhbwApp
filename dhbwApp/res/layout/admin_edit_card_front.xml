@@ -51,7 +51,8 @@
             android:layout_column="2"
             android:layout_row="0"
             android:background="@null"
-            android:src="@drawable/accept" />
+            android:src="@drawable/accept"
+            android:adjustViewBounds="true" />
 
         <ImageButton
             android:id="@+id/btn_admin_edit_card_front_picture_delete"
