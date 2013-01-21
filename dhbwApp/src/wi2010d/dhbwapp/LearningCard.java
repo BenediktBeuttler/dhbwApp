@@ -25,7 +25,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.method.ScrollingMovementMethod;
 import android.text.util.Linkify;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -431,6 +430,11 @@ public class LearningCard extends OnResumeFragmentActivity implements
 				.setPositiveButton("Yes",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
+								if(Learn.getInstance().getActualCard()==1){
+									Learn.getInstance().deleteRunthrough();
+									finish();	
+								}
+								else{
 								card = Learn.getInstance().learnCard(4);
 								Intent intent = (new Intent(
 										getApplicationContext(),
@@ -439,6 +443,7 @@ public class LearningCard extends OnResumeFragmentActivity implements
 								intent.putExtra("isRandomStack", isRandomStack);
 								startActivity(intent);
 								finish();
+								}
 							}
 						})
 				.setNegativeButton("No", new DialogInterface.OnClickListener() {

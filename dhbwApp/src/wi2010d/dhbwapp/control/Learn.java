@@ -292,6 +292,23 @@ public class Learn {
 	}
 
 	/**
+	 * @return the actualCard
+	 */
+	public int getActualCard() {
+		return actualCard;
+	}
+
+	/**
+	 * Deletes the current runthrough, this is needed when the learning session
+	 * is aborted at the first card
+	 * @return true, if it worked
+	 */
+	public boolean deleteRunthrough() {
+		runthrough = null;
+		return true;
+	}
+
+	/**
 	 * Singleton method
 	 * 
 	 * @return instance of Learn
