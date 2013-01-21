@@ -48,10 +48,8 @@ import android.widget.Toast;
 public class LearningChooseStackScreen extends OnResumeActivity implements
 		OnClickListener {
 
-	private EditText card_front;
 	private Button createDynStack;
 	private Button btnNewTag;
-	private Boolean fromLearning = true;
 	private Context context;
 	ArrayList<String> items = new ArrayList<String>();
 	ListView lv;
@@ -108,7 +106,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		// reload the data, if sth got garbage collected
 		this.reloadOnGarbageCollected();
 		context = this;
-		
+
 		super.onCreate(savedInstanceState);
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		mSensorManager.registerListener(mSensorListener,
@@ -377,9 +375,11 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 				final Dialog builder = new Dialog(this);
 				LayoutInflater li = (LayoutInflater) this
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				View v = li.inflate(R.layout.admin_new_card_tags, null, false);
-				ListView lv = (ListView) v.findViewById(R.id.tagsListView);
-				btnNewTag = (Button) v
+				final View tagView = li.inflate(R.layout.admin_new_card_tags,
+						null, false);
+				final ListView lv = (ListView) tagView
+						.findViewById(R.id.tagsListView);
+				btnNewTag = (Button) tagView
 						.findViewById(R.id.btn_admin_new_card_new_tag);
 
 				ArrayList<String> items = new ArrayList<String>();
@@ -412,8 +412,8 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 										// save the tagName in a variable
 										String newTagName = input.getText()
 												.toString();
-										Tag newTag = new Tag(newTagName);
 										Stack clickedStack = null;
+										Tag newTag;
 										// check if TagName is already taken
 										boolean alreadyTaken = false;
 										for (Tag tag : Tag.allTags) {
@@ -423,9 +423,6 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 												break;
 											}
 										}
-										// TODO: hier jumpt er immer rein und
-										// bringt den ErrorHandler....WTF
-
 										if (alreadyTaken) {
 											// ErrorHandling if TagName is
 											// already taken
@@ -448,6 +445,8 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 													"dialog");
 
 										} else {
+											newTag = Create.getInstance()
+													.newTag(newTagName);
 											for (Stack stack : Stack.allStacks) {
 												if (stack.getStackName()
 														.equals(stackName)) {
@@ -456,6 +455,12 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 															.addTagToStack(
 																	newTag,
 																	clickedStack);
+													Toast.makeText(
+															getApplicationContext(),
+															"Tag '" + newTag.getTagName()
+																	+ "' has been added to the Stack '"
+																	+ stackName + "'.", Toast.LENGTH_SHORT)
+															.show();
 													builder.dismiss();
 													break;
 												}
@@ -481,13 +486,19 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 					public void onItemClick(AdapterView<?> parent, View v,
 							int position, long id) {
 
-						String newTagName = ((TextView) v).getText().toString();
-						Tag newTag = new Tag(newTagName);
+						String chosenTagName = ((TextView) v).getText().toString();
+						Tag chosenTag = null;
+						for(Tag tag : Tag.allTags){
+							if(tag.getTagName().equals(chosenTagName)){
+								chosenTag = tag;
+								break;
+							}
+						}
 						Stack clickedStack = null;
 						for (Stack stack : Stack.allStacks) {
 							if (stack.getStackName().equals(stackName)) {
 								clickedStack = stack;
-								Edit.getInstance().addTagToStack(newTag,
+								Edit.getInstance().addTagToStack(chosenTag,
 										clickedStack);
 								break;
 							}
@@ -495,16 +506,16 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 
 						Toast.makeText(
 								getApplicationContext(),
-								"Tag '" + newTag
+								"Tag '" + chosenTag
 										+ "' has been added to the Stack '"
 										+ stackName + "'.", Toast.LENGTH_SHORT)
 								.show();
-						// builder.dismiss();
+						builder.dismiss();
 					}
 				});
 				lv.setAdapter(lvAdapter);
 				builder.setTitle("Choose Tags");
-				builder.setContentView(v);
+				builder.setContentView(tagView);
 				builder.show();
 
 			} else if (item.getTitle() == "Delete") {
