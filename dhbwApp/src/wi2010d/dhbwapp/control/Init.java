@@ -192,11 +192,14 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 			// wait till the assigning threads are finished, then do the rest
 			assigningCountDown.await();
 
-			//Close the DB, after loading everything
+			// Close the DB, after loading everything
 			Database.getInstance().close();
 
 			// Delete the unused tags
 			deleteUnusedTags();
+
+			// Delete wrong Runthroughs
+			deleteWrongRunthroughs();
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -453,10 +456,37 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 
 	}
 
+	/**
+	 * Deletes unused tags. If a tag is created but not added to a card, this
+	 * tag will deleted here.
+	 * 
+	 * @return always true
+	 */
 	public boolean deleteUnusedTags() {
 		for (Tag tag : Tag.allTags) {
 			if (tag.getTotalCards() == 0) {
 				Delete.getInstance().deleteTag(tag);
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Deletes wrong runthroughs, this could happen if the app crashes while
+	 * learning
+	 * 
+	 * @return always true
+	 */
+	public boolean deleteWrongRunthroughs() {
+		for (Runthrough run : Runthrough.allRunthroughs) {
+			if (run.getStatusAfter() != null && !run.isOverall()) {
+				int[] statusAfter = run.getStatusAfter();
+				if (statusAfter[0] == 0 && statusAfter[1] == 0
+						&& statusAfter[2] == 0) {
+					Delete.getInstance().deleteRunthrough(run);
+				}
+			} else if(!run.isOverall()){
+				Delete.getInstance().deleteRunthrough(run);
 			}
 		}
 		return true;
