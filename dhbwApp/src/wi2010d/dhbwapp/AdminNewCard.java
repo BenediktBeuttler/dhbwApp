@@ -35,7 +35,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -452,8 +451,6 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 															// save text before
 															// adding hyperlink
 															cardFront
-																	.setAutoLinkMask(Linkify.WEB_URLS);
-															cardFront
 																	.append(linkPathFront);
 															cardFront
 																	.setText(cardFront
@@ -716,7 +713,6 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 																	.toString();
 															// save text before
 															// adding hyperlink
-															cardBack.setAutoLinkMask(Linkify.WEB_URLS);
 															cardBack.append(linkPathBack);
 															cardBack.setText(cardBack
 																	.getText());
