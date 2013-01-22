@@ -9,6 +9,7 @@ import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Learn;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
+import wi2010d.dhbwapp.model.Runthrough;
 import wi2010d.dhbwapp.model.Stack;
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -155,6 +156,17 @@ public class LearningCard extends OnResumeFragmentActivity implements
 					.setTabListener(this));
 		}
 
+	}
+
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		// If one of those variables is null, we need to finish the activity,
+		// because we can't get the Extras data back
+		if (mSectionsPagerAdapter == null || mViewPager == null) {
+			Learn.getInstance().deleteRunthrough();
+			finish();
+		}
 	}
 
 	@Override
@@ -430,19 +442,19 @@ public class LearningCard extends OnResumeFragmentActivity implements
 				.setPositiveButton("Yes",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-								if(Learn.getInstance().getActualCard()==1){
+								if (Learn.getInstance().getActualCard() == 1) {
 									Learn.getInstance().deleteRunthrough();
-									finish();	
-								}
-								else{
-								card = Learn.getInstance().learnCard(4);
-								Intent intent = (new Intent(
-										getApplicationContext(),
-										StatisticsScreen.class));
-								intent.putExtra("Tab", 3);
-								intent.putExtra("isRandomStack", isRandomStack);
-								startActivity(intent);
-								finish();
+									finish();
+								} else {
+									card = Learn.getInstance().learnCard(4);
+									Intent intent = (new Intent(
+											getApplicationContext(),
+											StatisticsScreen.class));
+									intent.putExtra("Tab", 3);
+									intent.putExtra("isRandomStack",
+											isRandomStack);
+									startActivity(intent);
+									finish();
 								}
 							}
 						})
