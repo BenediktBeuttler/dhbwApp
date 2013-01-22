@@ -43,6 +43,7 @@
         android:layout_gravity="center_horizontal"
         android:background="@null"
         android:src="@drawable/accept"
-        android:adjustViewBounds="true" />
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name" />
 
 </LinearLayout>

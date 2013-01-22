@@ -35,7 +35,6 @@
                 style="@style/style_iconButton2"
                 android:drawableTop="@drawable/xion"
                 android:layout_weight="1"
-                android:onClick="OnClick"
                 android:text="@string/label_settings_resetdatabase" />
             
             <Button

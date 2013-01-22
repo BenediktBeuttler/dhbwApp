@@ -294,7 +294,6 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 		public Uri imageUriFront;
 		public static final int TAKE_PICTURE = 1;
 		private static final int SELECT_PHOTO = 100;
-		private static final int SELECT_PDF = 200;
 
 		public EditCardFront() {
 		}

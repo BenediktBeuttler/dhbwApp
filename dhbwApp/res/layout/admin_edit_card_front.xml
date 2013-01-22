@@ -40,7 +40,8 @@
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/deletepicture" />
+            android:src="@drawable/deletepicture"
+            android:contentDescription="@string/app_name" />
 
         <ImageButton
             android:id="@+id/btn_edit_picture_front"
@@ -48,7 +49,8 @@
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/mediacenter" />
+            android:src="@drawable/mediacenter"
+            android:contentDescription="@string/app_name" />
 
         <ImageButton
             android:id="@+id/btn_edit_picture_front_show"
@@ -58,7 +60,8 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:background="@null"
-            android:src="@drawable/accept" />
+            android:src="@drawable/accept"
+            android:contentDescription="@string/app_name" />
     </LinearLayout>
 
 </LinearLayout>

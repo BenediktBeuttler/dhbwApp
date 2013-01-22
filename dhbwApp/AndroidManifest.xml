@@ -64,11 +64,6 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="wi2010d.dhbwapp.LearningScreen"
-            android:label="@string/title_activity_learning_screen"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name="wi2010d.dhbwapp.AdminScreen"
             android:label="@string/title_activity_admin_screen"
             android:screenOrientation="portrait" >
@@ -84,38 +79,13 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="wi2010d.dhbwapp.LearningCardFront"
-            android:label="@string/title_activity_show_card_front"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="wi2010d.dhbwapp.LearningCardBack"
-            android:label="@string/title_activity_show_card_back"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name="wi2010d.dhbwapp.SettingsScreen"
             android:label="@string/title_activity_settings"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="wi2010d.dhbwapp.AdminEditNewStack"
-            android:label="@string/title_activity_admin_edit_stack"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="wi2010d.dhbwapp.AdminNewStack"
-            android:label="@string/title_activity_admin_new_stack"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name="wi2010d.dhbwapp.AdminChooseStackScreen"
             android:label="@string/title_activity_admin_choose_stack_screen"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="wi2010d.dhbwapp.AdminNewCardChooseStack"
-            android:label="@string/title_activity_admin_new_card_choose_stack_screen"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -125,7 +95,7 @@
         </activity>
         <activity
             android:name="wi2010d.dhbwapp.StatisticsProgressDiagramActivity"
-            android:label="@string/title_activity_statistics_screen">
+            android:label="@string/title_activity_statistics_screen" >
         </activity>
         <activity android:name="org.achartengine.GraphicalActivity" >
         </activity>
@@ -147,11 +117,6 @@
         <activity
             android:name="wi2010d.dhbwapp.AdminEditCard"
             android:label="@string/title_activity_admin_edit_card"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="wi2010d.dhbwapp.AdminEditStack"
-            android:label="@string/title_activity_admin_edit_stack"
             android:screenOrientation="portrait" >
         </activity>
         <activity

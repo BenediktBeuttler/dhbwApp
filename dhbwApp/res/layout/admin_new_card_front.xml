@@ -43,7 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/deletepicture" />
+            android:src="@drawable/deletepicture"
+            android:contentDescription="@string/app_name" />
 
         <ImageButton
             android:id="@+id/btn_admin_new_card_picture_front"
@@ -51,7 +52,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/mediacenter" />
+            android:src="@drawable/mediacenter"
+            android:contentDescription="@string/app_name" />
 
         <ImageButton
             android:id="@+id/btn_admin_new_card_picture_front_show"
@@ -60,7 +62,8 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:src="@drawable/accept"
-            android:adjustViewBounds="true" />
+            android:adjustViewBounds="true" 
+            android:contentDescription="@string/app_name" />
     </LinearLayout>
 
 </LinearLayout>

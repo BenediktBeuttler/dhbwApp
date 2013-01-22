@@ -1,9 +1,0 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/LinearLayout"
-    style="@style/style_Layout"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    tools:context=".AdminEditDynamicStack" >
-
-</LinearLayout>
