@@ -155,6 +155,10 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 	protected void onRestart() {
 		boolean hasChanged = false;
 		super.onRestart();
+		// first we need to check if our TabHolderAdapter is null, then the view
+		// and at then if one of the tabs is null
+		// If one of those cases happened, we reload the Adapters with the Tabs
+
 		if (mSectionsPagerAdapter == null) {
 			mSectionsPagerAdapter = new SectionsPagerAdapter(
 					getSupportFragmentManager());
