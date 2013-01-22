@@ -229,6 +229,7 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
+			dataWritten = true;
 
 			id = cursor.getInt(0);
 			name = cursor.getString(1);
@@ -265,6 +266,8 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
+			dataWritten = true;
+
 			id = cursor.getInt(0);
 			name = cursor.getString(1);
 			totalCards = cursor.getInt(2);
@@ -294,6 +297,8 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
+			dataWritten = true;
+
 			id = cursor.getInt(0);
 			front = cursor.getString(1);
 			back = cursor.getString(2);
@@ -334,6 +339,7 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
+			dataWritten = true;
 
 			id = cursor.getInt(0);
 			stackID = cursor.getInt(1);

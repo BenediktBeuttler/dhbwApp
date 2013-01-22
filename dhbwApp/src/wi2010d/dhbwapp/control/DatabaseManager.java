@@ -131,6 +131,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
 		Card.resetLastCardID();
 		Tag.resetLastTagID();
 		Runthrough.resetLastRunthroughID();
+		
+		Init.dataWritten = false;
 
 		return true;
 
