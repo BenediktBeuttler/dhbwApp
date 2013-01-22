@@ -168,8 +168,41 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 
 	@Override
 	protected void onRestart() {
+		boolean hasChanged = false;
+		// We need to check if either the listview or the adapter is null.
+		// If one of those cases happened, we need to reload them
 		super.onRestart();
-		updateStackList();
+		if (lv == null) {
+			lv = (ListView) findViewById(R.id.learn_stack_list);
+			hasChanged = true;
+		}
+		if (lvAdapter == null) {
+			hasChanged = true;
+		}
+		if (hasChanged) {
+			updateStackList();
+			lv.setClickable(true);
+			lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View v,
+						int position, long id) {
+					String stackName = ((TextView) v).getText().toString();
+					if (stackName.startsWith("<Dyn>")) {
+						stackName = stackName.substring(6);
+					}
+
+					if (!stackName.equals("No stacks available")) {
+						Intent i = new Intent(getApplicationContext(),
+								LearningCard.class);
+						i.putExtra("stackName", stackName);
+						startActivityForResult(i, 1);
+					}
+
+				}
+			});
+
+		}
 	}
 
 	// When the registered view receives a long-click event, the system calls
@@ -457,9 +490,12 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 																	clickedStack);
 													Toast.makeText(
 															getApplicationContext(),
-															"Tag '" + newTag.getTagName()
+															"Tag '"
+																	+ newTag.getTagName()
 																	+ "' has been added to the Stack '"
-																	+ stackName + "'.", Toast.LENGTH_SHORT)
+																	+ stackName
+																	+ "'.",
+															Toast.LENGTH_SHORT)
 															.show();
 													builder.dismiss();
 													break;
@@ -486,10 +522,11 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 					public void onItemClick(AdapterView<?> parent, View v,
 							int position, long id) {
 
-						String chosenTagName = ((TextView) v).getText().toString();
+						String chosenTagName = ((TextView) v).getText()
+								.toString();
 						Tag chosenTag = null;
-						for(Tag tag : Tag.allTags){
-							if(tag.getTagName().equals(chosenTagName)){
+						for (Tag tag : Tag.allTags) {
+							if (tag.getTagName().equals(chosenTagName)) {
 								chosenTag = tag;
 								break;
 							}

@@ -105,6 +105,24 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 		}
 	}
 
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		if (lv == null) {
+			lv = (ListView) findViewById(R.id.admin_stack_list);
+			updateStackList();
+			lv.setClickable(true);
+			lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View v,
+						int position, long id) {
+					parent.showContextMenuForChild(v);
+				}
+			});
+		}
+	}
+
 	// Define what happens when the item in list is long pressed
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {

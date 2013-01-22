@@ -25,6 +25,7 @@ import org.jdom2.JDOMException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import wi2010d.dhbwapp.AdminEditCard.SectionsPagerAdapter;
 import wi2010d.dhbwapp.control.Exchange;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
@@ -337,6 +338,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 			startActivity(intent);
 		}
 
+		// Create the Activity
 		setContentView(R.layout.admin_import_export_screen);
 
 		// Set up the action bar.
@@ -380,8 +382,50 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 	}
 
 	@Override
+	protected void onRestart() {
+		boolean hasChanged = false;
+		super.onRestart();
+		// first we need to check if our TabHolderAdapter is null, then the view
+		// and at then if one of the tabs is null
+		// If one of those cases happened, we reload the Adapters with the Tabs
+
+		if (mSectionsPagerAdapter == null) {
+			mSectionsPagerAdapter = new SectionsPagerAdapter(
+					getSupportFragmentManager());
+			hasChanged = true;
+		} else if (mSectionsPagerAdapter.getItem(0) == null
+				|| mSectionsPagerAdapter.getItem(1) == null) {
+			mSectionsPagerAdapter = new SectionsPagerAdapter(
+					getSupportFragmentManager());
+			hasChanged = true;
+		}
+		if (mViewPager == null) {
+			final ActionBar actionBar = getActionBar();
+			mViewPager = (ViewPager) findViewById(R.id.newCard);
+			mViewPager.setOffscreenPageLimit(2);
+			mViewPager.setAdapter(mSectionsPagerAdapter);
+			mViewPager
+					.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+						@Override
+						public void onPageSelected(int position) {
+							actionBar.setSelectedNavigationItem(position);
+						}
+					});
+
+			for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+				actionBar.addTab(actionBar.newTab()
+						.setText(mSectionsPagerAdapter.getPageTitle(i))
+						.setTabListener(this));
+			}
+		} else if (hasChanged) {
+			mViewPager.setAdapter(mSectionsPagerAdapter);
+		}
+	}
+
+	@Override
 	protected void onResume() {
 		super.onResume();
+		// update the importList, if we get back to this activity
 		if (importList != null) {
 			AdminImportExport.importList.setAdapter(AdminImportExport
 					.updateImportListAdapter());
