@@ -16,27 +16,29 @@
 
     <TextView
         android:id="@+id/txt_card_back"
-        android:layout_width="wrap_content"
-        android:layout_height="241dp"
-        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="fill_horizontal"
         android:layout_marginBottom="6dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="6dp"
+        android:layout_weight="1"
         android:background="@drawable/back"
-        android:gravity="left|center_horizontal"
+        android:gravity="center_vertical|center_horizontal"
         android:paddingBottom="16dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:paddingTop="42dp"
+        android:paddingTop="36dp"
         android:scrollbars="vertical"
         android:textColor="#ff000000"
-        android:textSize="20sp" />
+        android:textSize="20sp"/>
 
     <ImageButton
         android:id="@+id/btn_learning_card_back_picture"
         style="@style/imageButton"
         android:layout_width="wrap_content"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="@null"
