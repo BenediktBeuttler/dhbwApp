@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import wi2010d.dhbwapp.control.Database;
+import wi2010d.dhbwapp.control.Init;
 
 /**
  * Represents a stack with cards.
@@ -93,6 +94,7 @@ public class Stack {
 				statusBefore);
 
 		Stack.allStacks.add(this);
+		Init.dataWritten = true;
 	}
 
 	/**

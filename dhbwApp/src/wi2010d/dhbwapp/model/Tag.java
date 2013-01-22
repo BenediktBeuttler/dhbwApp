@@ -3,6 +3,8 @@ package wi2010d.dhbwapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import wi2010d.dhbwapp.control.Init;
+
 /**
  * Represents a Tag, which can be associated with cards and/or stacks.
  */
@@ -49,6 +51,7 @@ public class Tag {
 		this.totalCards = 0;
 
 		Tag.allTags.add(this);
+		Init.dataWritten = true;
 	}
 
 	/**

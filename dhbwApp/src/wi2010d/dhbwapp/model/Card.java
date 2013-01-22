@@ -3,6 +3,8 @@ package wi2010d.dhbwapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import wi2010d.dhbwapp.control.Init;
+
 /**
  * A card object
  */
@@ -72,6 +74,7 @@ public class Card {
 		this.totalStacks = this.increaseTotalStacksInit();
 
 		Card.allCards.add(this);
+		Init.dataWritten = true;
 	}
 
 	/**

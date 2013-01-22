@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import wi2010d.dhbwapp.control.Database;
+import wi2010d.dhbwapp.control.Init;
 
 /**
  * Represents one runthrough for a learning session. Is only associated with a
@@ -86,6 +87,7 @@ public class Runthrough {
 		Runthrough.allRunthroughs.add(this);
 
 		Database.getInstance().addNewRunthrough(this);
+		Init.dataWritten = true;
 	}
 
 	/**

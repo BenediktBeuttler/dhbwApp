@@ -65,6 +65,7 @@ public class Delete {
 		db.deleteStack(stack);
 		stack = null;
 		fromDeleteStack = false;
+		checkIfLastObject();
 		return true;
 	}
 
@@ -78,6 +79,7 @@ public class Delete {
 	public boolean deleteRunthrough(Runthrough run) {
 		Runthrough.allRunthroughs.remove(run);
 		db.deleteRunthrough(run);
+		checkIfLastObject();
 		return true;
 	}
 
@@ -131,6 +133,7 @@ public class Delete {
 		// delete the card
 		db.deleteCard(card);
 		card = null;
+		checkIfLastObject();
 		return true;
 	}
 
@@ -175,10 +178,29 @@ public class Delete {
 			}
 		}
 		Tag.allTags.remove(tag);
-		
+
 		// delete the tag
-		db.deleteTag(tag); 
+		db.deleteTag(tag);
 		tag = null;
+		checkIfLastObject();
 		return true;
+	}
+
+	/**
+	 * Checks if there's still a object. Workaround for a problem caused by
+	 * Init.checkIfGarbageCollected().
+	 * This method sets Init.dataWritten false, if there's no object anymore 
+	 * @return true, if there's no object in the variables.
+	 */
+	public boolean checkIfLastObject() {
+		if (Card.allCards.size() == 0 && Runthrough.allRunthroughs.size() == 0
+				&& Stack.allStacks.size() == 0 && Tag.allTags.size() == 0) {
+			Init.dataWritten = true;
+			return true;
+		} else {
+			Init.dataWritten = false;
+			return false;
+		}
+
 	}
 }

@@ -59,7 +59,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:src="@drawable/accept" />
+            android:src="@drawable/accept"
+            android:adjustViewBounds="true" />
     </LinearLayout>
 
 </LinearLayout>
