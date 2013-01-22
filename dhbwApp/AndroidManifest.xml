@@ -97,8 +97,6 @@
             android:name="wi2010d.dhbwapp.StatisticsProgressDiagramActivity"
             android:label="@string/title_activity_statistics_screen" >
         </activity>
-        <activity android:name="org.achartengine.GraphicalActivity" >
-        </activity>
         <activity
             android:name="wi2010d.dhbwapp.AdminNewCard"
             android:label="@string/title_activity_new_card"
@@ -158,6 +156,8 @@
             android:name="wi2010d.dhbwapp.HelpAboutScreen"
             android:label="@string/title_activity_help_screen_about"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name="org.achartengine.GraphicalActivity" >
         </activity>
     </application>
 
