@@ -153,43 +153,15 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 
 	@Override
 	protected void onRestart() {
-		boolean hasChanged = false;
 		super.onRestart();
-		// first we need to check if our TabHolderAdapter is null, then the view
-		// and at then if one of the tabs is null
-		// If one of those cases happened, we reload the Adapters with the Tabs
-
-		if (mSectionsPagerAdapter == null) {
-			mSectionsPagerAdapter = new SectionsPagerAdapter(
-					getSupportFragmentManager());
-			hasChanged = true;
-		} else if (mSectionsPagerAdapter.getItem(0) == null
+		// If one of those variables (views or adapters) is null, we need to finish the activity,
+		// because
+		// we can't get the Extras data back
+		if (mSectionsPagerAdapter == null || mViewPager == null
+				|| mSectionsPagerAdapter.getItem(0) == null
 				|| mSectionsPagerAdapter.getItem(1) == null
 				|| mSectionsPagerAdapter.getItem(2) == null) {
-			mSectionsPagerAdapter = new SectionsPagerAdapter(
-					getSupportFragmentManager());
-			hasChanged = true;
-		}
-		if (mViewPager == null) {
-			final ActionBar actionBar = getActionBar();
-			mViewPager = (ViewPager) findViewById(R.id.newCard);
-			mViewPager.setOffscreenPageLimit(3);
-			mViewPager.setAdapter(mSectionsPagerAdapter);
-			mViewPager
-					.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-						@Override
-						public void onPageSelected(int position) {
-							actionBar.setSelectedNavigationItem(position);
-						}
-					});
-
-			for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-				actionBar.addTab(actionBar.newTab()
-						.setText(mSectionsPagerAdapter.getPageTitle(i))
-						.setTabListener(this));
-			}
-		} else if (hasChanged) {
-			mViewPager.setAdapter(mSectionsPagerAdapter);
+			finish();
 		}
 	}
 

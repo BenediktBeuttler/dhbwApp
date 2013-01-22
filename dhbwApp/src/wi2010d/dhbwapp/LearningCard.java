@@ -161,9 +161,11 @@ public class LearningCard extends OnResumeFragmentActivity implements
 	@Override
 	protected void onRestart() {
 		super.onRestart();
-		// If one of those variables is null, we need to finish the activity,
+		// If one of those variables (views or adapters) is null, we need to finish the activity,
 		// because we can't get the Extras data back
-		if (mSectionsPagerAdapter == null || mViewPager == null) {
+		if (mSectionsPagerAdapter == null || mViewPager == null
+				|| mSectionsPagerAdapter.getItem(0) == null
+				|| mSectionsPagerAdapter.getItem(1) == null) {
 			Learn.getInstance().deleteRunthrough();
 			finish();
 		}
