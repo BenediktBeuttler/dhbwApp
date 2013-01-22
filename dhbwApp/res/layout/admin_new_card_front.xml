@@ -3,44 +3,54 @@
     android:id="@+id/LinearLayout1"
     style="@style/style_Layout_no_back"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal|center_vertical"
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/txt_new_card_front"
-        android:layout_width="wrap_content"
-        android:layout_height="241dp"
-        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="fill_horizontal"
         android:layout_marginBottom="6dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="6dp"
+        android:layout_weight="1"
         android:background="@drawable/front"
-        android:gravity="left|center_horizontal"
+        android:gravity="center_vertical|center_horizontal"
         android:paddingBottom="16dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:paddingTop="42dp"
+        android:paddingTop="36dp"
         android:scrollbars="vertical"
         android:textColor="#ff000000"
-        android:textSize="20sp" />
+        android:textSize="20sp"/>
+  
 
-    <GridLayout
-        android:id="@+id/GridLayout"
+    <LinearLayout
+        android:id="@+id/LinearLayout2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:columnCount="3"
-        android:orientation="horizontal"
-        android:rowCount="1" >
+        android:layout_weight="1"
+        android:gravity="bottom|center_horizontal|center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/btn_admin_new_card_picture_front_delete"
+            style="@style/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/deletepicture" />
 
         <ImageButton
             android:id="@+id/btn_admin_new_card_picture_front"
             style="@style/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_gravity="left"
-            android:layout_row="0"
+            android:layout_weight="1"
             android:src="@drawable/mediacenter" />
 
         <ImageButton
@@ -48,19 +58,8 @@
             style="@style/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="2"
-            android:layout_row="0"
             android:background="@null"
             android:src="@drawable/accept" />
-
-        <ImageButton
-            android:id="@+id/btn_admin_new_card_picture_front_delete"
-            style="@style/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="0"
-            android:src="@drawable/deletepicture" />
-    </GridLayout>
+    </LinearLayout>
 
 </LinearLayout>
