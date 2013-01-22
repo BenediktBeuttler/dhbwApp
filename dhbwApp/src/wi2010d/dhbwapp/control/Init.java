@@ -16,6 +16,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ProgressBar;
 
 /**
@@ -485,7 +486,7 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 						&& statusAfter[2] == 0) {
 					Delete.getInstance().deleteRunthrough(run);
 				}
-			} else if(!run.isOverall()){
+			} else if (!run.isOverall()) {
 				Delete.getInstance().deleteRunthrough(run);
 			}
 		}
@@ -502,6 +503,12 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 		// bigger variables are collected more likely
 		if (Card.allCards == null || Runthrough.allRunthroughs == null
 				|| Stack.allStacks == null || Tag.allTags == null) {
+			return true;
+		}
+		Log.wtf("Card.size", ""+Card.allCards.size());
+		//It's also possible that the Lists only get empty
+		if (Card.allCards.size() == 0 || Runthrough.allRunthroughs.size() == 0
+				|| Stack.allStacks.size() == 0 || Tag.allTags.size() == 0) {
 			return true;
 		}
 		return false;
