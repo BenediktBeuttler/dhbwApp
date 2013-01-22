@@ -13,7 +13,7 @@ public class OnResumeFragmentActivity extends FragmentActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		this.reloadOnGarbageCollected();
+		this.reloadOnGarbageCollected(); 
 	}
 
 	@Override
