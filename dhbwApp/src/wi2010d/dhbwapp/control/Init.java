@@ -27,6 +27,7 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 	private Database database;
 	private static Init init;
 	public static boolean runComplete = false;
+	public static boolean dataWritten = false;
 	private Activity startScreenActivity;
 
 	public Init(Context context, Activity activity) {
@@ -200,12 +201,6 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 
 			// Delete wrong Runthroughs
 			deleteWrongRunthroughs();
-			
-			if (Card.allCards.size() == 0 && Runthrough.allRunthroughs.size() == 0
-					&& Stack.allStacks.size() == 0 && Tag.allTags.size() == 0) {
-				int[] array = {0,0,0};
-				new Runthrough(Runthrough.getNextRunthroughID(), 0, false, new Date(), new Date(), array, array);
-			}
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -504,16 +499,20 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 	 * @return true, if one or more variable got garbage collected
 	 */
 	public static boolean isSthGarabageCollected() {
-		// optimization: Sorted the requests from big to small, because
-		// bigger variables are collected more likely
-		if (Card.allCards == null || Runthrough.allRunthroughs == null
-				|| Stack.allStacks == null || Tag.allTags == null) {
-			return true;
-		}
-		//It's also possible that the Lists only get empty
-		if (Card.allCards.size() == 0 && Runthrough.allRunthroughs.size() == 0
-				&& Stack.allStacks.size() == 0 && Tag.allTags.size() == 0) {
-			return true;
+		// this check is needed, otherwise the app will start in a loop
+		if (dataWritten) {
+			// optimization: Sorted the requests from big to small, because
+			// bigger variables are collected more likely
+			if (Card.allCards == null || Runthrough.allRunthroughs == null
+					|| Stack.allStacks == null || Tag.allTags == null) {
+				return true;
+			}
+			// It's also possible that the lists' items get collected
+			if (Card.allCards.size() == 0
+					&& Runthrough.allRunthroughs.size() == 0
+					&& Stack.allStacks.size() == 0 && Tag.allTags.size() == 0) {
+				return true;
+			}
 		}
 		return false;
 	}
