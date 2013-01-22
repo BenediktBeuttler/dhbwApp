@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import wi2010d.dhbwapp.AdminNewCard.SectionsPagerAdapter;
 import wi2010d.dhbwapp.control.Delete;
 import wi2010d.dhbwapp.control.Statistics;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
@@ -111,6 +112,48 @@ public class StatisticsScreen extends OnResumeFragmentActivity implements
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			mViewPager.setCurrentItem(extras.getInt("Tab"));
+		}
+	}
+
+	@Override
+	protected void onRestart() {
+		boolean hasChanged = false;
+		super.onRestart();
+		// first we need to check if our TabHolderAdapter is null, then the view
+		// and at then if one of the tabs is null
+		// If one of those cases happened, we reload the Adapters with the Tabs
+
+		if (mSectionsPagerAdapter == null) {
+			mSectionsPagerAdapter = new SectionsPagerAdapter(
+					getSupportFragmentManager());
+			hasChanged = true;
+		} else if (mSectionsPagerAdapter.getItem(0) == null
+				|| mSectionsPagerAdapter.getItem(1) == null
+				|| mSectionsPagerAdapter.getItem(2) == null) {
+			mSectionsPagerAdapter = new SectionsPagerAdapter(
+					getSupportFragmentManager());
+			hasChanged = true;
+		}
+		if (mViewPager == null) {
+			final ActionBar actionBar = getActionBar();
+			mViewPager = (ViewPager) findViewById(R.id.newCard);
+			mViewPager.setOffscreenPageLimit(3);
+			mViewPager.setAdapter(mSectionsPagerAdapter);
+			mViewPager
+					.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+						@Override
+						public void onPageSelected(int position) {
+							actionBar.setSelectedNavigationItem(position);
+						}
+					});
+
+			for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+				actionBar.addTab(actionBar.newTab()
+						.setText(mSectionsPagerAdapter.getPageTitle(i))
+						.setTabListener(this));
+			}
+		} else if (hasChanged) {
+			mViewPager.setAdapter(mSectionsPagerAdapter);
 		}
 	}
 
@@ -555,8 +598,7 @@ public class StatisticsScreen extends OnResumeFragmentActivity implements
 						if (Statistics.getInstance().getNumberOfRunthroughs(
 								name) > 0) {
 							showDiagram.setVisibility(Button.VISIBLE);
-						}
-						else{
+						} else {
 							showDiagram.setVisibility(Button.GONE);
 						}
 					}
@@ -848,8 +890,7 @@ public class StatisticsScreen extends OnResumeFragmentActivity implements
 			}
 			finish();
 			return true;
-		}
-		else{
+		} else {
 			super.onKeyDown(keyCode, event);
 			return true;
 		}
