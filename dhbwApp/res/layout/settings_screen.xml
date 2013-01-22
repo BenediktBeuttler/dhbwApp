@@ -11,6 +11,7 @@
                 android:id="@+id/btn_write_test_data"
                 style="@style/style_iconButton2"
         		android:layout_width="match_parent"
+        		android:layout_height="wrap_content"
         		android:layout_marginTop="5dp"
                 android:drawableTop="@drawable/writing"
                 android:text="@string/btn_settings_testdata" />
@@ -61,7 +62,7 @@
                 android:layout_weight="1"
                 android:drawableTop="@drawable/resetdrawers"
                 android:text="@string/btn_settings_reset_drawers" />
-            
+
             <Button
                 android:id="@+id/btn_settings_cleanup_pictures"
                 style="@style/style_iconButton2"
