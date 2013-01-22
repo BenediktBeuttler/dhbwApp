@@ -16,7 +16,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ProgressBar;
 
 /**
@@ -201,6 +200,12 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 
 			// Delete wrong Runthroughs
 			deleteWrongRunthroughs();
+			
+			if (Card.allCards.size() == 0 && Runthrough.allRunthroughs.size() == 0
+					&& Stack.allStacks.size() == 0 && Tag.allTags.size() == 0) {
+				int[] array = {0,0,0};
+				new Runthrough(Runthrough.getNextRunthroughID(), 0, false, new Date(), new Date(), array, array);
+			}
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -505,10 +510,9 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 				|| Stack.allStacks == null || Tag.allTags == null) {
 			return true;
 		}
-		Log.wtf("Card.size", ""+Card.allCards.size());
 		//It's also possible that the Lists only get empty
-		if (Card.allCards.size() == 0 || Runthrough.allRunthroughs.size() == 0
-				|| Stack.allStacks.size() == 0 || Tag.allTags.size() == 0) {
+		if (Card.allCards.size() == 0 && Runthrough.allRunthroughs.size() == 0
+				&& Stack.allStacks.size() == 0 && Tag.allTags.size() == 0) {
 			return true;
 		}
 		return false;
