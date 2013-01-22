@@ -60,6 +60,28 @@ public class AdminCreateDynamicStack extends OnResumeFragmentActivity {
 					tagList).commit();
 		}
 	}
+ 
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		if(tagList==null){
+			// set all tags unchecked, then create the list
+						for (Tag tag : Tag.allTags) {
+							tag.setChecked(false);
+						}
+
+						tagList = new AdminTagListFragment();
+						getIntent().putExtra("buttonInvisible", buttonInvisible);
+						tagList.setArguments(getIntent().getExtras());
+						// Create the TagListFragment and bind it to the layout
+						FragmentManager fragmentManager = getSupportFragmentManager();
+						FragmentTransaction fragmentTransaction = fragmentManager
+								.beginTransaction();
+
+						fragmentTransaction.add(R.id.layout_admin_create_dyn_4_taglist,
+								tagList).commit();
+		}
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
