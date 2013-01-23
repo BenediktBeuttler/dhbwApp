@@ -152,20 +152,6 @@ public class AdminEditCard extends OnResumeFragmentActivity implements
 	}
 
 	@Override
-	protected void onRestart() {
-		super.onRestart();
-		// If one of those variables (views or adapters) is null, we need to finish the activity,
-		// because
-		// we can't get the Extras data back
-		if (mSectionsPagerAdapter == null || mViewPager == null
-				|| mSectionsPagerAdapter.getItem(0) == null
-				|| mSectionsPagerAdapter.getItem(1) == null
-				|| mSectionsPagerAdapter.getItem(2) == null) {
-			finish();
-		}
-	}
-
-	@Override
 	public void onTabSelected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 		// When the given tab is selected, switch to the corresponding page in

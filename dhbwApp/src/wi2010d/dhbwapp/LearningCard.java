@@ -159,19 +159,6 @@ public class LearningCard extends OnResumeFragmentActivity implements
 	}
 
 	@Override
-	protected void onRestart() {
-		super.onRestart();
-		// If one of those variables (views or adapters) is null, we need to finish the activity,
-		// because we can't get the Extras data back
-		if (mSectionsPagerAdapter == null || mViewPager == null
-				|| mSectionsPagerAdapter.getItem(0) == null
-				|| mSectionsPagerAdapter.getItem(1) == null) {
-			Learn.getInstance().deleteRunthrough();
-			finish();
-		}
-	}
-
-	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.learning_card, menu);
