@@ -28,7 +28,6 @@
         android:layout_height="wrap_content"
         android:paddingBottom="15dp"
         android:paddingTop="15dp"
-        android:src="@drawable/knowitall_big" 
         android:contentDescription="@string/app_name"/>
 
     <RatingBar

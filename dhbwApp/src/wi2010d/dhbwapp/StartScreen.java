@@ -5,10 +5,12 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -25,6 +27,18 @@ public class StartScreen extends OnResumeActivity implements OnClickListener {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.start_screen);
+
+		// set the animated logo
+		ImageView img = (ImageView) findViewById(R.id.logo_animation);
+		img.setBackgroundResource(R.drawable.gif);
+
+		// Get the background, which has been compiled to an AnimationDrawable
+		// object.
+		AnimationDrawable frameAnimation = (AnimationDrawable) img
+				.getBackground();
+
+		// Start the animation (looped playback by default).
+		frameAnimation.start();
 
 		// init the views
 		appName = (TextView) findViewById(R.id.lbl_app_name_start_screen);
@@ -54,10 +68,9 @@ public class StartScreen extends OnResumeActivity implements OnClickListener {
 				if (picturesNotFound == 1) {
 					alert.setMessage("Sorry, " + picturesNotFound
 							+ " picture could not be found and imported.");
-				}
-				else{
+				} else {
 					alert.setMessage("Sorry, " + picturesNotFound
-							+ " pictures could not be found and imported.");	
+							+ " pictures could not be found and imported.");
 				}
 				alert.setIcon(R.drawable.alert);
 				alert.setPositiveButton("OK",

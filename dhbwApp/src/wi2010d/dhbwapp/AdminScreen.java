@@ -3,6 +3,8 @@ package wi2010d.dhbwapp;
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Tag;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 /**
@@ -19,12 +22,8 @@ import android.widget.Toast;
  */
 public class AdminScreen extends OnResumeActivity implements OnClickListener {
 	// Create the Buttons
-	Button new_card_new_stack;
-	Button edit_card;
-	Button edit_stack;
-	Button import_export;
-	Button new_dyn_stack;
-	Button update_dyn_stacks;
+	private Button new_card_new_stack, edit_stack, import_export,
+			new_dyn_stack, update_dyn_stacks;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -115,11 +114,42 @@ public class AdminScreen extends OnResumeActivity implements OnClickListener {
 			}
 			break;
 		case R.id.btn_admin_update_dyn_stack:
-			Create.getInstance().updateDynStacks(); // Update the dynamic stacks
-			Toast toast = Toast.makeText(getApplicationContext(),
-					"All dynamic Stacks have been updated successfully",
-					Toast.LENGTH_SHORT);
-			toast.show();
+			// create dialog to insert name of new stack
+			AlertDialog.Builder alert = new AlertDialog.Builder(this);
+			alert.setTitle("Update dynamic Stacks");
+			alert.setMessage("This function checks if all cards with tags need to be included in an existing dynamic stack. Do you want to update your dynamic stacks?");
+			alert.setIcon(R.drawable.question);
+			// Set the new Stack name
+			alert.setPositiveButton("Yes",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							// This function checks if all dynamic stacks with a
+							// certain tag
+							// have all cards with this certain tag and updates
+							// them
+							Create.getInstance().updateDynStacks(); // Update
+																	// the
+																	// dynamic
+																	// stacks
+							Toast toast = Toast
+									.makeText(
+											getApplicationContext(),
+											"All dynamic Stacks have been updated successfully",
+											Toast.LENGTH_SHORT);
+							toast.show();
+						}
+					});
+
+			alert.setNegativeButton("No",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							dialog.cancel();
+						}
+					});
+			alert.show();
+
 			break;
 		default:
 			break;
