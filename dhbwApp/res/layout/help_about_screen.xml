@@ -51,4 +51,11 @@
         android:src="@android:drawable/ic_dialog_email"
         android:contentDescription="@string/app_name" />
 
+    <TextView
+        android:id="@+id/lbl_help_about_promovideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 </LinearLayout>

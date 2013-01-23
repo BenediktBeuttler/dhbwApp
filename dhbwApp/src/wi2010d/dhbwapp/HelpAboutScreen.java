@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +20,7 @@ import android.widget.Toast;
 public class HelpAboutScreen extends OnResumeActivity implements
 		OnClickListener {
 
-	private TextView appName, version, feedback;
+	private TextView appName, version, feedback, promovid;
 	private ImageView knowitall;
 	private ImageButton email;
 	private RatingBar rating;
@@ -48,6 +50,9 @@ public class HelpAboutScreen extends OnResumeActivity implements
 		feedback = (TextView) findViewById(R.id.lbl_help_about_feedback);
 		email = (ImageButton) findViewById(R.id.btn_help_about_email);
 		rating = (RatingBar) findViewById(R.id.ratingBar);
+		promovid = (TextView) findViewById(R.id.lbl_help_about_promovideo);
+		promovid.setText(Html.fromHtml("<a href=\"http://www.youtube.com/watch?v=9djBI3N7MiA\">Promotion video on YouTube</a>"));
+		promovid.setMovementMethod(LinkMovementMethod.getInstance());
 
 		email.setOnClickListener(this);
 	}

@@ -102,9 +102,11 @@
     <string name="text_duration">Duration:</string>
     <string name="text_status_before">Status before:</string>
     <string name="text_status_after">Status after:</string>
+    
     <string name="lbl_help_about_version">Version 1.0</string>
     <string name="lbl_help_about_feedback">Feel free to rate this App and send us your Feedback</string>
     <string name="label_settings_resetdatabase">Reset Database</string>
     <string name="lbl_name">Name: </string>
+    
 
 </resources>
