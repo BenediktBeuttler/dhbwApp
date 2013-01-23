@@ -166,6 +166,43 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		});
 	}
 
+	// When the registered view receives a long-click event, the system calls
+	// the onCreateContextMenu() method. This is where the menu items are
+	// defined.
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+		String sName = ((TextView) info.targetView).getText().toString();
+		if (sName.startsWith("<Dyn>")) {
+			sName = sName.substring(6);
+		}
+		boolean isDynamic = false;
+		for (Stack stack : Stack.allStacks) {
+			if (stack.getStackName().equals(sName)) {
+				if (stack.isDynamicGenerated()) {
+					isDynamic = true;
+				}
+			}
+		}
+		if (isDynamic) {
+			menu.add(0, v.getId(), 0, "Start Learning");
+			menu.add(0, v.getId(), 1, "Change Name and Tags");
+			menu.add(0, v.getId(), 2, "Reset Answers");
+			menu.add(0, v.getId(), 3, "Delete");
+			menu.add(0, v.getId(), 4, "Archive");
+		} else {
+			menu.add(0, v.getId(), 0, "Start Learning");
+			menu.add(0, v.getId(), 1, "Change Name");
+			menu.add(0, v.getId(), 2, "Reset Answers");
+			menu.add(0, v.getId(), 3, "Add Tags to all Cards");
+			menu.add(0, v.getId(), 4, "Delete");
+			menu.add(0, v.getId(), 5, "Archive");
+		}
+	}
+
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info;
@@ -590,30 +627,21 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 	 */
 	public boolean updateStackList() {
 		ArrayList<String> items = new ArrayList<String>();
-		boolean stacksAvailable = false;
-		unregisterForContextMenu(lv);
+		 registerForContextMenu(lv);
 		for (Stack stack : Stack.allStacks) {
 			if (stack.isDynamicGenerated()) {
 				if (stack.getStackName().startsWith("<Dyn>")) {
 					items.add(stack.getStackName());
-					stacksAvailable = true;
 				} else {
 					items.add("<Dyn> " + stack.getStackName());
-					stacksAvailable = true;
 				}
 			} else {
 				items.add(stack.getStackName());
-				stacksAvailable = true;
 			}
 		}
 		if (items.size() == 0) {
 			items.add("No stacks available");
-		}
-		if (stacksAvailable) {
-			// tell android that we want this view to create a menu when it is
-			// long
-			// pressed. Method onCreateContextMenu is further relevant
-			registerForContextMenu(lv);
+			 unregisterForContextMenu(lv);
 		}
 		Collections.sort(items);
 		lvAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,
