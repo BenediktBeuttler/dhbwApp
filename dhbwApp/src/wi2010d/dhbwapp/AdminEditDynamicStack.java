@@ -258,7 +258,7 @@ public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 			txt_stack_name = (EditText) v
 					.findViewById(R.id.txt_admin_edit_stack);
 			txt_stack_name.setText(stackName);
-			txt_stack_name.setOnClickListener(new OnClickListener(){
+			txt_stack_name.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
@@ -304,7 +304,6 @@ public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 				}
 			});
 
-
 			return v;
 		}
 	}
@@ -324,42 +323,62 @@ public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 			return true;
 		case R.id.btn_admin_edit_stack_save:
 			Stack foundStack;
+			boolean nameAlreadyTaken = false;
+			String newName = txt_stack_name.getText().toString();
 			for (Stack stack : Stack.allStacks) {
-				if (stack.getStackName().equals(stackName)) {
-					foundStack = stack;
-					if (txt_stack_name.getText().toString().equals("")) {
-						// ErrorHandler started, if name is empty
-						ErrorHandlerFragment newFragment = ErrorHandlerFragment
-								.newInstance(R.string.error_handler_no_input,
-										ErrorHandlerFragment.NO_INPUT);
-						newFragment.show(getFragmentManager(), "dialog");
-					}
-					Edit.getInstance().changeStackName(
-							txt_stack_name.getText().toString(), foundStack);
-					for (Tag tag : Tag.allTags) {
-						if (tag.isChecked()) {
-							stackTagList.add(tag);
-						}
-					}
-					if (stackTagList.size() <= 0) {
-						// ErrorHandler started, if no tags are selected
-						ErrorHandlerFragment newFragment = ErrorHandlerFragment
-								.newInstance(R.string.error_handler_no_tag,
-										ErrorHandlerFragment.NO_TAG);
-						newFragment.show(getFragmentManager(), "dialog");
-					} else {
-						foundStack.setDynamicStackTags(stackTagList);
-						Create.getInstance().updateDynStack(foundStack);
-						Toast toast = Toast.makeText(getApplicationContext(),
-								"Dynamic Stack "
-										+ txt_stack_name.getText().toString()
-										+ " updated succesfully",
-								Toast.LENGTH_SHORT);
-						toast.show();
-						setResult(AdminChooseStackScreen.RESULT_OK);
-						finish();
-					}
+				if (stack.getStackName().equals(newName)) {
+					nameAlreadyTaken = true;
+					break;
+				}
+			}
 
+			if (nameAlreadyTaken) {
+				Toast.makeText(
+						getApplicationContext(),
+						"The stack with the name "
+								+ newName
+								+ " is already existing, please select another one!",
+						Toast.LENGTH_LONG).show();
+			} else {
+				for (Stack stack : Stack.allStacks) {
+					if (stack.getStackName().equals(stackName)) {
+						foundStack = stack;
+						if (newName.equals("")) {
+							// ErrorHandler started, if name is empty
+							ErrorHandlerFragment newFragment = ErrorHandlerFragment
+									.newInstance(
+											R.string.error_handler_no_input,
+											ErrorHandlerFragment.NO_INPUT);
+							newFragment.show(getFragmentManager(), "dialog");
+						}
+						for (Tag tag : Tag.allTags) {
+							if (tag.isChecked()) {
+								stackTagList.add(tag);
+							}
+						}
+						if (stackTagList.size() <= 0) {
+							// ErrorHandler started, if no tags are selected
+							ErrorHandlerFragment newFragment = ErrorHandlerFragment
+									.newInstance(R.string.error_handler_no_tag,
+											ErrorHandlerFragment.NO_TAG);
+							newFragment.show(getFragmentManager(), "dialog");
+						} else {
+							Edit.getInstance().changeStackName(newName,
+									foundStack);
+							foundStack.setDynamicStackTags(stackTagList);
+							Create.getInstance().updateDynStack(foundStack);
+							Toast toast = Toast.makeText(
+									getApplicationContext(), "Dynamic Stack "
+											+ txt_stack_name.getText()
+													.toString()
+											+ " updated succesfully",
+									Toast.LENGTH_SHORT);
+							toast.show();
+							setResult(AdminChooseStackScreen.RESULT_OK);
+							finish();
+						}
+
+					}
 				}
 			}
 			return true;

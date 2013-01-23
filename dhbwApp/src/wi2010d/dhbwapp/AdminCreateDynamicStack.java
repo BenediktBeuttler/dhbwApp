@@ -134,11 +134,16 @@ public class AdminCreateDynamicStack extends OnResumeFragmentActivity {
 													Toast.LENGTH_LONG);
 											toast.show();
 											setResult(RESULT_OK);
+											finish();
 										}
 									}
 								};
 								r.run();
-								finish();
+							} else {
+								Toast.makeText(
+										getApplicationContext(),
+										"No Tags selected, please select at least one",
+										Toast.LENGTH_LONG).show();
 							}
 						}
 					});

@@ -234,10 +234,29 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
+								boolean nameAlreadyTaken = false;
 								Toast toast;
-								if (input.getText().toString().equals("")) {// handle
-																			// 'no
-																			// name'
+								for (Stack stack : Stack.allStacks) {
+									if (stack.getStackName().equals(
+											input.getText().toString())) {
+										nameAlreadyTaken = true;
+										break;
+									}
+								}
+								if (nameAlreadyTaken) { //handle name already taken
+									toast = Toast
+											.makeText(
+													getApplicationContext(),
+													"The stack with the name "
+															+ input.getText()
+																	.toString()
+															+ " is already existing, please select another one!",
+													Toast.LENGTH_LONG);
+									toast.show();
+								} else if (input.getText().toString()
+										.equals("")) {// handle
+														// 'no
+														// name'
 									toast = Toast.makeText(
 											getApplicationContext(),
 											"Please insert a stack name!",
@@ -627,7 +646,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 	 */
 	public boolean updateStackList() {
 		ArrayList<String> items = new ArrayList<String>();
-		 registerForContextMenu(lv);
+		registerForContextMenu(lv);
 		for (Stack stack : Stack.allStacks) {
 			if (stack.isDynamicGenerated()) {
 				if (stack.getStackName().startsWith("<Dyn>")) {
@@ -641,7 +660,7 @@ public class LearningChooseStackScreen extends OnResumeActivity implements
 		}
 		if (items.size() == 0) {
 			items.add("No stacks available");
-			 unregisterForContextMenu(lv);
+			unregisterForContextMenu(lv);
 		}
 		Collections.sort(items);
 		lvAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,

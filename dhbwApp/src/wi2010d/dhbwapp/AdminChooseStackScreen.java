@@ -140,10 +140,29 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
+								boolean nameAlreadyTaken = false;
 								Toast toast;
-								if (input.getText().toString().equals("")) { // handle
-																				// 'no
-																				// name'
+								for (Stack stack : Stack.allStacks) {
+									if (stack.getStackName().equals(
+											input.getText().toString())) {
+										nameAlreadyTaken = true;
+										break;
+									}
+								}
+								if (nameAlreadyTaken) { //handle name already taken
+									toast = Toast
+											.makeText(
+													getApplicationContext(),
+													"The stack with the name "
+															+ input.getText()
+																	.toString()
+															+ " is already existing, please select another one!",
+													Toast.LENGTH_LONG);
+									toast.show();
+								} else if (input.getText().toString()
+										.equals("")) { // handle
+														// 'no
+														// name'
 									toast = Toast.makeText(
 											getApplicationContext(),
 											"Please insert a stack name!",

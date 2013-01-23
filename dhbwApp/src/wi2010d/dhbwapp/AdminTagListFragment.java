@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -96,8 +95,8 @@ public class AdminTagListFragment extends Fragment {
 													ErrorHandlerFragment.NAME_TAKEN);
 									newFragment.show(getActivity()
 											.getFragmentManager(), "dialog");
-								} else if(newTagName.equals("")){
-									//Error Handling if no name is typed
+								} else if (newTagName.equals("")) {
+									// Error Handling if no name is typed
 									ErrorHandlerFragment newFragment = ErrorHandlerFragment
 											.newInstance(
 													R.string.error_handler_no_input,
@@ -105,8 +104,8 @@ public class AdminTagListFragment extends Fragment {
 									newFragment.show(getActivity()
 											.getFragmentManager(), "dialog");
 
-								}else {
-								
+								} else {
+
 									// Create new Tag
 									Tag newTag = Create.getInstance().newTag(
 											newTagName);
@@ -148,9 +147,9 @@ public class AdminTagListFragment extends Fragment {
 						break;
 					}
 				}
-				//if (tagChosen) {
-					alert.show();
-				//}
+				// if (tagChosen) {
+				alert.show();
+				// }
 			}
 		});
 
@@ -196,23 +195,39 @@ public class AdminTagListFragment extends Fragment {
 		final String tagName = tagListAdapter.getItem(info.position)
 				.getTagName();
 
-		if (true/* !tagName.equals("No stacks available") */) {
-			if (item.getTitle() == "Edit") {
+		if (item.getTitle() == "Edit") {
+			// create a dialog to change the tag name
+			AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+			alert.setTitle("Edit");
+			alert.setMessage("Edit the tag name");
+			// Set an EditText view to get user input
+			final EditText input = new EditText(getActivity());
+			input.setText(tagName);
+			// pass the string to the textView
+			alert.setView(input);
+			alert.setPositiveButton("Save",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							boolean alreadyTaken = false;
+							for (Tag tag : Tag.allTags) {
+								if (tag.getTagName().equals(
+										input.getText().toString())) {
+									if (!input.getText().toString()
+											.equals(tagName)) {
+										alreadyTaken = true;
+									}
+								}
+							}
+							if (alreadyTaken) {
+								Toast.makeText(
+										getActivity(),
+										"Tagname "
+												+ input.getText()
+												+ " already taken, please select another one!",
+										Toast.LENGTH_LONG).show();
+							} else {
 
-				// create a dialog to change the tag name
-				AlertDialog.Builder alert = new AlertDialog.Builder(
-						getActivity());
-				alert.setTitle("Edit");
-				alert.setMessage("Edit the tag name");
-				// Set an EditText view to get user input
-				final EditText input = new EditText(getActivity());
-				input.setText(tagName);
-				// pass the string to the textView
-				alert.setView(input);
-				alert.setPositiveButton("Save",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
 								// update the ListView by finding the selected
 								// tag name and edit it
 								for (Tag tag : Tag.allTags) {
@@ -240,63 +255,62 @@ public class AdminTagListFragment extends Fragment {
 										Toast.LENGTH_LONG);
 								toast.show();
 							}
-						});
-				alert.setNegativeButton("Cancel",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								// Canceled.
-								dialog.cancel();
-							}
-						});
-				alert.show();
+						}
+					});
+			alert.setNegativeButton("Cancel",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							// Canceled.
+							dialog.cancel();
+						}
+					});
+			alert.show();
 
-			} else if (item.getTitle() == "Delete") {
-				// create a dialog to change the tag name
-				AlertDialog.Builder alert = new AlertDialog.Builder(
-						getActivity());
-				alert.setTitle("Delete");
-				alert.setMessage("Are you sure you want to delete this tag?");
-				alert.setIcon(R.drawable.question);
-				// pass the string to the textView
-				alert.setPositiveButton("Yes",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								for (Tag tag : Tag.allTags) {
-									if (tagName.equals(tag.getTagName())) {
-										Delete.getInstance().deleteTag(tag);
-										break;
-									}
+		} else if (item.getTitle() == "Delete") {
+			// create a dialog to change the tag name
+			AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+			alert.setTitle("Delete");
+			alert.setMessage("Are you sure you want to delete this tag?");
+			alert.setIcon(R.drawable.question);
+			// pass the string to the textView
+			alert.setPositiveButton("Yes",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							for (Tag tag : Tag.allTags) {
+								if (tagName.equals(tag.getTagName())) {
+									Delete.getInstance().deleteTag(tag);
+									break;
 								}
-								if (!buttonInvisible) {
-									tagListAdapter = new TagArrayAdapter(
-											getActivity(), Tag.allTags);
-								} else {
-									tagListAdapter = new TagArrayAdapter(
-											getActivity(), getTagsWithCards());
-								}
-								mainListView.setAdapter(tagListAdapter);
-								Toast toast;
-								toast = Toast.makeText(getActivity(),"Tag "+ tagName
-										+ " has been deleted.",
-										Toast.LENGTH_LONG);
-								toast.show();
 							}
-						});
-				alert.setNegativeButton("No",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								// Canceled.
-								dialog.cancel();
+							if (!buttonInvisible) {
+								tagListAdapter = new TagArrayAdapter(
+										getActivity(), Tag.allTags);
+							} else {
+								tagListAdapter = new TagArrayAdapter(
+										getActivity(), getTagsWithCards());
 							}
-						});
-				alert.show();
+							mainListView.setAdapter(tagListAdapter);
+							Toast toast;
+							toast = Toast.makeText(getActivity(), "Tag "
+									+ tagName + " has been deleted.",
+									Toast.LENGTH_LONG);
+							toast.show();
+						}
+					});
+			alert.setNegativeButton("No",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							// Canceled.
+							dialog.cancel();
+						}
+					});
+			alert.show();
 
-			} else {
-				return false;
-			}
+		} else {
+			return false;
 		}
 
 		return true;
