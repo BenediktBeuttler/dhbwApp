@@ -8,7 +8,10 @@ import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Stack;
 import wi2010d.dhbwapp.model.Tag;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,12 +55,13 @@ public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 	private Stack stack;
 	private String stackName;
 	private EditText txt_stack_name;
+	Context context;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// reload the data, if sth got garbage collected
 		this.reloadOnGarbageCollected();
-		
+		context = this;
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -263,6 +268,52 @@ public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 			txt_stack_name = (EditText) v
 					.findViewById(R.id.txt_admin_edit_stack);
 			txt_stack_name.setText(stackName);
+			txt_stack_name.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					// create dialog to insert name of new stack
+					AlertDialog.Builder alert = new AlertDialog.Builder(context);
+					alert.setTitle("Edit Name");
+
+					// Set an EditText view to get user input
+					final EditText input = new EditText(getApplicationContext());
+					input.setText(txt_stack_name.getText());
+					alert.setView(input);
+
+					// Set the new Stack name
+					alert.setPositiveButton("OK",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									Toast toast;
+									if (input.getText().toString().equals("")) {
+										// handle no text
+										toast = Toast.makeText(
+												getApplicationContext(),
+												"Please insert a name!",
+												Toast.LENGTH_SHORT);
+										toast.show();
+									} else {
+										String dyn_stack_name = input.getText()
+												.toString();
+										txt_stack_name.setText(dyn_stack_name);
+									}
+								}
+							});
+
+					alert.setNegativeButton("Cancel",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									dialog.cancel();
+								}
+							});
+					alert.show();
+
+				}
+			});
+
 
 			return v;
 		}
