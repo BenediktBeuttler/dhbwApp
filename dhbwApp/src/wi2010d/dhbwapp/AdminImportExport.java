@@ -25,8 +25,8 @@ import org.jdom2.JDOMException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import wi2010d.dhbwapp.AdminEditCard.SectionsPagerAdapter;
 import wi2010d.dhbwapp.control.Exchange;
+import wi2010d.dhbwapp.control.Init;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
@@ -381,22 +381,6 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 		}
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		// update the importList, if we get back to this activity
-		if (importList != null) {
-			AdminImportExport.importList.setAdapter(AdminImportExport
-					.updateImportListAdapter());
-			if (!items.get(0).equals("No stacks available")) {
-				registerForContextMenu(importList);
-			}
-		}
-		if (stacksAvailable) {
-			registerForContextMenu(importList);
-		}
-	}
-
 	/**
 	 * Copys the given source file to the destination
 	 * 
@@ -698,13 +682,23 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 																	items.add(stack
 																			.getStackName());
 																}
-																exportAdapter
-																		.clear();
-																exportAdapter
-																		.addAll(items);
+																if (items
+																		.size() == 0) {
+																	items.add("No stacks available");
+																} else {
+																	Collections
+																			.sort(items);
+																	items.add(
+																			0,
+																			"All Stacks");
+																	exportAdapter
+																			.clear();
+																	exportAdapter
+																			.addAll(items);
 
-																exportList
-																		.setAdapter(exportAdapter);
+																	exportList
+																			.setAdapter(exportAdapter);
+																}
 
 															}
 														} catch (Exception e) {
@@ -887,7 +881,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 				items.add(stack.getStackName());
 			}
 			if (items.size() == 0) {
-				items.add("No stacks available");
+				items.add("No Stacks available");
 			} else {
 				Collections.sort(items);
 				items.add(0, "All Stacks");
@@ -944,7 +938,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 										}
 									}
 									toast = Toast.makeText(getActivity(),
-											"All stacks exported succesfully!"
+											"All stacks exported succesfully "
 													+ "to /sdcard/knowItOwl",
 											Toast.LENGTH_SHORT);
 									toast.show();
@@ -981,77 +975,90 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 								ArrayList<Uri> uris2 = new ArrayList<Uri>();
 
 								public void run() {
-									for (Stack stack : Stack.allStacks) {
-										if (stack.getStackName().equals(
-												stackName)) {
-											try {
-												Exchange.getInstance()
-														.exportStack(
-																stack,
+									if (stackName.equals("No stacks available")) {
+										Toast.makeText(
+												getActivity(),
+												"No stacks for export available",
+												Toast.LENGTH_LONG).show();
+									} else {
+										for (Stack stack : Stack.allStacks) {
+											if (stack.getStackName().equals(
+													stackName)) {
+												try {
+													Exchange.getInstance()
+															.exportStack(
+																	stack,
+																	Environment
+																			.getExternalStorageDirectory()
+																			.getPath()
+																			+ "/knowItOwl/",
+																	stackName);
+												} catch (Exception e) {
+													Toast.makeText(
+															getActivity(),
+															R.string.error_handler_export_error,
+															Toast.LENGTH_SHORT)
+															.show();
+												}
+
+												toast = Toast
+														.makeText(
+																getActivity(),
+																"Stack "
+																		+ stackName
+																		+ " exported to "
+																		+ Environment
+																				.getExternalStorageDirectory()
+																				.getPath()
+																		+ "/knowItOwl/"
+																		+ stackName
+																		+ ".xml",
+																Toast.LENGTH_SHORT);
+												toast.show();
+
+												AdminImportExport.importList
+														.setAdapter(AdminImportExport
+																.updateImportListAdapter());
+
+												if (stacksAvailable) {
+													registerForContextMenu(importList);
+												}
+
+												for (String uri : Exchange
+														.getInstance()
+														.getImageListPath()) {
+													Uri u = Uri
+															.fromFile(new File(
+																	uri));
+													uris2.add(u);
+												}
+
+												uris2.add(Uri
+														.fromFile(new File(
 																Environment
 																		.getExternalStorageDirectory()
 																		.getPath()
-																		+ "/knowItOwl/",
-																stackName);
-											} catch (Exception e) {
-												Toast.makeText(
-														getActivity(),
-														R.string.error_handler_export_error,
-														Toast.LENGTH_SHORT)
-														.show();
+																		+ "/knowItOwl/"
+																		+ stackName
+																		+ ".xml")));
+
+												// Start Sending Intent
+												Intent intent = new Intent(
+														Intent.ACTION_SEND_MULTIPLE);
+												intent.setType("text/xml");
+												intent.putParcelableArrayListExtra(
+														Intent.EXTRA_STREAM,
+														uris2);
+												intent.putExtra(
+														Intent.EXTRA_SUBJECT,
+														"Export of my 'know it owl'-Stack");
+												intent.putExtra(
+														Intent.EXTRA_TEXT,
+														"Here is my 'know it owl'-Stack");
+												startActivity(Intent
+														.createChooser(intent,
+																"Send"));
 											}
-
-											toast = Toast
-													.makeText(
-															getActivity(),
-															"Stack "
-																	+ stackName
-																	+ " exported to "
-																	+ Environment
-																			.getExternalStorageDirectory()
-																			.getPath()
-																	+ "/knowItOwl/"
-																	+ stackName
-																	+ ".xml",
-															Toast.LENGTH_SHORT);
-											toast.show();
-											AdminImportExport.importList
-													.setAdapter(AdminImportExport
-															.updateImportListAdapter());
-											if (stacksAvailable) {
-												registerForContextMenu(importList);
-											}
-
-											for (String uri : Exchange
-													.getInstance()
-													.getImageListPath()) {
-												Uri u = Uri.fromFile(new File(
-														uri));
-												uris2.add(u);
-											}
-
-											uris2.add(Uri
-													.fromFile(new File(
-															Environment
-																	.getExternalStorageDirectory()
-																	.getPath()
-																	+ "/knowItOwl/"
-																	+ stackName
-																	+ ".xml")));
-
-											// Start Sending Intent
-											Intent intent = new Intent(
-													Intent.ACTION_SEND_MULTIPLE);
-											intent.setType("text/xml");
-											intent.putParcelableArrayListExtra(
-													Intent.EXTRA_STREAM, uris2);
-											intent.putExtra(
-													Intent.EXTRA_SUBJECT,
-													"Export of my 'know it owl'-Stack");
-											intent.putExtra(Intent.EXTRA_TEXT,
-													"Here is my 'know it owl'-Stack");
-											startActivity(Intent.createChooser(
-													intent, "Send"));
 										}
 									}
 								}
@@ -1081,22 +1088,51 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 	 */
 	protected static ArrayAdapter<String> updateImportListAdapter() {
 		items.clear();
-		File knowItOwlDir = new File(Environment.getExternalStorageDirectory()
-				.getPath() + "/knowItOwl/");
-		File[] fileList = knowItOwlDir.listFiles();
+		if (!Environment.getExternalStorageState().equals(
+				Environment.MEDIA_UNMOUNTED)
+				|| new File(Environment.getExternalStorageDirectory().getPath()
+						+ "/knowItOwl/").canRead()) {
 
-		for (File stackName : fileList) {
-			if (items.toString().endsWith("xml")) {
-				items.add(stackName.getName());
-				stacksAvailable = true;
+			File knowItOwlDir = new File(Environment
+					.getExternalStorageDirectory().getPath() + "/knowItOwl/");
+			File[] fileList = knowItOwlDir.listFiles();
+			if (fileList != null) {
+				for (File stackFileXml : fileList) {
+
+					String extension = "";
+					int i = stackFileXml.toString().lastIndexOf('.');
+					if (i > 0) {
+						extension = stackFileXml.toString().substring(i + 1); // get
+																				// the
+																				// file
+																				// extension
+					}
+
+					if (stackFileXml.isFile()
+							&& extension.equalsIgnoreCase("xml")) { // only
+																	// add
+																	// XML
+																	// Files
+						items.add(stackFileXml.getName());
+					}
+				}
+			}
+			if (items.size() == 0) {
+				Toast.makeText(
+						ErrorHandlerFragment.applicationContext,
+						"No stacks for import found, please ensure that the XML-Files are in the folder /sdcard/knowItOwl/",
+						Toast.LENGTH_SHORT).show();
+				items.add("No stacks available");
+				importListAdapter.clear();
+				importListAdapter.addAll(items);
+				importList.setAdapter(importListAdapter);
+
+			} else {
+				importListAdapter.clear();
+				importListAdapter.addAll(items);
+				importList.setAdapter(importListAdapter);
 			}
 		}
-		if (items.size() == 0) {
-			items.add("No stacks available");
-		}
-		importListAdapter = new ArrayAdapter<String>(
-				AdminImportExport.importView.getContext(),
-				R.layout.layout_listitem, items);
 		return importListAdapter;
 	}
 
