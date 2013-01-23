@@ -337,7 +337,7 @@ public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 						getApplicationContext(),
 						"The stack with the name "
 								+ newName
-								+ " is already existing, please select another one!",
+								+ " is already existing, please select another name!",
 						Toast.LENGTH_LONG).show();
 			} else {
 				for (Stack stack : Stack.allStacks) {

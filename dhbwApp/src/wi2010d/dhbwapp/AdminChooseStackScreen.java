@@ -156,7 +156,7 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 													"The stack with the name "
 															+ input.getText()
 																	.toString()
-															+ " is already existing, please select another one!",
+															+ " is already existing, please select another name!",
 													Toast.LENGTH_LONG);
 									toast.show();
 								} else if (input.getText().toString()
@@ -179,7 +179,7 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 									toast = Toast
 											.makeText(
 													getApplicationContext(),
-													"Stack name cannot be 'All Stacks', please select another one!",
+													"Stack name cannot be 'All Stacks', please select another name!",
 													Toast.LENGTH_LONG);
 									toast.show();
 

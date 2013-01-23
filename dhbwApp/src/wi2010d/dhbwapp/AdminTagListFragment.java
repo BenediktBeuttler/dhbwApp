@@ -224,7 +224,7 @@ public class AdminTagListFragment extends Fragment {
 										getActivity(),
 										"Tagname "
 												+ input.getText()
-												+ " already taken, please select another one!",
+												+ " already taken, please select another name!",
 										Toast.LENGTH_LONG).show();
 							} else {
 
