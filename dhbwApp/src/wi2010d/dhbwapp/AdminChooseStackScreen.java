@@ -105,24 +105,6 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 		}
 	}
 
-	@Override
-	protected void onRestart() {
-		super.onRestart();
-		if (lv == null) {
-			lv = (ListView) findViewById(R.id.admin_stack_list);
-			updateStackList();
-			lv.setClickable(true);
-			lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> parent, View v,
-						int position, long id) {
-					parent.showContextMenuForChild(v);
-				}
-			});
-		}
-	}
-
 	// Define what happens when the item in list is long pressed
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
@@ -589,6 +571,13 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.admin_choose_stack_screen, menu);
 		return true;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			updateStackList();
+		}
 	}
 
 	@Override

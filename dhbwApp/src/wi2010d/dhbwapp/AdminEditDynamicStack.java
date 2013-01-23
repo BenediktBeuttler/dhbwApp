@@ -123,16 +123,6 @@ public class AdminEditDynamicStack extends OnResumeFragmentActivity implements
 	}
 
 	@Override
-	protected void onRestart() {
-		super.onRestart();
-		// If one of those variables is null, we need to finish the activity, because
-		// we can't get the Extras data back
-		if (mSectionsPagerAdapter == null || mViewPager == null) {
-			finish();
-		}
-	}
-
-	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.admin_edit_dynamic_stack, menu);
