@@ -4,8 +4,9 @@
     style="@style/style_Layout_no_back"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:layout_gravity="top"
+    android:longClickable="false"
+    android:orientation="vertical"
     tools:context=".Admin_edit_stack" >
 
     <TextView
@@ -18,10 +19,18 @@
 
     <EditText
         android:id="@+id/txt_admin_edit_stack"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:ems="10" >
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:freezesText="true"
+        android:longClickable="false"
+        android:scrollHorizontally="false" >
+
     </EditText>
 
 </LinearLayout>
