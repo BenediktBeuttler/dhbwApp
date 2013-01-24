@@ -1375,8 +1375,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 	 */
 	private void createThumbnail(String picPath) throws FileNotFoundException {
 
-		final int THUMBNAIL_SIZE_WIDTH = 128;
-		final int THUMBNAIL_SIZE_HEIGHT = 96;
+		final int THUMBNAIL_SIZE = 100;
 
 		// Check if the thumbnail file has already been created - if not -->
 		// create it!
@@ -1402,8 +1401,8 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 		Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
 
 		// Resize picture to thumbnail size
-		imageBitmap = Bitmap.createScaledBitmap(imageBitmap, THUMBNAIL_SIZE_WIDTH,
-				THUMBNAIL_SIZE_HEIGHT, false);
+		imageBitmap = Bitmap.createScaledBitmap(imageBitmap, THUMBNAIL_SIZE,
+				THUMBNAIL_SIZE, false);
 
 		File destination = new File(Environment.getExternalStorageDirectory()
 				+ "/knowItOwl/thumbnails", picName);
