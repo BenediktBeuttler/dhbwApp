@@ -485,7 +485,8 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 	 * @return always true
 	 */
 	public boolean deleteWrongRunthroughs() {
-		for (Runthrough run : Runthrough.allRunthroughs) {
+		for (int i = 0 ; i < Runthrough.allRunthroughs.size(); i++ ) {
+			Runthrough run = Runthrough.allRunthroughs.get(i);
 			if (run.getStatusAfter() != null && !run.isOverall()) {
 				int[] statusAfter = run.getStatusAfter();
 				if (statusAfter[0] == 0 && statusAfter[1] == 0
@@ -496,7 +497,7 @@ public class Init extends AsyncTask<Void, Void, Boolean> {
 				Delete.getInstance().deleteRunthrough(run);
 			}
 		}
-		return true;
+		return true ;
 	}
 
 	/**
