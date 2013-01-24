@@ -26,7 +26,6 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import wi2010d.dhbwapp.control.Exchange;
-import wi2010d.dhbwapp.control.Init;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
 import wi2010d.dhbwapp.model.Card;
 import wi2010d.dhbwapp.model.Stack;
@@ -679,8 +678,14 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 																// ExportList
 																ArrayList<String> items = new ArrayList<String>();
 																for (Stack stack : Stack.allStacks) {
-																	items.add(stack
-																			.getStackName());
+																	if (stack
+																			.isDynamicGenerated()) {
+																		items.add("<Dyn>"
+																				+ stack.getStackName());
+																	} else {
+																		items.add(stack
+																				.getStackName());
+																	}
 																}
 																if (items
 																		.size() == 0) {
@@ -779,7 +784,12 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 						// Update the ExportList
 						ArrayList<String> items = new ArrayList<String>();
 						for (Stack stack : Stack.allStacks) {
-							items.add(stack.getStackName());
+							if(stack.isDynamicGenerated()){
+								items.add("<Dyn>"+stack.getStackName());
+							}
+							else{
+								items.add(stack.getStackName());
+							}
 						}
 						exportAdapter.clear();
 						exportAdapter.addAll(items);
@@ -982,6 +992,10 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 												Toast.LENGTH_LONG).show();
 									} else {
 										for (Stack stack : Stack.allStacks) {
+											if(stackName.startsWith("<Dyn>"))
+											{
+												stackName = stackName.substring(5);
+											}
 											if (stack.getStackName().equals(
 													stackName)) {
 												try {
