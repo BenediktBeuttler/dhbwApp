@@ -680,7 +680,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 																for (Stack stack : Stack.allStacks) {
 																	if (stack
 																			.isDynamicGenerated()) {
-																		items.add("<Dyn>"
+																		items.add("<Dyn> "
 																				+ stack.getStackName());
 																	} else {
 																		items.add(stack
@@ -785,7 +785,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 						ArrayList<String> items = new ArrayList<String>();
 						for (Stack stack : Stack.allStacks) {
 							if (stack.isDynamicGenerated()) {
-								items.add("<Dyn>" + stack.getStackName());
+								items.add("<Dyn> " + stack.getStackName());
 							} else {
 								items.add(stack.getStackName());
 							}
@@ -888,7 +888,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 
 			for (Stack stack : Stack.allStacks) {
 				if (stack.isDynamicGenerated()) {
-					items.add("<Dyn>" + stack.getStackName());
+					items.add("<Dyn> " + stack.getStackName());
 				} else {
 					items.add(stack.getStackName());
 				}
@@ -995,9 +995,9 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 												Toast.LENGTH_LONG).show();
 									} else {
 										for (Stack stack : Stack.allStacks) {
-											if (stackName.startsWith("<Dyn>")) {
+											if (stackName.startsWith("<Dyn> ")) {
 												stackName = stackName
-														.substring(5);
+														.substring(6);
 											}
 											if (stack.getStackName().equals(
 													stackName)) {
