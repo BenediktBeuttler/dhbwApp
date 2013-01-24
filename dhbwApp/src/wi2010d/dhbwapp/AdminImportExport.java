@@ -888,7 +888,7 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 
 			for (Stack stack : Stack.allStacks) {
 				if (stack.isDynamicGenerated()) {
-					items.add("<Dyn>" + stackName);
+					items.add("<Dyn>" + stack.getStackName());
 				} else {
 					items.add(stack.getStackName());
 				}
