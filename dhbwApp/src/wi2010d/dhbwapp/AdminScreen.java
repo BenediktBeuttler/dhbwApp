@@ -117,7 +117,9 @@ public class AdminScreen extends OnResumeActivity implements OnClickListener {
 			// create dialog to insert name of new stack
 			AlertDialog.Builder alert = new AlertDialog.Builder(this);
 			alert.setTitle("Update dynamic Stacks");
-			alert.setMessage("This function checks if all cards with tags need to be included in an existing dynamic stack. Do you want to update your dynamic stacks?");
+			alert.setMessage("This function checks if there are any new Cards containing the " +
+					"Tags of the selected dynamic Stack and adds them to this one. " +
+					"Do you really want to update your dynamic stacks?");
 			alert.setIcon(R.drawable.question);
 			// Set the new Stack name
 			alert.setPositiveButton("Yes",
