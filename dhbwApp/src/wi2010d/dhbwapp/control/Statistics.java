@@ -376,6 +376,9 @@ public class Statistics {
 		int[][] progress;
 		progress = new int[10][3];
 		
+		// Instantiate an integer that contains the sum of the values for each 
+		int sumValues;
+		
 		// Get all last Runthroughs of selected Stack
 		List<Runthrough> lastRunthroughs = getLastRunthroughs(name);
 		
@@ -387,6 +390,8 @@ public class Statistics {
 		// for (number of last Runthroughs)
 		for (int i = 0; i < numberOfRunthroughs; i++){
 			
+			sumValues = 0;
+			
 			// Get status after and calculate total cards of last Runthrough
 			int statusAfter[] = lastRunthroughs.get(i).getStatusAfter();
 			int totalCards = statusAfter[0] + statusAfter[1] + statusAfter[2];
@@ -396,10 +401,24 @@ public class Statistics {
 				for (int j = 0; j < 3; j++){
 					// Calculate progress for each drawer (j)
 					result = (((float) statusAfter[j] / totalCards) * 100);
+					
+					// Update sum
+					sumValues = sumValues + Math.round(result);
+					
 					progress[i][j] = Math.round(result);
 				}
 			}
+			
+			// In some very few cases, the Math.round-Method doesn't work correctly
+			// In that cases we subtract or add 1 to the "Sure" Value
+			if (sumValues > 100){
+				progress[i][2]--;
+			}
+			if (sumValues < 100){
+				progress[i][2]++;
+			}
 		}
+		
 		
 		return progress;
 	}
