@@ -784,10 +784,9 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 						// Update the ExportList
 						ArrayList<String> items = new ArrayList<String>();
 						for (Stack stack : Stack.allStacks) {
-							if(stack.isDynamicGenerated()){
-								items.add("<Dyn>"+stack.getStackName());
-							}
-							else{
+							if (stack.isDynamicGenerated()) {
+								items.add("<Dyn>" + stack.getStackName());
+							} else {
 								items.add(stack.getStackName());
 							}
 						}
@@ -888,7 +887,11 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 			List<String> items = new ArrayList<String>();
 
 			for (Stack stack : Stack.allStacks) {
-				items.add(stack.getStackName());
+				if (stack.isDynamicGenerated()) {
+					items.add("<Dyn>" + stackName);
+				} else {
+					items.add(stack.getStackName());
+				}
 			}
 			if (items.size() == 0) {
 				items.add("No Stacks available");
@@ -992,9 +995,9 @@ public class AdminImportExport extends OnResumeFragmentActivity implements
 												Toast.LENGTH_LONG).show();
 									} else {
 										for (Stack stack : Stack.allStacks) {
-											if(stackName.startsWith("<Dyn>"))
-											{
-												stackName = stackName.substring(5);
+											if (stackName.startsWith("<Dyn>")) {
+												stackName = stackName
+														.substring(5);
 											}
 											if (stack.getStackName().equals(
 													stackName)) {
