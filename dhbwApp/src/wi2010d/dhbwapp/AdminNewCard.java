@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-import wi2010d.dhbwapp.AdminEditCard.SectionsPagerAdapter;
 import wi2010d.dhbwapp.control.Create;
 import wi2010d.dhbwapp.control.Edit;
 import wi2010d.dhbwapp.errorhandler.ErrorHandlerFragment;
@@ -1200,15 +1199,7 @@ public class AdminNewCard extends OnResumeFragmentActivity implements
 				ListView lv = (ListView) v.findViewById(R.id.admin_stack_list);
 				ArrayList<String> items = new ArrayList<String>();
 				for (Stack stack : Stack.allStacks) {
-					if (stack.isDynamicGenerated()) {
-						if (stack.getStackName().startsWith("<Dyn>")) {
-							items.add(stack.getStackName());
-							stackAvailable = true;
-						} else {
-							items.add("<Dyn> " + stack.getStackName());
-							stackAvailable = true;
-						}
-					} else {
+					if (!stack.isDynamicGenerated()) {
 						items.add(stack.getStackName());
 						stackAvailable = true;
 					}
