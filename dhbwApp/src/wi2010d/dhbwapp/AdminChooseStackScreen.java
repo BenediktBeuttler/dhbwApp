@@ -491,48 +491,80 @@ public class AdminChooseStackScreen extends OnResumeActivity {
 
 				// Archive: Export the Stack, then delete it.
 			} else if (item.getTitle() == "Archive") {
-				Stack clickedStack = null;
-				for (Stack stack : Stack.allStacks) {
-					if (stack.getStackName().equals(stackName)) {
-						clickedStack = stack;
-						break;
-					}
-				}
-				if (!Environment.getExternalStorageState().equals( // handle
-																	// read/write
-																	// problems
-						Environment.MEDIA_UNMOUNTED)
-						|| !Environment.getExternalStorageState().equals(
-								Environment.MEDIA_MOUNTED_READ_ONLY)
-						|| new File(Environment.getExternalStorageDirectory()
-								.getPath() + "/knowItOwl/").canWrite()) {
-					try {
-						Exchange.getInstance().exportStack(
-								clickedStack,
-								Environment.getExternalStorageDirectory()
-										.getPath() + "/knowItOwl/-archived-",
-								stackName);
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						this);
+				// set title
+				alertDialogBuilder.setTitle("Archive Stack");
+				// set dialog message
+				alertDialogBuilder
+						.setMessage(
+								"Do you really want to archive " + stackName
+										+ "?")
+						.setIcon(R.drawable.question)
+						.setCancelable(false)
+						.setPositiveButton("Yes",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										Stack clickedStack = null;
+										for (Stack stack : Stack.allStacks) {
+											if (stack.getStackName().equals(stackName)) {
+												clickedStack = stack;
+												break;
+											}
+										}
+										if (!Environment.getExternalStorageState().equals( // handle
+																							// read/write
+																							// problems
+												Environment.MEDIA_UNMOUNTED)
+												|| !Environment.getExternalStorageState().equals(
+														Environment.MEDIA_MOUNTED_READ_ONLY)
+												|| new File(Environment.getExternalStorageDirectory()
+														.getPath() + "/knowItOwl/").canWrite()) {
+											try {
+												Exchange.getInstance().exportStack(
+														clickedStack,
+														Environment.getExternalStorageDirectory()
+																.getPath() + "/knowItOwl/-archived-",
+														stackName);
 
-						Delete.getInstance().deleteStack(clickedStack);
+												Delete.getInstance().deleteStack(clickedStack);
 
-						updateStackList();
+												updateStackList();
 
-						Toast toast = Toast.makeText(getApplicationContext(),
-								stackName + " archived successfully!",
-								Toast.LENGTH_SHORT);
-						toast.show();
-					} catch (Exception e) {
-						ErrorHandlerFragment newFragment = ErrorHandlerFragment
-								.newInstance(R.string.error_handler_general,
-										ErrorHandlerFragment.EXPORT_ERROR);
-						newFragment.show(this.getFragmentManager(), "dialog");
-					}
-				} else {
-					ErrorHandlerFragment newFragment = ErrorHandlerFragment
-							.newInstance(R.string.error_handler_no_sd,
-									ErrorHandlerFragment.NO_SD);
-					newFragment.show(this.getFragmentManager(), "dialog");
-				}
+												Toast toast = Toast.makeText(getApplicationContext(),
+														stackName + " archived successfully!",
+														Toast.LENGTH_SHORT);
+												toast.show();
+											} catch (Exception e) {
+												ErrorHandlerFragment newFragment = ErrorHandlerFragment
+														.newInstance(R.string.error_handler_general,
+																ErrorHandlerFragment.EXPORT_ERROR);
+												newFragment.show(getFragmentManager(), "dialog");
+											}
+										} else {
+											ErrorHandlerFragment newFragment = ErrorHandlerFragment
+													.newInstance(R.string.error_handler_no_sd,
+															ErrorHandlerFragment.NO_SD);
+											newFragment.show(getFragmentManager(), "dialog");
+										}
+									}
+								})
+						.setNegativeButton("No",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										// if this button is clicked, just close
+										// the dialog box and do nothing
+										dialog.cancel();
+									}
+								});
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+
+				// show it
+				alertDialog.show();
+
 			} else {
 				return false;
 			}
