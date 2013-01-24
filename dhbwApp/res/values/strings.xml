@@ -24,7 +24,7 @@
     <string name="btn_admin_save">save</string>
     <string name="btn_help_introduction">Introduction</string>
     <string name="btn_help_learnstatistics">Learn/Statistics</string>
-    <string name="btn_help_editcardsstacks">Edit Cards/Stacks</string>
+    <string name="btn_help_editcardsstacks">Edit Card/Stack</string>
     <string name="btn_help_importexport">Import/Export</string>
     <string name="btn_settings_testdata">Write Test Data</string>
     <string name="btn_settings_reset_drawers">Reset Answers</string>
@@ -36,7 +36,7 @@
     <string name="title_activity_help_screen">Help/About</string>
     <string name="title_activity_help_screen_introduction">Help - Introduction</string>
     <string name="title_activity_help_screen_learn_statistics">Help - Learn/Statistics</string>
-    <string name="title_activity_help_screen_edit_cards_stacks">Help - Edit Cards/Stacks</string>
+    <string name="title_activity_help_screen_edit_cards_stacks">Help - Edit Card/Stack</string>
     <string name="title_activity_help_screen_settings">Help - Settings</string>
     <string name="title_activity_help_screen_import_export">Help - Import/Export</string>
     <string name="title_activity_help_screen_about">Help - About</string>
